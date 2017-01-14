@@ -21,12 +21,18 @@ public class EstadoDAO {
     }
     
      public void incluir(Estado estado) {
-        String sql = " insert into UF values("
+        String sql = " INSERT INTO UF VALUES("
                 + estado.getIDUF() + ",'"
                 + estado.getDSUF() + "','"
                 + estado.getDSSIGLA() + "',"
                 + estado.getNRICMS() + ")";
          conn.incluirSQL(sql);
+    }
+     
+     public void consulta(Estado estado) {
+        String sql = "SELECT * FROM UF";
+        conn.executeSQL(sql);
+        estado.setRetorno(conn.resultset);
     }
     
 }

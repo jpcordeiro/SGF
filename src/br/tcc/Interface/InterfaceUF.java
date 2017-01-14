@@ -1,6 +1,7 @@
 package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.classe.Estado;
 import br.tcc.dao.EstadoDAO;
 import javax.swing.JOptionPane;
@@ -57,6 +58,8 @@ public class InterfaceUF extends javax.swing.JFrame {
         jCbPesquisa = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPesquisa = new javax.swing.JTable();
+        jBCancelar = new javax.swing.JButton();
+        jBSelecionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cliente");
@@ -218,6 +221,15 @@ public class InterfaceUF extends javax.swing.JFrame {
         jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(jTbPesquisa);
 
+        jBCancelar.setText("Cancelar");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
+
+        jBSelecionar.setText("Selecionar");
+
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
         jPConsulta.setLayout(jPConsultaLayout);
         jPConsultaLayout.setHorizontalGroup(
@@ -233,6 +245,12 @@ public class InterfaceUF extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtPesquisa)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConsultaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBSelecionar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBCancelar)
+                .addContainerGap())
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +266,11 @@ public class InterfaceUF extends javax.swing.JFrame {
                         .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBCancelar)
+                    .addComponent(jBSelecionar))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTPpessoa.addTab("Consulta", jPConsulta);
@@ -310,9 +332,15 @@ public class InterfaceUF extends javax.swing.JFrame {
     }//GEN-LAST:event_jBincluirActionPerformed
 
     private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
-
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCbPesquisa.getSelectedIndex()) {
+            case 0: {
+                estadoDao.consulta(estado);
+                preencher.PreencherJtableGenerico(jTbPesquisa, estado.getRetorno());
+                return;
+            }
     }//GEN-LAST:event_jBtPesquisaActionPerformed
-
+    }
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         situacao = 1;
         estadobotoes(true);
@@ -326,15 +354,20 @@ public class InterfaceUF extends javax.swing.JFrame {
 
     private void jBcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcancelarActionPerformed
         int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente cancelar o cadastro?");
-        if(t == 0){
-        situacao = 2;
-        lcampos.LimparCampos(jPcadastro);
-        estadobotoes(false);}
+        if (t == 0) {
+            situacao = 2;
+            lcampos.LimparCampos(jPcadastro);
+            estadobotoes(false);
+        }
     }//GEN-LAST:event_jBcancelarActionPerformed
 
     private void jTFCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFCodigoActionPerformed
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -377,6 +410,8 @@ public class InterfaceUF extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bGtipo_pessoa;
     private javax.swing.JButton jBAlterar;
+    private javax.swing.JButton jBCancelar;
+    private javax.swing.JButton jBSelecionar;
     private javax.swing.JButton jBcancelar;
     private javax.swing.JButton jBexcluir;
     private javax.swing.JButton jBgravar;

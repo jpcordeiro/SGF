@@ -397,7 +397,7 @@ public class InterfaceUF extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFCodigoActionPerformed
 
     private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
-        if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 1) {
             int linha = jTbPesquisa.getSelectedRow();
             String ID = (String) jTbPesquisa.getValueAt(linha, 0);
 

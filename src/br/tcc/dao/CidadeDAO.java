@@ -31,10 +31,10 @@ public class CidadeDAO {
       public void alterar(Cidade cidade) {
         String sql = "UPDATE CIDADE SET" 
                 + " IDCIDADE = " + cidade.getIDCIDADE() + ","
-                + " IDUF = " + cidade.getEstado().getIDUF()+ ","
+                + " IDUF = " + cidade.getIdUf()+ ","
                 + " DSCIDADE = '" + cidade.getDscidade() + "',"
                 + " NRISSQN = " + cidade.getNRISSQN()
-                + " WHERE IDUF = " + cidade.getIDCIDADE();
+                + " WHERE IDCIDADE = " + cidade.getIDCIDADE();
         conn.incluirSQL(sql);
     }
      
@@ -66,7 +66,7 @@ public class CidadeDAO {
 
             conn.resultset.first();
             cidade.setIDCIDADE(conn.resultset.getInt("IDCIDADE"));
-            cidade.setEstado((Estado) conn.resultset.getObject("IDUF"));
+            
             cidade.setDscidade(conn.resultset.getString("DSCIDADE"));
             cidade.setNRISSQN(conn.resultset.getDouble("NRISSQN"));
             } catch (SQLException ex) {

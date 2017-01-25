@@ -1,6 +1,7 @@
 package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.classe.Cidade;
 import br.tcc.classe.Estado;
 import br.tcc.dao.CidadeDAO;
@@ -37,7 +38,7 @@ public class InterfaceCidade extends javax.swing.JFrame {
 
         jPopupPesquisa = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTPCidade = new javax.swing.JTabbedPane();
         jPCadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
@@ -200,7 +201,7 @@ public class InterfaceCidade extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro", jPCadastro);
+        jTPCidade.addTab("Cadastro", jPCadastro);
 
         jBtPesquisa.setText("Pesquisar");
         jBtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -209,14 +210,14 @@ public class InterfaceCidade extends javax.swing.JFrame {
             }
         });
 
-        jCbPesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Cidade", "UF" }));
+        jCbPesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Cidade", " " }));
 
         jTbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Cidade", "UF"
+                "Código", "Código UF", "UF"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -229,6 +230,11 @@ public class InterfaceCidade extends javax.swing.JFrame {
         });
         jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTbPesquisa.setComponentPopupMenu(jPopupPesquisa);
+        jTbPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTbPesquisaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTbPesquisa);
 
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
@@ -264,17 +270,17 @@ public class InterfaceCidade extends javax.swing.JFrame {
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Consulta", jPConsulta);
+        jTPCidade.addTab("Consulta", jPConsulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTPCidade)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTPCidade)
         );
 
         setSize(new java.awt.Dimension(553, 350));
@@ -283,8 +289,21 @@ public class InterfaceCidade extends javax.swing.JFrame {
 
     private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
 
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCbPesquisa.getSelectedIndex()) {
+            case 0: {
+                cidadeDAO.consulta(cidade);
+                preencher.PreencherJComboBox(jTbPesquisa, cidade.getRetorno());
+                return;
+            }
+            case 1: {
+                cidade.setDscidade(jTFPesquisa.getText().toUpperCase());
+                cidadeDAO.consultadescricao(cidade);
+                preencher.PreencherJComboBox(jTbPesquisa, cidade.getRetorno());
+                return;
+            }
     }//GEN-LAST:event_jBtPesquisaActionPerformed
-
+    }
 private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
 }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -297,8 +316,8 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
 
         Integer idUf = null;
         if (situacao == 1) {
-            cidade.setDscidade(jTFCidade.getText());
-           String uf = jCbUF.getSelectedItem().toString();
+            cidade.setDscidade(jTFCidade.getText().toUpperCase());
+            String uf = jCbUF.getSelectedItem().toString();
             try {
                 idUf = estadoDao.ConsultaIdUf(idUf, uf);
                 cidade.setIdUf(idUf);
@@ -326,7 +345,15 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
             }
         } else {
             cidade.setDscidade(jTFCidade.getText());
-//            cidade.setUf(jCbUF.getSelectedItem().toString());
+            
+            String uf = jCbUF.getSelectedItem().toString();
+            try {
+                idUf = estadoDao.ConsultaIdUf(idUf, uf);
+                cidade.setIdUf(idUf);
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceCidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             String issqn = jTFIssqn.getText();
 
             if (jTFCidade.getText().equals("")) {
@@ -336,13 +363,13 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
             } else if (issqn.equals("")) {
                 cidade.setNRISSQN(0.0);
                 cidadeDAO.alterar(cidade);
-                JOptionPane.showMessageDialog(null, "Cidade Cadastrada com sucesso!");
+                JOptionPane.showMessageDialog(null, "Cidade Alterada com sucesso!");
                 lcampos.LimparCampos(jPCadastro);
                 estadobotoes(false);
             } else {
                 cidade.setNRISSQN(Double.parseDouble(jTFIssqn.getText()));
                 cidadeDAO.alterar(cidade);
-                JOptionPane.showMessageDialog(null, "Cidade Cadastrada com sucesso!");
+                JOptionPane.showMessageDialog(null, "Cidade Alterada com sucesso!");
                 lcampos.LimparCampos(jPCadastro);
                 estadobotoes(false);
             }
@@ -364,7 +391,7 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         situacao = 1;
         estadobotoes(true);
         int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
-        if(t ==0){
+        if (t == 0) {
             cidadeDAO.excluir(cidade);
             JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
         }
@@ -375,6 +402,7 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
 
         situacao = 2;
         estadobotoes(true);
+        estadoDao.preencherestado(jCbUF, estado);
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
@@ -383,8 +411,26 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         situacao = 1;
         estadobotoes(true);
         estadoDao.preencherestado(jCbUF, estado);
-                
+
     }//GEN-LAST:event_jBtIncluirActionPerformed
+
+    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
+
+        if (evt.getClickCount()==1) {
+            int linha = jTbPesquisa.getSelectedRow();
+            String ID = (String) jTbPesquisa.getValueAt(linha, 0);
+           
+            cidade.setIDCIDADE(Integer.parseInt(ID));          
+            cidadeDAO.retornadados(cidade);
+            
+            jTFCodigo.setText(Integer.toString(cidade.getIDCIDADE()));
+            jTFCidade.setText(cidade.getDscidade());
+            jCbUF.setSelectedIndex(0);
+            jTFIssqn.setText(Double.toString(cidade.getNRISSQN()));
+            }
+        estadobotoes(false);
+        jTPCidade.setSelectedIndex(0);
+    }//GEN-LAST:event_jTbPesquisaMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -442,7 +488,7 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     private javax.swing.JTextField jTFCodigo;
     private javax.swing.JTextField jTFIssqn;
     private javax.swing.JTextField jTFPesquisa;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTPCidade;
     private javax.swing.JTable jTbPesquisa;
     // End of variables declaration//GEN-END:variables
 

@@ -1,5 +1,15 @@
 package br.tcc.Interface;
 
+import br.tcc.Validacoes.LimparCampos;
+import br.tcc.classe.Cidade;
+import br.tcc.classe.Estado;
+import br.tcc.dao.CidadeDAO;
+import br.tcc.dao.EstadoDAO;
+import java.awt.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,10 +18,17 @@ import javax.swing.JOptionPane;
  */
 public class InterfaceCidade extends javax.swing.JFrame {
 
-      public InterfaceCidade() {
-        initComponents();
+    Cidade cidade = new Cidade();
+    Estado estado = new Estado();
+    CidadeDAO cidadeDAO = new CidadeDAO();
+    EstadoDAO estadoDao = new EstadoDAO();
+    LimparCampos lcampos = new LimparCampos();
+    private int situacao = 0;
 
-       
+    public InterfaceCidade() {
+        initComponents();
+        jTFCodigo.setEnabled(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -21,7 +38,7 @@ public class InterfaceCidade extends javax.swing.JFrame {
         jPopupPesquisa = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        jPCadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -34,7 +51,9 @@ public class InterfaceCidade extends javax.swing.JFrame {
         jBtExcluir = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
         jBtGravar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jTFIssqn = new javax.swing.JTextField();
+        jPConsulta = new javax.swing.JPanel();
         jBtPesquisa = new javax.swing.JButton();
         jTFPesquisa = new javax.swing.JTextField();
         jCbPesquisa = new javax.swing.JComboBox();
@@ -62,8 +81,6 @@ public class InterfaceCidade extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Cidade");
-
-        jCbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         jLabel3.setText("Estado");
 
@@ -134,30 +151,34 @@ public class InterfaceCidade extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jLabel4.setText("ISSQN");
+
+        javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
+        jPCadastro.setLayout(jPCadastroLayout);
+        jPCadastroLayout.setHorizontalGroup(
+            jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTFCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTFIssqn, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCbUF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCbUF, javax.swing.GroupLayout.Alignment.LEADING, 0, 115, Short.MAX_VALUE)
                             .addComponent(jTFCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(407, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTFCidade))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap(407, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPCadastroLayout.setVerticalGroup(
+            jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,12 +191,16 @@ public class InterfaceCidade extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTFIssqn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro", jPanel1);
+        jTabbedPane1.addTab("Cadastro", jPCadastro);
 
         jBtPesquisa.setText("Pesquisar");
         jBtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -206,15 +231,15 @@ public class InterfaceCidade extends javax.swing.JFrame {
         jTbPesquisa.setComponentPopupMenu(jPopupPesquisa);
         jScrollPane1.setViewportView(jTbPesquisa);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
+        jPConsulta.setLayout(jPConsultaLayout);
+        jPConsultaLayout.setHorizontalGroup(
+            jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPConsultaLayout.createSequentialGroup()
                         .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,24 +247,24 @@ public class InterfaceCidade extends javax.swing.JFrame {
                         .addComponent(jBtPesquisa)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        jPConsultaLayout.setVerticalGroup(
+            jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConsultaLayout.createSequentialGroup()
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConsultaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBtPesquisa)
                             .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPConsultaLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Consulta", jPanel2);
+        jTabbedPane1.addTab("Consulta", jPConsulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,12 +274,10 @@ public class InterfaceCidade extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
 
-        setSize(new java.awt.Dimension(553, 315));
+        setSize(new java.awt.Dimension(553, 350));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -267,27 +290,100 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCodigoFocusLost
-        
+
 }//GEN-LAST:event_jTFCodigoFocusLost
 
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
 
+        Integer idUf = null;
+        if (situacao == 1) {
+            cidade.setDscidade(jTFCidade.getText());
+           String uf = jCbUF.getSelectedItem().toString();
+            try {
+                idUf = estadoDao.ConsultaIdUf(idUf, uf);
+                cidade.setIdUf(idUf);
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceCidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String issqn = jTFIssqn.getText();
+
+            if (jTFCidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome da Cidade");
+                jTFCidade.grabFocus();
+                return;
+            } else if (issqn.equals("")) {
+                cidade.setNRISSQN(0.0);
+                cidadeDAO.incluir(cidade);
+                JOptionPane.showMessageDialog(null, "Cidade Cadastrada com sucesso!");
+                lcampos.LimparCampos(jPCadastro);
+                estadobotoes(false);
+            } else {
+                cidade.setNRISSQN(Double.parseDouble(jTFIssqn.getText()));
+                cidadeDAO.incluir(cidade);
+                JOptionPane.showMessageDialog(null, "Cidade Cadastrada com sucesso!");
+                lcampos.LimparCampos(jPCadastro);
+                estadobotoes(false);
+            }
+        } else {
+            cidade.setDscidade(jTFCidade.getText());
+//            cidade.setUf(jCbUF.getSelectedItem().toString());
+            String issqn = jTFIssqn.getText();
+
+            if (jTFCidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome da Cidade");
+                jTFCidade.grabFocus();
+                return;
+            } else if (issqn.equals("")) {
+                cidade.setNRISSQN(0.0);
+                cidadeDAO.alterar(cidade);
+                JOptionPane.showMessageDialog(null, "Cidade Cadastrada com sucesso!");
+                lcampos.LimparCampos(jPCadastro);
+                estadobotoes(false);
+            } else {
+                cidade.setNRISSQN(Double.parseDouble(jTFIssqn.getText()));
+                cidadeDAO.alterar(cidade);
+                JOptionPane.showMessageDialog(null, "Cidade Cadastrada com sucesso!");
+                lcampos.LimparCampos(jPCadastro);
+                estadobotoes(false);
+            }
+        }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
 
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente cancelar o cadastro?");
+        if (t == 0) {
+            situacao = 2;
+            lcampos.LimparCampos(jPCadastro);
+            estadobotoes(false);
+        }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
 
+        situacao = 1;
+        estadobotoes(true);
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
+        if(t ==0){
+            cidadeDAO.excluir(cidade);
+            JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
+        }
+        lcampos.LimparCampos(jPCadastro);
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
 
+        situacao = 2;
+        estadobotoes(true);
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
-
+        jTFCidade.grabFocus();
+        lcampos.LimparCampos(jPCadastro);
+        situacao = 1;
+        estadobotoes(true);
+        estadoDao.preencherestado(jCbUF, estado);
+                
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
     public static void main(String args[]) {
@@ -335,19 +431,26 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPCadastro;
+    private javax.swing.JPanel jPConsulta;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCidade;
     private javax.swing.JTextField jTFCodigo;
+    private javax.swing.JTextField jTFIssqn;
     private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTbPesquisa;
     // End of variables declaration//GEN-END:variables
 
-
-
+    private void estadobotoes(boolean situacao) {
+        jBtIncluir.setEnabled(!situacao);
+        jBtAlterar.setEnabled(!situacao);
+        jBtExcluir.setEnabled(!situacao);
+        jBtGravar.setEnabled(situacao);
+        jBtCancelar.setEnabled(situacao);
+    }
 }

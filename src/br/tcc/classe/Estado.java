@@ -15,6 +15,7 @@ public class Estado {
     private String DSSIGLA;
     private double NRICMS;
     private ResultSet retorno;
+    private static int[] vet = new int[100];
 
     public Integer getIDUF() {
         return IDUF;
@@ -80,6 +81,14 @@ public class Estado {
     @Override
     public String toString() {
         return "Estado{" + "DSUF=" + DSUF + ", DSSIGLA=" + DSSIGLA + ", NRICMS=" + NRICMS + '}';
+    }
+
+    public static int[] getVet() {
+        return vet;
+    }
+
+    public static void setVet(int[] vet) {
+        Estado.vet = vet;
     }
     
     

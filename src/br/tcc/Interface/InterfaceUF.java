@@ -16,6 +16,7 @@ public class InterfaceUF extends javax.swing.JFrame {
     EstadoDAO estadoDao = new EstadoDAO();
     LimparCampos lcampos = new LimparCampos();
     private int situacao = 0;
+    
 
     /**
      * Creates new form InterfacePessoa
@@ -23,6 +24,7 @@ public class InterfaceUF extends javax.swing.JFrame {
     public InterfaceUF() {
 
         initComponents();
+        jTFCodigo.setEnabled(false);
 
     }
 
@@ -36,7 +38,7 @@ public class InterfaceUF extends javax.swing.JFrame {
     private void initComponents() {
 
         bGtipo_pessoa = new javax.swing.ButtonGroup();
-        jTPpessoa = new javax.swing.JTabbedPane();
+        jTPUF = new javax.swing.JTabbedPane();
         jPcadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
@@ -58,11 +60,9 @@ public class InterfaceUF extends javax.swing.JFrame {
         jCbPesquisa = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPesquisa = new javax.swing.JTable();
-        jBCancelar = new javax.swing.JButton();
-        jBSelecionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Cliente");
+        setTitle("Cadastro de Estado");
 
         jLabel1.setText("Código");
 
@@ -132,15 +132,15 @@ public class InterfaceUF extends javax.swing.JFrame {
         );
         jPanelbotoesLayout.setVerticalGroup(
             jPanelbotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelbotoesLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+            .addGroup(jPanelbotoesLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanelbotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBincluir)
                     .addComponent(jBAlterar)
                     .addComponent(jBexcluir)
                     .addComponent(jBgravar)
                     .addComponent(jBcancelar))
-                .addGap(19, 19, 19))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jLabel18.setText("ICMS");
@@ -153,19 +153,20 @@ public class InterfaceUF extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPcadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel18))
+                        .addContainerGap(366, Short.MAX_VALUE))
                     .addGroup(jPcadastroLayout.createSequentialGroup()
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel18)
                             .addComponent(jPanelbotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTFUf)
                             .addComponent(jTFSigla)
-                            .addComponent(jTFICMS)
-                            .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 10, Short.MAX_VALUE))))
+                            .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFICMS))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPcadastroLayout.setVerticalGroup(
             jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,14 +185,14 @@ public class InterfaceUF extends javax.swing.JFrame {
                 .addComponent(jTFSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFICMS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTFICMS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanelbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(146, 146, 146))
+                .addGap(156, 156, 156))
         );
 
-        jTPpessoa.addTab("Cadastro", jPcadastro);
+        jTPUF.addTab("Cadastro", jPcadastro);
 
         jBtPesquisa.setText("Pesquisar");
         jBtPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -219,16 +220,12 @@ public class InterfaceUF extends javax.swing.JFrame {
             }
         });
         jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane1.setViewportView(jTbPesquisa);
-
-        jBCancelar.setText("Cancelar");
-        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCancelarActionPerformed(evt);
+        jTbPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTbPesquisaMouseClicked(evt);
             }
         });
-
-        jBSelecionar.setText("Selecionar");
+        jScrollPane1.setViewportView(jTbPesquisa);
 
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
         jPConsulta.setLayout(jPConsultaLayout);
@@ -245,12 +242,6 @@ public class InterfaceUF extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtPesquisa)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConsultaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBSelecionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBCancelar)
-                .addContainerGap())
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,28 +256,24 @@ public class InterfaceUF extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBCancelar)
-                    .addComponent(jBSelecionar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTPpessoa.addTab("Consulta", jPConsulta);
+        jTPUF.addTab("Consulta", jPConsulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPpessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(jTPUF, javax.swing.GroupLayout.PREFERRED_SIZE, 414, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPpessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTPUF, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
@@ -296,6 +283,7 @@ public class InterfaceUF extends javax.swing.JFrame {
 
     private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravarActionPerformed
 
+       if (situacao == 1){
         estado.setDSUF(jTFUf.getText());
         estado.setDSSIGLA(jTFSigla.getText());
         String icms = jTFICMS.getText();
@@ -320,9 +308,35 @@ public class InterfaceUF extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Estado Cadastrado com sucesso!");
             lcampos.LimparCampos(jPcadastro);
             estadobotoes(false);
-        }
-    }//GEN-LAST:event_jBgravarActionPerformed
+        }}else{
+           estado.setDSUF(jTFUf.getText());
+        estado.setDSSIGLA(jTFSigla.getText());
+        String icms = jTFICMS.getText();
 
+        if (jTFUf.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informe o nome do Estado");
+            jTFUf.grabFocus();
+            return;
+        } else if ((jTFSigla.getText().equals("")) || (jTFSigla.getText().length() >= 3) || (jTFSigla.getText().length() < 2)) {
+            JOptionPane.showMessageDialog(null, "Informe a sigla do Estado com dois caracteres");
+            jTFSigla.grabFocus();
+            return;
+        } else if (icms.equals("")) {
+            estado.setNRICMS(0);
+            estadoDao.alterar(estado);
+            JOptionPane.showMessageDialog(null, "Estado Cadastrado com sucesso!");
+            lcampos.LimparCampos(jPcadastro);
+            estadobotoes(false);
+        } else {
+            estado.setNRICMS(Double.parseDouble(jTFICMS.getText()));
+            estadoDao.alterar(estado);
+            JOptionPane.showMessageDialog(null, "Estado Alterado com sucesso!");
+            lcampos.LimparCampos(jPcadastro);
+            estadobotoes(false);
+           
+       }
+    }//GEN-LAST:event_jBgravarActionPerformed
+    }
     private void jBincluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincluirActionPerformed
         jTFUf.grabFocus();
         lcampos.LimparCampos(jPcadastro);
@@ -339,17 +353,34 @@ public class InterfaceUF extends javax.swing.JFrame {
                 preencher.PreencherJtableGenerico(jTbPesquisa, estado.getRetorno());
                 return;
             }
+            case 1: {
+                estado.setDSUF(jTFPesquisa.getText().toUpperCase());
+                estadoDao.consultadescricao(estado);
+                preencher.PreencherJtableGenerico(jTbPesquisa, estado.getRetorno());
+                return;
+            }
+            case 2: {
+                estado.setDSSIGLA(jTFPesquisa.getText().toUpperCase());
+                estadoDao.consultasigla(estado);
+                preencher.PreencherJtableGenerico(jTbPesquisa, estado.getRetorno());
+                return;
+            }
     }//GEN-LAST:event_jBtPesquisaActionPerformed
     }
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        situacao = 1;
+        situacao = 2;
         estadobotoes(true);
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
-        // TODO add your handling code here:
         situacao = 1;
         estadobotoes(true);
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
+        if(t ==0){
+        estadoDao.excluir(estado);
+        JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
+        }
+        lcampos.LimparCampos(jPcadastro);
     }//GEN-LAST:event_jBexcluirActionPerformed
 
     private void jBcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcancelarActionPerformed
@@ -365,9 +396,22 @@ public class InterfaceUF extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFCodigoActionPerformed
 
-    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBCancelarActionPerformed
+    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
+        if (evt.getClickCount() == 2) {
+            int linha = jTbPesquisa.getSelectedRow();
+            String ID = (String) jTbPesquisa.getValueAt(linha, 0);
+
+            estado.setIDUF(Integer.parseInt(ID));
+            estadoDao.retornadados(estado);  
+            
+            jTFCodigo.setText(Integer.toString(estado.getIDUF()));
+            jTFUf.setText(estado.getDSUF());
+            jTFSigla.setText(estado.getDSSIGLA());
+            jTFICMS.setText(Double.toString(estado.getNRICMS()));
+        }
+        estadobotoes(false);
+        jTPUF.setSelectedIndex(0);
+    }//GEN-LAST:event_jTbPesquisaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -410,8 +454,6 @@ public class InterfaceUF extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bGtipo_pessoa;
     private javax.swing.JButton jBAlterar;
-    private javax.swing.JButton jBCancelar;
-    private javax.swing.JButton jBSelecionar;
     private javax.swing.JButton jBcancelar;
     private javax.swing.JButton jBexcluir;
     private javax.swing.JButton jBgravar;
@@ -431,7 +473,7 @@ public class InterfaceUF extends javax.swing.JFrame {
     private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTextField jTFSigla;
     private javax.swing.JTextField jTFUf;
-    private javax.swing.JTabbedPane jTPpessoa;
+    private javax.swing.JTabbedPane jTPUF;
     private javax.swing.JTable jTbPesquisa;
     // End of variables declaration//GEN-END:variables
 

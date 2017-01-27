@@ -6,6 +6,7 @@ import br.tcc.classe.Estado;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,6 +72,26 @@ public class CidadeDAO {
             cidade.setNRISSQN(conn.resultset.getDouble("NRISSQN"));
             } catch (SQLException ex) {
 
+        }
+    }
+    
+     @SuppressWarnings("empty-statement")
+    public void preenchercidade(JComboBox jCBCidade, Cidade cidade) {
+
+        String sql = "SELECT IDCIDADE, DSCIDADE FROM CIDADE ORDER BY DSCIDADE";
+        conn.executeSQL(sql);
+        jCBCidade.removeAllItems();
+        int conta = 0;
+        int[] vet = new int[100];
+        try {
+            while (conn.resultset.next()) {
+                jCBCidade.addItem(conn.resultset.getString("DSCIDADE"));
+                vet[conta] = ConexaoOracle.resultset.getInt("IDCIDADE");
+                conta++;
+            }
+            cidade.setVet(vet);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Dados não encontrados\n" + ex);
         }
     }
     

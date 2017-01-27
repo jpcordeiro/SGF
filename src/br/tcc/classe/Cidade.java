@@ -15,6 +15,7 @@ public class Cidade {
     private String dscidade;
     private Double NRISSQN;
     private ResultSet retorno;
+    private static int[] vet = new int[100];
 
     public Integer getIDCIDADE() {
         return IDCIDADE;
@@ -84,6 +85,14 @@ public class Cidade {
             return false;
         }
         return true;
+    }
+
+    public static int[] getVet() {
+        return vet;
+    }
+
+    public static void setVet(int[] vet) {
+        Cidade.vet = vet;
     }
     
     

@@ -21,7 +21,7 @@ public class Endereco {
     private String DSBAIRRO;
     private String NRCEP;
     private String DSCOMPLEMENTO;
-    private Cidade IDCIDADE;
+    private Integer IDCIDADE;
     private Estado IDESTADO;
     
      private ResultSet retorno;
@@ -98,11 +98,11 @@ public class Endereco {
         this.DSCOMPLEMENTO = DSCOMPLEMENTO;
     }
 
-    public Cidade getIDCIDADE() {
+    public Integer getIDCIDADE() {
         return IDCIDADE;
     }
 
-    public void setIDCIDADE(Cidade IDCIDADE) {
+    public void setIDCIDADE(Integer IDCIDADE) {
         this.IDCIDADE = IDCIDADE;
     }
 

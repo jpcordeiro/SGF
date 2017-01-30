@@ -94,5 +94,16 @@ public class CidadeDAO {
             JOptionPane.showMessageDialog(null, "Dados não encontrados\n" + ex);
         }
     }
+
+    public Integer ConsultaIdcidade(Integer idCidade, String cidadeId) throws SQLException {
+  
+         String sql = "SELECT * FROM CIDADE WHERE DSCIDADE = '" + cidadeId + "'";
+        conn.executeSQL(sql);
+                
+        if (conn.resultset.first()){
+            idCidade = conn.resultset.getInt("IDCIDADE");                   
+        }
+         return (idCidade);
+    }
     
 }

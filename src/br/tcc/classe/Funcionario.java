@@ -11,11 +11,11 @@ import javax.xml.crypto.Data;
 public class Funcionario {
     private Integer IDPESSOA;
     private String NRREGISTRO;
-    private Data DTCADASTRO;
-    private Data DTDEMISSAO;
+    private String DTCADASTRO;
+    private String DTDEMISSAO;
     private Integer TPSITUACAO;
     private Double VLSALARIO;
-    private Integer SENHA;
+    private String SENHA;
     private String LOGIN;
     private Integer IDNIVEL;
     
@@ -38,19 +38,19 @@ public class Funcionario {
         this.NRREGISTRO = NRREGISTRO;
     }
 
-    public Data getDTCADASTRO() {
+    public String getDTCADASTRO() {
         return DTCADASTRO;
     }
 
-    public void setDTCADASTRO(Data DTCADASTRO) {
+    public void setDTCADASTRO(String DTCADASTRO) {
         this.DTCADASTRO = DTCADASTRO;
     }
 
-    public Data getDTDEMISSAO() {
+    public String getDTDEMISSAO() {
         return DTDEMISSAO;
     }
 
-    public void setDTDEMISSAO(Data DTDEMISSAO) {
+    public void setDTDEMISSAO(String DTDEMISSAO) {
         this.DTDEMISSAO = DTDEMISSAO;
     }
 
@@ -70,11 +70,11 @@ public class Funcionario {
         this.VLSALARIO = VLSALARIO;
     }
 
-    public Integer getSENHA() {
+    public String getSENHA() {
         return SENHA;
     }
 
-    public void setSENHA(Integer SENHA) {
+    public void setSENHA(String SENHA) {
         this.SENHA = SENHA;
     }
 

@@ -18,16 +18,16 @@ public class PessoaDAO {
     public void incluir(Pessoa pessoa) {
         String sql = " INSERT INTO PESSOA VALUES("
                 +pessoa.getIDPESSOA() +",'"
-                +pessoa.getDSPESSOA() +"',"
-                +pessoa.getDTNASC() +")";
+                +pessoa.getDSPESSOA() +"','"
+                +pessoa.getDTNASC() +"')";
          conn.incluirSQL(sql);
     }
      
       public void alterar(Pessoa pessoa) {
         String sql = "UPDATE PESSOA SET" 
-                + " IDPESSOA = " + pessoa.getIDPESSOA() + ",'"
-                + "DSPESSOA = " + pessoa.getDSPESSOA() + "',"
-                + "DTNASC = " + pessoa.getDTNASC() 
+                + " IDPESSOA = " + pessoa.getIDPESSOA() + ","
+                + "DSPESSOA = '" + pessoa.getDSPESSOA() + "',"
+                + "DTNASC = '" + pessoa.getDTNASC() + "'"
                 + " WHERE IDPESSOA = " + pessoa.getIDPESSOA();
         conn.incluirSQL(sql);
     }
@@ -45,6 +45,20 @@ public class PessoaDAO {
           }
          return (DsPessoa);
      }
+
+   public void consulta(Pessoa pessoa) {
+        String sql = "SELECT * FROM PESSOA ORDER BY IDPESSOA";
+        conn.executeSQL(sql);
+        pessoa.setRetorno(conn.resultset);
+    }
+
+    public void consultadescricao(Pessoa pessoa) {
+        String sql = "SELECT * FROM PESSOA WHERE DSNOME LIKE '%"
+                + pessoa.getDSPESSOA() + "%' ORDER BY DSNOME";
+        conn.executeSQL(sql);
+        pessoa.setRetorno(conn.resultset);
+    }
+
 }
 
 

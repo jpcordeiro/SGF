@@ -25,5 +25,5 @@ public class RetornaDataAtual {
           dia = "0" + dia;
       }
       campo_data.setText(dia + "/" + mes + "/" + ano);
-  } 
+  }  
 }

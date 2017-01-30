@@ -12,7 +12,7 @@ public class Pessoa {
     
     private Integer IDPESSOA;
     private String DSPESSOA;
-    private Data DTNASC;   
+    private String DTNASC;   
     
     private ResultSet retorno;
 
@@ -32,11 +32,11 @@ public class Pessoa {
         this.DSPESSOA = DSPESSOA;
     }
 
-    public Data getDTNASC() {
+    public String getDTNASC() {
         return DTNASC;
     }
 
-    public void setDTNASC(Data DTNASC) {
+    public void setDTNASC(String DTNASC) {
         this.DTNASC = DTNASC;
     }
 

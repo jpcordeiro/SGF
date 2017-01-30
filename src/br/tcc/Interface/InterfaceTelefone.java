@@ -60,6 +60,12 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         jPTelefone = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFFone = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter telefone = new javax.swing.text.MaskFormatter("(##) #####-####");
+
+            jTFFone = new javax.swing.JFormattedTextField(telefone);
+        }catch(Exception e){
+        }
         jBAdicionar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jCBTipo = new javax.swing.JComboBox();

@@ -156,7 +156,7 @@ public class InterfaceUF extends javax.swing.JFrame {
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel18))
-                        .addContainerGap(366, Short.MAX_VALUE))
+                        .addContainerGap(376, Short.MAX_VALUE))
                     .addGroup(jPcadastroLayout.createSequentialGroup()
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9)
@@ -266,15 +266,11 @@ public class InterfaceUF extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPUF, javax.swing.GroupLayout.PREFERRED_SIZE, 414, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTPUF)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPUF, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 17, Short.MAX_VALUE))
+            .addComponent(jTPUF, javax.swing.GroupLayout.PREFERRED_SIZE, 380, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(440, 419));

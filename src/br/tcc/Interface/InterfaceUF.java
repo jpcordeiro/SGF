@@ -339,6 +339,8 @@ public class InterfaceUF extends javax.swing.JFrame {
         situacao = 1;
         estadobotoes(true);
         jTFCodigo.setEnabled(false);
+        
+        
     }//GEN-LAST:event_jBincluirActionPerformed
 
     private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed

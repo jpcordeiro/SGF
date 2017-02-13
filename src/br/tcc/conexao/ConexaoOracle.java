@@ -60,7 +60,8 @@ public class ConexaoOracle {
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             statement.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MM-YYYY'");
             resultset = statement.executeQuery(sql);
-            retorno = 1;
+             JOptionPane.showMessageDialog(null, "O registro Cadastrado com sucesso! ");
+            retorno = 0;
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 00001) {
                 JOptionPane.showMessageDialog(null, "O registro não pôde ser "

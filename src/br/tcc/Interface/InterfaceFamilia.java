@@ -5,11 +5,22 @@
  */
 package br.tcc.Interface;
 
+import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
+import br.tcc.classe.Familia;
+import br.tcc.dao.FamiliaDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author JOÃO PAULO
  */
 public class InterfaceFamilia extends javax.swing.JFrame {
+    
+    Familia familia = new Familia();
+    FamiliaDAO familiaDAO = new FamiliaDAO();
+    LimparCampos lcampos = new LimparCampos();
+    private int situacao = 0;
 
     /**
      * Creates new form InterfaceFamilia
@@ -44,6 +55,7 @@ public class InterfaceFamilia extends javax.swing.JFrame {
         jTFPesquisa = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTbPesquisa = new javax.swing.JTable();
+        jBPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,7 +142,7 @@ public class InterfaceFamilia extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTFdsFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPCadastroLayout.setVerticalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +162,7 @@ public class InterfaceFamilia extends javax.swing.JFrame {
 
         jTPFamilia.addTab("Cadastro", jPCadastro);
 
-        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Família" }));
+        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Família" }));
 
         jTbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -169,7 +181,19 @@ public class InterfaceFamilia extends javax.swing.JFrame {
             }
         });
         jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTbPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTbPesquisaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTbPesquisa);
+
+        jBPesquisar.setText("Pesquisar");
+        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
         jPConsulta.setLayout(jPConsultaLayout);
@@ -177,13 +201,15 @@ public class InterfaceFamilia extends javax.swing.JFrame {
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPConsultaLayout.createSequentialGroup()
                         .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTFPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBPesquisar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,9 +217,10 @@ public class InterfaceFamilia extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesquisar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -216,23 +243,106 @@ public class InterfaceFamilia extends javax.swing.JFrame {
 
     private void jBtIncluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluir1ActionPerformed
 
+        jTFdsFamilia.grabFocus();
+        lcampos.LimparCampos(jPCadastro);
+        situacao = 1;
+        estadobotoes(true);
+        jTFIdFamilia.setEnabled(false);         
+         
     }//GEN-LAST:event_jBtIncluir1ActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
 
+        situacao = 2;
+        estadobotoes(true);
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
 
+        situacao = 1;
+        estadobotoes(true);
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
+        if(t ==0){
+        familiaDAO.excluir(familia);
+        JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
+        }
+        lcampos.LimparCampos(jPCadastro);
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
 
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente cancelar o cadastro?");
+        if (t == 0) {
+            situacao = 2;
+            lcampos.LimparCampos(jPCadastro);
+            estadobotoes(false);
+        }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
 
+        if(situacao == 1) {
+             
+            if(jTFdsFamilia.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Informe a descição da família dos produtos");
+                jTFdsFamilia.grabFocus();
+                return;
+            } else{
+                familia.setDSFAMILIA(jTFdsFamilia.getText().toUpperCase());
+                familiaDAO.incluir(familia);
+                //JOptionPane.showMessageDialog(null, "Familia Cadastrada com sucesso!");
+                lcampos.LimparCampos(jPCadastro);
+                estadobotoes(false);
+            }
+           
+        }else{
+            if(jTFdsFamilia.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Informe a descição da família dos produtos");
+                jTFdsFamilia.grabFocus();
+                return;
+            } else{
+                familia.setDSFAMILIA(jTFdsFamilia.getText());
+                familiaDAO.alterar(familia);
+                JOptionPane.showMessageDialog(null, "Familia Cadastrada com sucesso!");
+                lcampos.LimparCampos(jPCadastro);
+                estadobotoes(false);
+            }     
+        }
     }//GEN-LAST:event_jBtGravarActionPerformed
+
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+
+         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCbPesquisa2.getSelectedIndex()) {
+            case 0: {
+                familiaDAO.consulta(familia);
+                preencher.PreencherJtableGenerico(jTbPesquisa, familia.getRetorno());
+                return;
+            }
+            case 1: {
+                familia.setDSFAMILIA(jTFPesquisa.getText().toUpperCase());
+                familiaDAO.consultadescricao(familia);
+                preencher.PreencherJtableGenerico(jTbPesquisa, familia.getRetorno());
+                return;
+            }
+    }                       
+    }//GEN-LAST:event_jBPesquisarActionPerformed
+
+    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
+
+         if (evt.getClickCount() == 1) {
+            int linha = jTbPesquisa.getSelectedRow();
+            String ID = (String) jTbPesquisa.getValueAt(linha, 0);
+
+            familia.setIDFAMILIA(Integer.parseInt(ID));
+            familiaDAO.retornadados(familia);  
+            
+            jTFIdFamilia.setText(Integer.toString(familia.getIDFAMILIA()));
+            jTFdsFamilia.setText(familia.getDSFAMILIA());
+        }
+        estadobotoes(false);
+        jTPFamilia.setSelectedIndex(0);
+    }//GEN-LAST:event_jTbPesquisaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -270,6 +380,7 @@ public class InterfaceFamilia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluir;
@@ -288,4 +399,12 @@ public class InterfaceFamilia extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTPFamilia;
     private javax.swing.JTable jTbPesquisa;
     // End of variables declaration//GEN-END:variables
+
+    private void estadobotoes(boolean situacao) {
+        jBtIncluir1.setEnabled(!situacao);
+        jBtAlterar.setEnabled(!situacao);
+        jBtExcluir.setEnabled(!situacao);
+        jBtGravar.setEnabled(situacao);
+        jBtCancelar.setEnabled(situacao);
+    }
 }

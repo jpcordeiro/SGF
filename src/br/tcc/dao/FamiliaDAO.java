@@ -22,14 +22,15 @@ public class FamiliaDAO {
                 + familia.getDSFAMILIA() + "')";
         conn.incluirSQL(sql);
     }
-
+    
     public void alterar(Familia familia) {
         String sql = "UPDATE FAMILIA SET"
                 + " IDFAMILIA = " + familia.getIDFAMILIA()+ ","
-                + " DSFAMILIA = '" + familia.getDSFAMILIA()+ "'";
+                + " DSFAMILIA = '" + familia.getDSFAMILIA()+ "'"
+                +" WHERE IDFAMILIA = " + familia.getIDFAMILIA();
         conn.incluirSQL(sql);
-    }
-
+    } 
+    
     public void excluir(Familia familia) {
         String sql = "DELETE FROM FAMILIA WHERE IDFAMILIA = " + familia.getIDFAMILIA();
         conn.executeSQL(sql);

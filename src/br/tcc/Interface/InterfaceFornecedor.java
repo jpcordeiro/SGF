@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * InterfacePessoa.java
- *
- * Created on 26/09/2013, 20:05:53
- */
 package br.tcc.Interface;
 
 /**

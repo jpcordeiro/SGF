@@ -30,12 +30,13 @@ public class FormaPgtoDAO {
                 + " IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO() + ","
                 + " DSFORMAPGTO = '" + formaPgto.getDSFORMAPGTO() + "',"
                 + " TPSITUACAO = " + formaPgto.getTPSITUACAO() + "," 
-                + "NRINTERVALO = " + formaPgto.getNRINTERVALO();
+                + "NRINTERVALO = " + formaPgto.getNRINTERVALO() 
+                + " WHERE IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO();
         conn.incluirSQL(sql);
     }
 
     public void excluir(FormaPgto formaPgto) {
-        String sql = "DELETE FROM FORMAPGTO WHERE IDFAMILIA = " + formaPgto.getIDFORMAPGTO();
+        String sql = "DELETE FROM FORMAPGTO WHERE IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO();
         conn.executeSQL(sql);
     }
     

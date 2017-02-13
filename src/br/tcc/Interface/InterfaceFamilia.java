@@ -290,7 +290,6 @@ public class InterfaceFamilia extends javax.swing.JFrame {
             } else{
                 familia.setDSFAMILIA(jTFdsFamilia.getText().toUpperCase());
                 familiaDAO.incluir(familia);
-                //JOptionPane.showMessageDialog(null, "Familia Cadastrada com sucesso!");
                 lcampos.LimparCampos(jPCadastro);
                 estadobotoes(false);
             }
@@ -303,7 +302,6 @@ public class InterfaceFamilia extends javax.swing.JFrame {
             } else{
                 familia.setDSFAMILIA(jTFdsFamilia.getText());
                 familiaDAO.alterar(familia);
-                JOptionPane.showMessageDialog(null, "Familia Cadastrada com sucesso!");
                 lcampos.LimparCampos(jPCadastro);
                 estadobotoes(false);
             }     

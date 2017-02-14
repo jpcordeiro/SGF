@@ -188,11 +188,11 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição"
+                "Código", "Mov. Estoque", "Mov. Financeiro", "Tipo Movimento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -268,6 +268,8 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
         jTFTipoMvto.setEnabled(false);   
         jCBTpOperacao.addItem("Entrada");
         jCBTpOperacao.addItem("Saída");
+        jCBEstoque.setSelected(false);
+        jCBFinanceiro.setSelected(false);
          
     }//GEN-LAST:event_jBtIncluir1ActionPerformed
 
@@ -354,16 +356,19 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
             String ID = (String) jTbPesquisa.getValueAt(linha, 0);
 
             tipoMovto.setIDTPMOVTO(Integer.parseInt(ID));
-            tpMovtoDAO.retornadados(tipoMovto);  
+            tpMovtoDAO.retornadados(tipoMovto); 
+            String est = tipoMovto.getMOVESTOQUE();
+            String fin = tipoMovto.getMOVFINANCEIRO();
+            Integer tipo = tipoMovto.getTPMOVTO();
             
             jTFTipoMvto.setText(Integer.toString(tipoMovto.getIDTPMOVTO()));
-            if(tipoMovto.getMOVESTOQUE().equals('S')){
-                jCBEstoque.setSelected(rootPaneCheckingEnabled);
+            if(est.equals("S")){
+                jCBEstoque.setSelected(true);
             }
-            if(tipoMovto.getMOVFINANCEIRO().equals('S')){
-                jCBFinanceiro.setSelected(rootPaneCheckingEnabled);
+            if(fin.equals("S")){
+                jCBFinanceiro.setSelected(true);
             }
-            jCBTpOperacao.setSelectedIndex(tipoMovto.getTPMOVTO());
+            jCBTpOperacao.setSelectedIndex(tipo);
         }
         estadobotoes(false);
         jTPNivel.setSelectedIndex(0);

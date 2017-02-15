@@ -2,6 +2,7 @@ package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
+import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.FormaPgto;
 import br.tcc.dao.FormaPgtoDAO;
 import java.awt.List;
@@ -149,6 +150,12 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
         jCBsituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo" }));
 
         jLabel3.setText("Numero de Intervalos");
+
+        jTFNrIntervalo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFNrIntervaloMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
@@ -429,6 +436,12 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
         estadobotoes(false);
         jTPFormaPgto.setSelectedIndex(0);
     }//GEN-LAST:event_jTbPesquisaMouseClicked
+
+    private void jTFNrIntervaloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrIntervaloMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFNrIntervalo);
+    }//GEN-LAST:event_jTFNrIntervaloMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

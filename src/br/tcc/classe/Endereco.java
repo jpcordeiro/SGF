@@ -17,7 +17,7 @@ public class Endereco {
     private String NRCEP;
     private String DSCOMPLEMENTO;
     private Integer IDCIDADE;
-    private Estado IDESTADO;
+ 
     
      private ResultSet retorno;
 
@@ -99,14 +99,6 @@ public class Endereco {
 
     public void setIDCIDADE(Integer IDCIDADE) {
         this.IDCIDADE = IDCIDADE;
-    }
-
-    public Estado getIDESTADO() {
-        return IDESTADO;
-    }
-
-    public void setIDESTADO(Estado IDESTADO) {
-        this.IDESTADO = IDESTADO;
     }
 
     public ResultSet getRetorno() {

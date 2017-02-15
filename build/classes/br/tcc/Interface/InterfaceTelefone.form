@@ -120,6 +120,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTFFone">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFFoneMouseClicked"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xa;            javax.swing.text.MaskFormatter telefone = new javax.swing.text.MaskFormatter(&quot;(##) #####-####&quot;);&#xa;&#xa;            jTFFone = new javax.swing.JFormattedTextField(telefone);&#xa;        }catch(Exception e){&#xa;        }"/>
           </AuxValues>

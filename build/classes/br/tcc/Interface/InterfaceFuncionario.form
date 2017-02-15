@@ -419,6 +419,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFNrCep">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFNrCepMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -485,8 +488,14 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFrg">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFrgMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFNrCpf">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFNrCpfMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="Sexo">
                   <Properties>
@@ -577,6 +586,9 @@
                 <Component class="javax.swing.JTextField" name="jTFrazaosocial">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFInscEstadual">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFInscEstadualMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jTFNrCnpj">
                   <Properties>
@@ -584,6 +596,9 @@
                       <Format format="##.###.###/####-##" subtype="-1" type="5"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFNrCnpjMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -736,6 +751,9 @@
             <Component class="javax.swing.JTextField" name="jTFDtDemiss&#xe3;o">
             </Component>
             <Component class="javax.swing.JTextField" name="jTFVlSalario">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFVlSalarioMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -769,6 +787,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTFFone1">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFFone1MouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xa;            javax.swing.text.MaskFormatter telefone = new javax.swing.text.MaskFormatter(&quot;(##) #####-####&quot;);&#xa;&#xa;            jTFFone1 = new javax.swing.JFormattedTextField(telefone);&#xa;        }catch(Exception e){&#xa;        }"/>
               </AuxValues>

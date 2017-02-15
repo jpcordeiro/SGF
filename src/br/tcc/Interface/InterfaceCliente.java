@@ -1,5 +1,7 @@
 package br.tcc.Interface;
 
+import br.tcc.Validacoes.ValidaNumero;
+
 /**
  *
  * @author Joao Paulo
@@ -109,6 +111,12 @@ public class InterfaceCliente extends javax.swing.JFrame {
         jLabel5.setText("Bairro");
 
         jLabel7.setText("CEP");
+
+        jTFcep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFcepMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,6 +271,12 @@ public class InterfaceCliente extends javax.swing.JFrame {
         );
 
         jLabel17.setText("Código do Cliente");
+
+        jTFCodigoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFCodigoClienteMouseClicked(evt);
+            }
+        });
 
         jPanelbotoes.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -492,6 +506,18 @@ public class InterfaceCliente extends javax.swing.JFrame {
     private void jCbPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCbPesquisaActionPerformed
+
+    private void jTFcepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFcepMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFcep);
+    }//GEN-LAST:event_jTFcepMouseClicked
+
+    private void jTFCodigoClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFCodigoClienteMouseClicked
+        
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFCodigoCliente);
+    }//GEN-LAST:event_jTFCodigoClienteMouseClicked
 
     /**
      * @param args the command line arguments

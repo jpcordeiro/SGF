@@ -2,7 +2,7 @@ package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
-import br.tcc.Validacoes.ValidaCNPJ;
+import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
 import br.tcc.classe.Endereco;
 import br.tcc.classe.Funcionario;
@@ -10,11 +10,13 @@ import br.tcc.classe.Pessoa;
 import br.tcc.classe.PessoaFisica;
 import br.tcc.classe.PessoaJuridica;
 import br.tcc.classe.Telefone;
+import br.tcc.classe.Usuario;
 import br.tcc.dao.CidadeDAO;
 import br.tcc.dao.EnderecoDAO;
 import br.tcc.dao.FuncionarioDAO;
 import br.tcc.dao.PessoaFisicaDAO;
 import br.tcc.dao.PessoaJuridicaDAO;
+import br.tcc.dao.UsuarioDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +39,8 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     private int situacao = 0;
     CidadeDAO cidadeDAO = new CidadeDAO();
     RetornaDataAtual retornadata = new RetornaDataAtual();
-
+    Usuario usuario = new Usuario();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     /**
      * Creates new form InterfacePessoa
      */
@@ -179,6 +182,12 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         jLabel7.setText("CEP");
 
+        jTFNrCep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFNrCepMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -250,6 +259,18 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         jLabel12.setText("RG");
 
+        jTFrg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFrgMouseClicked(evt);
+            }
+        });
+
+        jTFNrCpf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFNrCpfMouseClicked(evt);
+            }
+        });
+
         Sexo.setText("Sexo");
 
         jCBSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FEMININO", "MASCULINO", " " }));
@@ -296,11 +317,22 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         jLabel16.setText("Razão Social");
 
+        jTFInscEstadual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFInscEstadualMouseClicked(evt);
+            }
+        });
+
         try {
             jTFNrCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jTFNrCnpj.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFNrCnpjMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPpjuridicaLayout = new javax.swing.GroupLayout(jPpjuridica);
         jPpjuridica.setLayout(jPpjuridicaLayout);
@@ -432,6 +464,12 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         jCBTpSituação.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "LICENSA", "FERIAS", "INATIVO" }));
 
+        jTFVlSalario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFVlSalarioMouseClicked(evt);
+            }
+        });
+
         jLabel8.setText("Nivel de Acesso");
 
         jCBNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
@@ -439,6 +477,12 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         jLabel13.setText("Data de Nascimento");
 
         jLabel24.setText("Telefone");
+
+        jTFFone1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFFone1MouseClicked(evt);
+            }
+        });
 
         jBfone1.setText("+ Telefone");
         jBfone1.addActionListener(new java.awt.event.ActionListener() {
@@ -705,10 +749,10 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
         funcionario.setDTCADASTRO(jTFDtCadastro.getText());
 
-//          if (jTFDtDemissão.getText().equals("")) {
-//                funcionario.setDTDEMISSAO("0");
-//                return;
-//             }  
+          if (jTFDtDemissão.getText().equals("")) {
+                funcionario.setDTDEMISSAO("00/00/0000");
+                return;
+             }  
         funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
 
         if (jTFVlSalario.getText().equals("")) {
@@ -724,19 +768,20 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             return;
         } else {
             funcionario.setLOGIN(jTFLogin.getText());
+            usuario.setDSUSUARIO(jTFLogin.getText());
         }
         if (jTFsenha1.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe a Senha");
             jTFsenha1.grabFocus();
             return;
         } else if (jTFsenha1.getText().equals(jTFSenha2.getText())) {
-            funcionario.setSENHA(jTFsenha1.getText());
+            usuario.setDSSENHA(jTFsenha1.getText());
         } else {
             JOptionPane.showMessageDialog(null, "A Senha não confere, favor digitar a senha novamente!");
             jTFsenha1.grabFocus();
             return;
         }
-        funcionario.setIDNIVEL(Integer.parseInt(nivel1));
+        usuario.setIDNIVEL(Integer.parseInt(nivel1));
 
         telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
         if (jTFFone1.getText().equals("")) {
@@ -759,10 +804,16 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             } else {
                 pfisica.setNRCPF(jTFNrCpf.getText());
             }
-            if (jTFNrCpf.getText().equals("")) {
-                pfisica.setNRRG("0");
+//            if (jTFNrCpf.getText().equals("")) {
+//                pfisica.setNRRG("0");
+//            }
+            String sexo = jCBSexo.getSelectedItem().toString();
+            if (sexo.equals("MASCULINO")) {
+                pfisica.setTPSEXO("M");
+            } else {
+                pfisica.setTPSEXO("F");
             }
-            pfisica.setTPSEXO(jCBSexo.getSelectedItem().toString());
+
         } else {
             pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
             if (jTFNrCnpj.getText().equals("")) {
@@ -828,6 +879,9 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } else {
             endereco.setNRCEP(jTFNrCep.getText());
         }
+        endereco.setTPENDERECO("RESIDENCIA");
+        endereco.setIDSEQUENCIAL(0);
+                
 
         PessoaFisicaDAO pfDao = new PessoaFisicaDAO();
         PessoaJuridicaDAO pjDao = new PessoaJuridicaDAO();
@@ -942,6 +996,48 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBexcluirActionPerformed
+
+    private void jTFVlSalarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFVlSalarioMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFVlSalario);
+    }//GEN-LAST:event_jTFVlSalarioMouseClicked
+
+    private void jTFFone1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFFone1MouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFFone1);
+    }//GEN-LAST:event_jTFFone1MouseClicked
+
+    private void jTFNrCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCpfMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFNrCpf);
+    }//GEN-LAST:event_jTFNrCpfMouseClicked
+
+    private void jTFrgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFrgMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFrg);
+    }//GEN-LAST:event_jTFrgMouseClicked
+
+    private void jTFNrCnpjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCnpjMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFNrCnpj);
+    }//GEN-LAST:event_jTFNrCnpjMouseClicked
+
+    private void jTFInscEstadualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFInscEstadualMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFInscEstadual);
+    }//GEN-LAST:event_jTFInscEstadualMouseClicked
+
+    private void jTFNrCepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCepMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFNrCep);
+    }//GEN-LAST:event_jTFNrCepMouseClicked
 
     /**
      * @param args the command line arguments

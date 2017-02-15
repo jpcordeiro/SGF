@@ -15,16 +15,16 @@ public class PessoaFisicaDAO {
     }
     
     public void incluir(PessoaFisica pf) {
-        String sql = " INSERT INTO PESSOAFISICA VALUES("
+        String sql = " INSERT INTO PESSOAF VALUES("
                 + pf.getIDPESSOA()+ ",'"
                 + pf.getNRCPF()+ "','"
                 + pf.getNRRG()+ "','"
-                + pf.getTPSEXO() + ")";
+                + pf.getTPSEXO() + "')";
          conn.incluirSQL(sql);
     }
      
       public void alterar(PessoaFisica pf) {
-        String sql = "UPDATE PESSOAFISICA SET" 
+        String sql = "UPDATE PESSOAF SET" 
                 + " IDPESSOA = " + pf.getIDPESSOA() + ","
                 + " NRCPF = '" + pf.getNRCPF() + "',"
                 + " NRRG = '" + pf.getNRRG() + "',"
@@ -34,7 +34,7 @@ public class PessoaFisicaDAO {
     }
      
       public void excluir(PessoaFisica pf) {
-        String sql = "DELETE FROM PESSOAFISICA WHERE IDPESSOA = " + pf.getIDPESSOA();
+        String sql = "DELETE FROM PESSOAF WHERE IDPESSOA = " + pf.getIDPESSOA();
         conn.executeSQL(sql);
       }
     

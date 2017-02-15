@@ -2,6 +2,7 @@ package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
+import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Estado;
 import br.tcc.dao.EstadoDAO;
 import javax.swing.JOptionPane;
@@ -144,6 +145,12 @@ public class InterfaceUF extends javax.swing.JFrame {
         );
 
         jLabel18.setText("ICMS");
+
+        jTFICMS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFICMSMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPcadastroLayout = new javax.swing.GroupLayout(jPcadastro);
         jPcadastro.setLayout(jPcadastroLayout);
@@ -410,6 +417,12 @@ public class InterfaceUF extends javax.swing.JFrame {
         estadobotoes(false);
         jTPUF.setSelectedIndex(0);
     }//GEN-LAST:event_jTbPesquisaMouseClicked
+
+    private void jTFICMSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFICMSMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFICMS);
+    }//GEN-LAST:event_jTFICMSMouseClicked
 
     /**
      * @param args the command line arguments

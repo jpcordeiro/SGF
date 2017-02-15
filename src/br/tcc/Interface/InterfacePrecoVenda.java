@@ -5,6 +5,8 @@
  */
 package br.tcc.Interface;
 
+import br.tcc.Validacoes.ValidaNumero;
+
 /**
  *
  * @author JOÃO PAULO
@@ -50,6 +52,12 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
 
         jLabel2.setText("Preço de Venda");
 
+        jTFVlVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFVlVendaMouseClicked(evt);
+            }
+        });
+
         jLabel3.setText("Data de Alteração");
 
         try {
@@ -59,6 +67,12 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
         }
 
         jLabel4.setText("Preço de Custo");
+
+        jTFVlCusto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFVlCustoMouseClicked(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -212,6 +226,18 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
     private void jBtIncluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluir1ActionPerformed
 
     }//GEN-LAST:event_jBtIncluir1ActionPerformed
+
+    private void jTFVlCustoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFVlCustoMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFVlCusto);
+    }//GEN-LAST:event_jTFVlCustoMouseClicked
+
+    private void jTFVlVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFVlVendaMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFVlVenda);
+    }//GEN-LAST:event_jTFVlVendaMouseClicked
 
     /**
      * @param args the command line arguments

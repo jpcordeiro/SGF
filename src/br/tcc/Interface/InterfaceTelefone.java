@@ -7,6 +7,7 @@ package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
+import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Funcionario;
 import br.tcc.classe.Telefone;
 import br.tcc.dao.PessoaDAO;
@@ -80,6 +81,12 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Telefone");
+
+        jTFFone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFFoneMouseClicked(evt);
+            }
+        });
 
         jBAdicionar.setText("Adicionar");
         jBAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -223,6 +230,12 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         Infun.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBVoltarActionPerformed
+
+    private void jTFFoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFFoneMouseClicked
+
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFFone);
+    }//GEN-LAST:event_jTFFoneMouseClicked
 
        private void atualizatabela() {
            PreencherJtableGenerico preencher = new PreencherJtableGenerico();

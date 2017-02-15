@@ -16,28 +16,25 @@ public class FuncionarioDAO {
     
     public void incluir(Funcionario func) {
         String sql = " INSERT INTO FUNCIONARIO VALUES("
-                +func.getIDPESSOA() +",'"
-                +func.getNRREGISTRO() +"',"
+                +func.getIDPESSOA() +","
                 +func.getDTCADASTRO() +","
                 +func.getDTDEMISSAO() +","
                 +func.getTPSITUACAO() +","
                 +func.getVLSALARIO() +",'"
-                +func.getLOGIN() +"','"
-                +func.getSENHA() + "')";
+                +func.getLOGIN() + "')";
         
          conn.incluirSQL(sql);
     }
      
       public void alterar(Funcionario func) {
         String sql = "UPDATE FUNCIONARIO SET" 
-                + " IDPESSOA = " + func.getIDPESSOA() + ",'"
-                + "NRREGISTRO = " + func.getNRREGISTRO() + "'," 
+                + " IDPESSOA = " + func.getIDPESSOA() + ","
                 + "DTCADASTRO = " + func.getDTCADASTRO() + ","
                 + "DTDEMISSAO = " + func.getDTDEMISSAO() + ","
                 + "TPSITUACAO = " + func.getTPSITUACAO() + ","
                 + "VLSALARIO = " + func.getVLSALARIO() + ",'"
                 + "LOGIN = " + func.getLOGIN() + "',"
-                + "SENHA = " + func.getSENHA() + "')";
+                + " WHERE IDPESSOA = " + func.getIDPESSOA()+ "')";
                
                 conn.incluirSQL(sql);
     }

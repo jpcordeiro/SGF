@@ -2,6 +2,7 @@ package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
+import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
 import br.tcc.classe.Estado;
 import br.tcc.dao.CidadeDAO;
@@ -153,6 +154,12 @@ public class InterfaceCidade extends javax.swing.JFrame {
         );
 
         jLabel4.setText("ISSQN");
+
+        jTFIssqn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFIssqnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
@@ -431,6 +438,12 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         estadobotoes(false);
         jTPCidade.setSelectedIndex(0);
     }//GEN-LAST:event_jTbPesquisaMouseClicked
+
+    private void jTFIssqnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFIssqnMouseClicked
+ 
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFIssqn);
+    }//GEN-LAST:event_jTFIssqnMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

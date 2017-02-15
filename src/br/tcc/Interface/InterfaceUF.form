@@ -223,6 +223,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTFICMS">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFICMSMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

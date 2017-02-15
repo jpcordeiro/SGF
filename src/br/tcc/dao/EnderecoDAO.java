@@ -19,13 +19,14 @@ public class EnderecoDAO {
         String sql = " INSERT INTO ENDERECO VALUES("
                 +endereco.getIDENDERECO() + ","
                 +endereco.getIDSEQUENCIAL() + ","
-                +endereco.getIDCIDADE() + ",'"
+                +endereco.getIDPESSOA() + ",'"
                 +endereco.getTPENDERECO() + "','"
                 +endereco.getDSLOGRADOURO() + "','"
                 +endereco.getDSNUMERO() + "','"
                 +endereco.getDSBAIRRO() + "','"
                 +endereco.getNRCEP() + "','"
-                +endereco.getDSCOMPLEMENTO() + "')";
+                +endereco.getDSCOMPLEMENTO() +","
+                +endereco.getIDCIDADE() + "')";
          conn.incluirSQL(sql);
     }
      
@@ -33,13 +34,14 @@ public class EnderecoDAO {
         String sql = "UPDATE ENDERECO SET" 
                 +"IDENDERECO = " + endereco.getIDENDERECO() + ","
                 +"IDSEQUENCIAL = " + endereco.getIDSEQUENCIAL() + ","
-                + " IDCIDADE = " + endereco.getIDCIDADE() + ",'"
+                + " IDCIDADE = " + endereco.getIDPESSOA() + ",'"
                 + "TPENDERECO = " + endereco.getTPENDERECO() + "','"
                 + "DSLOGRADOURO = " + endereco.getDSLOGRADOURO() + "','"
                 + "DSNUMERO = " + endereco.getDSNUMERO() + "','"
                 + "DSBAIRRO = " + endereco.getDSBAIRRO() + "','"
                 + "NRCEP = " + endereco.getNRCEP() + "',"
                 + "DSCOMPLEMENTO = " + endereco.getDSCOMPLEMENTO() 
+                +"IDCIDADE = " + endereco.getIDCIDADE()
                 + " WHERE IDPESSOA = " + endereco.getIDPESSOA();;
         conn.incluirSQL(sql);
     }

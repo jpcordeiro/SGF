@@ -18,7 +18,8 @@ public class UsuarioDAO {
     public void incluir(Usuario usuario) {
         String sql = " INSERT INTO USUARIO VALUES('"
                 + usuario.getDSUSUARIO() + "','"
-                + usuario.getDSSENHA() + "')";
+                + usuario.getDSSENHA() +"',"
+                + usuario.getIDNIVEL() + ")";
                 conn.incluirSQL(sql);
     }
      
@@ -26,6 +27,7 @@ public class UsuarioDAO {
         String sql = "UPDATE USUARIO SET '" 
                 + " DSUSUARIO = '" + usuario.getDSUSUARIO()+ "',"
                 + " DSSENHA = '" + usuario.getDSSENHA() + "'"
+                + "IDNIVEL = " + usuario.getIDNIVEL() 
                 + " WHERE DSUSUARIO = " + usuario.getDSUSUARIO();
         conn.incluirSQL(sql);
     }

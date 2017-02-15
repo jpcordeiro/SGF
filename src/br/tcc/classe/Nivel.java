@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 public class Nivel {
     private Integer IDNIVEL;
     private String DSNIVEL;
+    private Integer IdNivel;
     
     private ResultSet retorno;
     private static int[] vet = new int[100];
@@ -48,6 +49,14 @@ public class Nivel {
 
     public static void setVet(int[] vet) {
         Nivel.vet = vet;
+    }
+
+    public Integer getIdNivel() {
+        return IdNivel;
+    }
+
+    public void setIdNivel(Integer IdNivel) {
+        this.IdNivel = IdNivel;
     }
     
     

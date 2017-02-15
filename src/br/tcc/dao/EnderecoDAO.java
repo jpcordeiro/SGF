@@ -25,8 +25,8 @@ public class EnderecoDAO {
                 +endereco.getDSNUMERO() + "','"
                 +endereco.getDSBAIRRO() + "','"
                 +endereco.getNRCEP() + "','"
-                +endereco.getDSCOMPLEMENTO() +","
-                +endereco.getIDCIDADE() + "')";
+                +endereco.getDSCOMPLEMENTO() +"',"
+                +endereco.getIDCIDADE() + ")";
          conn.incluirSQL(sql);
     }
      

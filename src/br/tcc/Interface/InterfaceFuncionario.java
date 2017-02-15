@@ -16,6 +16,7 @@ import br.tcc.dao.EnderecoDAO;
 import br.tcc.dao.FuncionarioDAO;
 import br.tcc.dao.PessoaFisicaDAO;
 import br.tcc.dao.PessoaJuridicaDAO;
+import br.tcc.dao.TelefoneDAO;
 import br.tcc.dao.UsuarioDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -35,6 +36,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     Endereco endereco = new Endereco();
     Cidade cidade = new Cidade();
     Telefone telefone = new Telefone();
+    TelefoneDAO telefoneDAO = new TelefoneDAO();
     LimparCampos lcampos = new LimparCampos();
     private int situacao = 0;
     CidadeDAO cidadeDAO = new CidadeDAO();
@@ -747,11 +749,14 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             funcionario.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
         }
 
+        
+        
+        
+        
         funcionario.setDTCADASTRO(jTFDtCadastro.getText());
 
           if (jTFDtDemissão.getText().equals("")) {
-                funcionario.setDTDEMISSAO("00/00/0000");
-                return;
+               
              }  
         funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
 
@@ -871,12 +876,20 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
         if (jTFcomplemento.getText().equals("")) {
             endereco.setDSCOMPLEMENTO(".");
+        }else{
+            endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
         }
+        String cep = jTFNrCep.toString();
+       
         if (jTFNrCep.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o CEP");
             jTFNrCep.grabFocus();
             return;
-        } else {
+//        } else if((cep.length() > 7) || (cep.length() <7)){
+//            JOptionPane.showMessageDialog(null, "Informe um CEP valido");
+//            jTFNrCep.grabFocus();
+//            return;
+        }else {
             endereco.setNRCEP(jTFNrCep.getText());
         }
         endereco.setTPENDERECO("RESIDENCIA");
@@ -890,6 +903,8 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         if (jRBFisico.isSelected()) {
             pfDao.incluir(pfisica);
             endDao.incluir(endereco);
+            usuarioDAO.incluir(usuario);
+            telefoneDAO.incluir(telefone);
             funcDao.incluir(funcionario);
         } else {
             pjDao.incluir(pjuridica);

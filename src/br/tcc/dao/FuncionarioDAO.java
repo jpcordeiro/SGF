@@ -16,8 +16,8 @@ public class FuncionarioDAO {
     
     public void incluir(Funcionario func) {
         String sql = " INSERT INTO FUNCIONARIO VALUES("
-                +func.getIDPESSOA() +","
-                +func.getDTCADASTRO() +","
+                +func.getIDPESSOA() +",'"
+                +func.getDTCADASTRO() +"',"
                 +func.getDTDEMISSAO() +","
                 +func.getTPSITUACAO() +","
                 +func.getVLSALARIO() +",'"

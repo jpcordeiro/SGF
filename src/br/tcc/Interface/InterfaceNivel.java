@@ -55,6 +55,7 @@ public class InterfaceNivel extends javax.swing.JFrame {
         jBPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Nivel");
 
         jLabel1.setText("Código");
 

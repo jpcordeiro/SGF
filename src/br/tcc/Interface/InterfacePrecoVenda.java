@@ -47,6 +47,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
         jBtGravar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Preço de Venda");
 
         jLabel1.setText("Código do Produto");
 

@@ -141,6 +141,7 @@ public class InterfaceVenda extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Venda");
 
         jLabel1.setText("Código");
 

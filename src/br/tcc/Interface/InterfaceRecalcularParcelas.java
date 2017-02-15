@@ -54,6 +54,7 @@ public class InterfaceRecalcularParcelas extends javax.swing.JFrame {
         jTbPesquisa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reparcelamento");
 
         jLabel1.setText("Código");
 
@@ -258,7 +259,7 @@ public class InterfaceRecalcularParcelas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPRecalcularParcelas, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+            .addComponent(jTPRecalcularParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 438, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

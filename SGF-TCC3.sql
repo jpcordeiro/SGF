@@ -1,3 +1,3 @@
-select * from produto
+select * from CIDADE
 
 SELECT IDPRODUTO, DSPRODUTO FROM PRODUTO ORDER BY IDPRODUTO

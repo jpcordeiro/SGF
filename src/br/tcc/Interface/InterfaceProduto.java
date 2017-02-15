@@ -105,6 +105,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Produto");
 
         jLabel1.setText("Código");
 

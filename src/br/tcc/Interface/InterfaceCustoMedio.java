@@ -66,6 +66,7 @@ public class InterfaceCustoMedio extends javax.swing.JFrame {
         jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calculo Custo Medio");
 
         jLabel2.setText("Código");
 

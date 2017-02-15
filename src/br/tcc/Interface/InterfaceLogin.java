@@ -35,6 +35,7 @@ public class InterfaceLogin extends javax.swing.JFrame {
         jBSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login");
 
         jLabel3.setText("Usuario");
 

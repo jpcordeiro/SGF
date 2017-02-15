@@ -61,6 +61,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
         jBPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Tipo Movimento");
 
         jLabel1.setText("Código");
 

@@ -79,6 +79,7 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         jTFIdPessoa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Telefone");
 
         jLabel1.setText("Telefone");
 

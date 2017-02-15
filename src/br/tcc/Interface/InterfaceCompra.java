@@ -135,6 +135,7 @@ public class InterfaceCompra extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Compra");
 
         jLabel1.setText("Código");
 

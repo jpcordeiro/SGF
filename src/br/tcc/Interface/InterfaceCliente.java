@@ -183,7 +183,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
 
         jLabel13.setText("Data de Nascimento");
 
-        BaddPessoas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/addPessoa.jpg"))); // NOI18N
+        BaddPessoas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/tcc/fotos/addPessoa.jpg"))); // NOI18N
         BaddPessoas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BaddPessoasActionPerformed(evt);

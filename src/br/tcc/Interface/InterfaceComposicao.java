@@ -45,7 +45,6 @@ public class InterfaceComposicao extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTFQuantidade = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTFDsComposicao = new javax.swing.JTextField();
         jBAdicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -57,6 +56,7 @@ public class InterfaceComposicao extends javax.swing.JFrame {
         jBcancelar1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jRBTpMateria = new javax.swing.JRadioButton();
+        jTFDsComposicao = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
         jCbPesquisa2 = new javax.swing.JComboBox();
         jTFPesquisa = new javax.swing.JTextField();
@@ -133,12 +133,6 @@ public class InterfaceComposicao extends javax.swing.JFrame {
         jLabel4.setText("Quantidade");
 
         jLabel5.setText("Descrição da Composição");
-
-        jTFDsComposicao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFDsComposicaoActionPerformed(evt);
-            }
-        });
 
         jBAdicionar.setText("Adicionar");
 
@@ -269,8 +263,8 @@ public class InterfaceComposicao extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTFIdComposicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFDsComposicao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRBTpMateria)))
+                            .addComponent(jRBTpMateria)
+                            .addComponent(jTFDsComposicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -380,10 +374,6 @@ public class InterfaceComposicao extends javax.swing.JFrame {
     private void jBgravar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravar1ActionPerformed
 
     }//GEN-LAST:event_jBgravar1ActionPerformed
-
-    private void jTFDsComposicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFDsComposicaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFDsComposicaoActionPerformed
 
     /**
      * @param args the command line arguments

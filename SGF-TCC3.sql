@@ -1,1 +1,3 @@
-select * from tipomvto
+select * from produto
+
+SELECT IDPRODUTO, DSPRODUTO FROM PRODUTO ORDER BY IDPRODUTO

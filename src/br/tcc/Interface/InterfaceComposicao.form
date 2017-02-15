@@ -197,8 +197,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jTFIdComposicao" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTFDsComposicao" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jRBTpMateria" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTFDsComposicao" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -274,11 +274,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o da Composi&#xe7;&#xe3;o"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTFDsComposicao">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFDsComposicaoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jBAdicionar">
               <Properties>
@@ -417,6 +412,8 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Produto Final"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTFDsComposicao">
             </Component>
           </SubComponents>
         </Container>

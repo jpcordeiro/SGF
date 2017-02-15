@@ -3,6 +3,7 @@ package br.tcc.dao;
 import br.tcc.classe.Composicao;
 import br.tcc.classe.Produto;
 import br.tcc.conexao.ConexaoOracle;
+import java.sql.SQLException;
 
 /**
  *
@@ -67,6 +68,17 @@ public class ProdutoDAO {
         produto.setRetorno(conn.resultset);
     }
      
+    public Integer retornaUltimoId(Integer id) throws SQLException {
+       
+        String sql = "SELECT IDPRODUTO FROM PRODUTO";
+        conn.executeSQL(sql);
+                
+        if (conn.resultset.last()){
+            id = conn.resultset.getInt("IDPRODUTO");                   
+        }
+         return (id);
     
+       }
+    }
     
-}
+

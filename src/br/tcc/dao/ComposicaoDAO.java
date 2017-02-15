@@ -18,14 +18,16 @@ public class ComposicaoDAO {
     public void incluir(Composicao composicao) {
         String sql = " INSERT INTO COMPOSICAO VALUES("
                 + composicao.getIDPRODUTO() + ","
-                + composicao.getIDPROD() +  ")";
+                + composicao.getIDPROD() +  ","
+                + composicao.getQTDPRODUTO() + ")";
          conn.incluirSQL(sql);
     }
      
       public void alterar(Composicao composicao) {
         String sql = "UPDATE COMPOSICAO SET" 
                 + " IDPRODUTO = " + composicao.getIDPRODUTO() + ","
-                + " IDPROD = " + composicao.getIDPROD()
+                + " IDPROD = " + composicao.getIDPROD() + ","
+                + "QTDPRODUTO = " + composicao.getQTDPRODUTO()
                 + " WHERE IDPRODUTO = " + composicao.getIDPRODUTO();
         conn.incluirSQL(sql);
     }

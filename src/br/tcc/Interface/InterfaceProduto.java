@@ -8,27 +8,27 @@ package br.tcc.Interface;
 import br.tcc.ConsultaSimples.ConsultaFamilia;
 import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Composicao;
 import br.tcc.classe.Produto;
 import br.tcc.dao.ComposicaoDAO;
 import br.tcc.dao.ProdutoDAO;
-import java.sql.Date;
-import java.text.DateFormat;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.crypto.Data;
 
 /**
  *
  * @author JOÃO PAULO
  */
 public class InterfaceProduto extends javax.swing.JFrame {
-    
+
     LimparCampos lcampos = new LimparCampos();
+    ValidaNumero validaNumero = new ValidaNumero();
     Produto produto = new Produto();
     ProdutoDAO produtoDAO = new ProdutoDAO();
     Composicao composicao = new Composicao();
@@ -122,6 +122,12 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Código da Família");
 
+        jTFIdFamilia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFIdFamiliaFocusLost(evt);
+            }
+        });
+
         jBPesquisar.setText("Pesquisar");
         jBPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -165,6 +171,11 @@ public class InterfaceProduto extends javax.swing.JFrame {
         });
 
         jBCancelar.setText("Cancelar");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelbotoes1Layout = new javax.swing.GroupLayout(jPanelbotoes1);
         jPanelbotoes1.setLayout(jPanelbotoes1Layout);
@@ -172,8 +183,8 @@ public class InterfaceProduto extends javax.swing.JFrame {
             jPanelbotoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelbotoes1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jBIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(jBIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,13 +197,17 @@ public class InterfaceProduto extends javax.swing.JFrame {
         jPanelbotoes1Layout.setVerticalGroup(
             jPanelbotoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelbotoes1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanelbotoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelbotoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelbotoes1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelbotoes1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanelbotoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(19, 19, 19))
         );
 
@@ -201,6 +216,12 @@ public class InterfaceProduto extends javax.swing.JFrame {
         jPComposicao.setBorder(javax.swing.BorderFactory.createTitledBorder("Composição"));
 
         jLabel6.setText("Código Produto");
+
+        jTFIdProduto1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFIdProduto1FocusLost(evt);
+            }
+        });
 
         jBPesquisar1.setText("Pesquisar");
         jBPesquisar1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -216,6 +237,12 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
         jLabel7.setText("Produto");
 
+        jTFQtdProdComp.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFQtdProdCompFocusLost(evt);
+            }
+        });
+
         jLabel8.setText("Quantidade");
 
         jBAdicionar.setText("Adicionar");
@@ -227,10 +254,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
         jTComposicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Excluir Item", "Código", "Produto", "Quantidade"
@@ -289,9 +313,19 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
         TpMateria.add(jRBPrima);
         jRBPrima.setText("Prima");
+        jRBPrima.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jRBPrimaMousePressed(evt);
+            }
+        });
 
         TpMateria.add(jRBFinal);
         jRBFinal.setText("Final");
+        jRBFinal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRBFinalMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
@@ -457,73 +491,87 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
     private void jBIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncluirActionPerformed
 
-        jFTFDtCompra.grabFocus(); 
+        jFTFDtCompra.grabFocus();
         lcampos.LimparCampos(jTPProduto);
         situacao = 1;
         estadobotoes(true);
         jRBPrima.setSelected(true);
-        
+
     }//GEN-LAST:event_jBIncluirActionPerformed
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
 
-             if(situacao == 1) {
-             
-            if(jFTFDtCompra.getText().equals("")){
+        if (situacao == 1) {
+
+            if (jFTFDtCompra.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe a data de compra do produto");
                 jFTFDtCompra.grabFocus();
                 return;
             }
-            if(jTFDsProduto.getText().equals("")){
+            if (jTFDsProduto.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do produto");
                 jTFDsProduto.grabFocus();
                 return;
             }
-            if(jTFIdFamilia.getText().equals("")){
+            if (jTFIdFamilia.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe a família do produto");
                 jTFIdFamilia.grabFocus();
-            }
-            else{
+            } else {
                 char selecionado;
-                if(jRBPrima.isSelected()){
-                   selecionado = 'P';
-                }else{
+                if (jRBPrima.isSelected()) {
+                    selecionado = 'P';
+                } else {
                     selecionado = 'F';
                 }
-                if(jRBPrima.isSelected()){
-                produto.setIDFAMILIA(Integer.parseInt(jTFIdFamilia.getText()));
-                produto.setDSPRODUTO(jTFDsProduto.getText().toUpperCase());
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                java.sql.Date data = null;             
-                try {
-                    data = new java.sql.Date(format.parse(jFTFDtCompra.getText().toString()).getTime());
-                } catch (ParseException ex) {
-                    Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
-                }  
-                produto.setDTCOMRPA(data.toString());
-                
-                produto.setTPMATERIA(selecionado);               
-                produtoDAO.incluir(produto);
-                lcampos.LimparCampos(jPCadastro);
-                estadobotoes(false);
-            }else{
-                produto.setIDFAMILIA(Integer.parseInt(jTFIdFamilia.getText()));
-                produto.setDSPRODUTO(jTFDsProduto.getText().toUpperCase());
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                java.sql.Date data = null;             
-                try {
-                    data = new java.sql.Date(format.parse(jFTFDtCompra.getText().toString()).getTime());
-                } catch (ParseException ex) {
-                    Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
-                }  
-                produto.setDTCOMRPA(data.toString());
-                
-                produto.setTPMATERIA(selecionado);  
-                
-                
-                
-                
-                produtoDAO.incluir(produto);
+                if (jRBPrima.isSelected()) {
+                    produto.setIDFAMILIA(Integer.parseInt(jTFIdFamilia.getText()));
+                    produto.setDSPRODUTO(jTFDsProduto.getText().toUpperCase());
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = null;
+                    try {
+                        data = new java.sql.Date(format.parse(jFTFDtCompra.getText().toString()).getTime());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    produto.setDTCOMRPA(data.toString());
+
+                    produto.setTPMATERIA(selecionado);
+                    produtoDAO.incluir(produto);
+                    lcampos.LimparCampos(jPCadastro);
+                    estadobotoes(false);
+                } else {
+                    produto.setIDFAMILIA(Integer.parseInt(jTFIdFamilia.getText()));
+                    produto.setDSPRODUTO(jTFDsProduto.getText().toUpperCase());
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date data = null;
+                    try {
+                        data = new java.sql.Date(format.parse(jFTFDtCompra.getText().toString()).getTime());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    produto.setDTCOMRPA(data.toString());
+                    produto.setTPMATERIA(selecionado);
+                    produtoDAO.incluir(produto);
+
+                    Integer idP = null;
+                    try {
+                        idP = produtoDAO.retornaUltimoId(idP);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    int totlinha = jTComposicao.getRowCount();
+                    int conta = 0;
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdProd = (String) jTComposicao.getValueAt(conta, 1);
+                        String QtdProd = (String) jTComposicao.getValueAt(conta, 3);
+                        composicao.setIDPRODUTO(idP);
+                        composicao.setIDPROD(Integer.parseInt(IdProd));
+                        composicao.setQTDPRODUTO(Double.parseDouble(QtdProd));                       
+                        conta = conta + 1;
+                        composicaoDAO.incluir(composicao);
+                    }
+                     lcampos.LimparCampos(jPCadastro);
                 }
             }
         }
@@ -552,18 +600,18 @@ public class InterfaceProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
-        
+
         DefaultTableModel TabComposicao = (DefaultTableModel) jTComposicao.getModel();
-        
+
         composicao.setIDPROD(Integer.parseInt(jTFIdProduto1.getText()));
-               
+
         int totlinha = jTComposicao.getRowCount();
         int alterar = 0;
         int conta = 0;
         int linha = 0;
 
         for (int i = 1; i <= totlinha; i++) {
-            String IdProd = (String) jTComposicao.getValueAt(conta, 4);
+            String IdProd = (String) jTComposicao.getValueAt(conta, 1);
 
             if (jTFIdProduto1.getText().equals(IdProd)) {
                 int opcao_escolhida = JOptionPane.showConfirmDialog(null, "Produto ja"
@@ -586,11 +634,11 @@ public class InterfaceProduto extends javax.swing.JFrame {
             TabComposicao.setValueAt((jTFIdProduto1.getText()), totlinha, 1);
             TabComposicao.setValueAt((jTFProduto.getText()), totlinha, 2);
             TabComposicao.setValueAt((jTFQtdProdComp.getText()), totlinha, 3);
-           
+
             jTFIdProduto1.setText("");
             jTFProduto.setText("");
             jTFQtdProdComp.setText("");
-            
+
         } else if (alterar == 1) {
             //caso for alteração
 
@@ -601,13 +649,13 @@ public class InterfaceProduto extends javax.swing.JFrame {
             jTFIdProduto1.setText("");
             jTFDsProduto.setText("");
             jTFQtdProdComp.setText("");
-            
+
         }
-        
+
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
     private void jBPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarMouseClicked
-        
+
         final ConsultaFamilia retornaFamilia = new ConsultaFamilia();
         retornaFamilia.setVisible(true);
         retornaFamilia.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -620,7 +668,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarMouseClicked
 
     private void jBPesquisar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisar1MouseClicked
-       
+
         final ConsultaProduto retornaProduto = new ConsultaProduto();
         retornaProduto.setVisible(true);
         retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -629,8 +677,67 @@ public class InterfaceProduto extends javax.swing.JFrame {
                 jTFIdProduto1.setText(retornaProduto.retornaId);
                 jTFProduto.setText(retornaProduto.retornaDsProduto);
             }
-        }); 
+        });
     }//GEN-LAST:event_jBPesquisar1MouseClicked
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+
+         int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente cancelar o cadastro?");
+        if (t == 0) {
+            situacao = 2;
+            lcampos.LimparCampos(jPCadastro);
+            estadobotoes(false);
+        }
+    }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jTFIdFamiliaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFIdFamiliaFocusLost
+
+        validaNumero.ValidaNumero(jTFIdFamilia);
+    }//GEN-LAST:event_jTFIdFamiliaFocusLost
+
+    private void jTFIdProduto1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFIdProduto1FocusLost
+
+        validaNumero.ValidaNumero(jTFIdProduto1);
+    }//GEN-LAST:event_jTFIdProduto1FocusLost
+
+    private void jTFQtdProdCompFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFQtdProdCompFocusLost
+
+        validaNumero.ValidaNumero(jTFQtdProdComp);
+    }//GEN-LAST:event_jTFQtdProdCompFocusLost
+
+    private void jRBPrimaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBPrimaMousePressed
+
+        jTFDsProduto.setEnabled(true);
+        jFTFDtCompra.setEnabled(true);
+        jTFIdFamilia.setEnabled(true);
+
+        jTFDsFamilia.setEnabled(false);
+        jTFIdProduto1.setEnabled(false);
+        jTFProduto.setEnabled(false);
+        jTFQtdProdComp.setEnabled(false);
+      
+        jBAdicionar.setEnabled(true);
+        jBPesquisar.setEnabled(false);
+        jBPesquisar1.setEnabled(false);
+        jTComposicao.setEnabled(false);
+    }//GEN-LAST:event_jRBPrimaMousePressed
+
+    private void jRBFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBFinalMouseClicked
+
+        jTFDsProduto.setEnabled(true);
+        jFTFDtCompra.setEnabled(true);
+        jTFIdFamilia.setEnabled(true);
+
+        jTFDsFamilia.setEnabled(false);
+        jTFIdProduto1.setEnabled(true);
+        jTFProduto.setEnabled(false);
+        jTFQtdProdComp.setEnabled(true);
+        
+        jBAdicionar.setEnabled(true);
+        jBPesquisar.setEnabled(true);
+        jBPesquisar1.setEnabled(true);
+        jTComposicao.setEnabled(true);
+    }//GEN-LAST:event_jRBFinalMouseClicked
 
     /**
      * @param args the command line arguments
@@ -711,7 +818,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     private javax.swing.JTable jTbPesquisa;
     // End of variables declaration//GEN-END:variables
 
-     private void estadobotoes(boolean situacao) {
+    private void estadobotoes(boolean situacao) {
         jBIncluir.setEnabled(!situacao);
         jBAlterar.setEnabled(!situacao);
         jBExcluir.setEnabled(!situacao);

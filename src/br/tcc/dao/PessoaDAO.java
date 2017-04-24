@@ -38,7 +38,7 @@ public class PessoaDAO {
       }
 
     public String consultarPEssoa(Integer IdPessoa, String DsPessoa) throws SQLException {
-         String sql = "SELECT DSNOME FROM PESSOA WHERE IDPESSOA = " + IdPessoa;
+         String sql = "SELECT DSPESSOA FROM PESSOA WHERE IDPESSOA = " + IdPessoa;
         conn.executeSQL(sql);
           if(conn.resultset.first()){      
         DsPessoa = conn.resultset.getString("DSNOME");                   

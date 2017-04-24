@@ -103,7 +103,7 @@ public class InterfacePessoas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPBotoes.setBackground(new java.awt.Color(102, 102, 102));
-        jPBotoes.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
+        jPBotoes.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 45, 5));
 
         jBNovo.setText("Incluir");
         jBNovo.setName("Novo"); // NOI18N
@@ -287,7 +287,7 @@ public class InterfacePessoas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pack();
+        setSize(new java.awt.Dimension(661, 453));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -338,7 +338,7 @@ public class InterfacePessoas extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

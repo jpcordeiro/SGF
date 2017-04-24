@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
@@ -26,27 +21,30 @@ public class InterfaceTelefone extends javax.swing.JFrame {
     Funcionario funcionario = new Funcionario();
     LimparCampos lcampos = new LimparCampos();
     PessoaDAO pessoaDAO = new PessoaDAO();
-
+    InterfaceFuncionario intFun = new InterfaceFuncionario();
+   
     /**
      * Creates new form InterfaceTelefone
      */
     public InterfaceTelefone() {
-        initComponents();
-        atualizatabela();
-    }
-    
-    public void CapturaIdPessoa(String IdPessoa) throws SQLException{
-        jTFIdPessoa.setText(IdPessoa);
-        capturaDsPessoa(IdPessoa);
-    }
-    
-    public void capturaDsPessoa(String IdPessoa) throws SQLException{
-         String DsPessoa = null;
-        String pessoa = null;
-        Integer Idpessoas = Integer.parseInt(IdPessoa);
         
-        pessoa = pessoaDAO.consultarPEssoa(Idpessoas, DsPessoa);
-        jTFNome.setText(pessoa);
+        initComponents();
+              
+    }
+    
+    public void CapturaIdPessoa(String IdPessoa) throws SQLException{ 
+     
+        jTFIdPessoa.setText(IdPessoa);
+    }
+    public void capturaFone(String fone) throws SQLException{ 
+     
+        jTFFone.setText(fone); 
+    }
+    
+    public void capturaDsPessoa(String DsPessoa) throws SQLException{
+       
+        jTFNome.setText(DsPessoa);
+         
     }
 
     /**
@@ -72,13 +70,12 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         jCBTipo = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTTelefone = new javax.swing.JTable();
-        jBVoltar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTFNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTFIdPessoa = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Telefone");
 
         jLabel1.setText("Telefone");
@@ -102,10 +99,7 @@ public class InterfaceTelefone extends javax.swing.JFrame {
 
         jTTelefone.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Tipo", "Numero"
@@ -113,16 +107,15 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTTelefone);
 
-        jBVoltar.setText("Voltar");
-        jBVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBVoltarActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Nome");
 
         jLabel4.setText("Código");
+
+        jTFIdPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFIdPessoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPTelefoneLayout = new javax.swing.GroupLayout(jPTelefone);
         jPTelefone.setLayout(jPTelefoneLayout);
@@ -145,9 +138,6 @@ public class InterfaceTelefone extends javax.swing.JFrame {
                                 .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBAdicionar))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPTelefoneLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBVoltar))
                     .addGroup(jPTelefoneLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,9 +170,7 @@ public class InterfaceTelefone extends javax.swing.JFrame {
                         .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBVoltar)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -197,7 +185,7 @@ public class InterfaceTelefone extends javax.swing.JFrame {
             .addComponent(jPTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setBounds(0, 0, 506, 398);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
@@ -205,12 +193,8 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         Integer idTpFone = null;
         telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
         telefone.setTPFONE(jCBTipo.getSelectedIndex());
-        if (jTFFone.getText().length() < 8){
-            JOptionPane.showMessageDialog(null, "Informe o numeno do telefone valido!");
-             jTFFone.grabFocus();
-        }else{
-            telefone.setNRFONE(jTFFone.getText());
-        }
+        telefone.setNRFONE(jTFFone.getText());
+        
         if(jTFFone.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Informe o numeno do telefone");
             jTFFone.grabFocus();
@@ -220,23 +204,21 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Telefone Cadastrado com Sucesso!");
         lcampos.LimparCampos(jPTelefone);
         atualizatabela();
+      
         
         
        
     }//GEN-LAST:event_jBAdicionarActionPerformed
-
-    private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
-        InterfaceFuncionario Infun = new InterfaceFuncionario();
-       
-        Infun.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jBVoltarActionPerformed
 
     private void jTFFoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFFoneMouseClicked
 
         ValidaNumero validaNumero = new ValidaNumero();
         validaNumero.ValidaNumero(jTFFone);
     }//GEN-LAST:event_jTFFoneMouseClicked
+
+    private void jTFIdPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFIdPessoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFIdPessoaActionPerformed
 
        private void atualizatabela() {
            PreencherJtableGenerico preencher = new PreencherJtableGenerico();
@@ -257,7 +239,7 @@ public class InterfaceTelefone extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -283,7 +265,6 @@ public class InterfaceTelefone extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAdicionar;
-    private javax.swing.JButton jBVoltar;
     private javax.swing.JComboBox jCBTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

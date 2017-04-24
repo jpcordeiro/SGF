@@ -76,6 +76,9 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
         });
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 6, 8);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel4.setLayout(flowLayout1);
 
         jBtIncluir1.setText("Incluir");
         jBtIncluir1.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +86,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
                 jBtIncluir1ActionPerformed(evt);
             }
         });
+        jPanel4.add(jBtIncluir1);
 
         jBtAlterar.setText("Alterar");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +94,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
                 jBtAlterarActionPerformed(evt);
             }
         });
+        jPanel4.add(jBtAlterar);
 
         jBtExcluir.setText("Excluir");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +102,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
                 jBtExcluirActionPerformed(evt);
             }
         });
+        jPanel4.add(jBtExcluir);
 
         jBtCancelar.setText("Cancelar");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +110,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
                 jBtCancelarActionPerformed(evt);
             }
         });
+        jPanel4.add(jBtCancelar);
 
         jBtGravar.setText("Gravar");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,36 +118,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
                 jBtGravarActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtIncluir1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluir)
-                .addGap(2, 2, 2)
-                .addComponent(jBtGravar)
-                .addGap(12, 12, 12)
-                .addComponent(jBtCancelar)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtIncluir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        jPanel4.add(jBtGravar);
 
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
@@ -204,7 +182,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
             .addComponent(jTPPrecoVenda)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(416, 239));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -251,7 +229,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

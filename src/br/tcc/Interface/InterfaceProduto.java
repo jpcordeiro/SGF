@@ -482,7 +482,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
             .addComponent(jTPProduto)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(608, 518));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -751,7 +751,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

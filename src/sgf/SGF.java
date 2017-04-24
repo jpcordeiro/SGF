@@ -5,6 +5,8 @@
  */
 package sgf;
 
+import br.tcc.Interface.InterfaceLogin;
+
 /**
  *
  * @author JOÃO PAULO
@@ -16,6 +18,7 @@ public class SGF {
      */
     public static void main(String[] args) {
         
+        new InterfaceLogin().show();
     }
     
 }

@@ -235,7 +235,7 @@ public class InterfaceNivel extends javax.swing.JFrame {
             .addComponent(jTPNivel)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(424, 268));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -351,7 +351,7 @@ public class InterfaceNivel extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

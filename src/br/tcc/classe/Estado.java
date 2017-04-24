@@ -12,7 +12,6 @@ public class Estado {
     private Integer IDUF;
     private String DSUF;
     private String DSSIGLA;
-    private double NRICMS;
     private ResultSet retorno;
     private static int[] vet = new int[100];
 
@@ -37,14 +36,6 @@ public class Estado {
 
     public void setDSSIGLA(String DSSIGLA) {
         this.DSSIGLA = DSSIGLA;
-    }
-
-    public double getNRICMS() {
-        return NRICMS;
-    }
-
-    public void setNRICMS(double NRICMS) {
-        this.NRICMS = NRICMS;
     }
 
     public ResultSet getRetorno() {
@@ -79,7 +70,7 @@ public class Estado {
 
     @Override
     public String toString() {
-        return "Estado{" + "DSUF=" + DSUF + ", DSSIGLA=" + DSSIGLA + ", NRICMS=" + NRICMS + '}';
+        return "Estado{" + "DSUF=" + DSUF + ", DSSIGLA=" + DSSIGLA + ", NRICMS="  + '}';
     }
 
     public static int[] getVet() {

@@ -1,5 +1,7 @@
 package br.tcc.Interface;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Joao Paulo
@@ -14,13 +16,16 @@ public class InterfaceMenu extends javax.swing.JFrame {
     public InterfaceMenu() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+      
         
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLLogo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMcadastro = new javax.swing.JMenu();
         jMIEstado = new javax.swing.JMenuItem();
@@ -41,6 +46,11 @@ public class InterfaceMenu extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/tcc/fotos/logo.png"))); // NOI18N
+        jLLogo.setText("jLabel1");
+
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jMcadastro.setText("Cadastro");
 
@@ -197,11 +207,15 @@ public class InterfaceMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 303, Short.MAX_VALUE)
+                .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(221, Short.MAX_VALUE)
+                .addComponent(jLLogo))
         );
 
         setSize(new java.awt.Dimension(416, 339));
@@ -287,6 +301,7 @@ new InterfaceCustoMedio().setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButtonMenuItem Fornecedor;
+    private javax.swing.JLabel jLLogo;
     private javax.swing.JMenuItem jMIEstado;
     private javax.swing.JMenuItem jMIatendimento;
     private javax.swing.JMenuItem jMIcidade;

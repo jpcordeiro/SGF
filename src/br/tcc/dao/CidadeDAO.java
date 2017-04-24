@@ -24,8 +24,7 @@ public class CidadeDAO {
         String sql = " INSERT INTO CIDADE VALUES("
                 + cidade.getIDCIDADE() + ","
                 + cidade.getIdUf() + ",'"
-                + cidade.getDscidade() + "',"
-                + cidade.getNRISSQN() + ")";
+                + cidade.getDscidade() + "')";
          conn.incluirSQL(sql);
     }
      
@@ -33,8 +32,7 @@ public class CidadeDAO {
         String sql = "UPDATE CIDADE SET" 
                 + " IDCIDADE = " + cidade.getIDCIDADE() + ","
                 + " IDUF = " + cidade.getIdUf()+ ","
-                + " DSCIDADE = '" + cidade.getDscidade() + "',"
-                + " NRISSQN = " + cidade.getNRISSQN()
+                + " DSCIDADE = '" + cidade.getDscidade() + "'"
                 + " WHERE IDCIDADE = " + cidade.getIDCIDADE();
         conn.incluirSQL(sql);
     }
@@ -44,14 +42,14 @@ public class CidadeDAO {
         conn.executeSQL(sql);
       }
      public void consulta(Cidade cidade) {
-        String sql = "SELECT * FROM CIDADE ORDER BY IDCIDADE";
+        String sql = "SELECT C.IDCIDADE, U.DSUF, C.DSCIDADE FROM CIDADE C JOIN UF U ON C.IDUF = U.IDUF ORDER BY C.IDCIDADE";
         conn.executeSQL(sql);
         cidade.setRetorno(conn.resultset);
     }
      
      public void consultadescricao(Cidade cidade){
-        String sql = "SELECT * FROM CIDADE WHERE DSCIDADE LIKE '%"
-                + cidade.getDscidade() +"%' ORDER BY DSCIDADE";
+        String sql = "SELECT C.IDCIDADE, U.DSUF, C.DSCIDADE FROM CIDADE C JOIN UF U ON C.IDUF = U.IDUF WHERE C.DSCIDADE LIKE '%"
+                + cidade.getDscidade() +"%' ORDER BY C.DSCIDADE";
         conn.executeSQL(sql);
         cidade.setRetorno(conn.resultset);
     }
@@ -69,7 +67,6 @@ public class CidadeDAO {
             cidade.setIDCIDADE(conn.resultset.getInt("IDCIDADE"));
             
             cidade.setDscidade(conn.resultset.getString("DSCIDADE"));
-            cidade.setNRISSQN(conn.resultset.getDouble("NRISSQN"));
             } catch (SQLException ex) {
 
         }

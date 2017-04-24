@@ -205,6 +205,7 @@ public class InterfaceVenda extends javax.swing.JFrame {
         jLabel15.setText("Valor total");
 
         jPanelbotoes2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanelbotoes2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jBincluir2.setText("Incluir");
         jBincluir2.addActionListener(new java.awt.event.ActionListener() {
@@ -212,10 +213,14 @@ public class InterfaceVenda extends javax.swing.JFrame {
                 jBincluir2ActionPerformed(evt);
             }
         });
+        jPanelbotoes2.add(jBincluir2, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 20, 70, 30));
 
         jBAlterar2.setText("Alterar");
+        jBAlterar2.setMaximumSize(new java.awt.Dimension(65, 30));
+        jPanelbotoes2.add(jBAlterar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 70, 30));
 
         jBexcluir2.setText("Excluir");
+        jPanelbotoes2.add(jBexcluir2, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 20, 70, 30));
 
         jBConcluir.setText("Concluir");
         jBConcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -223,38 +228,10 @@ public class InterfaceVenda extends javax.swing.JFrame {
                 jBConcluirActionPerformed(evt);
             }
         });
+        jPanelbotoes2.add(jBConcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 20, 80, 30));
 
         jBcancelar2.setText("Cancelar");
-
-        javax.swing.GroupLayout jPanelbotoes2Layout = new javax.swing.GroupLayout(jPanelbotoes2);
-        jPanelbotoes2.setLayout(jPanelbotoes2Layout);
-        jPanelbotoes2Layout.setHorizontalGroup(
-            jPanelbotoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelbotoes2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBincluir2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jBAlterar2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jBexcluir2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jBConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jBcancelar2)
-                .addGap(82, 82, 82))
-        );
-        jPanelbotoes2Layout.setVerticalGroup(
-            jPanelbotoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelbotoes2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanelbotoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBincluir2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(jBAlterar2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBexcluir2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBcancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
-        );
+        jPanelbotoes2.add(jBcancelar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 20, -1, 30));
 
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
@@ -399,8 +376,8 @@ public class InterfaceVenda extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(jTFVlTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelbotoes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelbotoes2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jTPVeanda.addTab("Cadastro", jPCadastro);
@@ -433,7 +410,7 @@ public class InterfaceVenda extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(744, 586));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -464,7 +441,7 @@ public class InterfaceVenda extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

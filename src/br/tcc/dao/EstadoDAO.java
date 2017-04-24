@@ -29,8 +29,7 @@ public class EstadoDAO {
         String sql = " INSERT INTO UF VALUES("
                 + estado.getIDUF() + ",'"
                 + estado.getDSUF() + "','"
-                + estado.getDSSIGLA() + "',"
-                + estado.getNRICMS() + ")";
+                + estado.getDSSIGLA() + "')";
         conn.incluirSQL(sql);
     }
 
@@ -38,8 +37,7 @@ public class EstadoDAO {
         String sql = "UPDATE UF SET"
                 + " IDUF = " + estado.getIDUF() + ","
                 + " DSUF = '" + estado.getDSUF() + "',"
-                + " DSSIGLA = '" + estado.getDSSIGLA() + "',"
-                + " NRICMS = " + estado.getNRICMS()
+                + " DSSIGLA = '" + estado.getDSSIGLA() + "'"
                 + " WHERE IDUF = " + estado.getIDUF();
         conn.incluirSQL(sql);
     }
@@ -79,7 +77,6 @@ public class EstadoDAO {
             estado.setIDUF(conn.resultset.getInt("IDUF"));
             estado.setDSUF(conn.resultset.getString("DSUF"));
             estado.setDSSIGLA(conn.resultset.getString("DSSIGLA"));
-            estado.setNRICMS(conn.resultset.getDouble("NRICMS"));
         } catch (SQLException ex) {
 
         }
@@ -114,4 +111,17 @@ public class EstadoDAO {
         }
          return (idUf);
      }
+
+    public void retornadados(Integer idestado, Estado estado) {
+        
+        String sql = "SELECT * FROM UF WHERE IDUF = " + idestado;
+        conn.executeSQL(sql);
+
+        try {
+
+            conn.resultset.first();
+            estado.setDSUF(conn.resultset.getString("DSUF"));
+            } catch (SQLException ex) {
+        }
+         }
 }

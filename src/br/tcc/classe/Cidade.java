@@ -13,7 +13,6 @@ public class Cidade {
     private Estado estado;
     private Integer idUf;
     private String dscidade;
-    private Double NRISSQN;
     private ResultSet retorno;
     private static int[] vet = new int[100];
 
@@ -49,13 +48,7 @@ public class Cidade {
         this.dscidade = dscidade;
     }
 
-    public Double getNRISSQN() {
-        return NRISSQN;
-    }
-
-    public void setNRISSQN(Double NRISSQN) {
-        this.NRISSQN = NRISSQN;
-    }
+  
 
     public ResultSet getRetorno() {
         return retorno;

@@ -9,6 +9,7 @@ import br.tcc.dao.PessoaDAO;
 import br.tcc.dao.TelefoneDAO;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,12 +30,16 @@ public class InterfaceTelefone extends javax.swing.JFrame {
     public InterfaceTelefone() {
         
         initComponents();
+        jTFIdPessoa.setEnabled(false);
+        jTFNome.setEnabled(false);
+             
+        
               
     }
-    
     public void CapturaIdPessoa(String IdPessoa) throws SQLException{ 
      
         jTFIdPessoa.setText(IdPessoa);
+      
     }
     public void capturaFone(String fone) throws SQLException{ 
      
@@ -44,7 +49,7 @@ public class InterfaceTelefone extends javax.swing.JFrame {
     public void capturaDsPessoa(String DsPessoa) throws SQLException{
        
         jTFNome.setText(DsPessoa);
-         
+         atualizatabela(WIDTH);   
     }
 
     /**
@@ -189,10 +194,9 @@ public class InterfaceTelefone extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
-      
         Integer idTpFone = null;
         telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
-        telefone.setTPFONE(jCBTipo.getSelectedIndex());
+        telefone.setTPFONE((String) jCBTipo.getSelectedItem());
         telefone.setNRFONE(jTFFone.getText());
         
         if(jTFFone.getText().equals("")){
@@ -202,12 +206,8 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         }
         telefoneDAO.incluir(telefone);
         JOptionPane.showMessageDialog(null, "Telefone Cadastrado com Sucesso!");
-        lcampos.LimparCampos(jPTelefone);
-        atualizatabela();
-      
+        atualizatabela(WIDTH);
         
-        
-       
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
     private void jTFFoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFFoneMouseClicked
@@ -220,11 +220,14 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFIdPessoaActionPerformed
 
-       private void atualizatabela() {
+       private void atualizatabela(int idPes){
            PreencherJtableGenerico preencher = new PreencherJtableGenerico();
-           telefoneDAO.consulta(telefone);
+           idPes = Integer.parseInt(jTFIdPessoa.getText());
+           telefoneDAO.consulta(idPes, telefone);
            preencher.PreencherJComboBox(jTTelefone, telefone.getRetorno());
+           
            return;
+            
     }
     
     
@@ -277,6 +280,45 @@ public class InterfaceTelefone extends javax.swing.JFrame {
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTable jTTelefone;
     // End of variables declaration//GEN-END:variables
+
+//    private void validarTabela() {
+//        DefaultTableModel modelo = (DefaultTableModel) jTTelefone.getModel();
+//        modelo.setNumRows(0);
+//        int verifica = 0;
+//        
+//            for(int linha = 0; linha < jTTelefone.getRowCount(); linha++){
+//                verifica = 1;
+//                String tipo =(String)jTTelefone.getModel().getValueAt(linha,0); //0=coluna;
+//                switch(tipo){
+//                    case "0":
+//                        tipo = "PRINCIPAL";
+//                        break;
+//                    case "1":
+//                        tipo = "CASA";
+//                        break;
+//                    case "2":
+//                        tipo = "CELULAR 1";
+//                        break;
+//                    case "3":
+//                        tipo = "CELULAR 2";
+//                        break;
+//                    case "4":
+//                        tipo = "TRABALHO";
+//                        break;
+//                    case "5":
+//                        tipo = "RECADO";
+//                        break;
+//                        
+//                }
+//                System.out.println(tipo);
+//                Object t = tipo;
+//                modelo.addColumn(linha, (Object[]) t);    
+//            }
+//            if (verifica == 0){
+//                atualizatabela(WIDTH);
+//            }
+       
+//      }
 
  
 }

@@ -780,7 +780,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             telefone.setNRFONE(jTFFone1.getText());
           
         }
-        telefone.setTPFONE(0);
+        telefone.setTPFONE("");
 
         if (bGtipo_pessoa.isSelected(null)) {
             JOptionPane.showMessageDialog(null, "Favor selecionar o TIPO DE PESSOA!");

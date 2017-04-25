@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 public class Telefone {
     
     private Integer IDPESSOA;
-    private Integer TPFONE;
+    private String TPFONE;
     private String NRFONE;
     private ResultSet retorno;
 
@@ -21,11 +21,11 @@ public class Telefone {
         this.IDPESSOA = IDPESSOA;
     }
 
-    public Integer getTPFONE() {
+    public String getTPFONE() {
         return TPFONE;
     }
 
-    public void setTPFONE(Integer TPFONE) {
+    public void setTPFONE(String TPFONE) {
         this.TPFONE = TPFONE;
     }
 

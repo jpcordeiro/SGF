@@ -5,6 +5,7 @@
  */
 package br.tcc.dao;
 
+import br.tcc.Interface.InterfaceTelefone;
 import br.tcc.classe.Telefone;
 import br.tcc.conexao.ConexaoOracle;
 
@@ -15,6 +16,8 @@ import br.tcc.conexao.ConexaoOracle;
 public class TelefoneDAO {
     
     ConexaoOracle conn;
+    InterfaceTelefone intfone;
+    
     
     public TelefoneDAO(){
         conn = new ConexaoOracle();
@@ -22,8 +25,8 @@ public class TelefoneDAO {
     
     public void incluir(Telefone fone) {
         String sql = " INSERT INTO TELEFONE VALUES("
-                + fone.getIDPESSOA() + ","
-                + fone.getTPFONE() + ",'"
+                + fone.getIDPESSOA() + ",'"
+                + fone.getTPFONE() + "','"
                 + fone.getNRFONE() + "')";
          conn.incluirSQL(sql);
     }
@@ -31,7 +34,7 @@ public class TelefoneDAO {
       public void alterar(Telefone fone) {
         String sql = "UPDATE TELEFONE SET" 
                 + " IDPESSOA = " + fone.getIDPESSOA() + ","
-                + " TPFONE = " + fone.getTPFONE() + ","
+                + " TPFONE = '" + fone.getTPFONE() + "',"
                 + " NRFONE = '" + fone.getNRFONE() + "'";
         conn.incluirSQL(sql);
     }
@@ -40,8 +43,8 @@ public class TelefoneDAO {
         String sql = "DELETE FROM TELEFONE WHERE IDPESSOA = " + fone.getIDPESSOA()+ "AND TPFONE = " + fone.getTPFONE();
         conn.executeSQL(sql);
       }
-     public void consulta(Telefone fone) {
-        String sql = "SELECT TPFONE, NRFONE FROM TELEFONE WHERE IDPESSOA = " + fone.getIDPESSOA();
+     public void consulta(int idPes, Telefone fone) {
+        String sql = "SELECT TPFONE, NRFONE FROM TELEFONE WHERE IDPESSOA = " + idPes;
         conn.executeSQL(sql);
         fone.setRetorno(conn.resultset);
     }

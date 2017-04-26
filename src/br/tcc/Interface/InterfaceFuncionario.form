@@ -230,7 +230,7 @@
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPbotoes" min="-2" pref="61" max="-2" attributes="0"/>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -473,7 +473,7 @@
                               <Component id="jTFNrCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jCBSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -497,6 +497,7 @@
                 <Component class="javax.swing.JTextField" name="jTFNrCpf">
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFNrCpfMouseClicked"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFNrCpfFocusLost"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="Sexo">
@@ -507,10 +508,9 @@
                 <Component class="javax.swing.JComboBox" name="jCBSexo">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
+                      <StringArray count="2">
                         <StringItem index="0" value="FEMININO"/>
                         <StringItem index="1" value="MASCULINO"/>
-                        <StringItem index="2" value=" "/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -734,8 +734,8 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
                     <StringItem index="0" value="ATIVO"/>
-                    <StringItem index="1" value="LICENSA"/>
-                    <StringItem index="2" value="FERIAS"/>
+                    <StringItem index="1" value="LICEN&#xc7;A"/>
+                    <StringItem index="2" value="F&#xc9;RIAS"/>
                     <StringItem index="3" value="INATIVO"/>
                   </StringArray>
                 </Property>

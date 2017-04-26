@@ -18,6 +18,7 @@ import br.tcc.dao.PessoaFisicaDAO;
 import br.tcc.dao.PessoaJuridicaDAO;
 import br.tcc.dao.TelefoneDAO;
 import br.tcc.dao.UsuarioDAO;
+import java.awt.List;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,15 +44,17 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     RetornaDataAtual retornadata = new RetornaDataAtual();
     Usuario usuario = new Usuario();
     UsuarioDAO usuarioDAO = new UsuarioDAO();
-    
+    Integer dig1, dig2, dig3, dig4, dig5, dig6, dig7, dig8, dig9, dig10, dig11;
+    Integer dig21, dig22, dig23, dig24, dig25, dig26, dig27, dig28, dig29, dig210, dig211;
     public String fone1;
+
     /**
      * Creates new form InterfacePessoa
      */
     public InterfaceFuncionario() {
-        
+
         initComponents();
-        
+
         // setExtendedState(MAXIMIZED_BOTH);
     }
 
@@ -276,10 +279,15 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 jTFNrCpfMouseClicked(evt);
             }
         });
+        jTFNrCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFNrCpfFocusLost(evt);
+            }
+        });
 
         Sexo.setText("Sexo");
 
-        jCBSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FEMININO", "MASCULINO", " " }));
+        jCBSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FEMININO", "MASCULINO" }));
 
         javax.swing.GroupLayout jPpfisicaLayout = new javax.swing.GroupLayout(jPpfisica);
         jPpfisica.setLayout(jPpfisicaLayout);
@@ -312,7 +320,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                     .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFNrCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPpjuridica.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa Juridica"));
@@ -447,7 +455,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         jLabel17.setText("Situação");
 
-        jCBTpSituação.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "LICENSA", "FERIAS", "INATIVO" }));
+        jCBTpSituação.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "LICENÇA", "FÉRIAS", "INATIVO" }));
 
         jTFVlSalario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -618,7 +626,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jTPFuncionario.addTab("Cadastro", jPcadastro);
@@ -702,7 +710,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+            .addComponent(jTPFuncionario)
         );
 
         setSize(new java.awt.Dimension(858, 623));
@@ -733,13 +741,11 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             funcionario.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
         }
 
-        
-        
         funcionario.setDTCADASTRO(jTFDtCadastro.getText());
 
-          if (jTFDtDemissão.getText().equals("")) {
-               
-             }  
+        if (jTFDtDemissão.getText().equals("")) {
+
+        }
         funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
 
         if (jTFVlSalario.getText().equals("")) {
@@ -771,14 +777,14 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         usuario.setIDNIVEL(Integer.parseInt(nivel1));
 
         telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
-        
+
         if (jTFFone1.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o número do Telefone");
             jTFFone1.grabFocus();
             return;
         } else {
             telefone.setNRFONE(jTFFone1.getText());
-          
+
         }
         telefone.setTPFONE("");
 
@@ -860,11 +866,11 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
         if (jTFcomplemento.getText().equals("")) {
             endereco.setDSCOMPLEMENTO(".");
-        }else{
+        } else {
             endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
         }
         String cep = jTFNrCep.toString();
-       
+
         if (jTFNrCep.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o CEP");
             jTFNrCep.grabFocus();
@@ -873,12 +879,11 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 //            JOptionPane.showMessageDialog(null, "Informe um CEP valido");
 //            jTFNrCep.grabFocus();
 //            return;
-        }else {
+        } else {
             endereco.setNRCEP(jTFNrCep.getText());
         }
         endereco.setTPENDERECO("RESIDENCIA");
         endereco.setIDSEQUENCIAL(0);
-                
 
         PessoaFisicaDAO pfDao = new PessoaFisicaDAO();
         PessoaJuridicaDAO pjDao = new PessoaJuridicaDAO();
@@ -904,9 +909,9 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jBgravarActionPerformed
 
     private void jBfone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBfone1ActionPerformed
-       
+
         InterfaceTelefone InFone = new InterfaceTelefone();
-        
+
         if (jTFIdPessoa.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Para adicionar um número de telefone é necessario ter adicionado o código do funcionario!");
         } else {
@@ -916,7 +921,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (!jTFnome.getText().equals("")) {
             try {
                 InFone.capturaDsPessoa(jTFnome.getText());
@@ -924,7 +929,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (!jTFFone1.getText().equals("")) {
             try {
                 InFone.capturaFone(jTFFone1.getText());
@@ -1054,6 +1059,76 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         ValidaNumero validaNumero = new ValidaNumero();
         validaNumero.ValidaNumero(jTFNrCep);
     }//GEN-LAST:event_jTFNrCepMouseClicked
+
+    private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
+      char[] cpf = jTFNrCpf.getText().toCharArray();
+
+        int conta = cpf.length;
+        for (int i = 0; i < conta; i++) {
+            char digCpf;
+            digCpf = cpf[i];
+            String charCPF;
+            if (i == 0) {
+                charCPF = String.valueOf(digCpf);
+                dig1 = (10 *Integer.parseInt(charCPF));
+                dig21 = (11 *Integer.parseInt(charCPF));
+            } else if (i == 1) {
+                charCPF = String.valueOf(digCpf);
+                dig2 = (9 * Integer.parseInt(charCPF));
+                dig22 = (10 * Integer.parseInt(charCPF));
+            } else if (i == 2) {
+                charCPF = String.valueOf(digCpf);
+                dig3 = (8 * Integer.parseInt(charCPF));
+                dig23 = (9 * Integer.parseInt(charCPF));
+            } else if (i == 3) {
+               charCPF = String.valueOf(digCpf);
+                dig4 = (7 * Integer.parseInt(charCPF));
+                dig24 = (8 * Integer.parseInt(charCPF));
+            } else if (i == 4) {
+                charCPF = String.valueOf(digCpf);
+                dig5 = (6 * Integer.parseInt(charCPF));
+                dig25 = (7 * Integer.parseInt(charCPF));
+            } else if (i == 5) {
+                charCPF = String.valueOf(digCpf);
+                dig6 = (5 * Integer.parseInt(charCPF));
+                dig26 = (6 * Integer.parseInt(charCPF));
+            } else if (i == 6) {
+               charCPF = String.valueOf(digCpf);
+                dig7 = (4 * Integer.parseInt(charCPF));
+                dig27 = (5 * Integer.parseInt(charCPF));
+            } else if (i == 7) {
+                charCPF = String.valueOf(digCpf);
+                dig8 = (3 * Integer.parseInt(charCPF));
+                dig28 = (4 * Integer.parseInt(charCPF));
+            } else if (i == 8) {
+                charCPF = String.valueOf(digCpf);
+                dig9 = (2 * Integer.parseInt(charCPF));
+                dig29 = (3 * Integer.parseInt(charCPF));
+            } else if (i == 9) {
+                charCPF = String.valueOf(digCpf);
+                dig10 = Integer.parseInt(charCPF);
+                dig210 = (2 * Integer.parseInt(charCPF));
+            } else if (i == 10) {
+                charCPF = String.valueOf(digCpf);
+                dig11 =  Integer.parseInt(charCPF);
+                dig211 = Integer.parseInt(charCPF);
+            }
+        }
+        Integer somaDig10 = (dig1 + dig2 + dig3 + dig4 + dig5 + dig6 + dig7 + dig8 + dig9);
+        Integer restoDivDig10=( somaDig10 % 11);
+        Integer digVerif1 = (11 - restoDivDig10);
+        Integer digVerif2 = 0;
+        if (dig10 == digVerif1){
+            Integer somaDig11 = (dig21 + dig22 + dig23 + dig24 + dig25 + dig26 + dig27 + dig28 + dig29 + dig210);
+            Integer restoDivDig11=( somaDig11 % 11);
+            digVerif2 = (11 - restoDivDig11);
+            if(dig11 !=digVerif2){
+                jTFNrCpf.setText("");
+                jTFNrCpf.grabFocus();
+                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+            }
+        }
+    }//GEN-LAST:event_jTFNrCpfFocusLost
 
     /**
      * @param args the command line arguments
@@ -1226,9 +1301,9 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void CnpjValido() {
 
     }
-    
-    public void buscarFone(String fone){
+
+    public void buscarFone(String fone) {
         fone1 = jTFFone1.getText();
-        
+
     }
 }

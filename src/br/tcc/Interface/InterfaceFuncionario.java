@@ -98,7 +98,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTFrazaosocial = new javax.swing.JTextField();
         jTFInscEstadual = new javax.swing.JTextField();
-        jTFNrCnpj = new javax.swing.JFormattedTextField();
+        jTFNrCnpj = new javax.swing.JTextField();
         jPbotoes = new javax.swing.JPanel();
         jBincluir = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
@@ -337,14 +337,9 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             }
         });
 
-        try {
-            jTFNrCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jTFNrCnpj.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFNrCnpjMouseClicked(evt);
+        jTFNrCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFNrCnpjFocusLost(evt);
             }
         });
 
@@ -356,8 +351,8 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
-                    .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jTFInscEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1042,12 +1037,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         validaNumero.ValidaNumero(jTFrg);
     }//GEN-LAST:event_jTFrgMouseClicked
 
-    private void jTFNrCnpjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCnpjMouseClicked
-
-        ValidaNumero validaNumero = new ValidaNumero();
-        validaNumero.ValidaNumero(jTFNrCnpj);
-    }//GEN-LAST:event_jTFNrCnpjMouseClicked
-
     private void jTFInscEstadualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFInscEstadualMouseClicked
 
         ValidaNumero validaNumero = new ValidaNumero();
@@ -1127,8 +1116,73 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 jTFNrCpf.grabFocus();
                 JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
             }
+        }else{
+            jTFNrCpf.setText("");
+                jTFNrCpf.grabFocus();
+                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
         }
     }//GEN-LAST:event_jTFNrCpfFocusLost
+
+    private void jTFNrCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCnpjFocusLost
+       
+        char[] cnpj = jTFNrCnpj.getText().toCharArray();
+        int qtdCnpj = cnpj.length;
+        
+        if (jTFNrCnpj.equals("00000000000000") || jTFNrCnpj.equals("11111111111111") ||
+        jTFNrCnpj.equals("22222222222222") || jTFNrCnpj.equals("33333333333333") ||
+        jTFNrCnpj.equals("44444444444444") || jTFNrCnpj.equals("55555555555555") ||
+        jTFNrCnpj.equals("66666666666666") || jTFNrCnpj.equals("77777777777777") ||
+        jTFNrCnpj.equals("88888888888888") || jTFNrCnpj.equals("99999999999999") ||
+        (qtdCnpj != 14)){
+            jTFNrCnpj.setText("");
+            jTFNrCnpj.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
+        }else{
+            
+    char dig13, dig14;
+    int sm, result, dig, peso;
+
+      sm = 0;
+      peso = 2;
+      for (int i=11; i>=0; i--) {
+          
+        dig = (int)(jTFNrCnpj.getText().charAt(i) - 48);
+        sm = sm + (dig * peso);
+        peso = peso + 1;
+        if (peso == 10)
+           peso = 2;
+      }
+
+      result = sm % 11;
+      if ((result == 0) || (result == 1))
+         dig13 = '0';
+      else dig13 = (char)((11-result) + 48);
+    
+        // Calculo do 2o. Digito Verificador
+      sm = 0;
+      peso = 2;
+      for (int i=12; i>=0; i--) {
+        dig = (int)(jTFNrCnpj.getText().charAt(i)- 48);
+        sm = sm + (dig * peso);
+        peso = peso + 1;
+        if (peso == 10)
+           peso = 2;
+      }
+
+      result = sm % 11;
+      if ((result == 0) || (result == 1))
+         dig14 = '0';
+      else dig14 = (char)((11-result) + 48);
+
+// Verifica se os dígitos calculados conferem com os dígitos informados.
+      if ((dig13 != jTFNrCnpj.getText().charAt(12)) || (dig14 != jTFNrCnpj.getText().charAt(13))){
+         jTFNrCnpj.setText("");
+            jTFNrCnpj.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
+      }
+    }
+        
+    }//GEN-LAST:event_jTFNrCnpjFocusLost
 
     /**
      * @param args the command line arguments
@@ -1222,7 +1276,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField jTFInscEstadual;
     private javax.swing.JTextField jTFLogin;
     private javax.swing.JTextField jTFNrCep;
-    private javax.swing.JFormattedTextField jTFNrCnpj;
+    private javax.swing.JTextField jTFNrCnpj;
     private javax.swing.JTextField jTFNrCpf;
     private javax.swing.JTextField jTFNumero;
     private javax.swing.JTextField jTFPesquisa;

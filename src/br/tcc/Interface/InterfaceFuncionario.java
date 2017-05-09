@@ -94,10 +94,8 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         jCBSexo = new javax.swing.JComboBox();
         jPpjuridica = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jTFrazaosocial = new javax.swing.JTextField();
-        jTFInscEstadual = new javax.swing.JTextField();
         jTFNrCnpj = new javax.swing.JTextField();
         jPbotoes = new javax.swing.JPanel();
         jBincluir = new javax.swing.JButton();
@@ -327,15 +325,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         jLabel14.setText("CNPJ");
 
-        jLabel15.setText("Insc. Estadual");
-
         jLabel16.setText("Razão Social");
-
-        jTFInscEstadual.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFInscEstadualMouseClicked(evt);
-            }
-        });
 
         jTFNrCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -350,16 +340,14 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             .addGroup(jPpjuridicaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jTFInscEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addComponent(jTFrazaosocial, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPpjuridicaLayout.createSequentialGroup()
+                        .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTFrazaosocial, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPpjuridicaLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(120, 120, 120)
+                        .addComponent(jLabel16)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPpjuridicaLayout.setVerticalGroup(
@@ -368,12 +356,10 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFrazaosocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFInscEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -820,7 +806,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     jTFNrCnpj.grabFocus();
                 }
             }
-            pjuridica.setINSCESTADUAL(jTFInscEstadual.getText());
             if (jTFrazaosocial.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe a Razão Social!");
                 jTFrazaosocial.grabFocus();
@@ -968,7 +953,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         jCBSexo.setEnabled(true);
 
         jTFNrCnpj.setEnabled(false);
-        jTFInscEstadual.setEnabled(false);
         jTFrazaosocial.setEnabled(false);
     }//GEN-LAST:event_jRBJuridicoMousePressed
 
@@ -987,7 +971,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         jCBSexo.setEnabled(false);
 
         jTFNrCnpj.setEnabled(true);
-        jTFInscEstadual.setEnabled(true);
         jTFrazaosocial.setEnabled(true);
     }//GEN-LAST:event_jRBJuridicaMouseClicked
 
@@ -1036,12 +1019,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         ValidaNumero validaNumero = new ValidaNumero();
         validaNumero.ValidaNumero(jTFrg);
     }//GEN-LAST:event_jTFrgMouseClicked
-
-    private void jTFInscEstadualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFInscEstadualMouseClicked
-
-        ValidaNumero validaNumero = new ValidaNumero();
-        validaNumero.ValidaNumero(jTFInscEstadual);
-    }//GEN-LAST:event_jTFInscEstadualMouseClicked
 
     private void jTFNrCepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCepMouseClicked
 
@@ -1242,7 +1219,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1273,7 +1249,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField jTFDtNasc;
     private javax.swing.JTextField jTFFone1;
     private javax.swing.JTextField jTFIdPessoa;
-    private javax.swing.JTextField jTFInscEstadual;
     private javax.swing.JTextField jTFLogin;
     private javax.swing.JTextField jTFNrCep;
     private javax.swing.JTextField jTFNrCnpj;

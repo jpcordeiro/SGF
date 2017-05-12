@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Joao Paulo -- acsantana
+ * @author Joao Paulo 
  */
 public class InterfaceCidade extends javax.swing.JFrame {
 

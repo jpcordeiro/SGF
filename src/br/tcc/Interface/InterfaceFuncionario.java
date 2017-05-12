@@ -780,9 +780,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             } else {
                 pfisica.setNRCPF(jTFNrCpf.getText());
             }
-//            if (jTFNrCpf.getText().equals("")) {
-//                pfisica.setNRRG("0");
-//            }
+
             String sexo = jCBSexo.getSelectedItem().toString();
             if (sexo.equals("MASCULINO")) {
                 pfisica.setTPSEXO("M");
@@ -798,13 +796,8 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 return;
             } else {
                 String cnpj = jTFNrCnpj.getText();
-                boolean iscnpj = CnpjValido(cnpj);
-                if (iscnpj = true) {
-                    pjuridica.setNRCNPJ(jTFNrCnpj.getText());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
-                    jTFNrCnpj.grabFocus();
-                }
+            pjuridica.setNRCNPJ(jTFNrCnpj.getText());
+                
             }
             if (jTFrazaosocial.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe a Razão Social!");
@@ -1028,9 +1021,20 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
       char[] cpf = jTFNrCpf.getText().toCharArray();
+      int qtdCpf = cpf.length;
+      if (jTFNrCpf.equals("00000000000000") || jTFNrCpf.equals("11111111111111") ||
+        jTFNrCpf.equals("22222222222222") || jTFNrCpf.equals("33333333333333") ||
+        jTFNrCpf.equals("44444444444444") || jTFNrCpf.equals("55555555555555") ||
+        jTFNrCpf.equals("66666666666666") || jTFNrCpf.equals("77777777777777") ||
+        jTFNrCpf.equals("88888888888888") || jTFNrCpf.equals("99999999999999") ||
+        (qtdCpf != 14)){
+            jTFNrCpf.setText("");
+            jTFNrCpf.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CPF Válido!");
+        }else{
 
-        int conta = cpf.length;
-        for (int i = 0; i < conta; i++) {
+       
+        for (int i = 0; i < qtdCpf; i++) {
             char digCpf;
             digCpf = cpf[i];
             String charCPF;
@@ -1083,11 +1087,17 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Integer somaDig10 = (dig1 + dig2 + dig3 + dig4 + dig5 + dig6 + dig7 + dig8 + dig9);
         Integer restoDivDig10=( somaDig10 % 11);
         Integer digVerif1 = (11 - restoDivDig10);
+        if (digVerif1 > 9){
+            digVerif1 = 0;
+        }
         Integer digVerif2 = 0;
         if (dig10 == digVerif1){
             Integer somaDig11 = (dig21 + dig22 + dig23 + dig24 + dig25 + dig26 + dig27 + dig28 + dig29 + dig210);
             Integer restoDivDig11=( somaDig11 % 11);
             digVerif2 = (11 - restoDivDig11);
+            if (digVerif2 > 9){
+            digVerif2 = 0;
+        }
             if(dig11 !=digVerif2){
                 jTFNrCpf.setText("");
                 jTFNrCpf.grabFocus();
@@ -1098,6 +1108,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 jTFNrCpf.grabFocus();
                 JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
         }
+      }
     }//GEN-LAST:event_jTFNrCpfFocusLost
 
     private void jTFNrCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCnpjFocusLost
@@ -1274,61 +1285,6 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         jBexcluir.setEnabled(!situacao);
         jBgravar.setEnabled(situacao);
         jBcancelar.setEnabled(situacao);
-    }
-
-    public static boolean CnpjValido(String cnpj) {
-        if (!cnpj.substring(0, 1).equals("")) {
-            try {
-                cnpj = cnpj.replace('.', ' ');//onde há ponto coloca espaço
-                cnpj = cnpj.replace('/', ' ');//onde há barra coloca espaço
-                cnpj = cnpj.replace('-', ' ');//onde há traço coloca espaço
-                cnpj = cnpj.replaceAll(" ", "");//retira espaço
-                int soma = 0, dig;
-                String cnpj_calc = cnpj.substring(0, 12);
-                if (cnpj.length() != 14) {
-                    return false;
-                }
-                char[] chr_cnpj = cnpj.toCharArray();
-                /* Primeira parte */
-                for (int i = 0; i < 4; i++) {
-                    if (chr_cnpj[i] - 48 >= 0 && chr_cnpj[i] - 48 <= 9) {
-                        soma += (chr_cnpj[i] - 48) * (6 - (i + 1));
-                    }
-                }
-                for (int i = 0; i < 8; i++) {
-                    if (chr_cnpj[i + 4] - 48 >= 0 && chr_cnpj[i + 4] - 48 <= 9) {
-                        soma += (chr_cnpj[i + 4] - 48) * (10 - (i + 1));
-                    }
-                }
-                dig = 11 - (soma % 11);
-                cnpj_calc += (dig == 10 || dig == 11) ? "0" : Integer.toString(
-                        dig);
-                /* Segunda parte */
-                soma = 0;
-                for (int i = 0; i < 5; i++) {
-                    if (chr_cnpj[i] - 48 >= 0 && chr_cnpj[i] - 48 <= 9) {
-                        soma += (chr_cnpj[i] - 48) * (7 - (i + 1));
-                    }
-                }
-                for (int i = 0; i < 8; i++) {
-                    if (chr_cnpj[i + 5] - 48 >= 0 && chr_cnpj[i + 5] - 48 <= 9) {
-                        soma += (chr_cnpj[i + 5] - 48) * (10 - (i + 1));
-                    }
-                }
-                dig = 11 - (soma % 11);
-                cnpj_calc += (dig == 10 || dig == 11) ? "0" : Integer.toString(
-                        dig);
-                return cnpj.equals(cnpj_calc);
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    public void CnpjValido() {
-
     }
 
     public void buscarFone(String fone) {

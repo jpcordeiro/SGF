@@ -5,6 +5,15 @@
  */
 package br.tcc.Interface;
 
+import br.tcc.classe.Login;
+import br.tcc.dao.LoginDAO;
+import java.awt.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author JOÃO PAULO
@@ -91,7 +100,30 @@ public class InterfaceLogin extends javax.swing.JFrame {
 
     private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
 
-        new InterfaceMenu().setVisible(true);
+        Login login = new Login();
+        LoginDAO loginDAO = new LoginDAO();
+        
+        String usuario = jTFUsuario.getText();
+        String senha = jTFSenha.getText();
+        
+         loginDAO.retornadados(login, usuario, senha);
+        ResultSet rs;
+        rs = login.getRetorno();
+        
+        try {
+            if (rs.first() != false){
+                new InterfaceMenu().show();
+            }else{
+                jTFUsuario.setText("");
+                jTFSenha.setText("");
+                JOptionPane.showMessageDialog(null, "Usuario/Senha invalidos!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InterfaceLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }//GEN-LAST:event_jBLoginActionPerformed
 
     /**

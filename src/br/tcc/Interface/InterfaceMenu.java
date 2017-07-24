@@ -14,9 +14,10 @@ public class InterfaceMenu extends javax.swing.JFrame {
      * Creates new form InterfaceMenu
      */
     public InterfaceMenu() {
+        setDefaultCloseOperation(InterfaceLogin.EXIT_ON_CLOSE);
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-      
+        
         
     }
     

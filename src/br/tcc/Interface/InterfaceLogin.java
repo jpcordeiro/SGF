@@ -113,6 +113,7 @@ public class InterfaceLogin extends javax.swing.JFrame {
         try {
             if (rs.first() != false){
                 new InterfaceMenu().show();
+                
             }else{
                 jTFUsuario.setText("");
                 jTFSenha.setText("");

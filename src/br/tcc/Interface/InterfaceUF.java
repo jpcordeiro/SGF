@@ -201,11 +201,11 @@ public class InterfaceUF extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Estado", "UF", "ICMS"
+                "Código", "Estado", "UF"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

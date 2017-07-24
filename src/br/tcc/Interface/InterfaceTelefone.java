@@ -2,14 +2,12 @@ package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
-import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Funcionario;
 import br.tcc.classe.Telefone;
 import br.tcc.dao.PessoaDAO;
 import br.tcc.dao.TelefoneDAO;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -63,13 +61,6 @@ public class InterfaceTelefone extends javax.swing.JFrame {
 
         jPTelefone = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTFFone = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter telefone = new javax.swing.text.MaskFormatter("(##) #####-####");
-
-            jTFFone = new javax.swing.JFormattedTextField(telefone);
-        }catch(Exception e){
-        }
         jBAdicionar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jCBTipo = new javax.swing.JComboBox();
@@ -79,17 +70,12 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         jTFNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTFIdPessoa = new javax.swing.JTextField();
+        jTFFone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Telefone");
 
         jLabel1.setText("Telefone");
-
-        jTFFone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFFoneMouseClicked(evt);
-            }
-        });
 
         jBAdicionar.setText("Adicionar");
         jBAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,8 +126,8 @@ public class InterfaceTelefone extends javax.swing.JFrame {
                         .addGroup(jPTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(jPTelefoneLayout.createSequentialGroup()
-                                .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jBAdicionar))))
                     .addGroup(jPTelefoneLayout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -170,10 +156,9 @@ public class InterfaceTelefone extends javax.swing.JFrame {
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBAdicionar)
-                        .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBAdicionar)
+                    .addComponent(jCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -209,12 +194,6 @@ public class InterfaceTelefone extends javax.swing.JFrame {
         atualizatabela(WIDTH);
         
     }//GEN-LAST:event_jBAdicionarActionPerformed
-
-    private void jTFFoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFFoneMouseClicked
-
-        ValidaNumero validaNumero = new ValidaNumero();
-        validaNumero.ValidaNumero(jTFFone);
-    }//GEN-LAST:event_jTFFoneMouseClicked
 
     private void jTFIdPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFIdPessoaActionPerformed
         // TODO add your handling code here:
@@ -280,45 +259,4 @@ public class InterfaceTelefone extends javax.swing.JFrame {
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTable jTTelefone;
     // End of variables declaration//GEN-END:variables
-
-//    private void validarTabela() {
-//        DefaultTableModel modelo = (DefaultTableModel) jTTelefone.getModel();
-//        modelo.setNumRows(0);
-//        int verifica = 0;
-//        
-//            for(int linha = 0; linha < jTTelefone.getRowCount(); linha++){
-//                verifica = 1;
-//                String tipo =(String)jTTelefone.getModel().getValueAt(linha,0); //0=coluna;
-//                switch(tipo){
-//                    case "0":
-//                        tipo = "PRINCIPAL";
-//                        break;
-//                    case "1":
-//                        tipo = "CASA";
-//                        break;
-//                    case "2":
-//                        tipo = "CELULAR 1";
-//                        break;
-//                    case "3":
-//                        tipo = "CELULAR 2";
-//                        break;
-//                    case "4":
-//                        tipo = "TRABALHO";
-//                        break;
-//                    case "5":
-//                        tipo = "RECADO";
-//                        break;
-//                        
-//                }
-//                System.out.println(tipo);
-//                Object t = tipo;
-//                modelo.addColumn(linha, (Object[]) t);    
-//            }
-//            if (verifica == 0){
-//                atualizatabela(WIDTH);
-//            }
-       
-//      }
-
- 
 }

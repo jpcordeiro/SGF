@@ -501,6 +501,8 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         jCBTpSituação.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "LICENÇA", "FÉRIAS", "INATIVO" }));
 
+        jTFDtDemissão.setText("00/0/0000");
+
         jTFVlSalario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTFVlSalarioMouseClicked(evt);
@@ -715,9 +717,9 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
         funcionario.setDTCADASTRO(jTFDtCadastro.getText());
 
-        if (jTFDtDemissão.getText().equals("")) {
-
-        }
+//        if (jTFDtDemissão.getText().equals("")) {
+            funcionario.setDTDEMISSAO(jTFDtDemissão.getText());
+//        }
         funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
 
         if (jTFVlSalario.getText().equals("")) {
@@ -758,7 +760,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             telefone.setNRFONE(jTFFone1.getText());
 
         }
-        telefone.setTPFONE("");
+        telefone.setTPFONE("Principal");
 
         if (bGtipo_pessoa.isSelected(null)) {
             JOptionPane.showMessageDialog(null, "Favor selecionar o TIPO DE PESSOA!");
@@ -847,7 +849,7 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             endereco.setNRCEP(jTFNrCep.getText());
         }
         endereco.setTPENDERECO("RESIDENCIA");
-        endereco.setIDSEQUENCIAL(0);
+        
 
         PessoaFisicaDAO pfDao = new PessoaFisicaDAO();
         PessoaJuridicaDAO pjDao = new PessoaJuridicaDAO();
@@ -900,8 +902,9 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             } catch (SQLException ex) {
                 Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
-            InFone.setVisible(true);
+        
         }
+            InFone.setVisible(true);
     }//GEN-LAST:event_jBfone1ActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed

@@ -8,7 +8,6 @@ import java.sql.ResultSet;
  */
 public class Endereco {
     private Integer IDENDERECO;
-    private Integer IDSEQUENCIAL;
     private Integer IDPESSOA;
     private String TPENDERECO;
     private String DSLOGRADOURO;
@@ -27,14 +26,6 @@ public class Endereco {
 
     public void setIDENDERECO(Integer IDENDERECO) {
         this.IDENDERECO = IDENDERECO;
-    }
-
-    public Integer getIDSEQUENCIAL() {
-        return IDSEQUENCIAL;
-    }
-
-    public void setIDSEQUENCIAL(Integer IDSEQUENCIAL) {
-        this.IDSEQUENCIAL = IDSEQUENCIAL;
     }
 
     public Integer getIDPESSOA() {

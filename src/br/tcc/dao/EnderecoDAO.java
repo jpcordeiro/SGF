@@ -18,7 +18,6 @@ public class EnderecoDAO {
     public void incluir(Endereco endereco) {
         String sql = " INSERT INTO ENDERECO VALUES("
                 +endereco.getIDENDERECO() + ","
-                +endereco.getIDSEQUENCIAL() + ","
                 +endereco.getIDPESSOA() + ",'"
                 +endereco.getTPENDERECO() + "','"
                 +endereco.getDSLOGRADOURO() + "','"
@@ -33,7 +32,6 @@ public class EnderecoDAO {
       public void alterar(Endereco endereco) {
         String sql = "UPDATE ENDERECO SET" 
                 +"IDENDERECO = " + endereco.getIDENDERECO() + ","
-                +"IDSEQUENCIAL = " + endereco.getIDSEQUENCIAL() + ","
                 + " IDCIDADE = " + endereco.getIDPESSOA() + ",'"
                 + "TPENDERECO = " + endereco.getTPENDERECO() + "','"
                 + "DSLOGRADOURO = " + endereco.getDSLOGRADOURO() + "','"
@@ -47,8 +45,7 @@ public class EnderecoDAO {
     }
      
       public void excluir(Endereco endereco) {
-        String sql = "DELETE FROM ENDERECO WHERE IDENDERECO = " + endereco.getIDENDERECO() 
-                    +" and IDSEQUENCIAL = " + endereco.getIDSEQUENCIAL();
+        String sql = "DELETE FROM ENDERECO WHERE IDENDERECO = " + endereco.getIDENDERECO();
         conn.executeSQL(sql);
       }
     

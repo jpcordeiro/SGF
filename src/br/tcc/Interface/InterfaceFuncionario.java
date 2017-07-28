@@ -15,6 +15,7 @@ import br.tcc.classe.Usuario;
 import br.tcc.dao.CidadeDAO;
 import br.tcc.dao.EnderecoDAO;
 import br.tcc.dao.FuncionarioDAO;
+import br.tcc.dao.PessoaDAO;
 import br.tcc.dao.PessoaFisicaDAO;
 import br.tcc.dao.PessoaJuridicaDAO;
 import br.tcc.dao.TelefoneDAO;
@@ -622,6 +623,11 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             }
         ));
         jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTbPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTbPesquisaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTbPesquisa);
 
         jBtPesquisa.setText("Pesquisar");
@@ -1340,6 +1346,34 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBtPesquisa1ActionPerformed
+
+    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
+        PessoaDAO pessoaDAO = null;
+        if(evt.getClickCount() == 1){
+            int linha = jTbPesquisa.getSelectedRow();
+            String ID = (String) jTbPesquisa.getValueAt(linha, 0);
+            Integer idpessoa = 0;
+            funcionario.setIDPESSOA(Integer.parseInt(ID));
+            funcDao.retornadados(funcionario);
+            pessoa.setIDPESSOA(Integer.parseInt(ID));
+            pessoaDAO.retornadados(pessoa);
+            telefone.setIDPESSOA(Integer.parseInt(ID));
+            telefoneDAO.retornadados(telefone);
+            
+            jTFIdPessoa.setText(Integer.toString(funcionario.getIDPESSOA()));
+            jTFnome.setText(pessoa.getDSPESSOA());
+            jTFDtNasc.setText(pessoa.getDTNASC());
+            jTFDtCadastro.setText(funcionario.getDTCADASTRO());
+            jTFDtDemissão.setText(funcionario.getDTDEMISSAO());
+            jTFVlSalario.setText(Double.toString(funcionario.getVLSALARIO()));
+            jTFFone1.setText(telefone.getNRFONE());
+            jTFLogin.setText(funcionario.getLOGIN());            
+            
+        }
+       
+        estadobotoes(false);
+        jTPFuncionario.setSelectedIndex(0);
+    }//GEN-LAST:event_jTbPesquisaMouseClicked
 
 
     /**

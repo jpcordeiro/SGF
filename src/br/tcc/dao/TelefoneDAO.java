@@ -6,8 +6,10 @@
 package br.tcc.dao;
 
 import br.tcc.Interface.InterfaceTelefone;
+import br.tcc.classe.Pessoa;
 import br.tcc.classe.Telefone;
 import br.tcc.conexao.ConexaoOracle;
+import java.sql.SQLException;
 
 /**
  *
@@ -48,6 +50,20 @@ public class TelefoneDAO {
         conn.executeSQL(sql);
         fone.setRetorno(conn.resultset);
     }
+
+    public void retornadados(Telefone fone) {
+        
+        String sql = "SELECT NRFONE FROM Telefone WHERE TPFONE = 'Principal' AND IDPESSOA = " + fone.getIDPESSOA();
+        conn.executeSQL(sql);
+
+        try {
+            conn.resultset.first();
+            fone.setNRFONE(conn.resultset.getString("NRFONE"));
+            } catch (SQLException ex) {
+
+        }
+        
+       }
      
     
 }

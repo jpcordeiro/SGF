@@ -2,7 +2,9 @@ package br.tcc.dao;
 
 import br.tcc.classe.Funcionario;
 import br.tcc.classe.Pessoa;
+import br.tcc.classe.Telefone;
 import br.tcc.conexao.ConexaoOracle;
+import java.sql.SQLException;
 
 /**
  *
@@ -62,6 +64,25 @@ public class FuncionarioDAO {
                 + "WHERE P.DSPESSOA  LIKE '%"+ pessoa.getDSPESSOA() +"%' ORDER BY P.DSPESSOA";
         conn.executeSQL(sql);
         func.setRetorno(conn.resultset);
+    }
+    
+    public void retornadados(Funcionario func) {
+        
+        String sql = "SELECT * FROM Funcionario WHERE IDPESSOA = " + func.getIDPESSOA();
+        conn.executeSQL(sql);
+
+        try {
+
+            conn.resultset.first();
+            func.setIDPESSOA(conn.resultset.getInt("IDPESSOA"));
+            func.setDTCADASTRO(conn.resultset.getString("DTCADASTRO"));
+            func.setDTDEMISSAO(conn.resultset.getString("DTDEMISSAO"));
+            func.setVLSALARIO(conn.resultset.getDouble("VLSALARIO"));
+            func.setLOGIN(conn.resultset.getString("LOGIN"));
+            
+            } catch (SQLException ex) {
+
+        }
     }
 }
 

@@ -22,11 +22,6 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         bGtipo_pessoa = new javax.swing.ButtonGroup();
         jTPpessoa = new javax.swing.JTabbedPane();
-        jPconsulta = new javax.swing.JPanel();
-        jCbPesquisa2 = new javax.swing.JComboBox();
-        jTFPesquisa = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTbPesquisa = new javax.swing.JTable();
         jPcadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
@@ -84,55 +79,6 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Fornecedor");
-
-        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Fornecedor" }));
-
-        jTbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nome"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane2.setViewportView(jTbPesquisa);
-
-        javax.swing.GroupLayout jPconsultaLayout = new javax.swing.GroupLayout(jPconsulta);
-        jPconsulta.setLayout(jPconsultaLayout);
-        jPconsultaLayout.setHorizontalGroup(
-            jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPconsultaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPconsultaLayout.createSequentialGroup()
-                        .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPconsultaLayout.setVerticalGroup(
-            jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPconsultaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(270, Short.MAX_VALUE))
-        );
-
-        jTPpessoa.addTab("Consulta", jPconsulta);
 
         jLabel1.setText("Código");
 
@@ -575,7 +521,6 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jBincluir;
     private javax.swing.JButton jBpesquisar;
     private javax.swing.JComboBox jCBCidade;
-    private javax.swing.JComboBox jCbPesquisa2;
     private javax.swing.JFormattedTextField jFTFcnpj;
     private javax.swing.JFormattedTextField jFTFcpf;
     private javax.swing.JFormattedTextField jFTFdt_cadastro;
@@ -604,17 +549,14 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPcadastro;
-    private javax.swing.JPanel jPconsulta;
     private javax.swing.JPanel jPpfisica;
     private javax.swing.JPanel jPpjuridica;
     private javax.swing.JRadioButton jRBFisico;
     private javax.swing.JRadioButton jRBJuridica;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFCodigo;
     private javax.swing.JTextField jTFCodigoCfornecedor;
     private javax.swing.JTextField jTFNumero;
-    private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTextField jTFbairro;
     private javax.swing.JTextField jTFcomplemento;
     private javax.swing.JTextField jTFdsproduto;
@@ -626,6 +568,5 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTFrg;
     private javax.swing.JTabbedPane jTPpessoa;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTbPesquisa;
     // End of variables declaration//GEN-END:variables
 }

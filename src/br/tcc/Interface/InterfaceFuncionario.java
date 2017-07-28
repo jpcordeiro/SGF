@@ -1,6 +1,7 @@
 package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
@@ -47,6 +48,10 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     Integer dig1, dig2, dig3, dig4, dig5, dig6, dig7, dig8, dig9, dig10, dig11;
     Integer dig21, dig22, dig23, dig24, dig25, dig26, dig27, dig28, dig29, dig210, dig211;
     public String fone1;
+    PessoaFisicaDAO pfDao = new PessoaFisicaDAO();
+    PessoaJuridicaDAO pjDao = new PessoaJuridicaDAO();
+    EnderecoDAO endDao = new EnderecoDAO();
+    FuncionarioDAO funcDao = new FuncionarioDAO();
 
     /**
      * Creates new form InterfacePessoa
@@ -64,12 +69,6 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
         bGtipo_pessoa = new javax.swing.ButtonGroup();
         jTPFuncionario = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        jCbPesquisa = new javax.swing.JComboBox();
-        jTFPesquisa = new javax.swing.JTextField();
-        jBtPesquisa = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTbPesquisa = new javax.swing.JTable();
         jPcadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFIdPessoa = new javax.swing.JTextField();
@@ -130,78 +129,16 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jBfone1 = new javax.swing.JButton();
         jTFFone1 = new javax.swing.JTextField();
+        jPconsulta = new javax.swing.JPanel();
+        jCbPesquisa2 = new javax.swing.JComboBox();
+        jTFPesquisa = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTbPesquisa = new javax.swing.JTable();
+        jBtPesquisa = new javax.swing.JButton();
+        jBtPesquisa1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Funcionario");
-
-        jCbPesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Funcionario", " " }));
-        jCbPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCbPesquisaActionPerformed(evt);
-            }
-        });
-
-        jBtPesquisa.setText("Pesquisar");
-        jBtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisaActionPerformed(evt);
-            }
-        });
-
-        jTbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Funcionario", "Data Admissão", "Data Demissão", "Salario"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jTbPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTbPesquisaMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTbPesquisa);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtPesquisa)))
-                .addGap(33, 33, 33))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTPFuncionario.addTab("Consulta", jPanel3);
 
         jLabel1.setText("Código");
 
@@ -367,7 +304,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Sexo)
                     .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(455, Short.MAX_VALUE))
         );
         jPpfisicaLayout.setVerticalGroup(
             jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,7 +348,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                         .addComponent(jLabel14)
                         .addGap(120, 120, 120)
                         .addComponent(jLabel16)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         jPpjuridicaLayout.setVerticalGroup(
             jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +410,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             }
         });
         jPbotoes.add(jBcancelar);
-        jBcancelar.setBounds(670, 10, 80, 40);
+        jBcancelar.setBounds(660, 10, 90, 40);
 
         jLabel18.setText("Data  de Demissão");
 
@@ -532,80 +469,78 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPpfisica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPpjuridica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPcadastroLayout.createSequentialGroup()
-                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTFDtDemissão, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCBTpSituação, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel18)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel17)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                                .addGap(93, 93, 93)
-                                                .addComponent(jCBNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                                .addComponent(jTFVlSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(21, 21, 21)
-                                                .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jBfone1))
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addGap(93, 93, 93)
-                                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jLabel20)
-                                        .addGap(108, 108, 108)
-                                        .addComponent(jLabel21))
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTFsenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(22, 22, 22)
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jLabel22)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(jLabel8))
-                                    .addComponent(jTFSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jTFIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jBPesquisar))
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRBFisico)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRBJuridica)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jTFDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(82, 82, 82)))
+                    .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPpjuridica, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPcadastroLayout.createSequentialGroup()
+                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTFDtDemissão, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jCBTpSituação, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel18)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel17)))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPcadastroLayout.createSequentialGroup()
+                                            .addGap(93, 93, 93)
+                                            .addComponent(jCBNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPcadastroLayout.createSequentialGroup()
+                                            .addComponent(jTFVlSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(21, 21, 21)
+                                            .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jBfone1))
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jLabel19)
+                                    .addGap(93, 93, 93)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPcadastroLayout.createSequentialGroup()
+                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jLabel20)
+                                    .addGap(108, 108, 108)
+                                    .addComponent(jLabel21))
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTFsenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(22, 22, 22)
+                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jLabel22)
+                                    .addGap(57, 57, 57)
+                                    .addComponent(jLabel8))
+                                .addComponent(jTFSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPbotoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPcadastroLayout.createSequentialGroup()
+                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jTFIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jBPesquisar))
+                                .addComponent(jLabel1))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addGroup(jPcadastroLayout.createSequentialGroup()
+                                    .addComponent(jTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jRBFisico)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jRBJuridica)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel13)
+                                .addComponent(jTFDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPcadastroLayout.setVerticalGroup(
@@ -671,208 +606,96 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jTPFuncionario.addTab("Cadastro", jPcadastro);
+
+        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "funcionário " }));
+
+        jTbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Funcionário", "Data nasc.", "Data admi.", "Data demi.", "Salário", "Telefone Princ.", "Login"
+            }
+        ));
+        jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane2.setViewportView(jTbPesquisa);
+
+        jBtPesquisa.setText("Pesquisar");
+        jBtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaActionPerformed(evt);
+            }
+        });
+
+        jBtPesquisa1.setText("Pesquisar");
+        jBtPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisa1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPconsultaLayout = new javax.swing.GroupLayout(jPconsulta);
+        jPconsulta.setLayout(jPconsultaLayout);
+        jPconsultaLayout.setHorizontalGroup(
+            jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPconsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPconsultaLayout.createSequentialGroup()
+                        .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisa1)))
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPconsultaLayout.createSequentialGroup()
+                    .addGap(373, 373, 373)
+                    .addComponent(jBtPesquisa)
+                    .addContainerGap(374, Short.MAX_VALUE)))
+        );
+        jPconsultaLayout.setVerticalGroup(
+            jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPconsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisa1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPconsultaLayout.createSequentialGroup()
+                    .addGap(266, 266, 266)
+                    .addComponent(jBtPesquisa)
+                    .addContainerGap(282, Short.MAX_VALUE)))
+        );
+
+        jTPFuncionario.addTab("Consulta", jPconsulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPFuncionario)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTPFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTPFuncionario)
         );
 
-        setSize(new java.awt.Dimension(900, 623));
+        setSize(new java.awt.Dimension(857, 638));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-private void jBincluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincluirActionPerformed
-
-    jTFlogradouro.grabFocus();
-    lcampos.LimparCampos(jTPFuncionario);
-    situacao = 1;
-    estadobotoes(true);
-    cidadeDAO.preenchercidade(jCBCidade, cidade);
-    retornadata.RetornaDataAtual(jTFDtCadastro);
-}//GEN-LAST:event_jBincluirActionPerformed
-
-private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravarActionPerformed
-
-    Integer idCidade = null;
-    String nivel1 = (String) jCBNivel.getSelectedItem();
-
-    if (situacao == 1) {
-        if (jTFIdPessoa.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o Funcionario");
-            jTFIdPessoa.grabFocus();
-            return;
-        } else {
-            funcionario.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
-        }
-
-        funcionario.setDTCADASTRO(jTFDtCadastro.getText());
-
-//        if (jTFDtDemissão.getText().equals("")) {
-            funcionario.setDTDEMISSAO(jTFDtDemissão.getText());
-//        }
-        funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
-
-        if (jTFVlSalario.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o Valor do Sálario");
-            jTFVlSalario.grabFocus();
-            return;
-        } else {
-            funcionario.setVLSALARIO(Double.parseDouble(jTFVlSalario.getText()));
-        }
-        if (jTFLogin.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o Login");
-            jTFLogin.grabFocus();
-            return;
-        } else {
-            funcionario.setLOGIN(jTFLogin.getText());
-            usuario.setDSUSUARIO(jTFLogin.getText());
-        }
-        if (jTFsenha1.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe a Senha");
-            jTFsenha1.grabFocus();
-            return;
-        } else if (jTFsenha1.getText().equals(jTFSenha2.getText())) {
-            usuario.setDSSENHA(jTFsenha1.getText());
-        } else {
-            JOptionPane.showMessageDialog(null, "A Senha não confere, favor digitar a senha novamente!");
-            jTFsenha1.grabFocus();
-            return;
-        }
-        usuario.setIDNIVEL(Integer.parseInt(nivel1));
-
-        telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
-
-        if (jTFFone1.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o número do Telefone");
-            jTFFone1.grabFocus();
-            return;
-        } else {
-            telefone.setNRFONE(jTFFone1.getText());
-
-        }
-        telefone.setTPFONE("Principal");
-
-        if (bGtipo_pessoa.isSelected(null)) {
-            JOptionPane.showMessageDialog(null, "Favor selecionar o TIPO DE PESSOA!");
-        } else if (jRBFisico.isSelected()) {
-            pfisica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
-            if (jTFNrCpf.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Informe o número do CPF");
-                jTFNrCpf.grabFocus();
-                return;
-            } else {
-                pfisica.setNRCPF(jTFNrCpf.getText());
-            }
-
-            String sexo = jCBSexo.getSelectedItem().toString();
-            if (sexo.equals("MASCULINO")) {
-                pfisica.setTPSEXO("M");
-            } else {
-                pfisica.setTPSEXO("F");
-            }
-
-        } else {
-            pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
-            if (jTFNrCnpj.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
-                jTFNrCnpj.grabFocus();
-                return;
-            } else {
-                String cnpj = jTFNrCnpj.getText();
-            pjuridica.setNRCNPJ(jTFNrCnpj.getText());
-                
-            }
-            if (jTFrazaosocial.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Informe a Razão Social!");
-                jTFrazaosocial.grabFocus();
-                return;
-            } else {
-                pjuridica.setRZSOCIAL(jTFrazaosocial.getText());
-            }
-        }
-        endereco.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
-
-        String cidadeId = jCBCidade.getSelectedItem().toString();
-        try {
-            idCidade = cidadeDAO.ConsultaIdcidade(idCidade, cidadeId);
-            endereco.setIDCIDADE(idCidade);
-        } catch (SQLException ex) {
-            Logger.getLogger(InterfaceCidade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (jTFlogradouro.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o Logradouro");
-            jTFlogradouro.grabFocus();
-            return;
-        } else {
-            endereco.setDSLOGRADOURO(jTFlogradouro.getText().toUpperCase());
-        }
-        if (jTFNumero.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o Número do endereço");
-            jTFNumero.grabFocus();
-            return;
-        } else {
-            endereco.setDSNUMERO(jTFNumero.getText().toUpperCase());
-        }
-        if (jTFbairro.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o Bairro");
-            jTFbairro.grabFocus();
-            return;
-        } else {
-            endereco.setDSBAIRRO(jTFbairro.getText().toUpperCase());
-        }
-        if (jTFcomplemento.getText().equals("")) {
-            endereco.setDSCOMPLEMENTO(".");
-        } else {
-            endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
-        }
-        String cep = jTFNrCep.toString();
-
-        if (jTFNrCep.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o CEP");
-            jTFNrCep.grabFocus();
-            return;
-//        } else if((cep.length() > 7) || (cep.length() <7)){
-//            JOptionPane.showMessageDialog(null, "Informe um CEP valido");
-//            jTFNrCep.grabFocus();
-//            return;
-        } else {
-            endereco.setNRCEP(jTFNrCep.getText());
-        }
-        endereco.setTPENDERECO("RESIDENCIA");
-        
-
-        PessoaFisicaDAO pfDao = new PessoaFisicaDAO();
-        PessoaJuridicaDAO pjDao = new PessoaJuridicaDAO();
-        EnderecoDAO endDao = new EnderecoDAO();
-        FuncionarioDAO funcDao = new FuncionarioDAO();
-        if (jRBFisico.isSelected()) {
-            pfDao.incluir(pfisica);
-            endDao.incluir(endereco);
-            usuarioDAO.incluir(usuario);
-            telefoneDAO.incluir(telefone);
-            funcDao.incluir(funcionario);
-        } else {
-            pjDao.incluir(pjuridica);
-            endDao.incluir(endereco);
-            funcDao.incluir(funcionario);
-        }
-        JOptionPane.showMessageDialog(null, "Funcionário Cadastrado com sucesso!");
-        lcampos.LimparCampos(jPcadastro);
-        estadobotoes(false);
-
-    }
-
-}//GEN-LAST:event_jBgravarActionPerformed
 
     private void jBfone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBfone1ActionPerformed
 
@@ -902,64 +725,21 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             } catch (SQLException ex) {
                 Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+
         }
-            InFone.setVisible(true);
+        InFone.setVisible(true);
     }//GEN-LAST:event_jBfone1ActionPerformed
 
-    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        situacao = 2;
-        estadobotoes(true);
-        cidadeDAO.preenchercidade(jCBCidade, cidade);
-    }//GEN-LAST:event_jBAlterarActionPerformed
+    private void jTFVlSalarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFVlSalarioMouseClicked
 
-    private void jBcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcancelarActionPerformed
-        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente cancelar o cadastro?");
-        if (t == 0) {
-            situacao = 2;
-            lcampos.LimparCampos(jPcadastro);
-            estadobotoes(false);
-        }
-    }//GEN-LAST:event_jBcancelarActionPerformed
+        ValidaNumero validaNumero = new ValidaNumero();
+        validaNumero.ValidaNumero(jTFVlSalario);
+    }//GEN-LAST:event_jTFVlSalarioMouseClicked
 
-    private void jCbPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCbPesquisaActionPerformed
-
-    private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtPesquisaActionPerformed
-
-    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
-
-    }//GEN-LAST:event_jTbPesquisaMouseClicked
-
-    private void jRBJuridicoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicoMousePressed
-        jTFNrCpf.setEnabled(true);
-        jTFrg.setEnabled(true);
-        jCBSexo.setEnabled(true);
-
-        jTFNrCnpj.setEnabled(false);
-        jTFrazaosocial.setEnabled(false);
-    }//GEN-LAST:event_jRBJuridicoMousePressed
-
-
-    private void jRBFisicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jRBFisicoKeyPressed
-
-    }//GEN-LAST:event_jRBFisicoKeyPressed
-
-    private void jRBJuridicaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jRBJuridicaKeyPressed
-
-    }//GEN-LAST:event_jRBJuridicaKeyPressed
-
-    private void jRBJuridicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicaMouseClicked
-        jTFNrCpf.setEnabled(false);
-        jTFrg.setEnabled(false);
-        jCBSexo.setEnabled(false);
-
-        jTFNrCnpj.setEnabled(true);
-        jTFrazaosocial.setEnabled(true);
-    }//GEN-LAST:event_jRBJuridicaMouseClicked
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+        //        InterfaceRetornaPessoa retornaPessoa = new InterfaceRetornaPessoa();
+        //        retornaPessoa.setVisible(true);
+    }//GEN-LAST:event_jBPesquisarActionPerformed
 
     private void jBPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarMouseClicked
         final InterfaceRetornaPessoa retornaPessoa = new InterfaceRetornaPessoa();
@@ -974,20 +754,526 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         });
     }//GEN-LAST:event_jBPesquisarMouseClicked
 
-    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-//        InterfaceRetornaPessoa retornaPessoa = new InterfaceRetornaPessoa();
-//        retornaPessoa.setVisible(true);
-    }//GEN-LAST:event_jBPesquisarActionPerformed
+    private void jBcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcancelarActionPerformed
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente cancelar o cadastro?");
+        if (t == 0) {
+            situacao = 2;
+            lcampos.LimparCampos(jPcadastro);
+            estadobotoes(false);
+        }
+    }//GEN-LAST:event_jBcancelarActionPerformed
+
+    private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravarActionPerformed
+
+        Integer idCidade = null;
+        String nivel1 = (String) jCBNivel.getSelectedItem();
+
+        if (situacao == 1) {
+            if (jTFIdPessoa.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Funcionario");
+                jTFIdPessoa.grabFocus();
+                return;
+            } else {
+                funcionario.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+            }
+
+            funcionario.setDTCADASTRO(jTFDtCadastro.getText());
+
+            //        if (jTFDtDemissão.getText().equals("")) {
+                funcionario.setDTDEMISSAO(jTFDtDemissão.getText());
+                //        }
+            funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
+
+            if (jTFVlSalario.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Valor do Sálario");
+                jTFVlSalario.grabFocus();
+                return;
+            } else {
+                funcionario.setVLSALARIO(Double.parseDouble(jTFVlSalario.getText()));
+            }
+            if (jTFLogin.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Login");
+                jTFLogin.grabFocus();
+                return;
+            } else {
+                funcionario.setLOGIN(jTFLogin.getText());
+                usuario.setDSUSUARIO(jTFLogin.getText());
+            }
+            if (jTFsenha1.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a Senha");
+                jTFsenha1.grabFocus();
+                return;
+            } else if (jTFsenha1.getText().equals(jTFSenha2.getText())) {
+                usuario.setDSSENHA(jTFsenha1.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "A Senha não confere, favor digitar a senha novamente!");
+                jTFsenha1.grabFocus();
+                return;
+            }
+            usuario.setIDNIVEL(Integer.parseInt(nivel1));
+
+            telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+
+            if (jTFFone1.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o número do Telefone");
+                jTFFone1.grabFocus();
+                return;
+            } else {
+                telefone.setNRFONE(jTFFone1.getText());
+
+            }
+            telefone.setTPFONE("Principal");
+
+            if (bGtipo_pessoa.isSelected(null)) {
+                JOptionPane.showMessageDialog(null, "Favor selecionar o TIPO DE PESSOA!");
+            } else if (jRBFisico.isSelected()) {
+                pfisica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                if (jTFNrCpf.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe o número do CPF");
+                    jTFNrCpf.grabFocus();
+                    return;
+                } else {
+                    pfisica.setNRCPF(jTFNrCpf.getText());
+                }
+
+                String sexo = jCBSexo.getSelectedItem().toString();
+                if (sexo.equals("MASCULINO")) {
+                    pfisica.setTPSEXO("M");
+                } else {
+                    pfisica.setTPSEXO("F");
+                }
+
+            } else {
+                pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                if (jTFNrCnpj.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
+                    jTFNrCnpj.grabFocus();
+                    return;
+                } else {
+                    String cnpj = jTFNrCnpj.getText();
+                    pjuridica.setNRCNPJ(jTFNrCnpj.getText());
+
+                }
+                if (jTFrazaosocial.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe a Razão Social!");
+                    jTFrazaosocial.grabFocus();
+                    return;
+                } else {
+                    pjuridica.setRZSOCIAL(jTFrazaosocial.getText());
+                }
+            }
+            endereco.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+
+            String cidadeId = jCBCidade.getSelectedItem().toString();
+            try {
+                idCidade = cidadeDAO.ConsultaIdcidade(idCidade, cidadeId);
+                endereco.setIDCIDADE(idCidade);
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceCidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (jTFlogradouro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Logradouro");
+                jTFlogradouro.grabFocus();
+                return;
+            } else {
+                endereco.setDSLOGRADOURO(jTFlogradouro.getText().toUpperCase());
+            }
+            if (jTFNumero.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Número do endereço");
+                jTFNumero.grabFocus();
+                return;
+            } else {
+                endereco.setDSNUMERO(jTFNumero.getText().toUpperCase());
+            }
+            if (jTFbairro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Bairro");
+                jTFbairro.grabFocus();
+                return;
+            } else {
+                endereco.setDSBAIRRO(jTFbairro.getText().toUpperCase());
+            }
+            if (jTFcomplemento.getText().equals("")) {
+                endereco.setDSCOMPLEMENTO(".");
+            } else {
+                endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
+            }
+            String cep = jTFNrCep.toString();
+
+            if (jTFNrCep.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o CEP");
+                jTFNrCep.grabFocus();
+                return;
+            } else if((cep.length() > 8) || (cep.length() < 8)){
+                JOptionPane.showMessageDialog(null, "Informe um CEP valido");
+                jTFNrCep.grabFocus();
+                return;
+            } else {
+                endereco.setNRCEP(jTFNrCep.getText());
+            }
+            endereco.setTPENDERECO("RESIDENCIA");
+
+            if (jRBFisico.isSelected()) {
+                pfDao.incluir(pfisica);
+                endDao.incluir(endereco);
+                usuarioDAO.incluir(usuario);
+                telefoneDAO.incluir(telefone);
+                funcDao.incluir(funcionario);
+            } else {
+                pjDao.incluir(pjuridica);
+                endDao.incluir(endereco);
+                funcDao.incluir(funcionario);
+            }
+            //JOptionPane.showMessageDialog(null, "Funcionário Cadastrado com sucesso!");
+            lcampos.LimparCampos(jPcadastro);
+            estadobotoes(false);
+
+        } else{
+
+            if (jTFIdPessoa.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Funcionario");
+                jTFIdPessoa.grabFocus();
+                return;
+            } else {
+                funcionario.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+            }
+
+            funcionario.setDTCADASTRO(jTFDtCadastro.getText());
+            funcionario.setDTDEMISSAO(jTFDtDemissão.getText());
+            funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
+
+            if (jTFVlSalario.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Valor do Sálario");
+                jTFVlSalario.grabFocus();
+                return;
+            } else {
+                funcionario.setVLSALARIO(Double.parseDouble(jTFVlSalario.getText()));
+            }
+            if (jTFLogin.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Login");
+                jTFLogin.grabFocus();
+                return;
+            } else {
+                funcionario.setLOGIN(jTFLogin.getText());
+                usuario.setDSUSUARIO(jTFLogin.getText());
+            }
+            if (jTFsenha1.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a Senha");
+                jTFsenha1.grabFocus();
+                return;
+            } else if (jTFsenha1.getText().equals(jTFSenha2.getText())) {
+                usuario.setDSSENHA(jTFsenha1.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "A Senha não confere, favor digitar a senha novamente!");
+                jTFsenha1.grabFocus();
+                return;
+            }
+            usuario.setIDNIVEL(Integer.parseInt(nivel1));
+
+            telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+
+            if (jTFFone1.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o número do Telefone");
+                jTFFone1.grabFocus();
+                return;
+            } else {
+                telefone.setNRFONE(jTFFone1.getText());
+
+            }
+            telefone.setTPFONE("Principal");
+
+            if (bGtipo_pessoa.isSelected(null)) {
+                JOptionPane.showMessageDialog(null, "Favor selecionar o TIPO DE PESSOA!");
+            } else if (jRBFisico.isSelected()) {
+                pfisica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                if (jTFNrCpf.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe o número do CPF");
+                    jTFNrCpf.grabFocus();
+                    return;
+                } else {
+                    pfisica.setNRCPF(jTFNrCpf.getText());
+                }
+
+                String sexo = jCBSexo.getSelectedItem().toString();
+                if (sexo.equals("MASCULINO")) {
+                    pfisica.setTPSEXO("M");
+                } else {
+                    pfisica.setTPSEXO("F");
+                }
+
+            } else {
+                pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                if (jTFNrCnpj.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
+                    jTFNrCnpj.grabFocus();
+                    return;
+                } else {
+                    String cnpj = jTFNrCnpj.getText();
+                    pjuridica.setNRCNPJ(jTFNrCnpj.getText());
+
+                }
+                if (jTFrazaosocial.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe a Razão Social!");
+                    jTFrazaosocial.grabFocus();
+                    return;
+                } else {
+                    pjuridica.setRZSOCIAL(jTFrazaosocial.getText());
+                }
+            }
+            endereco.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+
+            String cidadeId = jCBCidade.getSelectedItem().toString();
+            try {
+                idCidade = cidadeDAO.ConsultaIdcidade(idCidade, cidadeId);
+                endereco.setIDCIDADE(idCidade);
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceCidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (jTFlogradouro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Logradouro");
+                jTFlogradouro.grabFocus();
+                return;
+            } else {
+                endereco.setDSLOGRADOURO(jTFlogradouro.getText().toUpperCase());
+            }
+            if (jTFNumero.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Número do endereço");
+                jTFNumero.grabFocus();
+                return;
+            } else {
+                endereco.setDSNUMERO(jTFNumero.getText().toUpperCase());
+            }
+            if (jTFbairro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Bairro");
+                jTFbairro.grabFocus();
+                return;
+            } else {
+                endereco.setDSBAIRRO(jTFbairro.getText().toUpperCase());
+            }
+            if (jTFcomplemento.getText().equals("")) {
+                endereco.setDSCOMPLEMENTO(".");
+            } else {
+                endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
+            }
+            String cep = jTFNrCep.toString();
+
+            if (jTFNrCep.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o CEP");
+                jTFNrCep.grabFocus();
+                return;
+            } else if((cep.length() > 8) || (cep.length() < 8)){
+                JOptionPane.showMessageDialog(null, "Informe um CEP valido");
+                jTFNrCep.grabFocus();
+                return;
+            } else {
+                endereco.setNRCEP(jTFNrCep.getText());
+            }
+            endereco.setTPENDERECO("RESIDENCIA");
+
+            if (jRBFisico.isSelected()) {
+                pfDao.alterar(pfisica);
+                endDao.alterar(endereco);
+                usuarioDAO.alterar(usuario);
+                telefoneDAO.alterar(telefone);
+                funcDao.alterar(funcionario);
+            } else {
+                pjDao.alterar(pjuridica);
+                endDao.alterar(endereco);
+                funcDao.alterar(funcionario);
+            }
+            lcampos.LimparCampos(jPcadastro);
+            estadobotoes(false);
+
+        }
+    }//GEN-LAST:event_jBgravarActionPerformed
 
     private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
-        // TODO add your handling code here:
+        situacao = 1;
+        estadobotoes(true);
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
+        if (t == 0) {
+            if (jRBFisico.isSelected()) {
+                pfDao.excluir(pfisica);
+                endDao.excluir(endereco);
+                usuarioDAO.excluir(usuario);
+                telefoneDAO.excluir(telefone);
+                funcDao.excluir(funcionario);
+            } else {
+                pjDao.excluir(pjuridica);
+                endDao.excluir(endereco);
+                funcDao.excluir(funcionario);
+            }
+            JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
+        }
+        lcampos.LimparCampos(jPcadastro);
     }//GEN-LAST:event_jBexcluirActionPerformed
 
-    private void jTFVlSalarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFVlSalarioMouseClicked
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        situacao = 2;
+        estadobotoes(true);
+        cidadeDAO.preenchercidade(jCBCidade, cidade);
+    }//GEN-LAST:event_jBAlterarActionPerformed
 
-        ValidaNumero validaNumero = new ValidaNumero();
-        validaNumero.ValidaNumero(jTFVlSalario);
-    }//GEN-LAST:event_jTFVlSalarioMouseClicked
+    private void jBincluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincluirActionPerformed
+
+        jTFlogradouro.grabFocus();
+        lcampos.LimparCampos(jTPFuncionario);
+        situacao = 1;
+        estadobotoes(true);
+        cidadeDAO.preenchercidade(jCBCidade, cidade);
+        retornadata.RetornaDataAtual(jTFDtCadastro);
+    }//GEN-LAST:event_jBincluirActionPerformed
+
+    private void jTFNrCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCnpjFocusLost
+
+        char[] cnpj = jTFNrCnpj.getText().toCharArray();
+        int qtdCnpj = cnpj.length;
+
+        if (jTFNrCnpj.equals("00000000000000") || jTFNrCnpj.equals("11111111111111") ||
+            jTFNrCnpj.equals("22222222222222") || jTFNrCnpj.equals("33333333333333") ||
+            jTFNrCnpj.equals("44444444444444") || jTFNrCnpj.equals("55555555555555") ||
+            jTFNrCnpj.equals("66666666666666") || jTFNrCnpj.equals("77777777777777") ||
+            jTFNrCnpj.equals("88888888888888") || jTFNrCnpj.equals("99999999999999") ||
+            (qtdCnpj != 14)){
+            jTFNrCnpj.setText("");
+            jTFNrCnpj.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
+        }else{
+
+            char dig13, dig14;
+            int sm, result, dig, peso;
+
+            sm = 0;
+            peso = 2;
+            for (int i=11; i>=0; i--) {
+
+                dig = (int)(jTFNrCnpj.getText().charAt(i) - 48);
+                sm = sm + (dig * peso);
+                peso = peso + 1;
+                if (peso == 10)
+                peso = 2;
+            }
+
+            result = sm % 11;
+            if ((result == 0) || (result == 1))
+            dig13 = '0';
+            else dig13 = (char)((11-result) + 48);
+
+            // Calculo do 2o. Digito Verificador
+            sm = 0;
+            peso = 2;
+            for (int i=12; i>=0; i--) {
+                dig = (int)(jTFNrCnpj.getText().charAt(i)- 48);
+                sm = sm + (dig * peso);
+                peso = peso + 1;
+                if (peso == 10)
+                peso = 2;
+            }
+
+            result = sm % 11;
+            if ((result == 0) || (result == 1))
+            dig14 = '0';
+            else dig14 = (char)((11-result) + 48);
+
+            // Verifica se os dígitos calculados conferem com os dígitos informados.
+            if ((dig13 != jTFNrCnpj.getText().charAt(12)) || (dig14 != jTFNrCnpj.getText().charAt(13))){
+                jTFNrCnpj.setText("");
+                jTFNrCnpj.grabFocus();
+                JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
+            }
+        }
+
+    }//GEN-LAST:event_jTFNrCnpjFocusLost
+
+    private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
+        char[] cpf = jTFNrCpf.getText().toCharArray();
+        int qtdCpf = cpf.length;
+        if (jTFNrCpf.equals("00000000000000") || jTFNrCpf.equals("11111111111111") ||
+            jTFNrCpf.equals("22222222222222") || jTFNrCpf.equals("33333333333333") ||
+            jTFNrCpf.equals("44444444444444") || jTFNrCpf.equals("55555555555555") ||
+            jTFNrCpf.equals("66666666666666") || jTFNrCpf.equals("77777777777777") ||
+            jTFNrCpf.equals("88888888888888") || jTFNrCpf.equals("99999999999999") ||
+            (qtdCpf != 11)){
+            jTFNrCpf.setText("");
+            jTFNrCpf.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CPF Válido!");
+        }else{
+
+            for (int i = 0; i < qtdCpf; i++) {
+                char digCpf;
+                digCpf = cpf[i];
+                String charCPF;
+                if (i == 0) {
+                    charCPF = String.valueOf(digCpf);
+                    dig1 = (10 *Integer.parseInt(charCPF));
+                    dig21 = (11 *Integer.parseInt(charCPF));
+                } else if (i == 1) {
+                    charCPF = String.valueOf(digCpf);
+                    dig2 = (9 * Integer.parseInt(charCPF));
+                    dig22 = (10 * Integer.parseInt(charCPF));
+                } else if (i == 2) {
+                    charCPF = String.valueOf(digCpf);
+                    dig3 = (8 * Integer.parseInt(charCPF));
+                    dig23 = (9 * Integer.parseInt(charCPF));
+                } else if (i == 3) {
+                    charCPF = String.valueOf(digCpf);
+                    dig4 = (7 * Integer.parseInt(charCPF));
+                    dig24 = (8 * Integer.parseInt(charCPF));
+                } else if (i == 4) {
+                    charCPF = String.valueOf(digCpf);
+                    dig5 = (6 * Integer.parseInt(charCPF));
+                    dig25 = (7 * Integer.parseInt(charCPF));
+                } else if (i == 5) {
+                    charCPF = String.valueOf(digCpf);
+                    dig6 = (5 * Integer.parseInt(charCPF));
+                    dig26 = (6 * Integer.parseInt(charCPF));
+                } else if (i == 6) {
+                    charCPF = String.valueOf(digCpf);
+                    dig7 = (4 * Integer.parseInt(charCPF));
+                    dig27 = (5 * Integer.parseInt(charCPF));
+                } else if (i == 7) {
+                    charCPF = String.valueOf(digCpf);
+                    dig8 = (3 * Integer.parseInt(charCPF));
+                    dig28 = (4 * Integer.parseInt(charCPF));
+                } else if (i == 8) {
+                    charCPF = String.valueOf(digCpf);
+                    dig9 = (2 * Integer.parseInt(charCPF));
+                    dig29 = (3 * Integer.parseInt(charCPF));
+                } else if (i == 9) {
+                    charCPF = String.valueOf(digCpf);
+                    dig10 = Integer.parseInt(charCPF);
+                    dig210 = (2 * Integer.parseInt(charCPF));
+                } else if (i == 10) {
+                    charCPF = String.valueOf(digCpf);
+                    dig11 =  Integer.parseInt(charCPF);
+                    dig211 = Integer.parseInt(charCPF);
+                }
+            }
+            Integer somaDig10 = (dig1 + dig2 + dig3 + dig4 + dig5 + dig6 + dig7 + dig8 + dig9);
+            Integer restoDivDig10=( somaDig10 % 11);
+            Integer digVerif1 = (11 - restoDivDig10);
+            if (digVerif1 > 9){
+                digVerif1 = 0;
+            }
+            Integer digVerif2 = 0;
+            if (dig10 == digVerif1){
+                Integer somaDig11 = (dig21 + dig22 + dig23 + dig24 + dig25 + dig26 + dig27 + dig28 + dig29 + dig210);
+                Integer restoDivDig11=( somaDig11 % 11);
+                digVerif2 = (11 - restoDivDig11);
+                if (digVerif2 > 9){
+                    digVerif2 = 0;
+                }
+                if(dig11 !=digVerif2){
+                    jTFNrCpf.setText("");
+                    jTFNrCpf.grabFocus();
+                    JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+                }
+            }else{
+                jTFNrCpf.setText("");
+                jTFNrCpf.grabFocus();
+                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+            }
+        }
+    }//GEN-LAST:event_jTFNrCpfFocusLost
 
     private void jTFNrCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCpfMouseClicked
 
@@ -1007,158 +1293,54 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         validaNumero.ValidaNumero(jTFNrCep);
     }//GEN-LAST:event_jTFNrCepMouseClicked
 
-    private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
-      char[] cpf = jTFNrCpf.getText().toCharArray();
-      int qtdCpf = cpf.length;
-      if (jTFNrCpf.equals("00000000000000") || jTFNrCpf.equals("11111111111111") ||
-        jTFNrCpf.equals("22222222222222") || jTFNrCpf.equals("33333333333333") ||
-        jTFNrCpf.equals("44444444444444") || jTFNrCpf.equals("55555555555555") ||
-        jTFNrCpf.equals("66666666666666") || jTFNrCpf.equals("77777777777777") ||
-        jTFNrCpf.equals("88888888888888") || jTFNrCpf.equals("99999999999999") ||
-        (qtdCpf != 11)){
-            jTFNrCpf.setText("");
-            jTFNrCpf.grabFocus();
-            JOptionPane.showMessageDialog(null, "Digite um CPF Válido!");
-        }else{
+    private void jRBJuridicaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jRBJuridicaKeyPressed
 
-       
-        for (int i = 0; i < qtdCpf; i++) {
-            char digCpf;
-            digCpf = cpf[i];
-            String charCPF;
-            if (i == 0) {
-                charCPF = String.valueOf(digCpf);
-                dig1 = (10 *Integer.parseInt(charCPF));
-                dig21 = (11 *Integer.parseInt(charCPF));
-            } else if (i == 1) {
-                charCPF = String.valueOf(digCpf);
-                dig2 = (9 * Integer.parseInt(charCPF));
-                dig22 = (10 * Integer.parseInt(charCPF));
-            } else if (i == 2) {
-                charCPF = String.valueOf(digCpf);
-                dig3 = (8 * Integer.parseInt(charCPF));
-                dig23 = (9 * Integer.parseInt(charCPF));
-            } else if (i == 3) {
-               charCPF = String.valueOf(digCpf);
-                dig4 = (7 * Integer.parseInt(charCPF));
-                dig24 = (8 * Integer.parseInt(charCPF));
-            } else if (i == 4) {
-                charCPF = String.valueOf(digCpf);
-                dig5 = (6 * Integer.parseInt(charCPF));
-                dig25 = (7 * Integer.parseInt(charCPF));
-            } else if (i == 5) {
-                charCPF = String.valueOf(digCpf);
-                dig6 = (5 * Integer.parseInt(charCPF));
-                dig26 = (6 * Integer.parseInt(charCPF));
-            } else if (i == 6) {
-               charCPF = String.valueOf(digCpf);
-                dig7 = (4 * Integer.parseInt(charCPF));
-                dig27 = (5 * Integer.parseInt(charCPF));
-            } else if (i == 7) {
-                charCPF = String.valueOf(digCpf);
-                dig8 = (3 * Integer.parseInt(charCPF));
-                dig28 = (4 * Integer.parseInt(charCPF));
-            } else if (i == 8) {
-                charCPF = String.valueOf(digCpf);
-                dig9 = (2 * Integer.parseInt(charCPF));
-                dig29 = (3 * Integer.parseInt(charCPF));
-            } else if (i == 9) {
-                charCPF = String.valueOf(digCpf);
-                dig10 = Integer.parseInt(charCPF);
-                dig210 = (2 * Integer.parseInt(charCPF));
-            } else if (i == 10) {
-                charCPF = String.valueOf(digCpf);
-                dig11 =  Integer.parseInt(charCPF);
-                dig211 = Integer.parseInt(charCPF);
+    }//GEN-LAST:event_jRBJuridicaKeyPressed
+
+    private void jRBJuridicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicaMouseClicked
+        jTFNrCpf.setEnabled(false);
+        jTFrg.setEnabled(false);
+        jCBSexo.setEnabled(false);
+
+        jTFNrCnpj.setEnabled(true);
+        jTFrazaosocial.setEnabled(true);
+    }//GEN-LAST:event_jRBJuridicaMouseClicked
+
+    private void jRBJuridicoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicoMousePressed
+        jTFNrCpf.setEnabled(true);
+        jTFrg.setEnabled(true);
+        jCBSexo.setEnabled(true);
+
+        jTFNrCnpj.setEnabled(false);
+        jTFrazaosocial.setEnabled(false);
+    }//GEN-LAST:event_jRBJuridicoMousePressed
+
+    private void jRBFisicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jRBFisicoKeyPressed
+
+    }//GEN-LAST:event_jRBFisicoKeyPressed
+
+    private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
+
+    }//GEN-LAST:event_jBtPesquisaActionPerformed
+
+    private void jBtPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisa1ActionPerformed
+
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCbPesquisa2.getSelectedIndex()) {
+            case 0: {
+                funcDao.consulta(funcionario);
+                preencher.PreencherJComboBox(jTbPesquisa, funcionario.getRetorno());
+                return;
+            }
+            case 1: {
+                pessoa.setDSPESSOA(jTFPesquisa.getText().toUpperCase());
+                funcDao.consultadescricao(pessoa, funcionario);
+                preencher.PreencherJComboBox(jTbPesquisa, funcionario.getRetorno());
+                return;
             }
         }
-        Integer somaDig10 = (dig1 + dig2 + dig3 + dig4 + dig5 + dig6 + dig7 + dig8 + dig9);
-        Integer restoDivDig10=( somaDig10 % 11);
-        Integer digVerif1 = (11 - restoDivDig10);
-        if (digVerif1 > 9){
-            digVerif1 = 0;
-        }
-        Integer digVerif2 = 0;
-        if (dig10 == digVerif1){
-            Integer somaDig11 = (dig21 + dig22 + dig23 + dig24 + dig25 + dig26 + dig27 + dig28 + dig29 + dig210);
-            Integer restoDivDig11=( somaDig11 % 11);
-            digVerif2 = (11 - restoDivDig11);
-            if (digVerif2 > 9){
-            digVerif2 = 0;
-        }
-            if(dig11 !=digVerif2){
-                jTFNrCpf.setText("");
-                jTFNrCpf.grabFocus();
-                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
-            }
-        }else{
-            jTFNrCpf.setText("");
-                jTFNrCpf.grabFocus();
-                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
-        }
-      }
-    }//GEN-LAST:event_jTFNrCpfFocusLost
+    }//GEN-LAST:event_jBtPesquisa1ActionPerformed
 
-    private void jTFNrCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCnpjFocusLost
-       
-        char[] cnpj = jTFNrCnpj.getText().toCharArray();
-        int qtdCnpj = cnpj.length;
-        
-        if (jTFNrCnpj.equals("00000000000000") || jTFNrCnpj.equals("11111111111111") ||
-        jTFNrCnpj.equals("22222222222222") || jTFNrCnpj.equals("33333333333333") ||
-        jTFNrCnpj.equals("44444444444444") || jTFNrCnpj.equals("55555555555555") ||
-        jTFNrCnpj.equals("66666666666666") || jTFNrCnpj.equals("77777777777777") ||
-        jTFNrCnpj.equals("88888888888888") || jTFNrCnpj.equals("99999999999999") ||
-        (qtdCnpj != 14)){
-            jTFNrCnpj.setText("");
-            jTFNrCnpj.grabFocus();
-            JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
-        }else{
-            
-    char dig13, dig14;
-    int sm, result, dig, peso;
-
-      sm = 0;
-      peso = 2;
-      for (int i=11; i>=0; i--) {
-          
-        dig = (int)(jTFNrCnpj.getText().charAt(i) - 48);
-        sm = sm + (dig * peso);
-        peso = peso + 1;
-        if (peso == 10)
-           peso = 2;
-      }
-
-      result = sm % 11;
-      if ((result == 0) || (result == 1))
-         dig13 = '0';
-      else dig13 = (char)((11-result) + 48);
-    
-        // Calculo do 2o. Digito Verificador
-      sm = 0;
-      peso = 2;
-      for (int i=12; i>=0; i--) {
-        dig = (int)(jTFNrCnpj.getText().charAt(i)- 48);
-        sm = sm + (dig * peso);
-        peso = peso + 1;
-        if (peso == 10)
-           peso = 2;
-      }
-
-      result = sm % 11;
-      if ((result == 0) || (result == 1))
-         dig14 = '0';
-      else dig14 = (char)((11-result) + 48);
-
-// Verifica se os dígitos calculados conferem com os dígitos informados.
-      if ((dig13 != jTFNrCnpj.getText().charAt(12)) || (dig14 != jTFNrCnpj.getText().charAt(13))){
-         jTFNrCnpj.setText("");
-            jTFNrCnpj.grabFocus();
-            JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
-      }
-    }
-        
-    }//GEN-LAST:event_jTFNrCnpjFocusLost
 
     /**
      * @param args the command line arguments
@@ -1207,11 +1389,12 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton jBgravar;
     private javax.swing.JButton jBincluir;
     private javax.swing.JButton jBtPesquisa;
+    private javax.swing.JButton jBtPesquisa1;
     private javax.swing.JComboBox jCBCidade;
     private javax.swing.JComboBox jCBNivel;
     private javax.swing.JComboBox jCBSexo;
     private javax.swing.JComboBox jCBTpSituação;
-    private javax.swing.JComboBox jCbPesquisa;
+    private javax.swing.JComboBox jCbPesquisa2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1235,9 +1418,9 @@ private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPbotoes;
     private javax.swing.JPanel jPcadastro;
+    private javax.swing.JPanel jPconsulta;
     private javax.swing.JPanel jPpfisica;
     private javax.swing.JPanel jPpjuridica;
     private javax.swing.JRadioButton jRBFisico;

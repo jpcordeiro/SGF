@@ -7,7 +7,6 @@ import java.sql.ResultSet;
  * @author JOÃO PAULO
  */
 public class Endereco {
-    private Integer IDENDERECO;
     private Integer IDPESSOA;
     private String TPENDERECO;
     private String DSLOGRADOURO;
@@ -19,15 +18,7 @@ public class Endereco {
  
     
      private ResultSet retorno;
-
-    public Integer getIDENDERECO() {
-        return IDENDERECO;
-    }
-
-    public void setIDENDERECO(Integer IDENDERECO) {
-        this.IDENDERECO = IDENDERECO;
-    }
-
+     
     public Integer getIDPESSOA() {
         return IDPESSOA;
     }

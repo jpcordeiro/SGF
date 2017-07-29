@@ -44,7 +44,7 @@ public class LoginDAO {
     }
      
       public void excluir(Login login) {
-        String sql = "DELETE FROM USUARIO WHERE IDUSUARIO = " + login.getIDUSUARIO();
+        String sql = "DELETE FROM USUARIO WHERE DSUSUARIO ='" + login.getDSUSUARIO()+"'";
         conn.executeSQL(sql);
       }
     

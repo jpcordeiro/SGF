@@ -13,7 +13,8 @@ public class Funcionario {
     private String DTDEMISSAO;
     private Integer TPSITUACAO;
     private Double VLSALARIO;
-    private String LOGIN;   
+    private String LOGIN; 
+    private String TPPESSOA;
     
     private ResultSet retorno;
 
@@ -72,6 +73,15 @@ public class Funcionario {
     public void setRetorno(ResultSet retorno) {
         this.retorno = retorno;
     }
+
+    public String getTPPESSOA() {
+        return TPPESSOA;
+    }
+
+    public void setTPPESSOA(String TPPESSOA) {
+        this.TPPESSOA = TPPESSOA;
+    }
+    
     
     
     

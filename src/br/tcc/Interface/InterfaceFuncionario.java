@@ -53,7 +53,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     PessoaJuridicaDAO pjDao = new PessoaJuridicaDAO();
     EnderecoDAO endDao = new EnderecoDAO();
     FuncionarioDAO funcDao = new FuncionarioDAO();
-
+    PessoaDAO pessoaDao = new PessoaDAO();
     /**
      * Creates new form InterfacePessoa
      */
@@ -785,9 +785,9 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
             funcionario.setDTCADASTRO(jTFDtCadastro.getText());
 
-            //        if (jTFDtDemissão.getText().equals("")) {
+          
                 funcionario.setDTDEMISSAO(jTFDtDemissão.getText());
-                //        }
+
             funcionario.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
 
             if (jTFVlSalario.getText().equals("")) {
@@ -834,12 +834,16 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Favor selecionar o TIPO DE PESSOA!");
             } else if (jRBFisico.isSelected()) {
                 pfisica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                funcionario.setTPPESSOA("F");
                 if (jTFNrCpf.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Informe o número do CPF");
                     jTFNrCpf.grabFocus();
                     return;
                 } else {
                     pfisica.setNRCPF(jTFNrCpf.getText());
+                }
+                if(!jTFrg.getText().equals("")){
+                    pfisica.setNRRG(jTFrg.getText());
                 }
 
                 String sexo = jCBSexo.getSelectedItem().toString();
@@ -851,6 +855,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
             } else {
                 pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                funcionario.setTPPESSOA("J");
                 if (jTFNrCnpj.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
                     jTFNrCnpj.grabFocus();
@@ -909,10 +914,6 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Informe o CEP");
                 jTFNrCep.grabFocus();
                 return;
-            } else if((cep.length() > 8) || (cep.length() < 8)){
-                JOptionPane.showMessageDialog(null, "Informe um CEP valido");
-                jTFNrCep.grabFocus();
-                return;
             } else {
                 endereco.setNRCEP(jTFNrCep.getText());
             }
@@ -929,7 +930,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 endDao.incluir(endereco);
                 funcDao.incluir(funcionario);
             }
-            //JOptionPane.showMessageDialog(null, "Funcionário Cadastrado com sucesso!");
+    
             lcampos.LimparCampos(jPcadastro);
             estadobotoes(false);
 
@@ -998,6 +999,9 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 } else {
                     pfisica.setNRCPF(jTFNrCpf.getText());
                 }
+                 if(!jTFrg.getText().equals("")){
+                    pfisica.setNRRG(jTFrg.getText());
+                }
 
                 String sexo = jCBSexo.getSelectedItem().toString();
                 if (sexo.equals("MASCULINO")) {
@@ -1066,10 +1070,6 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Informe o CEP");
                 jTFNrCep.grabFocus();
                 return;
-            } else if((cep.length() > 8) || (cep.length() < 8)){
-                JOptionPane.showMessageDialog(null, "Informe um CEP valido");
-                jTFNrCep.grabFocus();
-                return;
             } else {
                 endereco.setNRCEP(jTFNrCep.getText());
             }
@@ -1094,7 +1094,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
 
     private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
         situacao = 1;
-        estadobotoes(true);
+        
         int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
         if (t == 0) {
             if (jRBFisico.isSelected()) {
@@ -1106,17 +1106,20 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             } else {
                 pjDao.excluir(pjuridica);
                 endDao.excluir(endereco);
+                usuarioDAO.excluir(usuario);
+                telefoneDAO.excluir(telefone);
                 funcDao.excluir(funcionario);
             }
             JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
+            estadobotoes(false);
         }
         lcampos.LimparCampos(jPcadastro);
+        
     }//GEN-LAST:event_jBexcluirActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         situacao = 2;
         estadobotoes(true);
-        cidadeDAO.preenchercidade(jCBCidade, cidade);
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jBincluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincluirActionPerformed
@@ -1348,27 +1351,85 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtPesquisa1ActionPerformed
 
     private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
-        PessoaDAO pessoaDAO = null;
+    
         if(evt.getClickCount() == 1){
             int linha = jTbPesquisa.getSelectedRow();
             String ID = (String) jTbPesquisa.getValueAt(linha, 0);
             Integer idpessoa = 0;
+            
             funcionario.setIDPESSOA(Integer.parseInt(ID));
             funcDao.retornadados(funcionario);
-            pessoa.setIDPESSOA(Integer.parseInt(ID));
-            pessoaDAO.retornadados(pessoa);
+           
             telefone.setIDPESSOA(Integer.parseInt(ID));
             telefoneDAO.retornadados(telefone);
             
+            pessoa.setIDPESSOA(Integer.parseInt(ID));
+            pessoaDao.retornadados(pessoa);
+            
+            pfisica.setIDPESSOA(Integer.parseInt(ID));
+            pfDao.retornadados(pfisica);
+            
+            pjuridica.setIDPESSOA(Integer.parseInt(ID));
+            pjDao.retornadados(pjuridica);
+            
+            endereco.setIDPESSOA(Integer.parseInt(ID));
+            endDao.retornadados(endereco);
+            
+            String user = funcionario.getLOGIN();
+            usuario.setDSUSUARIO(user);
+            usuarioDAO.retornanivel(usuario);
+            
+                   
+            String tpPessoa = funcionario.getTPPESSOA();
+            
             jTFIdPessoa.setText(Integer.toString(funcionario.getIDPESSOA()));
             jTFnome.setText(pessoa.getDSPESSOA());
+            if (tpPessoa.equals("F")){
+                jRBFisico.setSelected(true);
+                
+                 jTFNrCnpj.setEnabled(false);
+                 jTFrazaosocial.setEnabled(false);
+                 
+                 jTFNrCpf.setText(pfisica.getNRCPF());
+                 jTFrg.setText(pfisica.getNRRG());
+                 String sexo = pfisica.getTPSEXO();
+                 if(sexo.equals("M")){
+                     jCBSexo.setSelectedIndex(1);
+                 }else{
+                     jCBSexo.setSelectedIndex(0);
+                 }               
+            }else{
+                jRBJuridica.setSelected(false);
+                
+                jTFNrCpf.setEnabled(false);
+                jTFrg.setEnabled(false);
+                jCBSexo.setEnabled(false);
+                
+                jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
+                jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+            }
             jTFDtNasc.setText(pessoa.getDTNASC());
             jTFDtCadastro.setText(funcionario.getDTCADASTRO());
             jTFDtDemissão.setText(funcionario.getDTDEMISSAO());
             jTFVlSalario.setText(Double.toString(funcionario.getVLSALARIO()));
             jTFFone1.setText(telefone.getNRFONE());
-            jTFLogin.setText(funcionario.getLOGIN());            
+            jTFLogin.setText(funcionario.getLOGIN()); 
             
+            jCBNivel.setSelectedItem(usuario.getIDNIVEL());
+            
+            jTFlogradouro.setText(endereco.getDSLOGRADOURO());
+            jTFNumero.setText(endereco.getDSNUMERO());
+            jTFcomplemento.setText(endereco.getDSCOMPLEMENTO());
+            jTFbairro.setText(endereco.getDSBAIRRO());
+            jTFNrCep.setText(endereco.getNRCEP());
+            
+            cidadeDAO.preenchercidade(jCBCidade, cidade);
+            
+            Integer idcidade = endereco.getIDCIDADE();
+            cidade.setIDCIDADE(idcidade);
+            cidadeDAO.retornacidade(cidade);
+            jCBCidade.setSelectedItem(cidade.getDscidade());             
+           
         }
        
         estadobotoes(false);

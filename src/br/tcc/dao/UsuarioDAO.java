@@ -2,6 +2,7 @@ package br.tcc.dao;
 
 import br.tcc.classe.Usuario;
 import br.tcc.conexao.ConexaoOracle;
+import java.sql.SQLException;
 
 /**
  *
@@ -24,16 +25,16 @@ public class UsuarioDAO {
     }
      
       public void alterar(Usuario usuario) {
-        String sql = "UPDATE USUARIO SET '" 
+        String sql = "UPDATE USUARIO SET " 
                 + " DSUSUARIO = '" + usuario.getDSUSUARIO()+ "',"
-                + " DSSENHA = '" + usuario.getDSSENHA() + "'"
-                + "IDNIVEL = " + usuario.getIDNIVEL() 
-                + " WHERE DSUSUARIO = " + usuario.getDSUSUARIO();
+                + " DSSENHA = '" + usuario.getDSSENHA() + "',"
+                + " IDNIVEL = " + usuario.getIDNIVEL() 
+                + " WHERE DSUSUARIO = '" + usuario.getDSUSUARIO() + "'";
         conn.incluirSQL(sql);
     }
      
       public void excluir(Usuario usuario) {
-        String sql = "DELETE FROM USUARIO WHERE DSCIDADE = " + usuario.getDSUSUARIO();
+        String sql = "DELETE FROM USUARIO WHERE DSUSUARIO = '" + usuario.getDSUSUARIO() + "'";
         conn.executeSQL(sql);
       }
      public void consulta(Usuario usuario) {
@@ -41,5 +42,17 @@ public class UsuarioDAO {
         conn.executeSQL(sql);
         usuario.setRetorno(conn.resultset);
     }
+
+    public void retornanivel(Usuario usuario) {
+        String sql = "SELECT IDNIVEL FROM USUARIO WHERE DSUSUARIO = '" + usuario.getDSUSUARIO() + "'";
+        conn.executeSQL(sql);
+
+        try {
+            conn.resultset.first();
+            usuario.setIDNIVEL(conn.resultset.getInt("IDNIVEL"));
+            } catch (SQLException ex) {
+
+        }
+   }
     
 }

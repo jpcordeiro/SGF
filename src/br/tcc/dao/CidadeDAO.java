@@ -102,5 +102,18 @@ public class CidadeDAO {
         }
          return (idCidade);
     }
+
+    public void retornacidade(Cidade cidade) {
+         String sql = "SELECT DSCIDADE FROM CIDADE WHERE IDCIDADE = " + cidade.getIDCIDADE();
+        conn.executeSQL(sql);
+
+        try {
+            conn.resultset.first();
+            cidade.setDscidade(conn.resultset.getString("DSCIDADE"));
+            
+            } catch (SQLException ex) {
+
+        }
+    }
     
 }

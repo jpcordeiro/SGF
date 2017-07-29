@@ -1,6 +1,5 @@
 package br.tcc.dao;
 
-import br.tcc.classe.Funcionario;
 import br.tcc.classe.Pessoa;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
@@ -62,7 +61,7 @@ public class PessoaDAO {
 
     public void retornadados(Pessoa pessoa) {
         
-         String sql = "SELECT * FROM Pessoa WHERE IDPESSOA = " + pessoa.getIDPESSOA();
+        String sql = "SELECT * FROM Pessoa WHERE IDPESSOA = " + pessoa.getIDPESSOA();
         conn.executeSQL(sql);
 
         try {
@@ -73,6 +72,17 @@ public class PessoaDAO {
             pessoa.setDTNASC(conn.resultset.getString("DTNASC"));           
             } catch (SQLException ex) {
 
+        }
+    }
+    
+    public void retornaNome(Pessoa pessoa){
+        String sql = "SELECT * FROM PESSOA WHERE IDPESSOA = " + pessoa.getIDPESSOA();
+        conn.executeSQL(sql);
+        try {
+            conn.resultset.first();
+            pessoa.setDSPESSOA(conn.resultset.getString("DSPESSOA"));
+            pessoa.setDTNASC(conn.resultset.getString("DTNASC"));
+        } catch (Exception e) {
         }
     }
 

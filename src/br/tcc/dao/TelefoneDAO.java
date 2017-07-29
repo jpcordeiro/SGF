@@ -34,15 +34,16 @@ public class TelefoneDAO {
     }
      
       public void alterar(Telefone fone) {
-        String sql = "UPDATE TELEFONE SET" 
+        String sql = "UPDATE TELEFONE SET " 
                 + " IDPESSOA = " + fone.getIDPESSOA() + ","
                 + " TPFONE = '" + fone.getTPFONE() + "',"
-                + " NRFONE = '" + fone.getNRFONE() + "'";
+                + " NRFONE = '" + fone.getNRFONE() + "'"
+                + " WHERE TPFONE = 'Pincipal'";;
         conn.incluirSQL(sql);
     }
      
       public void excluir(Telefone fone) {
-        String sql = "DELETE FROM TELEFONE WHERE IDPESSOA = " + fone.getIDPESSOA()+ "AND TPFONE = " + fone.getTPFONE();
+        String sql = "DELETE FROM TELEFONE WHERE IDPESSOA = " + fone.getIDPESSOA();
         conn.executeSQL(sql);
       }
      public void consulta(int idPes, Telefone fone) {

@@ -24,20 +24,22 @@ public class FuncionarioDAO {
                 +func.getDTDEMISSAO() +"',"
                 +func.getTPSITUACAO() +","
                 +func.getVLSALARIO() +",'"
-                +func.getLOGIN() + "')";
+                +func.getLOGIN() +  "','"
+                +func.getTPPESSOA() +"')";
         
          conn.incluirSQL(sql);
     }
      
       public void alterar(Funcionario func) {
-        String sql = "UPDATE FUNCIONARIO SET" 
+        String sql = "UPDATE FUNCIONARIO SET " 
                 + " IDPESSOA = " + func.getIDPESSOA() + ","
-                + "DTCADASTRO = " + func.getDTCADASTRO() + ","
-                + "DTDEMISSAO = " + func.getDTDEMISSAO() + ","
-                + "TPSITUACAO = " + func.getTPSITUACAO() + ","
-                + "VLSALARIO = " + func.getVLSALARIO() + ",'"
-                + "LOGIN = " + func.getLOGIN() + "',"
-                + " WHERE IDPESSOA = " + func.getIDPESSOA()+ "')";
+                + " DTCADASTRO = '" + func.getDTCADASTRO() + "',"
+                + " DTDEMISSAO = '" + func.getDTDEMISSAO() + "',"
+                + " TPSITUACAO = " + func.getTPSITUACAO() + ","
+                + " VLSALARIO = " + func.getVLSALARIO() + ","
+                + " IDUSUARIO = '" + func.getLOGIN() + "',"
+                + " TPPESSOA = '" + func.getTPPESSOA() + "'"
+                + " WHERE IDPESSOA = " + func.getIDPESSOA();
                
                 conn.incluirSQL(sql);
     }
@@ -78,11 +80,14 @@ public class FuncionarioDAO {
             func.setDTCADASTRO(conn.resultset.getString("DTCADASTRO"));
             func.setDTDEMISSAO(conn.resultset.getString("DTDEMISSAO"));
             func.setVLSALARIO(conn.resultset.getDouble("VLSALARIO"));
-            func.setLOGIN(conn.resultset.getString("LOGIN"));
+            func.setLOGIN(conn.resultset.getString("IDUSUARIO"));
+            func.setTPPESSOA(conn.resultset.getString("TPPESSOA"));
             
             } catch (SQLException ex) {
 
         }
     }
+
+   
 }
 

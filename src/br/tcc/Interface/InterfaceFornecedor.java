@@ -1,11 +1,14 @@
 package br.tcc.Interface;
 
+import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
 import br.tcc.dao.CidadeDAO;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -65,7 +68,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jBpesquisar = new javax.swing.JButton();
         jTFdsproduto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTitens = new javax.swing.JTable();
         jBAddProduto = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jBincluir = new javax.swing.JButton();
@@ -78,6 +81,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jBPesquisar = new javax.swing.JButton();
         jTFDsItem = new javax.swing.JTextField();
         jBAdicionar = new javax.swing.JButton();
+        jBRemover = new javax.swing.JButton();
         jTFDtCadastro = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -110,9 +114,19 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         bGtipo_pessoa.add(jRBFisico);
         jRBFisico.setText("Física");
+        jRBFisico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRBFisicoMouseClicked(evt);
+            }
+        });
 
         bGtipo_pessoa.add(jRBJuridica);
         jRBJuridica.setText("Juridica");
+        jRBJuridica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRBJuridicaMouseClicked(evt);
+            }
+        });
 
         jPpfisica.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa Física"));
 
@@ -216,15 +230,30 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         jBpesquisar.setText("Pesquisar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTitens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Descrição"
+                "Selecionar", "Código", "Descrição"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTitens);
 
         jBAddProduto.setText("Adicionar");
 
@@ -284,8 +313,25 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jLabel19.setText("Código");
 
         jBPesquisar.setText("Pesquisar");
+        jBPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBPesquisarMouseClicked(evt);
+            }
+        });
 
         jBAdicionar.setText("Adicionar");
+        jBAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAdicionarActionPerformed(evt);
+            }
+        });
+
+        jBRemover.setText("Remover");
+        jBRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -307,32 +353,36 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTFCodigoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBPesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFDsItem, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBAdicionar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jTFCodigoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBPesquisar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTFDsItem)
+                            .addGap(18, 18, 18)
+                            .addComponent(jBAdicionar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jBRemover))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel19)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFCodigoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBPesquisar)
                     .addComponent(jTFDsItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBAdicionar))
-                .addGap(18, 18, 18)
+                    .addComponent(jBAdicionar)
+                    .addComponent(jBRemover))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addGap(96, 96, 96)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jTFproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -733,6 +783,60 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jBPesquisarPessoaMouseClicked
 
+    private void jRBFisicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBFisicoMouseClicked
+        jTFNrCpf.setEnabled(true);
+        jTFrg.setEnabled(true);
+        jCBSexo.setEnabled(true);
+
+        jTFNrCnpj.setEnabled(false);
+        jTFrazaosocial.setEnabled(false);
+    }//GEN-LAST:event_jRBFisicoMouseClicked
+
+    private void jRBJuridicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicaMouseClicked
+        jTFNrCpf.setEnabled(false);
+        jTFrg.setEnabled(false);
+        jCBSexo.setEnabled(false);
+
+        jTFNrCnpj.setEnabled(true);
+        jTFrazaosocial.setEnabled(true);
+    }//GEN-LAST:event_jRBJuridicaMouseClicked
+
+    private void jBPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarMouseClicked
+        
+        final ConsultaProduto consProd = new ConsultaProduto();
+        
+        consProd.setVisible(true);
+        consProd.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+              jTFCodigoItem.setText(consProd.retornaId);
+              jTFDsItem.setText(consProd.retornaDsProduto);
+            }          
+        });
+     
+    }//GEN-LAST:event_jBPesquisarMouseClicked
+
+    private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
+       
+        if (!jTFCodigoItem.getText().equals("")){
+            if(!jTFDsItem.getText().equals("")){
+                IncluirLista();
+                jTFCodigoItem.setText("");
+                jTFDsItem.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Informe o codigo do produto !");
+                jTFCodigoItem.grabFocus();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Informe o nome do produto!");
+            jTFDsItem.grabFocus();
+        }
+    }//GEN-LAST:event_jBAdicionarActionPerformed
+
+    private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
+        RemoverLista();
+    }//GEN-LAST:event_jBRemoverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -777,6 +881,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBPesquisarPessoa;
+    private javax.swing.JButton jBRemover;
     private javax.swing.JButton jBcancelar;
     private javax.swing.JButton jBexcluir;
     private javax.swing.JButton jBgravar;
@@ -830,7 +935,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTFrazaosocial;
     private javax.swing.JTextField jTFrg;
     private javax.swing.JTabbedPane jTPFornecedor;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTitens;
     // End of variables declaration//GEN-END:variables
 
      private void estadobotoes(boolean situacao) {
@@ -839,5 +944,45 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jBexcluir.setEnabled(!situacao);
         jBgravar.setEnabled(situacao);
         jBcancelar.setEnabled(situacao);
+     }
+     
+      public void IncluirLista() {
+        DefaultTableModel ItensFornece = (DefaultTableModel) jTitens.getModel();
+        
+
+        int totlinha = jTitens.getRowCount();
+        int incluir = 0;
+     
+        if (incluir == 0) {
+            ItensFornece.setNumRows(totlinha + 1);
+            ItensFornece.setValueAt((false), totlinha, 0);
+            ItensFornece.setValueAt((jTFCodigoItem.getText()), totlinha, 1);
+            ItensFornece.setValueAt((jTFDsItem.getText()), totlinha, 2);
+            
+            jTFCodigoItem.setText("");
+            jTFDsItem.setText("");
+        }
+      }
+
+    private void RemoverLista() {
+              
+        DefaultTableModel tabela = (DefaultTableModel) jTitens.getModel();
+        int totlinha = tabela.getRowCount();
+        int i = 0;
+        Boolean sel = false;
+        
+        int opcao = JOptionPane.showConfirmDialog(null, "Deseja remover as linha selecionadas ?","Remover", JOptionPane.YES_NO_OPTION);
+        if (opcao == JOptionPane.YES_OPTION){
+            for(i=totlinha - 1; i>=0; i--){
+                Boolean selecionado = (Boolean) tabela.getValueAt(i, 0);
+                if (selecionado == true){
+                    sel = true;
+                    tabela.removeRow(i);
+                }
+            }
+            if(!sel == true){
+                JOptionPane.showMessageDialog(null, "Não ha nenhuma registro selecionado !");
+            }
+        }
      }
 }

@@ -26,7 +26,7 @@ public class ConexaoOracle {
                         + "@127.0.0.1:1521"
                         + ":XE", " sgf ", "sgf");
                 System.out.println("Conectado");
-                JOptionPane.showMessageDialog(null, "Conectado com sucesso");
+//                JOptionPane.showMessageDialog(null, "Conectado com sucesso");
                 return ConexaoOracle;
 
             } catch (ClassNotFoundException ex) {

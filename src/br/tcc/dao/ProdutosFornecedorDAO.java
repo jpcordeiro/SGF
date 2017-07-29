@@ -10,7 +10,7 @@ import br.tcc.conexao.ConexaoOracle;
 
 /**
  *
- * @author Usuário
+ * @author JOÃO PAULO
  */
 public class ProdutosFornecedorDAO {
     

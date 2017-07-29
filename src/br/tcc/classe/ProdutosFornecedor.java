@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author Usuário
+ * @author JOÃO PAULO
  */
 public class ProdutosFornecedor {
     

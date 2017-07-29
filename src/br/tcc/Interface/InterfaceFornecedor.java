@@ -5,8 +5,12 @@ import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
+import br.tcc.classe.ProdutosFornecedor;
 import br.tcc.dao.CidadeDAO;
+import br.tcc.dao.ProdutosFornecedorDAO;
+import java.awt.List;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +27,8 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
      CidadeDAO cidadeDAO = new CidadeDAO();
      RetornaDataAtual retornadata = new RetornaDataAtual();
      Cidade cidade = new Cidade();
+     ProdutosFornecedor prodForne = new ProdutosFornecedor();
+     ProdutosFornecedorDAO prodfornecedao = new ProdutosFornecedorDAO();
 
     /** Creates new form InterfacePessoa */
     public InterfaceFornecedor() {
@@ -267,10 +273,25 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         });
 
         jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
+            }
+        });
 
         jBexcluir.setText("Excluir");
+        jBexcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBexcluirActionPerformed(evt);
+            }
+        });
 
         jBgravar.setText("Gravar");
+        jBgravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBgravarActionPerformed(evt);
+            }
+        });
 
         jBcancelar.setText("Cancelar");
 
@@ -353,19 +374,20 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                            .addComponent(jTFCodigoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jBPesquisar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTFDsItem)
-                            .addGap(18, 18, 18)
-                            .addComponent(jBAdicionar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jBRemover))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jTFCodigoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFDsItem, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBAdicionar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBRemover))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addGap(24, 24, 24)))
+                .addGap(417, 417, 417))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,9 +400,9 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                     .addComponent(jTFDsItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBAdicionar)
                     .addComponent(jBRemover))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(16, 16, 16)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -836,6 +858,50 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
         RemoverLista();
     }//GEN-LAST:event_jBRemoverActionPerformed
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        situacao = 2;
+        estadobotoes(true);
+    }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
+        if (t == 0) {
+            
+//                pfDao.excluir(pfisica);
+//                endDao.excluir(endereco);
+//                usuarioDAO.excluir(usuario);
+//                telefoneDAO.excluir(telefone);
+//                funcDao.excluir(funcionario);
+           
+            JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
+            estadobotoes(false);
+        }
+        lcampos.LimparCampos(jPcadastro);
+        
+    }//GEN-LAST:event_jBexcluirActionPerformed
+
+    private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravarActionPerformed
+        
+        
+        prodForne.setIDFORNECEDOR(Integer.parseInt(jTFCodigo.getText()));
+        
+        DefaultTableModel ItensFornece = (DefaultTableModel) jTitens.getModel();
+        int totlinha = ItensFornece.getRowCount();
+        int i = 0;
+        Boolean sel = false;
+             String codIten;
+            for(i=totlinha-1; i>=0; i--){
+                
+                codIten = String.valueOf(ItensFornece.getValueAt(i, 1));
+                prodForne.setIDPRODUTO(Integer.parseInt(codIten));
+                prodForne.setIDFORNECEDOR(Integer.parseInt(jTFCodigo.getText()));
+                prodfornecedao.incluir(prodForne);
+           
+            }
+        
+        
+    }//GEN-LAST:event_jBgravarActionPerformed
 
     /**
      * @param args the command line arguments

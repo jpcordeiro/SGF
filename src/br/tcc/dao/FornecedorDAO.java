@@ -21,7 +21,8 @@ public class FornecedorDAO {
                 + fornecedor.getDTCADASTRO() + "','"
                 + fornecedor.getTPSITUACAO() + "',"
                 + fornecedor.getVLLIMITE() + ",'"
-                + fornecedor.getTPPESSOA() + "')";
+                + fornecedor.getTPPESSOA() + "','"
+                + fornecedor.getDSEMAIL() + "')";
         conn.incluirSQL(sql);
     }
     
@@ -31,7 +32,8 @@ public class FornecedorDAO {
                 + " DTCADASTRO = '" + fornecedor.getDTCADASTRO()+ "',"
                 + " TPSITUACAO = '" + fornecedor.getTPSITUACAO() +"',"
                 + " VLLIMITE = " + fornecedor.getVLLIMITE() + ","
-                + " TPPESSOA = '" + fornecedor.getTPPESSOA() + "'"
+                + " TPPESSOA = '" + fornecedor.getTPPESSOA() + "',"
+                + " DSEMAIL = '" + fornecedor.getDSEMAIL() + "'" 
                 +" WHERE IDPESSOA = " + fornecedor.getIDPESSOA();
         conn.incluirSQL(sql);
     } 

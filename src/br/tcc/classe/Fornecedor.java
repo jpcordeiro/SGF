@@ -10,9 +10,10 @@ public class Fornecedor {
     
     private Integer IDPESSOA;
     private String DTCADASTRO;
-    private String TPSITUACAO;
+    private Integer TPSITUACAO;
     private Double VLLIMITE;
     private String TPPESSOA;
+    private String DSEMAIL;
     
     private ResultSet retorno;
 
@@ -32,11 +33,11 @@ public class Fornecedor {
         this.DTCADASTRO = DTCADASTRO;
     }
 
-    public String getTPSITUACAO() {
+    public Integer getTPSITUACAO() {
         return TPSITUACAO;
     }
 
-    public void setTPSITUACAO(String TPSITUACAO) {
+    public void setTPSITUACAO(Integer TPSITUACAO) {
         this.TPSITUACAO = TPSITUACAO;
     }
 
@@ -54,6 +55,14 @@ public class Fornecedor {
 
     public void setTPPESSOA(String TPPESSOA) {
         this.TPPESSOA = TPPESSOA;
+    }
+
+    public String getDSEMAIL() {
+        return DSEMAIL;
+    }
+
+    public void setDSEMAIL(String DSEMAIL) {
+        this.DSEMAIL = DSEMAIL;
     }
 
     public ResultSet getRetorno() {

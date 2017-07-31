@@ -928,6 +928,8 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             } else {
                 pjDao.incluir(pjuridica);
                 endDao.incluir(endereco);
+                usuarioDAO.incluir(usuario);
+                telefoneDAO.incluir(telefone);
                 funcDao.incluir(funcionario);
             }
     

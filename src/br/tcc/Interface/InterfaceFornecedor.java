@@ -2,11 +2,13 @@ package br.tcc.Interface;
 
 import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
 import br.tcc.classe.Endereco;
 import br.tcc.classe.Fornecedor;
+import br.tcc.classe.Pessoa;
 import br.tcc.classe.PessoaFisica;
 import br.tcc.classe.PessoaJuridica;
 import br.tcc.classe.ProdutosFornecedor;
@@ -14,6 +16,7 @@ import br.tcc.classe.Telefone;
 import br.tcc.dao.CidadeDAO;
 import br.tcc.dao.EnderecoDAO;
 import br.tcc.dao.FornecedorDAO;
+import br.tcc.dao.PessoaDAO;
 import br.tcc.dao.PessoaFisicaDAO;
 import br.tcc.dao.PessoaJuridicaDAO;
 import br.tcc.dao.ProdutosFornecedorDAO;
@@ -53,7 +56,8 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     FornecedorDAO fornDAO = new FornecedorDAO();
     Telefone telefone = new Telefone();
     TelefoneDAO telefoneDAO= new TelefoneDAO();
-    
+    Pessoa pessoa = new Pessoa();
+    PessoaDAO pessoaDAO = new PessoaDAO();
     
 
     /**
@@ -140,6 +144,12 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jTFVlLimite = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jTFFone1 = new javax.swing.JTextField();
+        jPconsulta = new javax.swing.JPanel();
+        jCbPesquisa2 = new javax.swing.JComboBox();
+        jTFPesquisa = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTbPesquisa = new javax.swing.JTable();
+        jBtPesquisa1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Fornecedor");
@@ -686,6 +696,62 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         jTPFornecedor.addTab("Cadastro", jPcadastro);
 
+        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "funcionário " }));
+
+        jTbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Funcionário", "Data nasc.", "Data admi.", "Data demi.", "Salário", "Telefone Princ.", "Login"
+            }
+        ));
+        jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTbPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTbPesquisaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTbPesquisa);
+
+        jBtPesquisa1.setText("Pesquisar");
+        jBtPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisa1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPconsultaLayout = new javax.swing.GroupLayout(jPconsulta);
+        jPconsulta.setLayout(jPconsultaLayout);
+        jPconsultaLayout.setHorizontalGroup(
+            jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPconsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPconsultaLayout.createSequentialGroup()
+                        .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFPesquisa)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtPesquisa1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        jPconsultaLayout.setVerticalGroup(
+            jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPconsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisa1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTPFornecedor.addTab("Consulta", jPconsulta);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1160,6 +1226,102 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         validaNumero.ValidaNumero(jTFNrCep);
     }//GEN-LAST:event_jTFNrCepMouseClicked
 
+    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
+
+        if(evt.getClickCount() == 1){
+            int linha = jTbPesquisa.getSelectedRow();
+            String ID = (String) jTbPesquisa.getValueAt(linha, 0);
+            Integer idpessoa = 0;
+
+            fornecedor.setIDPESSOA(Integer.parseInt(ID));
+            fornDAO.retornadados(fornecedor);
+
+            telefone.setIDPESSOA(Integer.parseInt(ID));
+            telefoneDAO.retornadados(telefone);
+
+            pessoa.setIDPESSOA(Integer.parseInt(ID));
+            pessoaDAO.retornadados(pessoa);
+
+            pfisica.setIDPESSOA(Integer.parseInt(ID));
+            pfdao.retornadados(pfisica);
+
+            pjuridica.setIDPESSOA(Integer.parseInt(ID));
+            pjdao.retornadados(pjuridica);
+
+            endereco.setIDPESSOA(Integer.parseInt(ID));
+            endDAO.retornadados(endereco);
+
+            String tpPessoa = fornecedor.getTPPESSOA();
+
+            jTFIdPessoa.setText(Integer.toString(fornecedor.getIDPESSOA()));
+            jTFnome.setText(pessoa.getDSPESSOA());
+            if (tpPessoa.equals("F")){
+                jRBFisico.setSelected(true);
+
+                jTFNrCnpj.setEnabled(false);
+                jTFrazaosocial.setEnabled(false);
+
+                jTFNrCpf.setText(pfisica.getNRCPF());
+                jTFrg.setText(pfisica.getNRRG());
+                String sexo = pfisica.getTPSEXO();
+                if(sexo.equals("M")){
+                    jCBSexo.setSelectedIndex(1);
+                }else{
+                    jCBSexo.setSelectedIndex(0);
+                }
+            }else{
+                jRBJuridica.setSelected(false);
+
+                jTFNrCpf.setEnabled(false);
+                jTFrg.setEnabled(false);
+                jCBSexo.setEnabled(false);
+
+                jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
+                jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+            }
+            jTFDtNasc.setText(pessoa.getDTNASC());
+            jTFDtCadastro.setText(fornecedor.getDTCADASTRO());
+            jTFVlLimite.setText(Double.toString(fornecedor.getVLLIMITE()));
+            jTFFone1.setText(telefone.getNRFONE());
+            
+
+            jTFlogradouro.setText(endereco.getDSLOGRADOURO());
+            jTFNumero.setText(endereco.getDSNUMERO());
+            jTFcomplemento.setText(endereco.getDSCOMPLEMENTO());
+            jTFbairro.setText(endereco.getDSBAIRRO());
+            jTFNrCep.setText(endereco.getNRCEP());
+
+            cidadeDAO.preenchercidade(jCBCidade, cidade);
+
+            Integer idcidade = endereco.getIDCIDADE();
+            cidade.setIDCIDADE(idcidade);
+            cidadeDAO.retornacidade(cidade);
+            jCBCidade.setSelectedItem(cidade.getDscidade());
+
+        }
+
+        estadobotoes(false);
+        jTPFornecedor.setSelectedIndex(0);
+    }//GEN-LAST:event_jTbPesquisaMouseClicked
+
+    private void jBtPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisa1ActionPerformed
+
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCbPesquisa2.getSelectedIndex()) {
+            case 0: {
+                fornDAO.consulta(fornecedor);
+                preencher.PreencherJComboBox(jTbPesquisa, fornecedor.getRetorno());
+                return;
+            }
+            case 1: {
+                pessoa.setDSPESSOA(jTFPesquisa.getText().toUpperCase());
+                fornDAO.consultadescricao(pessoa, fornecedor);
+                preencher.PreencherJComboBox(jTbPesquisa, fornecedor.getRetorno());
+                return;
+            }
+        }
+    }//GEN-LAST:event_jBtPesquisa1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1210,9 +1372,11 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jBgravar;
     private javax.swing.JButton jBincluir;
     private javax.swing.JButton jBpesquisar;
+    private javax.swing.JButton jBtPesquisa1;
     private javax.swing.JComboBox jCBCidade;
     private javax.swing.JComboBox jCBSexo;
     private javax.swing.JComboBox jCBTpSituação;
+    private javax.swing.JComboBox jCbPesquisa2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1238,11 +1402,13 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPcadastro;
+    private javax.swing.JPanel jPconsulta;
     private javax.swing.JPanel jPpfisica;
     private javax.swing.JPanel jPpjuridica;
     private javax.swing.JRadioButton jRBFisico;
     private javax.swing.JRadioButton jRBJuridica;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFCodigoItem;
     private javax.swing.JTextField jTFDsItem;
     private javax.swing.JTextField jTFDtCadastro;
@@ -1253,6 +1419,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTFNrCnpj;
     private javax.swing.JTextField jTFNrCpf;
     private javax.swing.JTextField jTFNumero;
+    private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTextField jTFVlLimite;
     private javax.swing.JTextField jTFbairro;
     private javax.swing.JTextField jTFcomplemento;
@@ -1264,6 +1431,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTFrazaosocial;
     private javax.swing.JTextField jTFrg;
     private javax.swing.JTabbedPane jTPFornecedor;
+    private javax.swing.JTable jTbPesquisa;
     private javax.swing.JTable jTitens;
     // End of variables declaration//GEN-END:variables
 

@@ -1,6 +1,7 @@
 package br.tcc.dao;
 
 import br.tcc.classe.Fornecedor;
+import br.tcc.classe.Pessoa;
 import br.tcc.conexao.ConexaoOracle;
 
 /**
@@ -41,6 +42,18 @@ public class FornecedorDAO {
     public void excluir(Fornecedor fornecedor) {
         String sql = "DELETE FROM FORNECEDOR WHERE IDPESSOA = " + fornecedor.getIDPESSOA();
         conn.executeSQL(sql);
+    }
+
+    public void retornadados(Fornecedor fornecedor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void consulta(Fornecedor fornecedor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void consultadescricao(Pessoa pessoa, Fornecedor fornecedor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -31,4 +31,11 @@ public class ProdutosFornecedorDAO {
         String sql = "DELETE FROM PRODUTOSFORNECEDOR WHERE IDFORNECEDOR = " + prodForn.getIDFORNECEDOR();
         conn.executeSQL(sql);
     }
+
+    public void consulta(ProdutosFornecedor prodForne) {
+        String sql = 
+          "SELECT PF.IDPRODUTO, P.DSPRODUTO FROM PRODUTOSFORNECEDOR PF JOIN PRODUTO P ON PF.IDPRODUTO = P.IDPRODUTO";
+        conn.executeSQL(sql);
+        prodForne.setRetorno(conn.resultset);
+    }
 }

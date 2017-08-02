@@ -3,6 +3,7 @@ package br.tcc.dao;
 import br.tcc.classe.Fornecedor;
 import br.tcc.classe.Pessoa;
 import br.tcc.conexao.ConexaoOracle;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,8 +47,23 @@ public class FornecedorDAO {
     }
 
     public void retornadados(Fornecedor fornecedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        String sql = "SELECT * FROM FORNECEDOR WHERE IDPESSOA = " + fornecedor.getIDPESSOA();
+        conn.executeSQL(sql);
+
+        try {
+
+            conn.resultset.first();
+            fornecedor.setIDPESSOA(conn.resultset.getInt("IDPESSOA"));
+            fornecedor.setDTCADASTRO(conn.resultset.getString("DTCADASTRO"));
+            fornecedor.setTPSITUACAO(conn.resultset.getInt("TPSITUACAO"));
+            fornecedor.setVLLIMITE(conn.resultset.getDouble("VLLIMITE"));
+            fornecedor.setTPPESSOA(conn.resultset.getString("TPPESSOA"));
+            fornecedor.setDSEMAIL(conn.resultset.getString("DSEMAIL"));
+            
+            } catch (SQLException ex) {
+
+        }
+     }
 
     public void consulta(Fornecedor fornecedor) {
         
@@ -62,7 +78,6 @@ public class FornecedorDAO {
 
     public void consultadescricao(Pessoa pessoa, Fornecedor fornecedor) {
         
-        JOptionPane.showMessageDialog(null, pessoa.getDSPESSOA());
         String sql = 
                 "SELECT F.IDPESSOA, P.DSPESSOA, F.DTCADASTRO, F.VLLIMITE,"
                 + "(SELECT NRFONE FROM TELEFONE T  WHERE F.IDPESSOA = T.IDPESSOA AND TPFONE = 'Comercial')"

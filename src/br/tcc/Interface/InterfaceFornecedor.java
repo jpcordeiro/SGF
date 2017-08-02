@@ -58,6 +58,8 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     TelefoneDAO telefoneDAO= new TelefoneDAO();
     Pessoa pessoa = new Pessoa();
     PessoaDAO pessoaDAO = new PessoaDAO();
+    ProdutosFornecedor prodFornece = new ProdutosFornecedor();
+    ProdutosFornecedorDAO prodForneceDAO  = new ProdutosFornecedorDAO();
     
 
     /**
@@ -1250,11 +1252,15 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
             endereco.setIDPESSOA(Integer.parseInt(ID));
             endDAO.retornadados(endereco);
+            
+            
 
             String tpPessoa = fornecedor.getTPPESSOA();
 
             jTFIdPessoa.setText(Integer.toString(fornecedor.getIDPESSOA()));
+            jTFemail.setText(fornecedor.getDSEMAIL());
             jTFnome.setText(pessoa.getDSPESSOA());
+            
             if (tpPessoa.equals("F")){
                 jRBFisico.setSelected(true);
 
@@ -1297,6 +1303,8 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             cidade.setIDCIDADE(idcidade);
             cidadeDAO.retornacidade(cidade);
             jCBCidade.setSelectedItem(cidade.getDscidade());
+            
+           
 
         }
 
@@ -1304,6 +1312,8 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jTPFornecedor.setSelectedIndex(0);
     }//GEN-LAST:event_jTbPesquisaMouseClicked
 
+    
+    
     private void jBtPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisa1ActionPerformed
 
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
@@ -1481,4 +1491,6 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             }
         }
     }
+    
+    
 }

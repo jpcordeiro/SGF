@@ -1171,13 +1171,13 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             DefaultTableModel ItensFornece = (DefaultTableModel) jTitens.getModel();
             int totlinha = ItensFornece.getRowCount();
             int i = 0;
-            Boolean sel = false;
             String codIten;
             for (i = totlinha - 1; i >= 0; i--) {
 
-                codIten = String.valueOf(ItensFornece.getValueAt(i, 1));
+                codIten = String.valueOf(ItensFornece.getValueAt(i, 0));
                 prodFornece.setIDPRODUTO(Integer.parseInt(codIten));
                 prodFornece.setIDFORNECEDOR(Integer.parseInt(jTFIdPessoa.getText()));
+                prodFornece.setIDSEQUENCIA(i);
                 prodfornecedao.incluir(prodFornece);
 
             }
@@ -1199,6 +1199,163 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                 endDAO.incluir(endereco);
                 telefoneDAO.incluir(telefone);
                 fornDAO.incluir(fornecedor);
+            }
+
+            lcampos.LimparCampos(jPcadastro);
+            estadobotoes(false);
+
+        }
+        
+        if (situacao == 2) {
+            if (jTFIdPessoa.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Fornecedor");
+                jTFIdPessoa.grabFocus();
+                return;
+            } else {
+                fornecedor.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+            }
+
+            fornecedor.setDTCADASTRO(jTFDtCadastro.getText());
+            fornecedor.setTPSITUACAO(jCBTpSituação.getSelectedIndex());
+
+            if (jTFVlLimite.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Valor Máximo de Compra");
+                jTFVlLimite.grabFocus();
+                return;
+            } else {
+                fornecedor.setVLLIMITE(Double.parseDouble(jTFVlLimite.getText()));
+            }
+
+            if (jTFemail.getText().equals("")) {
+                fornecedor.setDSEMAIL("-");
+                return;
+            } else {
+                fornecedor.setDSEMAIL(jTFemail.getText());
+            }
+
+            if (bGtipo_pessoa.isSelected(null)) {
+                JOptionPane.showMessageDialog(null, "Favor selecionar o TIPO DE PESSOA!");
+            } else if (jRBFisico.isSelected()) {
+
+                pfisica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                fornecedor.setTPPESSOA("F");
+                if (jTFNrCpf.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe o número do CPF");
+                    jTFNrCpf.grabFocus();
+                    return;
+                } else {
+                    pfisica.setNRCPF(jTFNrCpf.getText());
+                }
+                if (!jTFrg.getText().equals("")) {
+                    pfisica.setNRRG(jTFrg.getText());
+                }
+                String sexo = jCBSexo.getSelectedItem().toString();
+                if (sexo.equals("MASCULINO")) {
+                    pfisica.setTPSEXO("M");
+                } else {
+                    pfisica.setTPSEXO("F");
+                }
+
+            } else {
+                pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                fornecedor.setTPPESSOA("J");
+                if (jTFNrCnpj.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
+                    jTFNrCnpj.grabFocus();
+                    return;
+                } else {
+                    String cnpj = jTFNrCnpj.getText();
+                    pjuridica.setNRCNPJ(jTFNrCnpj.getText());
+
+                }
+                if (jTFrazaosocial.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe a Razão Social!");
+                    jTFrazaosocial.grabFocus();
+                    return;
+                } else {
+                    pjuridica.setRZSOCIAL(jTFrazaosocial.getText());
+                }
+            }
+            if (jTFFone1.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o número do Telefone");
+                jTFFone1.grabFocus();
+                return;
+            } else {
+                telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+                telefone.setNRFONE(jTFFone1.getText());
+                telefone.setTPFONE("Comercial");
+            }
+            endereco.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
+
+            String cidadeId = jCBCidade.getSelectedItem().toString();
+            try {
+                idCidade = cidadeDAO.ConsultaIdcidade(idCidade, cidadeId);
+                endereco.setIDCIDADE(idCidade);
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceCidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (jTFlogradouro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Logradouro");
+                jTFlogradouro.grabFocus();
+                return;
+            } else {
+                endereco.setDSLOGRADOURO(jTFlogradouro.getText().toUpperCase());
+            }
+            if (jTFNumero.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Número do endereço");
+                jTFNumero.grabFocus();
+                return;
+            } else {
+                endereco.setDSNUMERO(jTFNumero.getText().toUpperCase());
+            }
+            if (jTFbairro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o Bairro");
+                jTFbairro.grabFocus();
+                return;
+            } else {
+                endereco.setDSBAIRRO(jTFbairro.getText().toUpperCase());
+            }
+            if (jTFcomplemento.getText().equals("")) {
+                endereco.setDSCOMPLEMENTO(".");
+            } else {
+                endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
+            }
+            String cep = jTFNrCep.toString();
+
+            if (jTFNrCep.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o CEP");
+                jTFNrCep.grabFocus();
+                return;
+            } else {
+                endereco.setNRCEP(jTFNrCep.getText());
+            }
+            endereco.setTPENDERECO("COMERCIAL");
+
+            prodFornece.setIDFORNECEDOR(Integer.parseInt(jTFIdPessoa.getText()));
+
+            DefaultTableModel ItensFornece = (DefaultTableModel) jTitens.getModel();
+            int totlinha = ItensFornece.getRowCount();
+            int i = 0;
+            Boolean sel = false;
+            String codIten;
+            for (i = totlinha - 1; i >= 0; i--) {
+
+                codIten = String.valueOf(ItensFornece.getValueAt(i, 0));
+                prodFornece.setIDPRODUTO(Integer.parseInt(codIten));
+                prodFornece.setIDFORNECEDOR(Integer.parseInt(jTFIdPessoa.getText()));
+                prodFornece.setIDSEQUENCIA(i);
+                prodfornecedao.alterar(prodFornece);
+            }
+            if (jRBFisico.isSelected()) {
+                pfdao.alterar(pfisica);
+                endDAO.alterar(endereco);
+                telefoneDAO.alterar(telefone);
+                fornDAO.alterar(fornecedor);
+            } else {
+                pjdao.alterar(pjuridica);
+                endDAO.alterar(endereco);
+                telefoneDAO.alterar(telefone);
+                fornDAO.alterar(fornecedor);
             }
 
             lcampos.LimparCampos(jPcadastro);
@@ -1323,7 +1480,6 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
        DefaultTableModel tabela = (DefaultTableModel) jTitens.getModel();
         int index = jTitens.getSelectedRow();
       
-//        prodFornece.setIDPRODUTO(Integer.parseInt(jTitens.getValueAt(index, 0).toString()));
         String descricao = jTitens.getValueAt(index, 1).toString();
         int opcao = JOptionPane.showConfirmDialog(null, "Deseja remover " + descricao + "?", "Remover", JOptionPane.YES_NO_OPTION);
         if (opcao == JOptionPane.YES_OPTION) {

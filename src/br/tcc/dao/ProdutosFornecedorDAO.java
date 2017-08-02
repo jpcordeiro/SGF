@@ -23,7 +23,19 @@ public class ProdutosFornecedorDAO {
     public void incluir(ProdutosFornecedor prodForn) {
         String sql = " INSERT INTO PRODUTOSFORNECEDOR VALUES("
                 + prodForn.getIDPRODUTO() + ","
-                + prodForn.getIDFORNECEDOR() + ")";
+                + prodForn.getIDFORNECEDOR() + ","
+                + prodForn.getIDSEQUENCIA() + ")";
+        conn.incluirSQL(sql);
+    }
+    
+     public void alterar(ProdutosFornecedor prodFornece) {
+       
+        String sql = "UPDATE PRODUTOSFORNECEDOR SET " 
+                + " IDPRODUTO = " + prodFornece.getIDPRODUTO() + ","
+                + " IDFORNECEDOR = " + prodFornece.getIDFORNECEDOR() + ","
+                + " IDSEQUENCIA = " + prodFornece.getIDSEQUENCIA() 
+                + " WHERE IDFORNECEDOR = " + prodFornece.getIDFORNECEDOR()
+                + " AND IDSEQUENCIA = " + prodFornece.getIDPRODUTO();
         conn.incluirSQL(sql);
     }
     
@@ -34,8 +46,9 @@ public class ProdutosFornecedorDAO {
 
     public void consulta(ProdutosFornecedor prodForne) {
         String sql = 
-          "SELECT PF.IDPRODUTO, P.DSPRODUTO FROM PRODUTOSFORNECEDOR PF JOIN PRODUTO P ON PF.IDPRODUTO = P.IDPRODUTO";
+          "SELECT PF.IDPRODUTO, P.DSPRODUTO FROM PRODUTOSFORNECEDOR PF JOIN PRODUTO P ON PF.IDPRODUTO = P.IDPRODUTO"
+                + " WHERE PF.IDFORNECEDOR = " + prodForne.getIDFORNECEDOR();
         conn.executeSQL(sql);
         prodForne.setRetorno(conn.resultset);
-    }
+    }    
 }

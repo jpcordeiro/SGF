@@ -10,6 +10,7 @@ public class ProdutosFornecedor {
     
     private Integer IDPRODUTO;
     private Integer IDFORNECEDOR;
+    private Integer IDSEQUENCIA;
     
     
     private ResultSet retorno;
@@ -36,6 +37,14 @@ public class ProdutosFornecedor {
 
     public void setRetorno(ResultSet retorno) {
         this.retorno = retorno;
+    }
+
+    public Integer getIDSEQUENCIA() {
+        return IDSEQUENCIA;
+    }
+
+    public void setIDSEQUENCIA(Integer IDSEQUENCIA) {
+        this.IDSEQUENCIA = IDSEQUENCIA;
     }
 
     

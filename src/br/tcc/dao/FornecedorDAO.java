@@ -3,6 +3,7 @@ package br.tcc.dao;
 import br.tcc.classe.Fornecedor;
 import br.tcc.classe.Pessoa;
 import br.tcc.conexao.ConexaoOracle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,11 +50,27 @@ public class FornecedorDAO {
     }
 
     public void consulta(Fornecedor fornecedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        
+        String sql = 
+                "SELECT  F.IDPESSOA, P.DSPESSOA, F.DTCADASTRO,  F.VLLIMITE,"
+              + "(SELECT NRFONE FROM TELEFONE T  WHERE F.IDPESSOA = T.IDPESSOA AND TPFONE = 'Comercial')"
+              + "FROM FORNECEDOR F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA";
+        conn.executeSQL(sql);
+        fornecedor.setRetorno(conn.resultset);
+        
+     }
 
     public void consultadescricao(Pessoa pessoa, Fornecedor fornecedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        JOptionPane.showMessageDialog(null, pessoa.getDSPESSOA());
+        String sql = 
+                "SELECT F.IDPESSOA, P.DSPESSOA, F.DTCADASTRO, F.VLLIMITE,"
+                + "(SELECT NRFONE FROM TELEFONE T  WHERE F.IDPESSOA = T.IDPESSOA AND TPFONE = 'Comercial')"
+                + " FROM FORNECEDOR F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA "
+                + "WHERE P.DSPESSOA  LIKE '%"+ pessoa.getDSPESSOA() +"%' ORDER BY P.DSPESSOA";
+        
+        conn.executeSQL(sql);
+        fornecedor.setRetorno(conn.resultset);
     }
     
 }

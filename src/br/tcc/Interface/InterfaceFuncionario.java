@@ -1082,19 +1082,10 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         
         int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
         if (t == 0) {
-            if (jRBFisico.isSelected()) {
-                pfDao.excluir(pfisica);
                 endDao.excluir(endereco);
                 usuarioDAO.excluir(usuario);
                 telefoneDAO.excluir(telefone);
                 funcDao.excluir(funcionario);
-            } else {
-                pjDao.excluir(pjuridica);
-                endDao.excluir(endereco);
-                usuarioDAO.excluir(usuario);
-                telefoneDAO.excluir(telefone);
-                funcDao.excluir(funcionario);
-            }
             JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
             estadobotoes(false);
         }

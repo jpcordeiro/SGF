@@ -1035,19 +1035,11 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         
         int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
         if (t == 0) {
-            if (jRBFisico.isSelected()) {
-                pfdao.excluir(pfisica);
                 endDAO.excluir(endereco);
                 telefoneDAO.excluir(telefone);
                 prodfornecedao.excluir(prodFornece);
                 fornDAO.excluir(fornecedor);
-            } else {
-                pjdao.excluir(pjuridica);
-                endDAO.excluir(endereco);
-                prodfornecedao.excluir(prodFornece);
-                telefoneDAO.excluir(telefone);
-                fornDAO.excluir(fornecedor);
-            }
+
             JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
             estadobotoes(false);
         }

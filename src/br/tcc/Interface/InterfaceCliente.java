@@ -641,7 +641,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisar2MouseClicked
 
     private void BaddPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaddPessoasActionPerformed
-        new InterfacePessoas().setVisible(true);
+        new InterfaceRelacaoPessoa().setVisible(true);
     }//GEN-LAST:event_BaddPessoasActionPerformed
 
     private void jBAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterar1ActionPerformed

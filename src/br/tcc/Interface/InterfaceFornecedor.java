@@ -1023,14 +1023,23 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
+       situacao = 1;
+        
         int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
         if (t == 0) {
-
-//                pfDao.excluir(pfisica);
-//                endDao.excluir(endereco);
-//                usuarioDAO.excluir(usuario);
-//                telefoneDAO.excluir(telefone);
-//                funcDao.excluir(funcionario);
+            if (jRBFisico.isSelected()) {
+                pfdao.excluir(pfisica);
+                endDAO.excluir(endereco);
+                telefoneDAO.excluir(telefone);
+                prodfornecedao.excluir(prodFornece);
+                fornDAO.excluir(fornecedor);
+            } else {
+                pjdao.excluir(pjuridica);
+                endDAO.excluir(endereco);
+                prodfornecedao.excluir(prodFornece);
+                telefoneDAO.excluir(telefone);
+                fornDAO.excluir(fornecedor);
+            }
             JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
             estadobotoes(false);
         }
@@ -1395,6 +1404,10 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
             endereco.setIDPESSOA(Integer.parseInt(ID));
             endDAO.retornadados(endereco);
+            
+            prodFornece.setIDFORNECEDOR(Integer.parseInt(ID));
+            
+            
 
             String tpPessoa = fornecedor.getTPPESSOA();
 

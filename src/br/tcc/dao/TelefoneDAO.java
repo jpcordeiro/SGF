@@ -54,7 +54,7 @@ public class TelefoneDAO {
 
     public void retornadados(Telefone fone) {
         
-        String sql = "SELECT NRFONE FROM Telefone WHERE TPFONE = 'Principal' AND IDPESSOA = " + fone.getIDPESSOA();
+        String sql = "SELECT NRFONE FROM Telefone WHERE TPFONE = 'Comercial' AND IDPESSOA = " + fone.getIDPESSOA();
         conn.executeSQL(sql);
 
         try {

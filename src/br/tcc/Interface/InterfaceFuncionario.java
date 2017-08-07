@@ -1067,6 +1067,8 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             } else {
                 pjDao.alterar(pjuridica);
                 endDao.alterar(endereco);
+                usuarioDAO.alterar(usuario);
+                telefoneDAO.alterar(telefone);
                 funcDao.alterar(funcionario);
             }
             lcampos.LimparCampos(jPcadastro);
@@ -1290,21 +1292,42 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jRBJuridicaKeyPressed
 
     private void jRBJuridicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicaMouseClicked
-        jTFNrCpf.setEnabled(false);
+       jTFNrCpf.setEnabled(false);
         jTFrg.setEnabled(false);
         jCBSexo.setEnabled(false);
 
         jTFNrCnpj.setEnabled(true);
         jTFrazaosocial.setEnabled(true);
+        
+        String ID = jTFIdPessoa.getText();
+
+        pjuridica.setIDPESSOA(Integer.parseInt(ID));
+        pjDao.retornadados(pjuridica);
+        jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+        jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
     }//GEN-LAST:event_jRBJuridicaMouseClicked
 
     private void jRBJuridicoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicoMousePressed
         jTFNrCpf.setEnabled(true);
-        jTFrg.setEnabled(true);
-        jCBSexo.setEnabled(true);
+         jTFrg.setEnabled(true);
+         jCBSexo.setEnabled(true);
 
-        jTFNrCnpj.setEnabled(false);
-        jTFrazaosocial.setEnabled(false);
+         jTFNrCnpj.setEnabled(false);
+         jTFrazaosocial.setEnabled(false);
+
+         String ID = jTFIdPessoa.getText();
+
+        pfisica.setIDPESSOA(Integer.parseInt(ID));
+        pfDao.retornadados(pfisica);
+        jTFNrCpf.setText(pfisica.getNRCPF());
+        jTFrg.setText(pfisica.getNRRG());
+        String sexo = pfisica.getTPSEXO();
+
+        if (sexo.equals("M")) {
+            jCBSexo.setSelectedItem("MASCULINO");
+        } else {
+            jCBSexo.setSelectedItem("FEMININO");
+        }
     }//GEN-LAST:event_jRBJuridicoMousePressed
 
     private void jRBFisicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jRBFisicoKeyPressed

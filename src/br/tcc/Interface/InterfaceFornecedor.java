@@ -983,6 +983,14 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         jTFNrCnpj.setEnabled(true);
         jTFrazaosocial.setEnabled(true);
+        
+        String ID = jTFIdPessoa.getText();
+
+        pjuridica.setIDPESSOA(Integer.parseInt(ID));
+        pjdao.retornadados(pjuridica);
+        jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+        jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
+       
     }//GEN-LAST:event_jRBJuridicaMouseClicked
 
     private void jBPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarMouseClicked

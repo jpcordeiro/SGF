@@ -452,7 +452,7 @@ public class InterfaceUF extends javax.swing.JFrame {
     private void estadobotoes(boolean situacao) {
         jBincluir.setEnabled(!situacao);
         jBAlterar.setEnabled(!situacao);
-        jBexcluir.setEnabled(!situacao);
+        jBexcluir.setEnabled(false);
         jBgravar.setEnabled(situacao);
         jBcancelar.setEnabled(situacao);
     }

@@ -33,34 +33,34 @@ public class TpMovtoDAO {
 
     public void alterar(TipoMovto tipoMovto) {
         String sql = "UPDATE TIPOMVTO SET"
-                + " IDTPMVTO = " + tipoMovto.getIDTPMOVTO() + ","
+                + " IDTPMOVTO = " + tipoMovto.getIDTPMOVTO() + ","
                 + " MOVESTOQUE = '" + tipoMovto.getMOVESTOQUE() + "',"
-                + "MOVFINANCEIRO = '" + tipoMovto.getMOVFINANCEIRO() + "',"
-                + "TPOPERACAO = " + tipoMovto.getTPMOVTO() 
-                + " WHERE IDTPMVTO = " + tipoMovto.getIDTPMOVTO();
+                + " MOVFINANCEIRO = '" + tipoMovto.getMOVFINANCEIRO() + "',"
+                + " TPMOVTO = " + tipoMovto.getTPMOVTO()
+                + " WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.incluirSQL(sql);
     }
 
     public void excluir(TipoMovto tipoMovto) {
-        String sql = "DELETE FROM TIPOMVTO WHERE IDTPMVTO = " + tipoMovto.getIDTPMOVTO();
+        String sql = "DELETE FROM TIPOMVTO WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.executeSQL(sql);
     }
 
     public void consulta(TipoMovto tipoMovto) {
-        String sql = "SELECT * FROM TIPOMVTO ORDER BY IDTPMVTO";
+        String sql = "SELECT * FROM TIPOMVTO ORDER BY IDTPMOVTO";
         conn.executeSQL(sql);
         tipoMovto.setRetorno(conn.resultset);
     }
     
      
     public void retornadados(TipoMovto tipoMovto) {
-        String sql = "SELECT * FROM TIPOMVTO WHERE IDTPMVTO = " + tipoMovto.getIDTPMOVTO();
+        String sql = "SELECT * FROM TIPOMVTO WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.executeSQL(sql);
 
         try {
 
             conn.resultset.first();
-            tipoMovto.setIDTPMOVTO(conn.resultset.getInt("IDTPMVTO"));
+            tipoMovto.setIDTPMOVTO(conn.resultset.getInt("IDTPMOVTO"));
             tipoMovto.setMOVESTOQUE(conn.resultset.getString("MOVESTOQUE"));
             tipoMovto.setMOVFINANCEIRO(conn.resultset.getString("MOVFINANCEIRO"));
             tipoMovto.setTPMOVTO(conn.resultset.getInt("TPMOVTO"));

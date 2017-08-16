@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/SGFTCC/src/br/tcc/classe/Composicao.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/Validacoes/LimparCampos.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/dao/CidadeDAO.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/Interface/InterfaceCliente.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/dao/ClienteDAO.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/classe/Pessoa.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/Interface/InterfaceRelacaoPessoa.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/Interface/InterfaceFuncionario.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/dao/FornecedorDAO.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/Interface/InterfaceFornecedor.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

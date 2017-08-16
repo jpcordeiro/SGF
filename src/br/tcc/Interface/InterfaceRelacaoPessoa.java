@@ -1,6 +1,14 @@
 package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
+import br.tcc.classe.Pessoa;
+import br.tcc.classe.RelacaoPessoa;
+import br.tcc.dao.PessoaDAO;
+import br.tcc.dao.RelacaoPessoaDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,6 +20,10 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
 
     LimparCampos lcampos = new LimparCampos();
     Integer situacao = 0;
+    RelacaoPessoa rPessoa = new RelacaoPessoa();
+    RelacaoPessoaDAO rPessoaDAO = new RelacaoPessoaDAO();
+    Pessoa pessoa = new Pessoa();
+    PessoaDAO pessoaDAO = new PessoaDAO();
 
     /**
      * Creates new form Cliente
@@ -34,12 +46,9 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jTFIdPessoa = new javax.swing.JTextField();
         jTFnome = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTrelacao = new javax.swing.JTable();
         jPBotoes = new javax.swing.JPanel();
         jBAdicionar = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
-        jBExcluir = new javax.swing.JButton();
         jBGravar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
@@ -53,6 +62,14 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         jBPesquisar2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTFData = new javax.swing.JTextField();
+        jPConsulta = new javax.swing.JPanel();
+        jTFNome = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jBtPesquisa = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTconsulta = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTrelacao = new javax.swing.JTable();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -62,24 +79,6 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         jPRelacaoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoas"));
 
         jLabel18.setText("Codigo");
-
-        jTrelacao.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nome", "Comemoração", "Data", "Tipo Amizade"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTrelacao);
 
         jPBotoes.setBackground(new java.awt.Color(102, 102, 102));
         jPBotoes.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 45, 5));
@@ -106,15 +105,6 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
             }
         });
         jPBotoes.add(jBAlterar);
-
-        jBExcluir.setText("Excluir");
-        jBExcluir.setName("Excluir"); // NOI18N
-        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBExcluirActionPerformed(evt);
-            }
-        });
-        jPBotoes.add(jBExcluir);
 
         jBGravar.setText("Gravar");
         jBGravar.setName("Gravar"); // NOI18N
@@ -147,7 +137,7 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
             }
         });
 
-        jCBcomemoracao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aniversário", "Casamento Cívil", "Casamento Religioso", "Namoro", "Noivado", "Batizado", " " }));
+        jCBcomemoracao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aniversário", "Casamento Cívil", "Casamento Religioso", "Namoro", "Noivado", "Batizado" }));
 
         jLabel6.setText("Tipo Amizade");
 
@@ -177,50 +167,133 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
             }
         });
 
+        jPConsulta.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta"));
+
+        jLabel2.setText("Digite o nome do cliente ");
+
+        jBtPesquisa.setText("Pesquisar");
+        jBtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaActionPerformed(evt);
+            }
+        });
+
+        jTconsulta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Tipo Amizade", "Data", "Comemoração", "Sequencia", "Nome"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTconsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTconsultaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTconsulta);
+
+        javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
+        jPConsulta.setLayout(jPConsultaLayout);
+        jPConsultaLayout.setHorizontalGroup(
+            jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConsultaLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(16, 16, 16)
+                        .addComponent(jTFNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisa))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+        );
+        jPConsultaLayout.setVerticalGroup(
+            jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jBtPesquisa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        jTrelacao.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Comemoração", "Data", "Tipo Amizade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTrelacao);
+
         javax.swing.GroupLayout jPRelacaoClienteLayout = new javax.swing.GroupLayout(jPRelacaoCliente);
         jPRelacaoCliente.setLayout(jPRelacaoClienteLayout);
         jPRelacaoClienteLayout.setHorizontalGroup(
             jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
                 .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
                             .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel18)
-                                    .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                                        .addComponent(jTFIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jBPesquisar2)))
-                                .addGap(13, 13, 13)
-                                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19)))
+                                .addComponent(jTFIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jBPesquisar2)))
+                        .addGap(13, 13, 13)
+                        .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)))
+                    .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
+                        .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jCBcomemoracao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jTFNomerelacao, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jCBcomemoracao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jTFNomerelacao, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jTFTpAmizade, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel6))
+                                .addGap(1, 1, 1)
+                                .addComponent(jTFTpAmizade, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
+                                .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                                        .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBAdd)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                                .addComponent(jBAdd)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane3)
+                    .addContainerGap()))
         );
         jPRelacaoClienteLayout.setVerticalGroup(
             jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,11 +328,15 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
                     .addComponent(jCBcomemoracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBAdd))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(122, 122, 122)
                 .addComponent(jPBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
+                    .addGap(133, 133, 133)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(340, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -270,10 +347,12 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPRelacaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPRelacaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(655, 332));
+        setSize(new java.awt.Dimension(655, 591));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -295,18 +374,74 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
 
+        situacao = 2;
+        estadobotoes(true);
     }//GEN-LAST:event_jBAlterarActionPerformed
-
-    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
-
-    }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
 
+         if (situacao == 1) {
+             
+              int totlinha = jTconsulta.getRowCount();
+             int conta = 0;
+             for(int i = 1; i <= totlinha; i++){
+                 String idPess = (String) jTconsulta.getValueAt(conta, 0);
+                 String dsnome = (String) jTconsulta.getValueAt(conta, 1);
+                 String dscomemora = (String) jTconsulta.getValueAt(conta, 2);
+                 String DtComemora = (String) jTconsulta.getValueAt(conta, 3);
+                 String tpAmizade = (String) jTconsulta.getValueAt(conta, 4);
+                 rPessoa.setIDPESSOA(Integer.parseInt(idPess));
+                 rPessoa.setDSNOME(dsnome);
+                 rPessoa.setTPCOMEMORACAO(dscomemora);
+                 rPessoa.setDTCOMEMORACAO(DtComemora);
+                 rPessoa.setTPRELACAO(tpAmizade);
+                 rPessoaDAO.retornaUtlSeq(rPessoa);
+                 
+                 if(rPessoa.getIDSEQUENCIA() != null){
+                    Integer idSeq = rPessoa.getIDPESSOA();
+                    rPessoa.setIDSEQUENCIA(idSeq + 1);
+                 }else{
+                     rPessoa.setIDSEQUENCIA(1);
+                 }
+                 conta = conta + 1;
+                 rPessoaDAO.incluir(rPessoa);
+             }
+              lcampos.LimparCampos(jPRelacaoCliente);
+             estadobotoes(false);
+        }else {
+                      
+              int totlinha = jTrelacao.getRowCount();
+             int conta = 0;
+             int linha = jTconsulta.getSelectedRow();
+             String IDS = (String) jTconsulta.getValueAt(linha, 4);
+             for(int i = 1; i <= totlinha; i++){
+                 String idPess = (String) jTrelacao.getValueAt(conta, 0);
+                 String dsnome = (String) jTrelacao.getValueAt(conta, 1);
+                 String dscomemora = (String) jTrelacao.getValueAt(conta, 2);
+                 String DtComemora = (String) jTrelacao.getValueAt(conta, 3);
+                 String tpAmizade = (String) jTrelacao.getValueAt(conta, 4);
+                 rPessoa.setIDPESSOA(Integer.parseInt(idPess));
+                 rPessoa.setDSNOME(dsnome);
+                 rPessoa.setDTCOMEMORACAO(DtComemora);
+                 rPessoa.setTPCOMEMORACAO(dscomemora);
+                 rPessoa.setTPRELACAO(tpAmizade);
+                 rPessoa.setIDSEQUENCIA(Integer.parseInt(IDS));
+                 conta = conta + 1;
+                 rPessoaDAO.alterar(rPessoa);
+             }
+              lcampos.LimparCampos(jPRelacaoCliente);
+             estadobotoes(false);
+        }
     }//GEN-LAST:event_jBGravarActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
 
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente cancelar o cadastro?");
+        if (t == 0) {
+            situacao = 2;
+            lcampos.LimparCampos(jPRelacaoCliente);
+            estadobotoes(false);
+        }
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAddActionPerformed
@@ -352,6 +487,49 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
     private void jTFDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFDataActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFDataActionPerformed
+
+    private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
+
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        
+                rPessoa.setDSNOME(jTFNome.getText().toUpperCase());
+                rPessoaDAO.consultadescricao(rPessoa);
+                preencher.PreencherJComboBox(jTconsulta, rPessoa.getRetorno());
+               
+    }//GEN-LAST:event_jBtPesquisaActionPerformed
+
+    private void jTconsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTconsultaMouseClicked
+        if (evt.getClickCount() == 1) {
+            int linha = jTconsulta.getSelectedRow();
+            String ID = (String) jTconsulta.getValueAt(linha, 0);
+            String IDS = (String) jTconsulta.getValueAt(linha, 4);
+            
+            estadobotoes(true);
+            int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
+            if (t == 0) {
+                rPessoaDAO.excluir1(ID, IDS);
+                JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
+            }else{
+                
+                
+                String tpamizade = (String) jTconsulta.getValueAt(linha, 1);
+                String data = (String) jTconsulta.getValueAt(linha, 2);
+                String tpcomemoracao = (String) jTconsulta.getValueAt(linha, 3);
+                String nome = (String) jTconsulta.getValueAt(linha, 5);
+
+                pessoa.setIDPESSOA(Integer.parseInt(ID));
+                pessoaDAO.retornaNome(pessoa);
+            
+                jTFIdPessoa.setText(ID);
+                jTFnome.setText(pessoa.getDSPESSOA());
+                jCBcomemoracao.setSelectedItem(tpcomemoracao);
+                jTFNomerelacao.setText(nome);
+                jTFTpAmizade.setText(tpamizade);
+                jTFData.setText(data);
+            }
+            estadobotoes(false);
+        }
+    }//GEN-LAST:event_jTconsultaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -400,31 +578,35 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
     private javax.swing.JButton jBAdicionar;
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBCancelar;
-    private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBPesquisar2;
+    private javax.swing.JButton jBtPesquisa;
     private javax.swing.JComboBox<String> jCBcomemoracao;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPBotoes;
+    private javax.swing.JPanel jPConsulta;
     private javax.swing.JPanel jPRelacaoCliente;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTFData;
     private javax.swing.JTextField jTFIdPessoa;
+    private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFNomerelacao;
     private javax.swing.JTextField jTFTpAmizade;
     private javax.swing.JTextField jTFnome;
+    private javax.swing.JTable jTconsulta;
     private javax.swing.JTable jTrelacao;
     // End of variables declaration//GEN-END:variables
  private void estadobotoes(boolean situacao) {
         jBAdicionar.setEnabled(!situacao);
         jBAlterar.setEnabled(!situacao);
-        jBExcluir.setEnabled(!situacao);
         jBGravar.setEnabled(situacao);
         jBCancelar.setEnabled(situacao);
     }

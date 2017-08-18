@@ -18,6 +18,7 @@ public class ConsultaFormaPgto extends javax.swing.JFrame {
     FormaPgto formaPgto = new FormaPgto();
     FormaPgtoDAO formaPgtoDAO = new FormaPgtoDAO();
     public String retornaId ="";
+    public String retornaDsForma = "";
 
     /**
      * Creates new form ConsultaFamilia
@@ -152,6 +153,7 @@ public class ConsultaFormaPgto extends javax.swing.JFrame {
 
         int linha = jTConsulta.getSelectedRow();
         retornaId = jTConsulta.getValueAt(linha, 0).toString();
+        retornaDsForma = jTConsulta.getValueAt(linha, 1).toString();
        
     }//GEN-LAST:event_jTConsultaMouseClicked
 

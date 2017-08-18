@@ -6,7 +6,9 @@ import br.tcc.ConsultaSimples.ConsultaFornecedor;
 import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
+import br.tcc.classe.Compra;
 import br.tcc.classe.TipoMovto;
+import br.tcc.dao.CompraDAO;
 import br.tcc.dao.TpMovtoDAO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +24,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     TpMovtoDAO tpMovtoDAO = new TpMovtoDAO();
     TipoMovto tpMovto = new TipoMovto();
     RetornaDataAtual retornadata = new RetornaDataAtual();
+    Compra compra = new Compra();
+    CompraDAO compraDAO = new CompraDAO();
 
     /**
      * Creates new form InterfaceVenda
@@ -86,7 +90,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jTFDsfornecedor = new javax.swing.JTextField();
         jTFIdFormaPgto = new javax.swing.JTextField();
         jBPesquisarfornecedor1 = new javax.swing.JButton();
-        jTFDsfornecedor1 = new javax.swing.JTextField();
+        jTFDsforma = new javax.swing.JTextField();
         jTFData = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
 
@@ -152,6 +156,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Venda");
+
+        jTPVenda.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTPVendaFocusLost(evt);
+            }
+        });
 
         jLabel1.setText("Código");
 
@@ -333,7 +343,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jBPesquisarfornecedor1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFDsfornecedor1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTFDsforma, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPCadastroLayout.createSequentialGroup()
                                     .addComponent(jLabel12)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -371,7 +381,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFIdFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBPesquisarfornecedor1)
-                    .addComponent(jTFDsfornecedor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFDsforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(13, 13, 13)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -396,7 +406,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                     .addComponent(jTFVlTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelbotoes2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jTPVenda.addTab("Cadastro", jPCadastro);
@@ -405,11 +415,11 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jPConsulta.setLayout(jPConsultaLayout);
         jPConsultaLayout.setHorizontalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 697, Short.MAX_VALUE)
+            .addGap(0, 723, Short.MAX_VALUE)
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 519, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
 
         jTPVenda.addTab("Consulta", jPConsulta);
@@ -418,15 +428,13 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(714, 533));
@@ -453,6 +461,48 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
 
+        tpMovto.setDSMVTO(jCBTpMovto.getSelectedItem().toString());
+        tpMovtoDAO.VerificarOperacao(tpMovto);
+        
+        if(tpMovto.getTPMOVTO().toString().equals("E")){
+            jTFIdFornecedor.setEnabled(false);
+            jTFDsfornecedor.setEnabled(false);
+            
+        }else{
+            jTFIdCliente.setEnabled(false);
+            jTFDsCliente.setEnabled(false);
+            
+            compra.setIDCOMPRA(Integer.parseInt(jTFIdVenda.getText()));
+            
+            if(jTFIdFornecedor.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
+            }else{
+                compra.setIDFORNECEDOR(Integer.parseInt(jTFIdFornecedor.getText()));
+            }
+            if(jTFData.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+            }else{
+                compra.setDTVENDA(jTFData.getText());
+            }
+            if(jTFIdFormaPgto.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+            }else{
+                compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+            }
+            
+            
+            
+            
+            
+            
+            
+            compraDAO.incluir(compra);
+            
+            
+            
+    
+        }
+        
     }//GEN-LAST:event_jBGravarActionPerformed
 
     private void jBPesquisarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarClienteMouseClicked
@@ -499,7 +549,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdFormaPgto.setText(retornaPgto.retornaId);
-                jTFDsfornecedor1.setVisible(false);
+                jTFDsforma.setText(retornaPgto.retornaDsForma);
             }
         });
     }//GEN-LAST:event_jBPesquisarfornecedor1MouseClicked
@@ -545,6 +595,21 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void jTPVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPVendaFocusLost
+        
+        tpMovto.setDSMVTO(jCBTpMovto.getSelectedItem().toString());
+        tpMovtoDAO.VerificarOperacao(tpMovto);
+        
+        if(tpMovto.getTPMOVTO().toString().equals("E")){
+            jTFIdCliente.setEnabled(false);
+            jTFDsCliente.setEnabled(false);
+            
+        }else{
+            jTFIdFornecedor.setEnabled(false);
+            jTFDsfornecedor.setEnabled(false);
+           }
+    }//GEN-LAST:event_jTPVendaFocusLost
 
     /**
      * @param args the command line arguments
@@ -620,8 +685,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jTFData;
     private javax.swing.JTextField jTFDsCliente;
     private javax.swing.JTextField jTFDsProduto;
+    private javax.swing.JTextField jTFDsforma;
     private javax.swing.JTextField jTFDsfornecedor;
-    private javax.swing.JTextField jTFDsfornecedor1;
     private javax.swing.JTextField jTFIdCliente;
     private javax.swing.JTextField jTFIdFormaPgto;
     private javax.swing.JTextField jTFIdFornecedor;

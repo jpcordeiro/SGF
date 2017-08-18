@@ -48,6 +48,8 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
         jCBsituacao = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jTFNrIntervalo = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTFQdtParcelas = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jBtPesquisa = new javax.swing.JButton();
         jTFPesquisa = new javax.swing.JTextField();
@@ -157,6 +159,8 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Quantidade de Parcelas");
+
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
         jPCadastroLayout.setHorizontalGroup(
@@ -164,21 +168,28 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
             .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel3))
-                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jCBsituacao, javax.swing.GroupLayout.Alignment.LEADING, 0, 65, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFIdFormaPgto, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(27, 27, 27)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jCBsituacao, javax.swing.GroupLayout.Alignment.LEADING, 0, 65, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTFIdFormaPgto, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel2))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jTFQdtParcelas))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jTFNrIntervalo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel4)
-                            .addComponent(jTFDsFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFNrIntervalo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTFDsFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 18, Short.MAX_VALUE))
         );
         jPCadastroLayout.setVerticalGroup(
@@ -195,11 +206,13 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBsituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFNrIntervalo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFNrIntervalo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFQdtParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -221,11 +234,11 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Situacao", "Intervalo"
+                "Código", "Descrição", "Situacao", "Intervalo", "Quantidade de Parcelas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -327,10 +340,13 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
                 JOptionPane.showMessageDialog(null, "Informe o número de intervalos do pagamento");
                 jTFDsFormaPgto.grabFocus();
                 return;
+            }else if(jTFQdtParcelas.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Informe o número de parcelas");
             }else{
                 formaPgto.setDSFORMAPGTO(jTFDsFormaPgto.getText().toUpperCase());
                 formaPgto.setTPSITUACAO(jCBsituacao.getSelectedIndex());
                 formaPgto.setNRINTERVALO(Integer.parseInt(jTFNrIntervalo.getText()));
+                formaPgto.setQTDPARCELAS(Integer.parseInt(jTFQdtParcelas.getText()));
                 formaPgtoDAO.incluir(formaPgto);
                 lcampos.LimparCampos(jPCadastro);
                 estadobotoes(false);
@@ -491,6 +507,7 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPCadastro;
     private javax.swing.JPanel jPanel2;
@@ -502,6 +519,7 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     private javax.swing.JTextField jTFIdFormaPgto;
     private javax.swing.JTextField jTFNrIntervalo;
     private javax.swing.JTextField jTFPesquisa;
+    private javax.swing.JTextField jTFQdtParcelas;
     private javax.swing.JTabbedPane jTPFormaPgto;
     private javax.swing.JTable jTbPesquisa;
     // End of variables declaration//GEN-END:variables

@@ -21,7 +21,8 @@ public class FormaPgtoDAO {
                 + formaPgto.getIDFORMAPGTO() + ",'"
                 + formaPgto.getDSFORMAPGTO() + "',"
                 + formaPgto.getTPSITUACAO() + ","
-                + formaPgto.getNRINTERVALO() + ")";
+                + formaPgto.getNRINTERVALO() + ","
+                + formaPgto.getQTDPARCELAS() + ")";
         conn.incluirSQL(sql);
     }
 
@@ -30,7 +31,8 @@ public class FormaPgtoDAO {
                 + " IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO() + ","
                 + " DSFORMAPGTO = '" + formaPgto.getDSFORMAPGTO() + "',"
                 + " TPSITUACAO = " + formaPgto.getTPSITUACAO() + "," 
-                + "NRINTERVALO = " + formaPgto.getNRINTERVALO() 
+                + " NRINTERVALO = " + formaPgto.getNRINTERVALO() + ","
+                + " QTDPARCELAS = " + formaPgto.getQTDPARCELAS()
                 + " WHERE IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO();
         conn.incluirSQL(sql);
     }
@@ -64,6 +66,7 @@ public class FormaPgtoDAO {
             formaPgto.setDSFORMAPGTO(conn.resultset.getString("DSFORMAPGTO"));
             formaPgto.setTPSITUACAO(conn.resultset.getInt("TPSITUACAO"));
             formaPgto.setNRINTERVALO(conn.resultset.getInt("NRINTERVALO"));
+            formaPgto.setQTDPARCELAS(conn.resultset.getInt("QTDPARCELAS"));
           } catch (SQLException ex) {
 
         }

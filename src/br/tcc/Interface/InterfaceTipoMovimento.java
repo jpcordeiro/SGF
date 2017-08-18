@@ -53,6 +53,8 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
         jCBTpOperacao = new javax.swing.JComboBox();
         jCBEstoque = new javax.swing.JCheckBox();
         jCBFinanceiro = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        jTFDsMvto = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
         jCbPesquisa2 = new javax.swing.JComboBox();
         jTFPesquisa = new javax.swing.JTextField();
@@ -140,24 +142,36 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
 
         jCBFinanceiro.setText("Movimenta Financeiro");
 
+        jLabel2.setText("Descrição");
+
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
         jPCadastroLayout.setHorizontalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jCBFinanceiro)
+                                .addGap(24, 24, 24))
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jCBEstoque)
+                                .addGap(36, 36, 36))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(78, 78, 78)
+                                .addComponent(jLabel2)))
+                        .addGap(29, 29, 29)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTFTipoMvto, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBEstoque))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCBFinanceiro)
                             .addComponent(jLabel3)
-                            .addComponent(jCBTpOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jCBTpOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jTFTipoMvto, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTFDsMvto)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPCadastroLayout.setVerticalGroup(
@@ -166,17 +180,23 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFTipoMvto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCBTpOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFDsMvto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCBEstoque)
-                    .addComponent(jCBFinanceiro))
-                .addGap(38, 38, 38)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jCBEstoque)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCBFinanceiro)
+                        .addGap(12, 12, 12)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCBTpOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -189,11 +209,11 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Mov. Estoque", "Mov. Financeiro", "Tipo Movimento"
+                "Código", "Mov. Estoque", "Mov. Financeiro", "Tipo Movimento", "Descrição"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -308,6 +328,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
         char estoque;
         char financeiro;
+        char operacao;
         if(jCBEstoque.isSelected()){
              estoque = 'S';
         }else{
@@ -318,11 +339,21 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
         }else{
              financeiro = 'N';
         }
+        if(jTFDsMvto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "o Campo descrição deve ser preenchido");
+        }else{
+            tipoMovto.setDSMVTO(jTFDsMvto.getText().toUpperCase());
+        }
+        if (jCBTpOperacao.getSelectedIndex() == 0){
+            operacao = 'E';
+        }else{
+            operacao = 'S';
+        }
         if(situacao == 1) {
              
            tipoMovto.setMOVESTOQUE(String.valueOf(estoque));
            tipoMovto.setMOVFINANCEIRO(String.valueOf(financeiro));
-           tipoMovto.setTPMOVTO(jCBTpOperacao.getSelectedIndex());
+           tipoMovto.setTPMOVTO(String.valueOf(operacao));
            
            tpMovtoDAO.incluir(tipoMovto);
            lcampos.LimparCampos(jPCadastro);
@@ -330,7 +361,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
         }else{
            tipoMovto.setMOVESTOQUE(String.valueOf(estoque));
            tipoMovto.setMOVFINANCEIRO(String.valueOf(financeiro));
-           tipoMovto.setTPMOVTO(jCBTpOperacao.getSelectedIndex());
+           tipoMovto.setTPMOVTO(String.valueOf(operacao));
            
            tpMovtoDAO.alterar(tipoMovto);
            lcampos.LimparCampos(jPCadastro);
@@ -360,7 +391,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
             tpMovtoDAO.retornadados(tipoMovto); 
             String est = tipoMovto.getMOVESTOQUE();
             String fin = tipoMovto.getMOVFINANCEIRO();
-            Integer tipo = tipoMovto.getTPMOVTO();
+            String tipo = tipoMovto.getTPMOVTO();
             
             jTFTipoMvto.setText(Integer.toString(tipoMovto.getIDTPMOVTO()));
             if(est.equals("S")){
@@ -369,7 +400,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
             if(fin.equals("S")){
                 jCBFinanceiro.setSelected(true);
             }
-            jCBTpOperacao.setSelectedIndex(tipo);
+            jCBTpOperacao.setSelectedIndex(Integer.parseInt(tipo));
         }
         estadobotoes(false);
         jTPNivel.setSelectedIndex(0);
@@ -427,11 +458,13 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
     private javax.swing.JComboBox jCBTpOperacao;
     private javax.swing.JComboBox jCbPesquisa2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPCadastro;
     private javax.swing.JPanel jPConsulta;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTFDsMvto;
     private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTextField jTFTipoMvto;
     private javax.swing.JTabbedPane jTPNivel;

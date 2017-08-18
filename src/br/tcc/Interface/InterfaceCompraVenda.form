@@ -115,23 +115,23 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jTPVenda" min="-2" pref="702" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jTPVenda" min="-2" pref="702" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTPVenda" min="-2" pref="547" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jTPVenda" min="-2" pref="491" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTPVenda">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTPVendaFocusLost"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -224,7 +224,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jBPesquisarfornecedor1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTFDsfornecedor1" min="-2" pref="435" max="-2" attributes="0"/>
+                                          <Component id="jTFDsforma" min="-2" pref="435" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -273,7 +273,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTFIdFormaPgto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBPesquisarfornecedor1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTFDsfornecedor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFDsforma" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
@@ -302,7 +302,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanelbotoes2" min="-2" pref="68" max="-2" attributes="0"/>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -568,7 +568,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBPesquisarfornecedor1MouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTFDsfornecedor1">
+            <Component class="javax.swing.JTextField" name="jTFDsforma">
             </Component>
             <Component class="javax.swing.JTextField" name="jTFData">
             </Component>
@@ -586,12 +586,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="697" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="723" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="519" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="463" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

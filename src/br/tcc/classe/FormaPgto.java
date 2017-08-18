@@ -12,6 +12,7 @@ public class FormaPgto {
     private String DSFORMAPGTO;
     private Integer TPSITUACAO;
     private Integer NRINTERVALO;
+    private Integer QTDPARCELAS;
     
     private ResultSet retorno;
     private static int[] vet = new int[100];
@@ -63,7 +64,13 @@ public class FormaPgto {
     public static void setVet(int[] vet) {
         FormaPgto.vet = vet;
     }
-    
-    
-    
+
+    public Integer getQTDPARCELAS() {
+        return QTDPARCELAS;
+    }
+
+    public void setQTDPARCELAS(Integer QTDPARCELAS) {
+        this.QTDPARCELAS = QTDPARCELAS;
+    }
+        
 }

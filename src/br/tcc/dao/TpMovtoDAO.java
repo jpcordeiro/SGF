@@ -28,8 +28,9 @@ public class TpMovtoDAO {
         String sql = " INSERT INTO TIPOMVTO VALUES("
                 + tipoMovto.getIDTPMOVTO() + ",'"
                 + tipoMovto.getMOVESTOQUE() + "','"
-                + tipoMovto.getMOVFINANCEIRO() + "',"
-                + tipoMovto.getTPMOVTO()+ ")";
+                + tipoMovto.getMOVFINANCEIRO() + "','"
+                + tipoMovto.getTPMOVTO()+ "','"
+                + tipoMovto.getDSMVTO() + "')";
         conn.incluirSQL(sql);
     }
 
@@ -38,7 +39,8 @@ public class TpMovtoDAO {
                 + " IDTPMOVTO = " + tipoMovto.getIDTPMOVTO() + ","
                 + " MOVESTOQUE = '" + tipoMovto.getMOVESTOQUE() + "',"
                 + " MOVFINANCEIRO = '" + tipoMovto.getMOVFINANCEIRO() + "',"
-                + " TPMOVTO = " + tipoMovto.getTPMOVTO()
+                + " TPMOVTO = '" + tipoMovto.getTPMOVTO() + "',"
+                + " DSMOVTO = '" + tipoMovto.getDSMVTO()
                 + " WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.incluirSQL(sql);
     }
@@ -65,7 +67,8 @@ public class TpMovtoDAO {
             tipoMovto.setIDTPMOVTO(conn.resultset.getInt("IDTPMOVTO"));
             tipoMovto.setMOVESTOQUE(conn.resultset.getString("MOVESTOQUE"));
             tipoMovto.setMOVFINANCEIRO(conn.resultset.getString("MOVFINANCEIRO"));
-            tipoMovto.setTPMOVTO(conn.resultset.getInt("TPMOVTO"));
+            tipoMovto.setTPMOVTO(conn.resultset.getString("TPMOVTO"));
+            tipoMovto.setDSMVTO(conn.resultset.getString("DSMVTO"));
         } catch (SQLException ex) {
 
         }
@@ -73,17 +76,30 @@ public class TpMovtoDAO {
 
     public void preencherTpmovimento(JComboBox jCBTpMovto, TipoMovto tpMovto) {
     
-         String sql = "SELECT IDTPMOVTO FROM TIPOMVTO ORDER BY TPMOVTO";
+         String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMVTO ORDER BY IDTPMOVTO";
         conn.executeSQL(sql);
         jCBTpMovto.removeAllItems();
         int conta = 0;
         int[] vet = new int[100];
         try {
             while (conn.resultset.next()) {
-                jCBTpMovto.addItem(conn.resultset.getString("IDTPMOVTO"));
+                   jCBTpMovto.addItem(conn.resultset.getString("DSMVTO"));
                 conta++;
             }
             tpMovto.setVet(vet);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Dados não encontrados\n" + ex);
+        }
+    }
+
+    public void VerificarOperacao(TipoMovto tpMovto) {
+    
+        String sql = "SELECT TPMOVTO FROM TIPOMVTO WHERE DSMVTO = '" + tpMovto.getDSMVTO() + "'";
+        conn.executeSQL(sql);
+        try {
+
+            conn.resultset.first();
+             tpMovto.setTPMOVTO(conn.resultset.getString("TPMOVTO"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Dados não encontrados\n" + ex);
         }

@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
  * @author Joao Paulo
  */
 public class InterfaceMenu extends javax.swing.JFrame {
-    
+
     private InterfaceCidade InterfaceCidade;
 
     /**
@@ -17,11 +17,9 @@ public class InterfaceMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(InterfaceLogin.EXIT_ON_CLOSE);
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        
-        
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -243,7 +241,7 @@ private void jMIprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jMIprodutoActionPerformed
 
 private void jMIforma_pgtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIforma_pgtoActionPerformed
-    
+
     new InterfaceFormaPgto().setVisible(true);
 }//GEN-LAST:event_jMIforma_pgtoActionPerformed
 
@@ -252,16 +250,16 @@ private void jMIfoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_jMIfoneActionPerformed
 
 private void jMImarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMImarcaActionPerformed
-new InterfaceTpMovto().setVisible(true);
+    new InterfaceTpMovto().setVisible(true);
 }//GEN-LAST:event_jMImarcaActionPerformed
 
     private void FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FornecedorActionPerformed
-        
+
         new InterfaceFornecedor().setVisible(true);
     }//GEN-LAST:event_FornecedorActionPerformed
 
     private void jMIatendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIatendimentoActionPerformed
-        new InterfaceCompra().setVisible(true);
+        new InterfaceCompraVenda().setVisible(true);
     }//GEN-LAST:event_jMIatendimentoActionPerformed
 
     private void jMIparcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIparcelaActionPerformed
@@ -273,11 +271,11 @@ new InterfaceTpMovto().setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-new InterfaceCompraVenda().setVisible(true);
+        new InterfaceCompraVenda().setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-new InterfaceCustoMedio().setVisible(true);
+        new InterfaceCustoMedio().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -292,9 +290,9 @@ new InterfaceCustoMedio().setVisible(true);
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             public void run() {
                 new InterfaceMenu().setVisible(true);
             }

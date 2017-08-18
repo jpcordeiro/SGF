@@ -11,7 +11,8 @@ public class TipoMovto {
     private Integer IDTPMOVTO;
     private String MOVESTOQUE;
     private String MOVFINANCEIRO;
-    private Integer TPMOVTO;
+    private String TPMOVTO;
+    private String DSMVTO;
     
     private ResultSet retorno;
     private static int[] vet = new int[100];
@@ -40,11 +41,11 @@ public class TipoMovto {
         this.MOVFINANCEIRO = MOVFINANCEIRO;
     }
 
-    public Integer getTPMOVTO() {
+    public String getTPMOVTO() {
         return TPMOVTO;
     }
 
-    public void setTPMOVTO(Integer TPMOVTO) {
+    public void setTPMOVTO(String TPMOVTO) {
         this.TPMOVTO = TPMOVTO;
     }
 
@@ -63,8 +64,13 @@ public class TipoMovto {
     public static void setVet(int[] vet) {
         TipoMovto.vet = vet;
     }
-    
-    
-    
+
+    public String getDSMVTO() {
+        return DSMVTO;
+    }
+
+    public void setDSMVTO(String DSMVTO) {
+        this.DSMVTO = DSMVTO;
+    }   
     
 }

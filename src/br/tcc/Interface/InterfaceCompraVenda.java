@@ -448,6 +448,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         estadobotoes(true);
         tpMovtoDAO.preencherTpmovimento(jCBTpMovto, tpMovto);
         retornadata.RetornaDataAtual(jTFData);
+        jTFVlTotalVenda.setText("0.0");
     }//GEN-LAST:event_jBIncluirActionPerformed
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
@@ -649,7 +650,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         int incluir = 0;
         int conta = 0;
         int linha = 0;
-        
+                
         for (int i = 1; i <= totlinha; i++) {
             String IdProd = (String) jTVenda.getValueAt(conta, 0);
 
@@ -659,7 +660,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         JOptionPane.YES_NO_OPTION);
 
                 if (opcao_escolhida == JOptionPane.YES_OPTION) {
-                    incluir = 1;
+                    incluir = 1; 
                     linha = conta;
                 } else {
                     return;
@@ -669,6 +670,11 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         }
         
         if (incluir == 0) {
+            Double totalVenda = Double.parseDouble(jTFVlTotalVenda.getText());
+            Double vltotal = Double.parseDouble(jTFVlTotal.getText());
+            String soma = String.valueOf(totalVenda + vltotal);
+            jTFVlTotalVenda.setText(soma);
+            
             ItensFornece.setNumRows(totlinha + 1);
             ItensFornece.setValueAt(jTFIdProduto.getText(), totlinha, 0);
             ItensFornece.setValueAt(jTFDsProduto.getText(), totlinha, 1);
@@ -685,11 +691,16 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         
         else if (incluir == 1) {
         
+            Double totalVenda = Double.parseDouble(jTFVlTotalVenda.getText());
+            Double vltotal = Double.parseDouble(jTFVlTotal.getText());
+            String soma = String.valueOf(totalVenda + vltotal);
+            jTFVlTotalVenda.setText(soma);
+            
             String quantidade = (String) jTVenda.getValueAt(linha, 3);
-            String vltotal = (String) jTVenda.getValueAt(linha, 4);
+            String vltot = (String) jTVenda.getValueAt(linha, 4);
             
             Integer quantidadeAtual = Integer.parseInt(quantidade) + Integer.parseInt(jTFQuantidade.getText());
-            Double vltotalAtual = Double.parseDouble(vltotal) + Double.parseDouble(jTFVlTotal.getText());
+            Double vltotalAtual = Double.parseDouble(vltot) + Double.parseDouble(jTFVlTotal.getText());
             
             jTVenda.setValueAt(quantidadeAtual, linha, 3);
             jTVenda.setValueAt(vltotalAtual, linha, 4);

@@ -135,13 +135,15 @@ public class InterfaceComposicao extends javax.swing.JFrame {
         jLabel5.setText("Descrição da Composição");
 
         jBAdicionar.setText("Adicionar");
+        jBAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAdicionarActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Produto", "Quantidade", "Valor"
@@ -374,6 +376,10 @@ public class InterfaceComposicao extends javax.swing.JFrame {
     private void jBgravar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravar1ActionPerformed
 
     }//GEN-LAST:event_jBgravar1ActionPerformed
+
+    private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBAdicionarActionPerformed
 
     /**
      * @param args the command line arguments

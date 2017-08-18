@@ -71,12 +71,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jTFVlTotal = new javax.swing.JTextField();
         jBAdicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTProduto = new javax.swing.JTable();
+        jTVenda = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jTFVlTotalVenda = new javax.swing.JTextField();
         jPanelbotoes2 = new javax.swing.JPanel();
         jBIncluir = new javax.swing.JButton();
-        jBAlterar2 = new javax.swing.JButton();
+        jBAlterar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
         jBGravar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
@@ -200,7 +200,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }
         });
 
-        jTProduto.setModel(new javax.swing.table.DefaultTableModel(
+        jTVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -208,7 +208,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 "Código", "Descrição", "Valor", "Quantidade", "Valor total"
             }
         ));
-        jScrollPane1.setViewportView(jTProduto);
+        jScrollPane1.setViewportView(jTVenda);
 
         jLabel15.setText("Valor total");
 
@@ -223,9 +223,14 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         });
         jPanelbotoes2.add(jBIncluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 20, 70, 30));
 
-        jBAlterar2.setText("Alterar");
-        jBAlterar2.setMaximumSize(new java.awt.Dimension(65, 30));
-        jPanelbotoes2.add(jBAlterar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 70, 30));
+        jBAlterar.setText("Alterar");
+        jBAlterar.setMaximumSize(new java.awt.Dimension(65, 30));
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
+            }
+        });
+        jPanelbotoes2.add(jBAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 70, 30));
 
         jBExcluir.setText("Excluir");
         jPanelbotoes2.add(jBExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 20, 70, 30));
@@ -509,10 +514,36 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFQuantidadeFocusLost
 
     private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
-       
+
+        if (!jTFIdProduto.getText().equals("")) {
+            if (!jTFDsProduto.getText().equals("")) {
+                if (!jTFVlProduto.getText().equals("")) {
+                    if(!jTFQuantidade.getText().equals("")){
+                        IncluirLista();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Informe a Quantidade de produtos a ser comprados!");
+                    jTFQuantidade.grabFocus();
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null, "Valor do Produto não encontrado");
+                    jTFVlProduto.grabFocus();
+                }
+            }else {
+                    JOptionPane.showMessageDialog(null, "Informe o nome do produto!");
+                    jTFDsProduto.grabFocus();
+                }
+        }else {
+                    JOptionPane.showMessageDialog(null, "Informe o codigo do produto!");
+                    jTFIdProduto.grabFocus();
+                }
          
+        
 
     }//GEN-LAST:event_jBAdicionarActionPerformed
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -552,8 +583,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAdicionar;
+    private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBAlterar1;
-    private javax.swing.JButton jBAlterar2;
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBGravar;
@@ -600,14 +631,75 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jTFVlTotal;
     private javax.swing.JTextField jTFVlTotalVenda;
     private javax.swing.JTabbedPane jTPVenda;
-    private javax.swing.JTable jTProduto;
+    private javax.swing.JTable jTVenda;
     // End of variables declaration//GEN-END:variables
 
      private void estadobotoes(boolean situacao) {
         jBIncluir.setEnabled(!situacao);
-        jBAlterar1.setEnabled(!situacao);
+        jBAlterar.setEnabled(!situacao);
         jBExcluir.setEnabled(!situacao);
         jBGravar.setEnabled(situacao);
         jBCancelar.setEnabled(situacao);
+    }
+
+    private void IncluirLista() {
+   
+        DefaultTableModel ItensFornece = (DefaultTableModel) jTVenda.getModel();
+        int totlinha = jTVenda.getRowCount();
+        int incluir = 0;
+        int conta = 0;
+        int linha = 0;
+        
+        for (int i = 1; i <= totlinha; i++) {
+            String IdProd = (String) jTVenda.getValueAt(conta, 0);
+
+            if (jTFIdProduto.getText().equals(IdProd)) {
+                int opcao_escolhida = JOptionPane.showConfirmDialog(null, "Produto ja"
+                        + " foi incluido, deseja alterar quantidade? ", "Alteração ",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (opcao_escolhida == JOptionPane.YES_OPTION) {
+                    incluir = 1;
+                    linha = conta;
+                } else {
+                    return;
+                }
+            }
+            conta = conta + 1;
+        }
+        
+        if (incluir == 0) {
+            ItensFornece.setNumRows(totlinha + 1);
+            ItensFornece.setValueAt(jTFIdProduto.getText(), totlinha, 0);
+            ItensFornece.setValueAt(jTFDsProduto.getText(), totlinha, 1);
+            ItensFornece.setValueAt(jTFVlProduto.getText(), totlinha, 2);
+            ItensFornece.setValueAt(jTFQuantidade.getText(), totlinha, 3);
+            ItensFornece.setValueAt(jTFVlTotal.getText(), totlinha, 4);
+
+            jTFIdProduto.setText("");
+            jTFDsProduto.setText("");
+            jTFVlProduto.setText("");
+            jTFQuantidade.setText("");
+            jTFVlTotal.setText("");
+        }
+        
+        else if (incluir == 1) {
+        
+            String quantidade = (String) jTVenda.getValueAt(linha, 3);
+            String vltotal = (String) jTVenda.getValueAt(linha, 4);
+            
+            Integer quantidadeAtual = Integer.parseInt(quantidade) + Integer.parseInt(jTFQuantidade.getText());
+            Double vltotalAtual = Double.parseDouble(vltotal) + Double.parseDouble(jTFVlTotal.getText());
+            
+            jTVenda.setValueAt(quantidadeAtual, linha, 3);
+            jTVenda.setValueAt(vltotalAtual, linha, 4);
+
+            jTFIdProduto.setText("");
+            jTFDsProduto.setText("");
+            jTFQuantidade.setText("");
+            jTFVlTotal.setText("");
+            jTFVlProduto.setText("");
+
+        }
     }
 }

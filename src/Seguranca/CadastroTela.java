@@ -1,4 +1,4 @@
-package br.tcc.classe;
+package Seguranca;
 
 import java.sql.ResultSet;
 

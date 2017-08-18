@@ -1,6 +1,6 @@
 package br.tcc.dao;
 
-import br.tcc.classe.Nivel;
+import Seguranca.Nivel;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
 

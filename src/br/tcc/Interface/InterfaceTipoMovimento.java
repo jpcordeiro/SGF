@@ -3,7 +3,7 @@ package br.tcc.Interface;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.classe.Familia;
-import br.tcc.classe.Nivel;
+import Seguranca.Nivel;
 import br.tcc.classe.TipoMovto;
 import br.tcc.dao.FamiliaDAO;
 import br.tcc.dao.NivelDAO;

@@ -1,6 +1,6 @@
 package br.tcc.dao;
 
-import br.tcc.classe.CadastroTela;
+import Seguranca.CadastroTela;
 import br.tcc.classe.Familia;
 import br.tcc.conexao.ConexaoOracle;
 

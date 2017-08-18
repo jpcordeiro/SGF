@@ -9,6 +9,8 @@ package br.tcc.dao;
 import br.tcc.classe.TipoMovto;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -66,6 +68,24 @@ public class TpMovtoDAO {
             tipoMovto.setTPMOVTO(conn.resultset.getInt("TPMOVTO"));
         } catch (SQLException ex) {
 
+        }
+    }
+
+    public void preencherTpmovimento(JComboBox jCBTpMovto, TipoMovto tpMovto) {
+    
+         String sql = "SELECT IDTPMOVTO FROM TIPOMVTO ORDER BY TPMOVTO";
+        conn.executeSQL(sql);
+        jCBTpMovto.removeAllItems();
+        int conta = 0;
+        int[] vet = new int[100];
+        try {
+            while (conn.resultset.next()) {
+                jCBTpMovto.addItem(conn.resultset.getString("IDTPMOVTO"));
+                conta++;
+            }
+            tpMovto.setVet(vet);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Dados não encontrados\n" + ex);
         }
     }
     

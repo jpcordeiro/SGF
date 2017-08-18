@@ -5,7 +5,7 @@
  */
 package br.tcc.Interface;
 
-import br.tcc.classe.Login;
+import Seguranca.Login;
 import br.tcc.dao.LoginDAO;
 import java.awt.List;
 import java.sql.ResultSet;

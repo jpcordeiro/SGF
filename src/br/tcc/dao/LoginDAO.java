@@ -6,7 +6,7 @@
 package br.tcc.dao;
 
 import br.tcc.classe.Cidade;
-import br.tcc.classe.Login;
+import Seguranca.Login;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
 import javax.swing.JComboBox;

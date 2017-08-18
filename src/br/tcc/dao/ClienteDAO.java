@@ -81,4 +81,19 @@ public class ClienteDAO {
 
         }
     }
+
+    public void consultasimples(Cliente cliente) {
+    
+         String sql = "SELECT  C.IDPESSOA, P.DSPESSOA FROM CLIENTE C JOIN PESSOA P ON C.IDPESSOA = P.IDPESSOA";
+        conn.executeSQL(sql);
+        cliente.setRetorno(conn.resultset);
+    }
+
+    public void consultaDescSimples(String DsCliente, Cliente cliente) {
+    
+         String sql = "SELECT  C.IDPESSOA, P.DSPESSOA FROM CLIENTE C JOIN PESSOA P ON C.IDPESSOA = P.IDPESSOA"
+              + " WHERE P.DSPESSOA  LIKE '%"+ DsCliente +"%' ORDER BY P.DSPESSOA";
+        conn.executeSQL(sql);
+        cliente.setRetorno(conn.resultset);    
+    }
 }

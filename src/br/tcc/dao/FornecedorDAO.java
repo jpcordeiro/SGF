@@ -87,5 +87,21 @@ public class FornecedorDAO {
         conn.executeSQL(sql);
         fornecedor.setRetorno(conn.resultset);
     }
+
+    public void consultasimples(Fornecedor fornecedor) {
+  
+        String sql = "SELECT F.IDPESSOA, P.DSPESSOA FROM FORNECEDOR F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA";
+        conn.executeSQL(sql);
+        fornecedor.setRetorno(conn.resultset);
+    }
+
+    public void consultaDescSimples(String DsCliente, Fornecedor fornecedor) {
+  
+    
+        String sql = "SELECT F.IDPESSOA, P.DSPESSOA FROM FORNECEDOR F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA LIKE '%"
+                + DsCliente + "%' ORDER BY DSPRODUTO";
+        conn.executeSQL(sql);
+        fornecedor.setRetorno(conn.resultset);
+    }
     
 }

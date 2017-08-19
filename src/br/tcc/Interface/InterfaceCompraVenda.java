@@ -7,9 +7,14 @@ import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.classe.Compra;
+import br.tcc.classe.ItensCompra;
 import br.tcc.classe.TipoMovto;
 import br.tcc.dao.CompraDAO;
+import br.tcc.dao.ItensCompraDAO;
 import br.tcc.dao.TpMovtoDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +31,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     RetornaDataAtual retornadata = new RetornaDataAtual();
     Compra compra = new Compra();
     CompraDAO compraDAO = new CompraDAO();
+    ItensCompra itensCompra = new ItensCompra();
+    ItensCompraDAO itensCompraDAO = new ItensCompraDAO();
 
     /**
      * Creates new form InterfaceVenda
@@ -464,7 +471,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         tpMovto.setDSMVTO(jCBTpMovto.getSelectedItem().toString());
         tpMovtoDAO.VerificarOperacao(tpMovto);
         
-        if(tpMovto.getTPMOVTO().toString().equals("E")){
+        if(!tpMovto.getTPMOVTO().toString().equals("E")){
             jTFIdFornecedor.setEnabled(false);
             jTFDsfornecedor.setEnabled(false);
             
@@ -472,7 +479,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             jTFIdCliente.setEnabled(false);
             jTFDsCliente.setEnabled(false);
             
-            compra.setIDCOMPRA(Integer.parseInt(jTFIdVenda.getText()));
+//            compra.setIDCOMPRA(Integer.parseInt(jTFIdVenda.getText()));
             
             if(jTFIdFornecedor.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
@@ -489,18 +496,34 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }else{
                 compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
             }
-            
-            
-            
-            
-            
-            
-            
             compraDAO.incluir(compra);
             
             
             
-    
+            Integer idV = null;
+         
+            try {
+                idV = compraDAO.retornaUltimoId(idV);
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                  
+                                       
+                    int totlinha = jTVenda.getRowCount();
+                    int conta = 0;
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                        String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                        itensCompra.setIDCOMPRA(idV);
+                        itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
+                        itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
+                        itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));                       
+                        conta = conta + 1;
+                        itensCompraDAO.incluir(itensCompra);
+                    }
+            
+            
         }
         
     }//GEN-LAST:event_jBGravarActionPerformed

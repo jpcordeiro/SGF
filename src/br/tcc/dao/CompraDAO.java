@@ -2,6 +2,7 @@ package br.tcc.dao;
 
 import br.tcc.classe.Compra;
 import br.tcc.conexao.ConexaoOracle;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,9 +18,9 @@ public class CompraDAO {
 
     public void incluir(Compra compra) {
         String sql = " INSERT INTO COMPRA VALUES("
-                + compra.getIDCOMPRA() + ","
+                + compra.getIDCOMPRA() + ",'"
                 + compra.getDTVENDA() + "',"
-                + compra.getIDFORNECEDOR() + ""
+                + compra.getIDFORNECEDOR() + ","
                 + compra.getIDFORMAPGTO() + ")";
         conn.incluirSQL(sql);
     }
@@ -37,5 +38,17 @@ public class CompraDAO {
     public void excluir(Compra compra) {
         String sql = "DELETE FROM COMPRA WHERE IDCOMPRA = " + compra.getIDCOMPRA();
         conn.executeSQL(sql);
+    }
+
+    public Integer retornaUltimoId(Integer idV) throws SQLException {
+    
+         String sql = "SELECT IDCOMPRA FROM COMPRA";
+        conn.executeSQL(sql);
+
+        if (conn.resultset.last()) {
+            idV = conn.resultset.getInt("IDCOMPRA");
+        }
+        return (idV);
+
     }
 }

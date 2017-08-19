@@ -478,9 +478,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         }else{
             jTFIdCliente.setEnabled(false);
             jTFDsCliente.setEnabled(false);
-            
-//            compra.setIDCOMPRA(Integer.parseInt(jTFIdVenda.getText()));
-            
+                        
             if(jTFIdFornecedor.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
             }else{
@@ -499,16 +497,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             compraDAO.incluir(compra);
             
             
-            
             Integer idV = null;
-         
             try {
                 idV = compraDAO.retornaUltimoId(idV);
             } catch (SQLException ex) {
                 Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
             }
-                  
-                                       
                     int totlinha = jTVenda.getRowCount();
                     int conta = 0;
                     for (int i = 1; i <= totlinha; i++) {
@@ -522,8 +516,11 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         conta = conta + 1;
                         itensCompraDAO.incluir(itensCompra);
                     }
+                    
+                    
+                    
             
-            
+            lcampos.LimparCampos(jPCadastro);
         }
         
     }//GEN-LAST:event_jBGravarActionPerformed

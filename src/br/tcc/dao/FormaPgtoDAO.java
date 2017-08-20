@@ -57,9 +57,7 @@ public class FormaPgtoDAO {
     }
     
     public void retornadados(FormaPgto formaPgto) {
-        JOptionPane.showMessageDialog(null, formaPgto.getIDFORMAPGTO());
-        
-        String sql = "SELECT * FROM FORMAPGTO WHERE IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO();
+          String sql = "SELECT * FROM FORMAPGTO WHERE IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO();
         conn.executeSQL(sql);
 
         try {

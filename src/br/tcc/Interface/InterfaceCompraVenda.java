@@ -10,11 +10,13 @@ import br.tcc.classe.Compra;
 import br.tcc.classe.ContasPagar;
 import br.tcc.classe.FormaPgto;
 import br.tcc.classe.ItensCompra;
+import br.tcc.classe.MovtoProduto;
 import br.tcc.classe.TipoMovto;
 import br.tcc.dao.CompraDAO;
 import br.tcc.dao.ContasPagarDAO;
 import br.tcc.dao.FormaPgtoDAO;
 import br.tcc.dao.ItensCompraDAO;
+import br.tcc.dao.MovtoProdutoDAO;
 import br.tcc.dao.TpMovtoDAO;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -46,6 +48,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     FormaPgtoDAO formaPgtoDAO = new FormaPgtoDAO();
     ContasPagar contasPagar = new ContasPagar();
     ContasPagarDAO contasPagarDAO = new ContasPagarDAO();
+    MovtoProduto movtoProduto = new MovtoProduto();
+    MovtoProdutoDAO movtoProdutoDAO = new MovtoProdutoDAO();
 
     /**
      * Creates new form InterfaceVenda
@@ -109,7 +113,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jBPesquisarfornecedor = new javax.swing.JButton();
         jTFDsfornecedor = new javax.swing.JTextField();
         jTFIdFormaPgto = new javax.swing.JTextField();
-        jBPesquisarfornecedor1 = new javax.swing.JButton();
+        jBPesquisarformaPgto = new javax.swing.JButton();
         jTFDsforma = new javax.swing.JTextField();
         jTFData = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
@@ -290,10 +294,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }
         });
 
-        jBPesquisarfornecedor1.setText("Pesquisar");
-        jBPesquisarfornecedor1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jBPesquisarformaPgto.setText("Pesquisar");
+        jBPesquisarformaPgto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBPesquisarfornecedor1MouseClicked(evt);
+                jBPesquisarformaPgtoMouseClicked(evt);
             }
         });
 
@@ -366,7 +370,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTFIdFormaPgto)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBPesquisarfornecedor1)
+                                    .addComponent(jBPesquisarformaPgto)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTFDsforma, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPCadastroLayout.createSequentialGroup()
@@ -405,7 +409,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFIdFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBPesquisarfornecedor1)
+                    .addComponent(jBPesquisarformaPgto)
                     .addComponent(jTFDsforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(13, 13, 13)
@@ -492,10 +496,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         if (!tpMovto.getTPMOVTO().toString().equals("E")) {
             jTFIdFornecedor.setEnabled(false);
             jTFDsfornecedor.setEnabled(false);
+            jBPesquisarfornecedor.setEnabled(false);
 
         } else {
             jTFIdCliente.setEnabled(false);
             jTFDsCliente.setEnabled(false);
+            jBPesquisarCliente.setVisible(false);
 
             if (jTFIdFornecedor.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
@@ -554,13 +560,41 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 
                 contasPagar.setIDCOMRPA(idV);
                 contasPagar.setDTPAGAR(datanova);
-//                IntervaloPgto = (IntervaloPgto + IntervaloPgto);
                 
                 contasPagar.setVLPAGAR(VlParcela);
                 contasPagar.setIDPARCELA(i);
                 
                 contasPagarDAO.incluir(contasPagar);
               }
+              
+              conta = 0;
+              
+            for (int i = 1; i <= totlinha; i++) {
+                String IdItenCompra = (String) jTVenda.getValueAt(conta, 0);
+                String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                movtoProduto.setIDCOMPRA(idV);
+                movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
+                movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                movtoProduto.setINENTRADA("S");
+                movtoProduto.setDTATUALIZA(jTFData.getText());
+                
+                conta = conta + 1;
+                movtoProdutoDAO.JaExiste(movtoProduto);
+                Integer id = movtoProduto.getIDITENCOMPRA();
+                Integer qtd = movtoProduto.getQTDPRODUTO();
+                if (id == Integer.parseInt(IdItenCompra)){
+                    qtd = qtd + Integer.parseInt(QtdProd);
+                    movtoProduto.setQTDPRODUTO(qtd);
+                    movtoProdutoDAO.alterar(movtoProduto);
+                    
+                }else{
+                movtoProdutoDAO.incluir(movtoProduto);
+                }
+            }
+              
+              
+              
+              
             lcampos.LimparCampos(jPCadastro);
         }
 
@@ -603,7 +637,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jBPesquisarfornecedorMouseClicked
 
-    private void jBPesquisarfornecedor1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarfornecedor1MouseClicked
+    private void jBPesquisarformaPgtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarformaPgtoMouseClicked
         final ConsultaFormaPgto retornaPgto = new ConsultaFormaPgto();
         retornaPgto.setVisible(true);
         retornaPgto.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -613,7 +647,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 jTFDsforma.setText(retornaPgto.retornaDsForma);
             }
         });
-    }//GEN-LAST:event_jBPesquisarfornecedor1MouseClicked
+    }//GEN-LAST:event_jBPesquisarformaPgtoMouseClicked
 
     private void jTFQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFQuantidadeFocusLost
         Double preco = 0.0;
@@ -631,7 +665,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             if (!jTFDsProduto.getText().equals("")) {
                 if (!jTFVlProduto.getText().equals("")) {
                     if (!jTFQuantidade.getText().equals("")) {
-                        IncluirLista();
+                        IncluirListaCompra();
                     } else {
                         JOptionPane.showMessageDialog(null, "Informe a Quantidade de produtos a ser comprados!");
                         jTFQuantidade.grabFocus();
@@ -722,8 +756,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JButton jBIncluir;
     private javax.swing.JButton jBPesquisarCliente;
     private javax.swing.JButton jBPesquisarProduto;
+    private javax.swing.JButton jBPesquisarformaPgto;
     private javax.swing.JButton jBPesquisarfornecedor;
-    private javax.swing.JButton jBPesquisarfornecedor1;
     private javax.swing.JButton jBcancelar1;
     private javax.swing.JButton jBexcluir1;
     private javax.swing.JButton jBgravar1;
@@ -773,7 +807,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jBCancelar.setEnabled(situacao);
     }
 
-    private void IncluirLista() {
+    private void IncluirListaCompra() {
 
         DefaultTableModel ItensFornece = (DefaultTableModel) jTVenda.getModel();
         int totlinha = jTVenda.getRowCount();
@@ -784,10 +818,6 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         for (int i = 1; i <= totlinha; i++) {
             String IdProd = (String) jTVenda.getValueAt(conta, 0);
 
-//            if (item.getVerificar() ==0){
-//            JOptionPane.showMessageDialog(null,"NAO HA ESTOQUE SUFICIENTE!");
-//            jTFCd_item.grabFocus();
-//        }else {
             if (jTFIdProduto.getText().equals(IdProd)) {
                 int opcao_escolhida = JOptionPane.showConfirmDialog(null, "Produto ja"
                         + " foi incluido, deseja alterar quantidade? ", "Alteração ",

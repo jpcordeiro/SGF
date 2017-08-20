@@ -7,12 +7,21 @@ import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.classe.Compra;
+import br.tcc.classe.ContasPagar;
+import br.tcc.classe.FormaPgto;
 import br.tcc.classe.ItensCompra;
 import br.tcc.classe.TipoMovto;
 import br.tcc.dao.CompraDAO;
+import br.tcc.dao.ContasPagarDAO;
+import br.tcc.dao.FormaPgtoDAO;
 import br.tcc.dao.ItensCompraDAO;
 import br.tcc.dao.TpMovtoDAO;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
  * @author JOÃO PAULO
  */
 public class InterfaceCompraVenda extends javax.swing.JFrame {
-    
+
     LimparCampos lcampos = new LimparCampos();
     Integer situacao = 0;
     TpMovtoDAO tpMovtoDAO = new TpMovtoDAO();
@@ -33,6 +42,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     CompraDAO compraDAO = new CompraDAO();
     ItensCompra itensCompra = new ItensCompra();
     ItensCompraDAO itensCompraDAO = new ItensCompraDAO();
+    FormaPgto formaPgto = new FormaPgto();
+    FormaPgtoDAO formaPgtoDAO = new FormaPgtoDAO();
+    ContasPagar contasPagar = new ContasPagar();
+    ContasPagarDAO contasPagarDAO = new ContasPagarDAO();
 
     /**
      * Creates new form InterfaceVenda
@@ -261,6 +274,11 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jPanelbotoes2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 20, 80, 30));
 
         jBCancelar.setText("Cancelar");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
         jPanelbotoes2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 20, -1, 30));
 
         jLabel16.setText("Fornecedor");
@@ -470,63 +488,86 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
         tpMovto.setDSMVTO(jCBTpMovto.getSelectedItem().toString());
         tpMovtoDAO.VerificarOperacao(tpMovto);
-        
-        if(!tpMovto.getTPMOVTO().toString().equals("E")){
+
+        if (!tpMovto.getTPMOVTO().toString().equals("E")) {
             jTFIdFornecedor.setEnabled(false);
             jTFDsfornecedor.setEnabled(false);
-            
-        }else{
+
+        } else {
             jTFIdCliente.setEnabled(false);
             jTFDsCliente.setEnabled(false);
-                        
-            if(jTFIdFornecedor.getText().equals("")){
+
+            if (jTFIdFornecedor.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
-            }else{
+            } else {
                 compra.setIDFORNECEDOR(Integer.parseInt(jTFIdFornecedor.getText()));
             }
-            if(jTFData.getText().equals("")){
+            if (jTFData.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
-            }else{
+            } else {
                 compra.setDTVENDA(jTFData.getText());
             }
-            if(jTFIdFormaPgto.getText().equals("")){
+            if (jTFIdFormaPgto.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
-            }else{
+            } else {
                 compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
             }
             compraDAO.incluir(compra);
-            
-            
+
             Integer idV = null;
             try {
                 idV = compraDAO.retornaUltimoId(idV);
             } catch (SQLException ex) {
                 Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
             }
-                    int totlinha = jTVenda.getRowCount();
-                    int conta = 0;
-                    for (int i = 1; i <= totlinha; i++) {
-                        String IdProd = (String) jTVenda.getValueAt(conta, 0);
-                        String vlProduto = (String) jTVenda.getValueAt(conta, 2);
-                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
-                        itensCompra.setIDCOMPRA(idV);
-                        itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
-                        itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
-                        itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));                       
-                        conta = conta + 1;
-                        itensCompraDAO.incluir(itensCompra);
-                    }
-                    
-                    
-                    
+            int totlinha = jTVenda.getRowCount();
+            int conta = 0;
+            for (int i = 1; i <= totlinha; i++) {
+                String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                itensCompra.setIDCOMPRA(idV);
+                itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
+                itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
+                itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                conta = conta + 1;
+                itensCompraDAO.incluir(itensCompra);
+            }
+
+            formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+            formaPgtoDAO.retornadados(formaPgto);
+           
+            Integer IntervaloPgto = formaPgto.getNRINTERVALO();
+            Integer QtdParcelas = formaPgto.getQTDPARCELA();
+           
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
+ 	    Calendar calend = new GregorianCalendar(); 
             
+            
+            Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
+            Double VlParcela = (Vltotal/QtdParcelas);
+            	   
+
+              for (int i = 1; i<=QtdParcelas; i++){
+                calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
+                String datanova = sdf.format(calend.getTime());
+                
+                contasPagar.setIDCOMRPA(idV);
+                contasPagar.setDTPAGAR(datanova);
+//                IntervaloPgto = (IntervaloPgto + IntervaloPgto);
+                
+                contasPagar.setVLPAGAR(VlParcela);
+                contasPagar.setIDPARCELA(i);
+                
+                contasPagarDAO.incluir(contasPagar);
+              }
             lcampos.LimparCampos(jPCadastro);
         }
-        
+
     }//GEN-LAST:event_jBGravarActionPerformed
 
     private void jBPesquisarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarClienteMouseClicked
-        final ConsultaCliente  retornaCliente = new ConsultaCliente();
+        final ConsultaCliente retornaCliente = new ConsultaCliente();
         retornaCliente.setVisible(true);
         retornaCliente.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -538,7 +579,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarClienteMouseClicked
 
     private void jBPesquisarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarProdutoMouseClicked
-       final ConsultaProduto  retornaProduto = new ConsultaProduto();
+        final ConsultaProduto retornaProduto = new ConsultaProduto();
         retornaProduto.setVisible(true);
         retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -550,8 +591,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarProdutoMouseClicked
 
     private void jBPesquisarfornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarfornecedorMouseClicked
-        
-        final ConsultaFornecedor  retornaFornecedor = new ConsultaFornecedor();
+
+        final ConsultaFornecedor retornaFornecedor = new ConsultaFornecedor();
         retornaFornecedor.setVisible(true);
         retornaFornecedor.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -563,7 +604,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarfornecedorMouseClicked
 
     private void jBPesquisarfornecedor1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarfornecedor1MouseClicked
-      final ConsultaFormaPgto  retornaPgto = new ConsultaFormaPgto();
+        final ConsultaFormaPgto retornaPgto = new ConsultaFormaPgto();
         retornaPgto.setVisible(true);
         retornaPgto.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -576,12 +617,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
     private void jTFQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFQuantidadeFocusLost
         Double preco = 0.0;
-        int qtd= 0;
-        
+        int qtd = 0;
+
         preco = Double.parseDouble(jTFVlProduto.getText());
         qtd = Integer.parseInt(jTFQuantidade.getText());
-        
-        jTFVlTotal.setText(String.valueOf(preco * qtd));        
+
+        jTFVlTotal.setText(String.valueOf(preco * qtd));
     }//GEN-LAST:event_jTFQuantidadeFocusLost
 
     private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
@@ -589,26 +630,25 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         if (!jTFIdProduto.getText().equals("")) {
             if (!jTFDsProduto.getText().equals("")) {
                 if (!jTFVlProduto.getText().equals("")) {
-                    if(!jTFQuantidade.getText().equals("")){
+                    if (!jTFQuantidade.getText().equals("")) {
                         IncluirLista();
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Informe a Quantidade de produtos a ser comprados!");
-                    jTFQuantidade.grabFocus();
+                        jTFQuantidade.grabFocus();
                     }
-                }else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Valor do Produto não encontrado");
                     jTFVlProduto.grabFocus();
                 }
-            }else {
-                    JOptionPane.showMessageDialog(null, "Informe o nome do produto!");
-                    jTFDsProduto.grabFocus();
-                }
-        }else {
-                    JOptionPane.showMessageDialog(null, "Informe o codigo do produto!");
-                    jTFIdProduto.grabFocus();
-                }
-         
-        
+            } else {
+                JOptionPane.showMessageDialog(null, "Informe o nome do produto!");
+                jTFDsProduto.grabFocus();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe o codigo do produto!");
+            jTFIdProduto.grabFocus();
+        }
+
 
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
@@ -617,19 +657,24 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTPVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPVendaFocusLost
-        
+
         tpMovto.setDSMVTO(jCBTpMovto.getSelectedItem().toString());
         tpMovtoDAO.VerificarOperacao(tpMovto);
-        
-        if(tpMovto.getTPMOVTO().toString().equals("E")){
+
+        if (tpMovto.getTPMOVTO().toString().equals("E")) {
             jTFIdCliente.setEnabled(false);
             jTFDsCliente.setEnabled(false);
-            
-        }else{
+
+        } else {
             jTFIdFornecedor.setEnabled(false);
             jTFDsfornecedor.setEnabled(false);
-           }
+        }
     }//GEN-LAST:event_jTPVendaFocusLost
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+            
+               
+    }//GEN-LAST:event_jBCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -720,7 +765,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JTable jTVenda;
     // End of variables declaration//GEN-END:variables
 
-     private void estadobotoes(boolean situacao) {
+    private void estadobotoes(boolean situacao) {
         jBIncluir.setEnabled(!situacao);
         jBAlterar.setEnabled(!situacao);
         jBExcluir.setEnabled(!situacao);
@@ -729,37 +774,42 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }
 
     private void IncluirLista() {
-   
+
         DefaultTableModel ItensFornece = (DefaultTableModel) jTVenda.getModel();
         int totlinha = jTVenda.getRowCount();
         int incluir = 0;
         int conta = 0;
         int linha = 0;
-                
+
         for (int i = 1; i <= totlinha; i++) {
             String IdProd = (String) jTVenda.getValueAt(conta, 0);
 
+//            if (item.getVerificar() ==0){
+//            JOptionPane.showMessageDialog(null,"NAO HA ESTOQUE SUFICIENTE!");
+//            jTFCd_item.grabFocus();
+//        }else {
             if (jTFIdProduto.getText().equals(IdProd)) {
                 int opcao_escolhida = JOptionPane.showConfirmDialog(null, "Produto ja"
                         + " foi incluido, deseja alterar quantidade? ", "Alteração ",
                         JOptionPane.YES_NO_OPTION);
 
                 if (opcao_escolhida == JOptionPane.YES_OPTION) {
-                    incluir = 1; 
+                    incluir = 1;
                     linha = conta;
                 } else {
                     return;
                 }
+//            }
             }
             conta = conta + 1;
         }
-        
+
         if (incluir == 0) {
             Double totalVenda = Double.parseDouble(jTFVlTotalVenda.getText());
             Double vltotal = Double.parseDouble(jTFVlTotal.getText());
             String soma = String.valueOf(totalVenda + vltotal);
             jTFVlTotalVenda.setText(soma);
-            
+
             ItensFornece.setNumRows(totlinha + 1);
             ItensFornece.setValueAt(jTFIdProduto.getText(), totlinha, 0);
             ItensFornece.setValueAt(jTFDsProduto.getText(), totlinha, 1);
@@ -772,21 +822,19 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             jTFVlProduto.setText("");
             jTFQuantidade.setText("");
             jTFVlTotal.setText("");
-        }
-        
-        else if (incluir == 1) {
-        
+        } else if (incluir == 1) {
+
             Double totalVenda = Double.parseDouble(jTFVlTotalVenda.getText());
             Double vltotal = Double.parseDouble(jTFVlTotal.getText());
             String soma = String.valueOf(totalVenda + vltotal);
             jTFVlTotalVenda.setText(soma);
-            
+
             String quantidade = (String) jTVenda.getValueAt(linha, 3);
             String vltot = (String) jTVenda.getValueAt(linha, 4);
-            
+
             Integer quantidadeAtual = Integer.parseInt(quantidade) + Integer.parseInt(jTFQuantidade.getText());
             Double vltotalAtual = Double.parseDouble(vltot) + Double.parseDouble(jTFVlTotal.getText());
-            
+
             jTVenda.setValueAt(quantidadeAtual, linha, 3);
             jTVenda.setValueAt(vltotalAtual, linha, 4);
 

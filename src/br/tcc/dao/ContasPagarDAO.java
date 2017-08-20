@@ -20,7 +20,8 @@ public class ContasPagarDAO {
                 + contasPagar.getIDCONTASPAGAR() + ","
                 + contasPagar.getIDCOMRPA() + ",'"
                 + contasPagar.getDTPAGAR() + "',"
-                + contasPagar.getVLPAGAR() + ")";
+                + contasPagar.getVLPAGAR() + ","
+                + contasPagar.getIDPARCELA() + ")";
         conn.incluirSQL(sql);
     }
     
@@ -29,7 +30,8 @@ public class ContasPagarDAO {
                 + " IDCONTASPAGAR = " + contasPagar.getIDCONTASPAGAR() + ","
                 + " IDCOMRPA = " + contasPagar.getIDCOMRPA() + ","
                 + " DTPAGAR = '" + contasPagar.getDTPAGAR() + "',"
-                + " VLPAGAR = " + contasPagar.getVLPAGAR()
+                + " VLPAGAR = " + contasPagar.getVLPAGAR() + ","
+                + " IDPARCELA = " + contasPagar.getIDPARCELA()
                 + " WHERE IDCONTASPAGAR = " + contasPagar.getIDCONTASPAGAR();
         conn.incluirSQL(sql);
     }

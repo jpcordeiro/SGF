@@ -3,6 +3,7 @@ package br.tcc.dao;
 import br.tcc.classe.FormaPgto;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +23,7 @@ public class FormaPgtoDAO {
                 + formaPgto.getDSFORMAPGTO() + "',"
                 + formaPgto.getTPSITUACAO() + ","
                 + formaPgto.getNRINTERVALO() + ","
-                + formaPgto.getQTDPARCELAS() + ")";
+                + formaPgto.getQTDPARCELA() + ")";
         conn.incluirSQL(sql);
     }
 
@@ -32,7 +33,7 @@ public class FormaPgtoDAO {
                 + " DSFORMAPGTO = '" + formaPgto.getDSFORMAPGTO() + "',"
                 + " TPSITUACAO = " + formaPgto.getTPSITUACAO() + "," 
                 + " NRINTERVALO = " + formaPgto.getNRINTERVALO() + ","
-                + " QTDPARCELAS = " + formaPgto.getQTDPARCELAS()
+                + " QTDPARCELA = " + formaPgto.getQTDPARCELA()
                 + " WHERE IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO();
         conn.incluirSQL(sql);
     }
@@ -56,6 +57,8 @@ public class FormaPgtoDAO {
     }
     
     public void retornadados(FormaPgto formaPgto) {
+        JOptionPane.showMessageDialog(null, formaPgto.getIDFORMAPGTO());
+        
         String sql = "SELECT * FROM FORMAPGTO WHERE IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO();
         conn.executeSQL(sql);
 
@@ -66,7 +69,7 @@ public class FormaPgtoDAO {
             formaPgto.setDSFORMAPGTO(conn.resultset.getString("DSFORMAPGTO"));
             formaPgto.setTPSITUACAO(conn.resultset.getInt("TPSITUACAO"));
             formaPgto.setNRINTERVALO(conn.resultset.getInt("NRINTERVALO"));
-            formaPgto.setQTDPARCELAS(conn.resultset.getInt("QTDPARCELAS"));
+            formaPgto.setQTDPARCELA(conn.resultset.getInt("QDTPARCELA"));
           } catch (SQLException ex) {
 
         }

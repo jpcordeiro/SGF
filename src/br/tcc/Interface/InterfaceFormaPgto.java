@@ -346,7 +346,7 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
                 formaPgto.setDSFORMAPGTO(jTFDsFormaPgto.getText().toUpperCase());
                 formaPgto.setTPSITUACAO(jCBsituacao.getSelectedIndex());
                 formaPgto.setNRINTERVALO(Integer.parseInt(jTFNrIntervalo.getText()));
-                formaPgto.setQTDPARCELAS(Integer.parseInt(jTFQdtParcelas.getText()));
+                formaPgto.setQTDPARCELA(Integer.parseInt(jTFQdtParcelas.getText()));
                 formaPgtoDAO.incluir(formaPgto);
                 lcampos.LimparCampos(jPCadastro);
                 estadobotoes(false);

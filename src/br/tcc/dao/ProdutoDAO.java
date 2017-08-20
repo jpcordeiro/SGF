@@ -50,12 +50,27 @@ public class ProdutoDAO {
     }
 
     public void consultaSimple(Produto produto) {
-        String sql = "SELECT IDPRODUTO, DSPRODUTO FROM PRODUTO ORDER BY IDPRODUTO";
+        String sql = "SELECT DISTINCT P.IDPRODUTO, P.DSPRODUTO, I.VLPRODUTO FROM PRODUTO P JOIN ITENSCOMPRA I " +
+                     " ON P.IDPRODUTO = I.IDPRODUTO";
+        conn.executeSQL(sql);
+        produto.setRetorno(conn.resultset);
+    }
+    
+    public void consultaCompVend(Produto produto) {
+        String sql = "SELECT IDPRODUTO, DSPRODUTO, FROM PRODUTO";
         conn.executeSQL(sql);
         produto.setRetorno(conn.resultset);
     }
 
     public void consultadescricao(Produto produto) {
+        String sql = "SELECT P.IDPRODUTO, P.DSPRODUTO, I.VLPRODUTO FROM PRODUTO P JOIN ITENSCOMPRA I"
+                + " ON P.IDPRODUTO = I.IDPRODUTO WHERE DSPRDOUTO LIKE '%"
+                + produto.getDSPRODUTO() + "%' ORDER BY DSPRODUTO";
+        conn.executeSQL(sql);
+        produto.setRetorno(conn.resultset);
+    }
+    
+    public void consultadescricaoCompVend(Produto produto) {
         String sql = "SELECT * FROM PRODUTO WHERE DSPRDOUTO LIKE '%"
                 + produto.getDSPRODUTO() + "%' ORDER BY DSPRODUTO";
         conn.executeSQL(sql);

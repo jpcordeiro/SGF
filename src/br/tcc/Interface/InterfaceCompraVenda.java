@@ -4,6 +4,7 @@ import br.tcc.ConsultaSimples.ConsultaCliente;
 import br.tcc.ConsultaSimples.ConsultaFormaPgto;
 import br.tcc.ConsultaSimples.ConsultaFornecedor;
 import br.tcc.ConsultaSimples.ConsultaProduto;
+import br.tcc.ConsultaSimples.ConsultaProdutoCompVend;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.classe.Compra;
@@ -212,6 +213,11 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jBPesquisarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBPesquisarProdutoMouseClicked(evt);
+            }
+        });
+        jBPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarProdutoActionPerformed(evt);
             }
         });
 
@@ -618,7 +624,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarClienteMouseClicked
 
     private void jBPesquisarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarProdutoMouseClicked
-        final ConsultaProduto retornaProduto = new ConsultaProduto();
+        final ConsultaProdutoCompVend retornaProduto = new ConsultaProdutoCompVend();
         retornaProduto.setVisible(true);
         retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -714,6 +720,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             
                
     }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jBPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBPesquisarProdutoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -64,6 +64,8 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
         jTFIdProduto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTFData = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTFVlCompra = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
         jBtPesquisa = new javax.swing.JButton();
         jTFPesquisa = new javax.swing.JTextField();
@@ -147,6 +149,14 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
 
         jLabel6.setText("Código Produto");
 
+        jLabel4.setText("Preço de Compra");
+
+        jTFVlCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFVlCompraMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
         jPCadastroLayout.setHorizontalGroup(
@@ -154,10 +164,18 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPCadastroLayout.createSequentialGroup()
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFVlCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFVlVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPCadastroLayout.createSequentialGroup()
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addGroup(jPCadastroLayout.createSequentialGroup()
@@ -170,18 +188,14 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
                                         .addComponent(jLabel5)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jTFDsProduto)))
-                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPCadastroLayout.createSequentialGroup()
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTFVlVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTFIdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jTFData))))
+                                    .addComponent(jTFIdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTFData))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(97, 97, 97))
         );
@@ -208,11 +222,17 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
                     .addComponent(jTFIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBPesquisar)
                     .addComponent(jTFDsProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFVlVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFVlVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFVlCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
         );
@@ -448,10 +468,15 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
             public void windowClosed(WindowEvent e) {
                 jTFIdProduto.setText(consProd.retornaId);
                 jTFDsProduto.setText(consProd.retornaDsProduto);
+                jTFVlCompra.setText(consProd.retonaVlProduto);
             }
         });
         
     }//GEN-LAST:event_jBPesquisarMouseClicked
+
+    private void jTFVlCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFVlCompraMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFVlCompraMouseClicked
 
     /**
      * @param args the command line arguments
@@ -500,6 +525,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPCadastro;
@@ -511,6 +537,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jTFIdPrecoVenda;
     private javax.swing.JTextField jTFIdProduto;
     private javax.swing.JTextField jTFPesquisa;
+    private javax.swing.JTextField jTFVlCompra;
     private javax.swing.JTextField jTFVlVenda;
     private javax.swing.JTabbedPane jTPPrecoVenda;
     private javax.swing.JTable jTbPesquisa;

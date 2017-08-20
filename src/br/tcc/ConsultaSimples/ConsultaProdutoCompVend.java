@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.tcc.ConsultaSimples;
 
 import br.tcc.Validacoes.PreencherJtableGenerico;
@@ -14,7 +9,7 @@ import javax.swing.JOptionPane;
  *
  * @author JOÃO PAULO
  */
-public class ConsultaProduto extends javax.swing.JFrame {
+public class ConsultaProdutoCompVend extends javax.swing.JFrame {
     
     Produto produto = new Produto();
     ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -25,7 +20,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
     /**
      * Creates new form ConsultaProduto
      */
-    public ConsultaProduto() {
+    public ConsultaProdutoCompVend() {
         initComponents();
     }
 
@@ -142,13 +137,13 @@ public class ConsultaProduto extends javax.swing.JFrame {
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
         switch (jCbPesquisa2.getSelectedIndex()) {
             case 0: {
-                produtoDAO.consultaSimple(produto);
+                produtoDAO.consultaCompVend(produto);
                 preencher.PreencherJtableGenerico(jTConsulta, produto.getRetorno());
                 return;
             }
             case 1: {
                 produto.setDSPRODUTO(jTFPesquisa.getText().toUpperCase());
-                produtoDAO.consultadescricaoSimples(produto);
+                produtoDAO.consultadescricaoCompVend(produto);
                 preencher.PreencherJtableGenerico(jTConsulta, produto.getRetorno());
                 return;
             }
@@ -195,20 +190,21 @@ public class ConsultaProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsultaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaProdutoCompVend.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsultaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaProdutoCompVend.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsultaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaProdutoCompVend.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsultaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaProdutoCompVend.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultaProduto().setVisible(true);
+                new ConsultaProdutoCompVend().setVisible(true);
             }
         });
     }

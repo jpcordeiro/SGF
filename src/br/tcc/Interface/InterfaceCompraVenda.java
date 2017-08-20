@@ -572,23 +572,28 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             for (int i = 1; i <= totlinha; i++) {
                 String IdItenCompra = (String) jTVenda.getValueAt(conta, 0);
                 String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                
                 movtoProduto.setIDCOMPRA(idV);
-                movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
+                
                 movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
                 movtoProduto.setINENTRADA("S");
                 movtoProduto.setDTATUALIZA(jTFData.getText());
                 
                 conta = conta + 1;
-                movtoProdutoDAO.JaExiste(movtoProduto);
+                movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenCompra));
                 Integer id = movtoProduto.getIDITENCOMPRA();
+                Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
                 Integer qtd = movtoProduto.getQTDPRODUTO();
                 if (id == Integer.parseInt(IdItenCompra)){
+                    movtoProduto.setIDMOVTOPRODUTO(idMvto);
+                    movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra)); 
                     qtd = qtd + Integer.parseInt(QtdProd);
                     movtoProduto.setQTDPRODUTO(qtd);
                     movtoProdutoDAO.alterar(movtoProduto);
                     
                 }else{
-                movtoProdutoDAO.incluir(movtoProduto);
+                    movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
+                    movtoProdutoDAO.incluir(movtoProduto);
                 }
             }
               

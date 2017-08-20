@@ -35,7 +35,7 @@ public class MovtoProdutoDAO {
                 + " DTATUALIZA = '" + mProduto.getDTATUALIZA() + "',"
                 + " INENTRADA = '" + mProduto.getINENTRADA() + "',"
                 + " QTDPRODUTO = " + mProduto.getQTDPRODUTO() 
-                +" WHERE IDMOVTOPRODUTO = " + mProduto.getIDMOVTOPRODUTO();
+                +" WHERE IDITENCOMPRA = " + mProduto.getIDITENCOMPRA();
         conn.incluirSQL(sql);
     } 
     
@@ -44,14 +44,15 @@ public class MovtoProdutoDAO {
         conn.executeSQL(sql);
     }
 
-    public void JaExiste(MovtoProduto mProduto) {
+    public void JaExiste(MovtoProduto mProduto, Integer IdItenCompra) {
    
-        String sql = "SELECT IDITENCOMPRA FROM MOVTOPRODUTO WHERE IDITENCOMPRA "+ mProduto.getIDITENCOMPRA();
+        String sql = "SELECT IDMOVTOPRODUTO,IDITENCOMPRA, QTDPRODUTO  FROM MOVTOPRODUTO WHERE IDITENCOMPRA = " + IdItenCompra;
         conn.executeSQL(sql);
         
        try {
 
             conn.resultset.first();
+            mProduto.setIDMOVTOPRODUTO(conn.resultset.getInt("IDMOVTOPRODUTO"));
             mProduto.setIDITENCOMPRA(conn.resultset.getInt("IDITENCOMPRA"));
             mProduto.setQTDPRODUTO(conn.resultset.getInt("QTDPRODUTO"));
             } catch (SQLException ex) {

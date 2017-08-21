@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Usuário
+ * @author JOÃO PAULO
  */
 public class CompraDAO {
     

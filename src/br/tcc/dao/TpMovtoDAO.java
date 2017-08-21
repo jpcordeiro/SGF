@@ -94,15 +94,34 @@ public class TpMovtoDAO {
 
     public void VerificarOperacao(TipoMovto tpMovto) {
     
-        String sql = "SELECT TPMOVTO FROM TIPOMVTO WHERE DSMVTO = '" + tpMovto.getDSMVTO() + "'";
+        String sql = "SELECT IDTPMOVTO, MOVESTOQUE, MOVFINANCEIRO, TPMOVTO FROM TIPOMVTO WHERE IDTPMOVTO = " + tpMovto.getIDTPMOVTO();
         conn.executeSQL(sql);
         try {
 
             conn.resultset.first();
+           
+             tpMovto.setIDTPMOVTO(conn.resultset.getInt("IDTPMOVTO"));
+             tpMovto.setMOVESTOQUE(conn.resultset.getString("MOVESTOQUE"));
+             tpMovto.setMOVFINANCEIRO(conn.resultset.getString("MOVFINANCEIRO"));
              tpMovto.setTPMOVTO(conn.resultset.getString("TPMOVTO"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Dados não encontrados\n" + ex);
         }
+    }
+
+    public void consultasimples(TipoMovto tipoMovto) {
+    
+        String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMVTO ORDER BY IDTPMOVTO";
+        conn.executeSQL(sql);
+        tipoMovto.setRetorno(conn.resultset);
+    }
+
+    public void consultaDescSimples(TipoMovto tipoMovto) {
+    
+         String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMVTO WHERE DSMOVTO LIKE '%"
+                + tipoMovto.getDSMVTO() + "%' ORDER BY DSMVTO";
+        conn.executeSQL(sql);
+        tipoMovto.setRetorno(conn.resultset);
     }
     
 }

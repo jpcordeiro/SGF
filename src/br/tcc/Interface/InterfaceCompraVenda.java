@@ -5,20 +5,27 @@ import br.tcc.ConsultaSimples.ConsultaFormaPgto;
 import br.tcc.ConsultaSimples.ConsultaFornecedor;
 import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.ConsultaSimples.ConsultaProdutoCompVend;
+import br.tcc.ConsultaSimples.ConsultaTpMovto;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.classe.Compra;
 import br.tcc.classe.ContasPagar;
+import br.tcc.classe.ContasReceber;
 import br.tcc.classe.FormaPgto;
 import br.tcc.classe.ItensCompra;
+import br.tcc.classe.ItensVenda;
 import br.tcc.classe.MovtoProduto;
 import br.tcc.classe.TipoMovto;
+import br.tcc.classe.Venda;
 import br.tcc.dao.CompraDAO;
 import br.tcc.dao.ContasPagarDAO;
+import br.tcc.dao.ContasReceberDAO;
 import br.tcc.dao.FormaPgtoDAO;
 import br.tcc.dao.ItensCompraDAO;
+import br.tcc.dao.ItensVendaDAO;
 import br.tcc.dao.MovtoProdutoDAO;
 import br.tcc.dao.TpMovtoDAO;
+import br.tcc.dao.VendaDAO;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,12 +50,18 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     RetornaDataAtual retornadata = new RetornaDataAtual();
     Compra compra = new Compra();
     CompraDAO compraDAO = new CompraDAO();
+    Venda venda = new Venda();
+    VendaDAO vendaDAO = new VendaDAO();
     ItensCompra itensCompra = new ItensCompra();
     ItensCompraDAO itensCompraDAO = new ItensCompraDAO();
+    ItensVenda itensVenda = new ItensVenda();
+    ItensVendaDAO itensVendaDAO = new ItensVendaDAO();
     FormaPgto formaPgto = new FormaPgto();
     FormaPgtoDAO formaPgtoDAO = new FormaPgtoDAO();
     ContasPagar contasPagar = new ContasPagar();
     ContasPagarDAO contasPagarDAO = new ContasPagarDAO();
+    ContasReceber contasReceber = new ContasReceber();
+    ContasReceberDAO contasReceberDAO = new ContasReceberDAO();
     MovtoProduto movtoProduto = new MovtoProduto();
     MovtoProdutoDAO movtoProdutoDAO = new MovtoProdutoDAO();
 
@@ -84,9 +97,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jTFIdCliente = new javax.swing.JTextField();
         jBPesquisarCliente = new javax.swing.JButton();
         jTFDsCliente = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jCBTpMovto = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTFIdProduto = new javax.swing.JTextField();
@@ -117,6 +128,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jBPesquisarformaPgto = new javax.swing.JButton();
         jTFDsforma = new javax.swing.JTextField();
         jTFData = new javax.swing.JTextField();
+        jTFDsTpMovto = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTFIdTpMovto = new javax.swing.JTextField();
+        jBPesquisarTpMovto = new javax.swing.JButton();
         jPConsulta = new javax.swing.JPanel();
 
         jLabel5.setText("Data de Alteração");
@@ -199,11 +214,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Tipo de Movimento");
-
         jLabel4.setText("Forma Pgto");
-
-        jCBTpMovto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o Tipo de Movimento" }));
 
         jLabel6.setText("Data de Venda");
 
@@ -307,55 +318,54 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Tipo de Movimentpo");
+
+        jBPesquisarTpMovto.setText("Pesquisar");
+        jBPesquisarTpMovto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBPesquisarTpMovtoMouseClicked(evt);
+            }
+        });
+        jBPesquisarTpMovto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jBPesquisarTpMovtoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
         jPCadastroLayout.setHorizontalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
+            .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelbotoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPCadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel16)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFIdFornecedor)
+                        .addComponent(jTFIdFormaPgto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBPesquisarfornecedor)
+                        .addComponent(jBPesquisarformaPgto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFDsfornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jTFDsforma, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelbotoes2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTFVlTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPCadastroLayout.createSequentialGroup()
-                                    .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPCadastroLayout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTFIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPCadastroLayout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTFIdCliente)))
+                                    .addComponent(jLabel1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPCadastroLayout.createSequentialGroup()
-                                            .addComponent(jBPesquisarCliente)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTFDsCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPCadastroLayout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jCBTpMovto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jTFIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(77, 77, 77))
                                 .addGroup(jPCadastroLayout.createSequentialGroup()
                                     .addComponent(jLabel11)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -371,14 +381,6 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jBAdicionar)
                                     .addGap(41, 41, 41))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFIdFormaPgto)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBPesquisarformaPgto)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFDsforma, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPCadastroLayout.createSequentialGroup()
                                     .addComponent(jLabel12)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -386,7 +388,33 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jBPesquisarProduto)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFDsProduto))))))
+                                    .addComponent(jTFDsProduto)))))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFIdFornecedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBPesquisarfornecedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFDsfornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTFIdTpMovto))
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFIdCliente)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBPesquisarCliente, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBPesquisarTpMovto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTFDsTpMovto, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                            .addComponent(jTFDsCliente))))
                 .addGap(37, 37, 37))
         );
         jPCadastroLayout.setVerticalGroup(
@@ -397,10 +425,14 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTFIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel3)
-                    .addComponent(jCBTpMovto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTFIdTpMovto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFDsTpMovto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesquisarTpMovto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTFIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,7 +450,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                     .addComponent(jBPesquisarformaPgto)
                     .addComponent(jTFDsforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTFIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,13 +467,13 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                     .addComponent(jBAdicionar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jTFVlTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelbotoes2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTPVenda.addTab("Cadastro", jPCadastro);
@@ -454,7 +486,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
+            .addGap(0, 494, Short.MAX_VALUE)
         );
 
         jTPVenda.addTab("Consulta", jPConsulta);
@@ -463,16 +495,17 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+            .addComponent(jTPVenda)
         );
 
-        setSize(new java.awt.Dimension(714, 533));
+        setSize(new java.awt.Dimension(714, 561));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -489,20 +522,118 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         lcampos.LimparCampos(jTPVenda);
         situacao = 1;
         estadobotoes(true);
-        tpMovtoDAO.preencherTpmovimento(jCBTpMovto, tpMovto);
         retornadata.RetornaDataAtual(jTFData);
         jTFVlTotalVenda.setText("0.0");
     }//GEN-LAST:event_jBIncluirActionPerformed
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
 
-        tpMovto.setDSMVTO(jCBTpMovto.getSelectedItem().toString());
+        tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
         tpMovtoDAO.VerificarOperacao(tpMovto);
-
         if (!tpMovto.getTPMOVTO().toString().equals("E")) {
             jTFIdFornecedor.setEnabled(false);
             jTFDsfornecedor.setEnabled(false);
             jBPesquisarfornecedor.setEnabled(false);
+            if (tpMovto.getMOVESTOQUE().toString().equals("S")) {
+                if (tpMovto.getMOVFINANCEIRO().toString().equals("S")) {
+
+                    if (jTFIdCliente.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código do Cliente é obrigatório");
+                    } else {
+                        venda.setIDCLIENTE(Integer.parseInt(jTFIdCliente.getText()));
+                    }
+                    if (jTFData.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                    } else {
+                        venda.setDTVENDA(jTFData.getText());
+                    }
+                    if (jTFIdFormaPgto.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                    } else {
+                        venda.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                    }
+                    venda.setIDMOVTOPRODUTO(tpMovto.getIDTPMOVTO());
+
+                    vendaDAO.incluir(venda);
+
+                    Integer idV = null;
+                    try {
+                        idV = vendaDAO.retornaUltimoId(idV);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    int totlinha = jTVenda.getRowCount();
+                    int conta = 0;
+
+                    //VERIFICAR SE HÁ QUANTIDADE SUFICIENTE
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                        String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                        itensVenda.setIDVENDA(idV);
+                        itensVenda.setIDPRODUTO(Integer.parseInt(IdProd));
+                        itensVenda.setVLPRODUTO(Double.parseDouble(vlProduto));
+                        itensVenda.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        conta = conta + 1;
+                        itensVendaDAO.incluir(itensVenda);
+                    }
+
+                    formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                    formaPgtoDAO.retornadados(formaPgto);
+
+                    Integer IntervaloPgto = formaPgto.getNRINTERVALO();
+                    Integer QtdParcelas = formaPgto.getQTDPARCELA();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Calendar calend = new GregorianCalendar();
+
+                    Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
+                    Double VlParcela = (Vltotal / QtdParcelas);
+
+                    for (int i = 1; i <= QtdParcelas; i++) {
+                        calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
+                        String datanova = sdf.format(calend.getTime());
+
+                        contasReceber.setIDVENDA(idV);
+                        contasReceber.setDTRECEBER(datanova);
+
+                        contasReceber.setVLRECEBER(VlParcela);
+                        contasReceber.setIDPARCELA(i);
+
+                        contasReceberDAO.incluir(contasReceber);
+                    }
+
+                    conta = 0;
+
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdItenVenda = (String) jTVenda.getValueAt(conta, 0);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+
+                        movtoProduto.setIDCOMPRA(idV);
+
+                        movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        movtoProduto.setINENTRADA("N");
+                        movtoProduto.setDTATUALIZA(jTFData.getText());
+
+                        conta = conta + 1;
+                        movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenVenda));
+                        Integer id = movtoProduto.getIDITENCOMPRA();
+                        Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
+                        Integer qtd = movtoProduto.getQTDPRODUTO();
+                        if (id == Integer.parseInt(IdItenVenda)) {
+                            movtoProduto.setIDMOVTOPRODUTO(idMvto);
+                            movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenVenda));
+                            qtd = qtd - Integer.parseInt(QtdProd);
+                            movtoProduto.setQTDPRODUTO(qtd);
+                            movtoProdutoDAO.alterar(movtoProduto);
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Produto não existe!");
+                        }
+                    }
+
+                }
+            }
 
         } else {
             jTFIdCliente.setEnabled(false);
@@ -548,64 +679,59 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
             formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
             formaPgtoDAO.retornadados(formaPgto);
-           
+
             Integer IntervaloPgto = formaPgto.getNRINTERVALO();
             Integer QtdParcelas = formaPgto.getQTDPARCELA();
-           
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
- 	    Calendar calend = new GregorianCalendar(); 
-            
-            
-            Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
-            Double VlParcela = (Vltotal/QtdParcelas);
-            	   
 
-              for (int i = 1; i<=QtdParcelas; i++){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar calend = new GregorianCalendar();
+
+            Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
+            Double VlParcela = (Vltotal / QtdParcelas);
+
+            for (int i = 1; i <= QtdParcelas; i++) {
                 calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
                 String datanova = sdf.format(calend.getTime());
-                
+
                 contasPagar.setIDCOMRPA(idV);
                 contasPagar.setDTPAGAR(datanova);
-                
+
                 contasPagar.setVLPAGAR(VlParcela);
                 contasPagar.setIDPARCELA(i);
-                
+
                 contasPagarDAO.incluir(contasPagar);
-              }
-              
-              conta = 0;
-              
+            }
+
+            conta = 0;
+
             for (int i = 1; i <= totlinha; i++) {
                 String IdItenCompra = (String) jTVenda.getValueAt(conta, 0);
                 String QtdProd = (String) jTVenda.getValueAt(conta, 3);
-                
+
                 movtoProduto.setIDCOMPRA(idV);
-                
+
                 movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
                 movtoProduto.setINENTRADA("S");
                 movtoProduto.setDTATUALIZA(jTFData.getText());
-                
+
                 conta = conta + 1;
                 movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenCompra));
                 Integer id = movtoProduto.getIDITENCOMPRA();
                 Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
                 Integer qtd = movtoProduto.getQTDPRODUTO();
-                if (id == Integer.parseInt(IdItenCompra)){
+                if (id == Integer.parseInt(IdItenCompra)) {
                     movtoProduto.setIDMOVTOPRODUTO(idMvto);
-                    movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra)); 
+                    movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
                     qtd = qtd + Integer.parseInt(QtdProd);
                     movtoProduto.setQTDPRODUTO(qtd);
                     movtoProdutoDAO.alterar(movtoProduto);
-                    
-                }else{
+
+                } else {
                     movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
                     movtoProdutoDAO.incluir(movtoProduto);
                 }
             }
-              
-              
-              
-              
+
             lcampos.LimparCampos(jPCadastro);
         }
 
@@ -624,6 +750,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarClienteMouseClicked
 
     private void jBPesquisarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarProdutoMouseClicked
+
+        tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
+        tpMovtoDAO.VerificarOperacao(tpMovto);
+        if (!tpMovto.getTPMOVTO().equals("E")) {
         final ConsultaProdutoCompVend retornaProduto = new ConsultaProdutoCompVend();
         retornaProduto.setVisible(true);
         retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -631,8 +761,22 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdProduto.setText(retornaProduto.retornaId);
                 jTFDsProduto.setText(retornaProduto.retornaDsProduto);
+                jTFVlProduto.setText(retornaProduto.retonaVlProduto);
             }
         });
+        }else{
+        final ConsultaProduto retornaProduto = new ConsultaProduto();
+        retornaProduto.setVisible(true);
+        retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
+
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                jTFIdProduto.setText(retornaProduto.retornaId);
+                jTFDsProduto.setText(retornaProduto.retornaDsProduto);
+                jTFVlProduto.setText(retornaProduto.retonaVlProduto);
+            }
+        });
+            
+        }
     }//GEN-LAST:event_jBPesquisarProdutoMouseClicked
 
     private void jBPesquisarfornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarfornecedorMouseClicked
@@ -703,7 +847,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
     private void jTPVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPVendaFocusLost
 
-        tpMovto.setDSMVTO(jCBTpMovto.getSelectedItem().toString());
+        tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
         tpMovtoDAO.VerificarOperacao(tpMovto);
 
         if (tpMovto.getTPMOVTO().toString().equals("E")) {
@@ -717,13 +861,30 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPVendaFocusLost
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-            
-               
+
+
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBPesquisarProdutoActionPerformed
+
+    private void jBPesquisarTpMovtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoMouseClicked
+        
+        final ConsultaTpMovto retornaTpMovto = new ConsultaTpMovto();
+        retornaTpMovto.setVisible(true);
+        retornaTpMovto.addWindowListener(new java.awt.event.WindowAdapter() {
+
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                jTFIdTpMovto.setText(retornaTpMovto.retornaId);
+                jTFDsTpMovto.setText(retornaTpMovto.retornaDsTpMovto);
+            }
+        });
+    }//GEN-LAST:event_jBPesquisarTpMovtoMouseClicked
+
+    private void jBPesquisarTpMovtoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBPesquisarTpMovtoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -771,13 +932,13 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JButton jBIncluir;
     private javax.swing.JButton jBPesquisarCliente;
     private javax.swing.JButton jBPesquisarProduto;
+    private javax.swing.JButton jBPesquisarTpMovto;
     private javax.swing.JButton jBPesquisarformaPgto;
     private javax.swing.JButton jBPesquisarfornecedor;
     private javax.swing.JButton jBcancelar1;
     private javax.swing.JButton jBexcluir1;
     private javax.swing.JButton jBgravar1;
     private javax.swing.JButton jBincluir1;
-    private javax.swing.JComboBox jCBTpMovto;
     private javax.swing.JFormattedTextField jFTFdt_cadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -787,10 +948,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPCadastro;
     private javax.swing.JPanel jPConsulta;
     private javax.swing.JPanel jPanelbotoes1;
@@ -799,12 +960,14 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jTFData;
     private javax.swing.JTextField jTFDsCliente;
     private javax.swing.JTextField jTFDsProduto;
+    private javax.swing.JTextField jTFDsTpMovto;
     private javax.swing.JTextField jTFDsforma;
     private javax.swing.JTextField jTFDsfornecedor;
     private javax.swing.JTextField jTFIdCliente;
     private javax.swing.JTextField jTFIdFormaPgto;
     private javax.swing.JTextField jTFIdFornecedor;
     private javax.swing.JTextField jTFIdProduto;
+    private javax.swing.JTextField jTFIdTpMovto;
     private javax.swing.JTextField jTFIdVenda;
     private javax.swing.JTextField jTFQuantidade;
     private javax.swing.JTextField jTFVlProduto;

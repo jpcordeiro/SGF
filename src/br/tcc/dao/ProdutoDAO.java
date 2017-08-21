@@ -57,7 +57,7 @@ public class ProdutoDAO {
     }
     
     public void consultaCompVend(Produto produto) {
-        String sql = "SELECT IDPRODUTO, DSPRODUTO, FROM PRODUTO";
+        String sql = "SELECT P.IDPRODUTO, P.DSPRODUTO, PV.VLVENDA FROM PRODUTO P JOIN PRECOVENDA PV ON P.IDPRODUTO = PV.IDPRODUTO";
         conn.executeSQL(sql);
         produto.setRetorno(conn.resultset);
     }
@@ -71,8 +71,8 @@ public class ProdutoDAO {
     }
     
     public void consultadescricaoCompVend(Produto produto) {
-        String sql = "SELECT * FROM PRODUTO WHERE DSPRDOUTO LIKE '%"
-                + produto.getDSPRODUTO() + "%' ORDER BY DSPRODUTO";
+        String sql = "SELECT P.IDPRODUTO, P.DSPRODUTO, PV.VLVENDA FROM PRODUTO P JOIN PRECOVENDA PV ON P.IDPRODUTO = PV.IDPRODUTO"
+                + " WHERE DSPRDOUTO LIKE '%" + produto.getDSPRODUTO() + "%' ORDER BY DSPRODUTO";
         conn.executeSQL(sql);
         produto.setRetorno(conn.resultset);
     }

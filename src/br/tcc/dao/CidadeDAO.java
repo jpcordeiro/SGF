@@ -42,13 +42,13 @@ public class CidadeDAO {
         conn.executeSQL(sql);
       }
      public void consulta(Cidade cidade) {
-        String sql = "SELECT C.IDCIDADE, U.DSUF, C.DSCIDADE FROM CIDADE C JOIN UF U ON C.IDUF = U.IDUF ORDER BY C.IDCIDADE";
+        String sql = "SELECT C.IDCIDADE, U.DSUF, C.DSCIDADE FROM CIDADE C JOIN ESTADO U ON C.IDUF = U.IDUF ORDER BY C.IDCIDADE";
         conn.executeSQL(sql);
         cidade.setRetorno(conn.resultset);
     }
      
      public void consultadescricao(Cidade cidade){
-        String sql = "SELECT C.IDCIDADE, U.DSUF, C.DSCIDADE FROM CIDADE C JOIN UF U ON C.IDUF = U.IDUF WHERE C.DSCIDADE LIKE '%"
+        String sql = "SELECT C.IDCIDADE, U.DSUF, C.DSCIDADE FROM CIDADE C JOIN ESTADO U ON C.IDUF = U.IDUF WHERE C.DSCIDADE LIKE '%"
                 + cidade.getDscidade() +"%' ORDER BY C.DSCIDADE";
         conn.executeSQL(sql);
         cidade.setRetorno(conn.resultset);

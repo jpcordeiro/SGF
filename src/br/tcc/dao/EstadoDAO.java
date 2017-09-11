@@ -21,7 +21,7 @@ public class EstadoDAO {
     }
 
     public void incluir(Estado estado) {
-        String sql = " INSERT INTO UF VALUES("
+        String sql = " INSERT INTO ESTADO VALUES("
                 + estado.getIDUF() + ",'"
                 + estado.getDSUF() + "','"
                 + estado.getDSSIGLA() + "')";
@@ -29,7 +29,7 @@ public class EstadoDAO {
     }
 
     public void alterar(Estado estado) {
-        String sql = "UPDATE UF SET"
+        String sql = "UPDATE ESTADO SET"
                 + " IDUF = " + estado.getIDUF() + ","
                 + " DSUF = '" + estado.getDSUF() + "',"
                 + " DSSIGLA = '" + estado.getDSSIGLA() + "'"
@@ -38,32 +38,32 @@ public class EstadoDAO {
     }
 
     public void excluir(Estado estado) {
-        String sql = "DELETE FROM UF WHERE IDUF = " + estado.getIDUF();
+        String sql = "DELETE FROM ESTADO WHERE IDUF = " + estado.getIDUF();
         conn.executeSQL(sql);
     }
 
     public void consulta(Estado estado) {
-        String sql = "SELECT * FROM UF ORDER BY IDUF";
+        String sql = "SELECT * FROM ESTADO ORDER BY IDUF";
         conn.executeSQL(sql);
         estado.setRetorno(conn.resultset);
     }
 
     public void consultadescricao(Estado estado) {
-        String sql = "SELECT * FROM UF WHERE DSUF LIKE '%"
+        String sql = "SELECT * FROM ESTADO WHERE DSUF LIKE '%"
                 + estado.getDSUF() + "%' ORDER BY DSUF";
         conn.executeSQL(sql);
         estado.setRetorno(conn.resultset);
     }
 
     public void consultasigla(Estado estado) {
-        String sql = "SELECT * FROM UF WHERE DSSIGLA LIKE '%"
+        String sql = "SELECT * FROM ESTADO WHERE DSSIGLA LIKE '%"
                 + estado.getDSSIGLA() + "%' ORDER BY IDUF";
         conn.executeSQL(sql);
         estado.setRetorno(conn.resultset);
     }
 
     public void retornadados(Estado estado) {
-        String sql = "SELECT * FROM UF WHERE IDUF = " + estado.getIDUF();
+        String sql = "SELECT * FROM ESTADO WHERE IDUF = " + estado.getIDUF();
         conn.executeSQL(sql);
 
         try {
@@ -80,7 +80,7 @@ public class EstadoDAO {
     @SuppressWarnings("empty-statement")
     public void preencherestado(JComboBox jCbUF, Estado estado) {
 
-        String sql = "SELECT IDUF, DSSIGLA FROM UF ORDER BY DSSIGLA";
+        String sql = "SELECT IDUF, DSSIGLA FROM ESTADO ORDER BY DSSIGLA";
         conn.executeSQL(sql);
         jCbUF.removeAllItems();
         int conta = 0;
@@ -98,7 +98,7 @@ public class EstadoDAO {
     }
     
      public Integer ConsultaIdUf(Integer idUf, String uf) throws SQLException{
-        String sql = "SELECT * FROM UF WHERE DSSIGLA = '" + uf + "'";
+        String sql = "SELECT * FROM ESTADO WHERE DSSIGLA = '" + uf + "'";
         conn.executeSQL(sql);
                 
         if (conn.resultset.first()){
@@ -109,7 +109,7 @@ public class EstadoDAO {
 
     public void retornadados(Integer idestado, Estado estado) {
         
-        String sql = "SELECT * FROM UF WHERE IDUF = " + idestado;
+        String sql = "SELECT * FROM ESTADO WHERE IDUF = " + idestado;
         conn.executeSQL(sql);
 
         try {

@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/SGFTCC/src/br/tcc/Interface/InterfacePrecoVenda.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/Interface/InterfaceCompraVenda.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/dao/ProdutoDAO.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/ConsultaSimples/ConsultaProduto.java</file>
-            <file>file:/E:/SGFTCC/src/br/tcc/Interface/InterfaceCustoMedio.java</file>
+            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/dao/CidadeDAO.java</file>
+            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/Interface/InterfaceCidade.java</file>
+            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/conexao/ConexaoOracle.java</file>
+            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/dao/EstadoDAO.java</file>
         </group>
     </open-files>
 </project-private>

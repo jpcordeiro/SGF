@@ -23,8 +23,8 @@ public class ConexaoOracle {
             try {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
                 ConexaoOracle = DriverManager.getConnection("jdbc:oracle:thin:"
-                        + "@127.0.0.1:1521"
-                        + ":XE", " sgf ", "sgf");
+                        + "@127.0.0.1:1522"
+                        + ":xe", " sgf ", "sgf");
                 System.out.println("Conectado");
 //                JOptionPane.showMessageDialog(null, "Conectado com sucesso");
                 return ConexaoOracle;

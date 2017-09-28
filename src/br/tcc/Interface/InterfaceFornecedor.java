@@ -4,7 +4,6 @@ import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.Validacoes.RetornaDataAtual;
-import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
 import br.tcc.classe.Endereco;
 import br.tcc.classe.Fornecedor;
@@ -21,13 +20,8 @@ import br.tcc.dao.PessoaFisicaDAO;
 import br.tcc.dao.PessoaJuridicaDAO;
 import br.tcc.dao.ProdutosFornecedorDAO;
 import br.tcc.dao.TelefoneDAO;
-import br.tcc.dao.UsuarioDAO;
-import java.awt.List;
 import java.awt.event.WindowEvent;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -92,15 +86,15 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jPpfisica = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTFrg = new javax.swing.JTextField();
-        jTFNrCpf = new javax.swing.JTextField();
         Sexo = new javax.swing.JLabel();
         jCBSexo = new javax.swing.JComboBox();
+        jTFNrCpf = new javax.swing.JFormattedTextField();
+        jTFrg = new javax.swing.JFormattedTextField();
         jPpjuridica = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jTFrazaosocial = new javax.swing.JTextField();
-        jTFNrCnpj = new javax.swing.JTextField();
+        jTFNrCnpj = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jTFproduto = new javax.swing.JTextField();
@@ -134,7 +128,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTFNrCep = new javax.swing.JTextField();
+        jTFNrCep1 = new javax.swing.JFormattedTextField();
         jLabel13 = new javax.swing.JLabel();
         jTFDtNasc = new javax.swing.JFormattedTextField();
         jBPesquisarPessoa = new javax.swing.JButton();
@@ -143,7 +137,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jTFVlLimite = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jTFFone1 = new javax.swing.JTextField();
+        jTFFone1 = new javax.swing.JFormattedTextField();
         jPconsulta = new javax.swing.JPanel();
         jCbPesquisa2 = new javax.swing.JComboBox();
         jTFPesquisa = new javax.swing.JTextField();
@@ -184,20 +178,27 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         jLabel12.setText("RG");
 
-        jTFNrCpf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFNrCpfMouseClicked(evt);
-            }
-        });
+        Sexo.setText("Sexo");
+
+        jCBSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FEMININO", "MASCULINO" }));
+
+        try {
+            jTFNrCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTFNrCpf.setText("");
         jTFNrCpf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTFNrCpfFocusLost(evt);
             }
         });
 
-        Sexo.setText("Sexo");
-
-        jCBSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FEMININO", "MASCULINO" }));
+        try {
+            jTFrg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#.###.### #")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPpfisicaLayout = new javax.swing.GroupLayout(jPpfisica);
         jPpfisica.setLayout(jPpfisicaLayout);
@@ -206,17 +207,20 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             .addGroup(jPpfisicaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPpfisicaLayout.createSequentialGroup()
-                        .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jTFNrCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(Sexo)
-                    .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPpfisicaLayout.createSequentialGroup()
+                        .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPpfisicaLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(128, 128, 128))
+                            .addGroup(jPpfisicaLayout.createSequentialGroup()
+                                .addComponent(jTFNrCpf)
+                                .addGap(31, 31, 31)))
+                        .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         jPpfisicaLayout.setVerticalGroup(
             jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,8 +230,8 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFNrCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFNrCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Sexo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -241,6 +245,11 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         jLabel16.setText("Razão Social");
 
+        try {
+            jTFNrCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jTFNrCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTFNrCnpjFocusLost(evt);
@@ -254,10 +263,10 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             .addGroup(jPpjuridicaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPpjuridicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel16)
-                    .addComponent(jTFrazaosocial, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFrazaosocial, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPpjuridicaLayout.setVerticalGroup(
@@ -439,9 +448,9 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                     .addComponent(jBPesquisar)
                     .addComponent(jTFDsItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBAdicionar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -469,11 +478,11 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         jLabel7.setText("CEP");
 
-        jTFNrCep.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFNrCepMouseClicked(evt);
-            }
-        });
+        try {
+            jTFNrCep1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -492,10 +501,10 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                                     .addComponent(jTFbairro, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jTFlogradouro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
+                                        .addGap(0, 406, Short.MAX_VALUE))
+                                    .addComponent(jTFlogradouro))
                                 .addGap(26, 26, 26)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jTFcomplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -505,8 +514,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
-                                    .addComponent(jTFNrCep))))
-                        .addGap(90, 90, 90))
+                                    .addComponent(jTFNrCep1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -528,11 +536,11 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTFlogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFNrCep1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFNrCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26)))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -566,6 +574,12 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
 
         jLabel24.setText("Telefone");
 
+        try {
+            jTFFone1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPcadastroLayout = new javax.swing.GroupLayout(jPcadastro);
         jPcadastro.setLayout(jPcadastroLayout);
         jPcadastroLayout.setHorizontalGroup(
@@ -596,9 +610,14 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                                     .addComponent(jLabel17))
                                 .addGap(30, 30, 30)
                                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTFVlLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15))
-                                .addGap(198, 198, 198))
+                                    .addGroup(jPcadastroLayout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPcadastroLayout.createSequentialGroup()
+                                        .addComponent(jTFVlLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 20, Short.MAX_VALUE))))
                             .addGroup(jPcadastroLayout.createSequentialGroup()
                                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPcadastroLayout.createSequentialGroup()
@@ -623,9 +642,9 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                             .addGap(51, 51, 51)
                             .addComponent(jPpjuridica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPcadastroLayout.createSequentialGroup()
                             .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(39, 39, 39))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPcadastroLayout.setVerticalGroup(
@@ -659,11 +678,10 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                             .addGroup(jPcadastroLayout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFVlLimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTFVlLimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel24)))
                     .addGroup(jPcadastroLayout.createSequentialGroup()
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPcadastroLayout.createSequentialGroup()
@@ -730,7 +748,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jBtPesquisa1))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPconsultaLayout.setVerticalGroup(
             jPconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -762,182 +780,113 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTFNrCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCpfMouseClicked
+    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
 
-        ValidaNumero validaNumero = new ValidaNumero();
-        validaNumero.ValidaNumero(jTFNrCpf);
-    }//GEN-LAST:event_jTFNrCpfMouseClicked
+        if (evt.getClickCount() == 1) {
+            int linha = jTbPesquisa.getSelectedRow();
+            String ID = (String) jTbPesquisa.getValueAt(linha, 0);
+            Integer idpessoa = 0;
 
-    private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
-        char[] cpf = jTFNrCpf.getText().toCharArray();
-        int qtdCpf = cpf.length;
-        if (jTFNrCpf.equals("00000000000000") || jTFNrCpf.equals("11111111111111")
-                || jTFNrCpf.equals("22222222222222") || jTFNrCpf.equals("33333333333333")
-                || jTFNrCpf.equals("44444444444444") || jTFNrCpf.equals("55555555555555")
-                || jTFNrCpf.equals("66666666666666") || jTFNrCpf.equals("77777777777777")
-                || jTFNrCpf.equals("88888888888888") || jTFNrCpf.equals("99999999999999")
-                || (qtdCpf != 11)) {
-            jTFNrCpf.setText("");
-            jTFNrCpf.grabFocus();
-            JOptionPane.showMessageDialog(null, "Digite um CPF Válido!");
-        } else {
+            fornecedor.setIDPESSOA(Integer.parseInt(ID));
+            fornDAO.retornadados(fornecedor);
 
-            for (int i = 0; i < qtdCpf; i++) {
-                char digCpf;
-                digCpf = cpf[i];
-                String charCPF;
-                if (i == 0) {
-                    charCPF = String.valueOf(digCpf);
-                    dig1 = (10 * Integer.parseInt(charCPF));
-                    dig21 = (11 * Integer.parseInt(charCPF));
-                } else if (i == 1) {
-                    charCPF = String.valueOf(digCpf);
-                    dig2 = (9 * Integer.parseInt(charCPF));
-                    dig22 = (10 * Integer.parseInt(charCPF));
-                } else if (i == 2) {
-                    charCPF = String.valueOf(digCpf);
-                    dig3 = (8 * Integer.parseInt(charCPF));
-                    dig23 = (9 * Integer.parseInt(charCPF));
-                } else if (i == 3) {
-                    charCPF = String.valueOf(digCpf);
-                    dig4 = (7 * Integer.parseInt(charCPF));
-                    dig24 = (8 * Integer.parseInt(charCPF));
-                } else if (i == 4) {
-                    charCPF = String.valueOf(digCpf);
-                    dig5 = (6 * Integer.parseInt(charCPF));
-                    dig25 = (7 * Integer.parseInt(charCPF));
-                } else if (i == 5) {
-                    charCPF = String.valueOf(digCpf);
-                    dig6 = (5 * Integer.parseInt(charCPF));
-                    dig26 = (6 * Integer.parseInt(charCPF));
-                } else if (i == 6) {
-                    charCPF = String.valueOf(digCpf);
-                    dig7 = (4 * Integer.parseInt(charCPF));
-                    dig27 = (5 * Integer.parseInt(charCPF));
-                } else if (i == 7) {
-                    charCPF = String.valueOf(digCpf);
-                    dig8 = (3 * Integer.parseInt(charCPF));
-                    dig28 = (4 * Integer.parseInt(charCPF));
-                } else if (i == 8) {
-                    charCPF = String.valueOf(digCpf);
-                    dig9 = (2 * Integer.parseInt(charCPF));
-                    dig29 = (3 * Integer.parseInt(charCPF));
-                } else if (i == 9) {
-                    charCPF = String.valueOf(digCpf);
-                    dig10 = Integer.parseInt(charCPF);
-                    dig210 = (2 * Integer.parseInt(charCPF));
-                } else if (i == 10) {
-                    charCPF = String.valueOf(digCpf);
-                    dig11 = Integer.parseInt(charCPF);
-                    dig211 = Integer.parseInt(charCPF);
-                }
-            }
-            Integer somaDig10 = (dig1 + dig2 + dig3 + dig4 + dig5 + dig6 + dig7 + dig8 + dig9);
-            Integer restoDivDig10 = (somaDig10 % 11);
-            Integer digVerif1 = (11 - restoDivDig10);
-            if (digVerif1 > 9) {
-                digVerif1 = 0;
-            }
-            Integer digVerif2 = 0;
-            if (dig10 == digVerif1) {
-                Integer somaDig11 = (dig21 + dig22 + dig23 + dig24 + dig25 + dig26 + dig27 + dig28 + dig29 + dig210);
-                Integer restoDivDig11 = (somaDig11 % 11);
-                digVerif2 = (11 - restoDivDig11);
-                if (digVerif2 > 9) {
-                    digVerif2 = 0;
-                }
-                if (dig11 != digVerif2) {
-                    jTFNrCpf.setText("");
-                    jTFNrCpf.grabFocus();
-                    JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+            telefone.setIDPESSOA(Integer.parseInt(ID));
+            telefoneDAO.retornadados(telefone);
+
+            pessoa.setIDPESSOA(Integer.parseInt(ID));
+            pessoaDAO.retornadados(pessoa);
+
+            pfisica.setIDPESSOA(Integer.parseInt(ID));
+            pfdao.retornadados(pfisica);
+
+            pjuridica.setIDPESSOA(Integer.parseInt(ID));
+            pjdao.retornadados(pjuridica);
+
+            endereco.setIDPESSOA(Integer.parseInt(ID));
+            endDAO.retornadados(endereco);
+            
+            prodFornece.setIDFORNECEDOR(Integer.parseInt(ID));
+            
+            
+
+            String tpPessoa = fornecedor.getTPPESSOA();
+
+            jTFIdPessoa.setText(Integer.toString(fornecedor.getIDPESSOA()));
+            jTFemail.setText(fornecedor.getDSEMAIL());
+            jTFnome.setText(pessoa.getDSPESSOA());
+
+            if (tpPessoa.equals("F")) {
+                jRBFisico.setSelected(true);
+
+                jTFNrCnpj.setEnabled(false);
+                jTFrazaosocial.setEnabled(false);
+
+                jTFNrCpf.setText(pfisica.getNRCPF());
+                jTFrg.setText(pfisica.getNRRG());
+                String sexo = pfisica.getTPSEXO();
+                if (sexo.equals("M")) {
+                    jCBSexo.setSelectedIndex(1);
+                } else {
+                    jCBSexo.setSelectedIndex(0);
                 }
             } else {
-                jTFNrCpf.setText("");
-                jTFNrCpf.grabFocus();
-                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+                jRBJuridica.setSelected(false);
+
+                jTFNrCpf.setEnabled(false);
+                jTFrg.setEnabled(false);
+                jCBSexo.setEnabled(false);
+
+                jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
+                jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+            }
+            jTFDtNasc.setText(pessoa.getDTNASC());
+            jTFDtCadastro.setText(fornecedor.getDTCADASTRO());
+            jTFVlLimite.setText(Double.toString(fornecedor.getVLLIMITE()));
+            jTFFone1.setText(telefone.getNRFONE());
+
+            jTFlogradouro.setText(endereco.getDSLOGRADOURO());
+            jTFNumero.setText(endereco.getDSNUMERO());
+            jTFcomplemento.setText(endereco.getDSCOMPLEMENTO());
+            jTFbairro.setText(endereco.getDSBAIRRO());
+            jTFNrCep1.setText(endereco.getNRCEP());
+
+            cidadeDAO.preenchercidade(jCBCidade, cidade);
+
+            Integer idcidade = endereco.getIDCIDADE();
+            cidade.setIDCIDADE(idcidade);
+            cidadeDAO.retornacidade(cidade);
+            jCBCidade.setSelectedItem(cidade.getDscidade());
+
+            PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+            prodfornecedao.consulta(prodFornece);
+            preencher.PreencherJComboBox(jTitens, prodFornece.getRetorno());
+                     
+            
+            }
+
+            estadobotoes(false);
+            jTPFornecedor.setSelectedIndex(0);
+    }//GEN-LAST:event_jTbPesquisaMouseClicked
+
+    
+    
+    private void jBtPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisa1ActionPerformed
+
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCbPesquisa2.getSelectedIndex()) {
+            case 0: {
+                fornDAO.consulta(fornecedor);
+                preencher.PreencherJComboBox(jTbPesquisa, fornecedor.getRetorno());
+                return;
+            }
+            case 1: {
+                pessoa.setDSPESSOA(jTFPesquisa.getText().toUpperCase());
+                fornDAO.consultadescricao(pessoa, fornecedor);
+                preencher.PreencherJComboBox(jTbPesquisa, fornecedor.getRetorno());
+                return;
             }
         }
-    }//GEN-LAST:event_jTFNrCpfFocusLost
-
-    private void jTFNrCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCnpjFocusLost
-
-        char[] cnpj = jTFNrCnpj.getText().toCharArray();
-        int qtdCnpj = cnpj.length;
-
-        if (jTFNrCnpj.equals("00000000000000") || jTFNrCnpj.equals("11111111111111")
-                || jTFNrCnpj.equals("22222222222222") || jTFNrCnpj.equals("33333333333333")
-                || jTFNrCnpj.equals("44444444444444") || jTFNrCnpj.equals("55555555555555")
-                || jTFNrCnpj.equals("66666666666666") || jTFNrCnpj.equals("77777777777777")
-                || jTFNrCnpj.equals("88888888888888") || jTFNrCnpj.equals("99999999999999")
-                || (qtdCnpj != 14)) {
-            jTFNrCnpj.setText("");
-            jTFNrCnpj.grabFocus();
-            JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
-        } else {
-
-            char dig13, dig14;
-            int sm, result, dig, peso;
-
-            sm = 0;
-            peso = 2;
-            for (int i = 11; i >= 0; i--) {
-
-                dig = (int) (jTFNrCnpj.getText().charAt(i) - 48);
-                sm = sm + (dig * peso);
-                peso = peso + 1;
-                if (peso == 10) {
-                    peso = 2;
-                }
-            }
-
-            result = sm % 11;
-            if ((result == 0) || (result == 1)) {
-                dig13 = '0';
-            } else {
-                dig13 = (char) ((11 - result) + 48);
-            }
-
-            // Calculo do 2o. Digito Verificador
-            sm = 0;
-            peso = 2;
-            for (int i = 12; i >= 0; i--) {
-                dig = (int) (jTFNrCnpj.getText().charAt(i) - 48);
-                sm = sm + (dig * peso);
-                peso = peso + 1;
-                if (peso == 10) {
-                    peso = 2;
-                }
-            }
-
-            result = sm % 11;
-            if ((result == 0) || (result == 1)) {
-                dig14 = '0';
-            } else {
-                dig14 = (char) ((11 - result) + 48);
-            }
-
-            // Verifica se os dígitos calculados conferem com os dígitos informados.
-            if ((dig13 != jTFNrCnpj.getText().charAt(12)) || (dig14 != jTFNrCnpj.getText().charAt(13))) {
-                jTFNrCnpj.setText("");
-                jTFNrCnpj.grabFocus();
-                JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
-            }
-        }
-    }//GEN-LAST:event_jTFNrCnpjFocusLost
-
-    private void jTFCodigoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCodigoItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFCodigoItemActionPerformed
-
-    private void jBincluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincluirActionPerformed
-
-        jTFlogradouro.grabFocus();
-        lcampos.LimparCampos(jTPFornecedor);
-        situacao = 1;
-        estadobotoes(true);
-        cidadeDAO.preenchercidade(jCBCidade, cidade);
-        retornadata.RetornaDataAtual(jTFDtCadastro);
-    }//GEN-LAST:event_jBincluirActionPerformed
+    }//GEN-LAST:event_jBtPesquisa1ActionPerformed
 
     private void jBPesquisarPessoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarPessoaMouseClicked
 
@@ -952,61 +901,6 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jBPesquisarPessoaMouseClicked
-
-    private void jRBFisicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBFisicoMouseClicked
-        jTFNrCpf.setEnabled(true);
-        jTFrg.setEnabled(true);
-        jCBSexo.setEnabled(true);
-
-        jTFNrCnpj.setEnabled(false);
-        jTFrazaosocial.setEnabled(false);
-
-        String ID = jTFIdPessoa.getText();
-
-        pfisica.setIDPESSOA(Integer.parseInt(ID));
-        pfdao.retornadados(pfisica);
-        jTFNrCpf.setText(pfisica.getNRCPF());
-        jTFrg.setText(pfisica.getNRRG());
-        String sexo = pfisica.getTPSEXO();
-
-        if (sexo.equals("M")) {
-            jCBSexo.setSelectedItem("MASCULINO");
-        } else {
-            jCBSexo.setSelectedItem("FEMININO");
-        }
-    }//GEN-LAST:event_jRBFisicoMouseClicked
-
-    private void jRBJuridicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicaMouseClicked
-        jTFNrCpf.setEnabled(false);
-        jTFrg.setEnabled(false);
-        jCBSexo.setEnabled(false);
-
-        jTFNrCnpj.setEnabled(true);
-        jTFrazaosocial.setEnabled(true);
-        
-        String ID = jTFIdPessoa.getText();
-
-        pjuridica.setIDPESSOA(Integer.parseInt(ID));
-        pjdao.retornadados(pjuridica);
-        jTFNrCnpj.setText(pjuridica.getNRCNPJ());
-        jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
-       
-    }//GEN-LAST:event_jRBJuridicaMouseClicked
-
-    private void jBPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarMouseClicked
-
-        final ConsultaProduto consProd = new ConsultaProduto();
-
-        consProd.setVisible(true);
-        consProd.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                jTFCodigoItem.setText(consProd.retornaId);
-                jTFDsItem.setText(consProd.retornaDsProduto);
-            }
-        });
-
-    }//GEN-LAST:event_jBPesquisarMouseClicked
 
     private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
 
@@ -1025,27 +919,27 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
-    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        situacao = 2;
-        estadobotoes(true);
-    }//GEN-LAST:event_jBAlterarActionPerformed
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBPesquisarActionPerformed
 
-    private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
-       situacao = 1;
-        
-        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
-        if (t == 0) {
-                endDAO.excluir(endereco);
-                telefoneDAO.excluir(telefone);
-                prodfornecedao.excluir(prodFornece);
-                fornDAO.excluir(fornecedor);
+    private void jBPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarMouseClicked
 
-            JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
-            estadobotoes(false);
-        }
-        lcampos.LimparCampos(jPcadastro);
+        final ConsultaProduto consProd = new ConsultaProduto();
 
-    }//GEN-LAST:event_jBexcluirActionPerformed
+        consProd.setVisible(true);
+        consProd.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                jTFCodigoItem.setText(consProd.retornaId);
+                jTFDsItem.setText(consProd.retornaDsProduto);
+            }
+        });
+    }//GEN-LAST:event_jBPesquisarMouseClicked
+
+    private void jTFCodigoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCodigoItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFCodigoItemActionPerformed
 
     private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravarActionPerformed
 
@@ -1164,14 +1058,14 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             } else {
                 endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
             }
-            String cep = jTFNrCep.toString();
+            String cep = jTFNrCep1.toString();
 
-            if (jTFNrCep.getText().equals("")) {
+            if (jTFNrCep1.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o CEP");
-                jTFNrCep.grabFocus();
+                jTFNrCep1.grabFocus();
                 return;
             } else {
-                endereco.setNRCEP(jTFNrCep.getText());
+                endereco.setNRCEP(jTFNrCep1.getText());
             }
             endereco.setTPENDERECO("COMERCIAL");
 
@@ -1214,7 +1108,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             estadobotoes(false);
 
         }
-        
+
         if (situacao == 2) {
             if (jTFIdPessoa.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o Fornecedor");
@@ -1329,14 +1223,14 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             } else {
                 endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
             }
-            String cep = jTFNrCep.toString();
+            String cep = jTFNrCep1.toString();
 
-            if (jTFNrCep.getText().equals("")) {
+            if (jTFNrCep1.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o CEP");
-                jTFNrCep.grabFocus();
+                jTFNrCep1.grabFocus();
                 return;
             } else {
-                endereco.setNRCEP(jTFNrCep.getText());
+                endereco.setNRCEP(jTFNrCep1.getText());
             }
             endereco.setTPENDERECO("COMERCIAL");
 
@@ -1371,140 +1265,245 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             estadobotoes(false);
 
         }
-
     }//GEN-LAST:event_jBgravarActionPerformed
 
-    private void jTFNrCepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNrCepMouseClicked
+    private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
+        situacao = 1;
 
-        ValidaNumero validaNumero = new ValidaNumero();
-        validaNumero.ValidaNumero(jTFNrCep);
-    }//GEN-LAST:event_jTFNrCepMouseClicked
+        int t = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente EXCLUIR o registro?");
+        if (t == 0) {
+            endDAO.excluir(endereco);
+            telefoneDAO.excluir(telefone);
+            prodfornecedao.excluir(prodFornece);
+            fornDAO.excluir(fornecedor);
 
-    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
-
-        if (evt.getClickCount() == 1) {
-            int linha = jTbPesquisa.getSelectedRow();
-            String ID = (String) jTbPesquisa.getValueAt(linha, 0);
-            Integer idpessoa = 0;
-
-            fornecedor.setIDPESSOA(Integer.parseInt(ID));
-            fornDAO.retornadados(fornecedor);
-
-            telefone.setIDPESSOA(Integer.parseInt(ID));
-            telefoneDAO.retornadados(telefone);
-
-            pessoa.setIDPESSOA(Integer.parseInt(ID));
-            pessoaDAO.retornadados(pessoa);
-
-            pfisica.setIDPESSOA(Integer.parseInt(ID));
-            pfdao.retornadados(pfisica);
-
-            pjuridica.setIDPESSOA(Integer.parseInt(ID));
-            pjdao.retornadados(pjuridica);
-
-            endereco.setIDPESSOA(Integer.parseInt(ID));
-            endDAO.retornadados(endereco);
-            
-            prodFornece.setIDFORNECEDOR(Integer.parseInt(ID));
-            
-            
-
-            String tpPessoa = fornecedor.getTPPESSOA();
-
-            jTFIdPessoa.setText(Integer.toString(fornecedor.getIDPESSOA()));
-            jTFemail.setText(fornecedor.getDSEMAIL());
-            jTFnome.setText(pessoa.getDSPESSOA());
-
-            if (tpPessoa.equals("F")) {
-                jRBFisico.setSelected(true);
-
-                jTFNrCnpj.setEnabled(false);
-                jTFrazaosocial.setEnabled(false);
-
-                jTFNrCpf.setText(pfisica.getNRCPF());
-                jTFrg.setText(pfisica.getNRRG());
-                String sexo = pfisica.getTPSEXO();
-                if (sexo.equals("M")) {
-                    jCBSexo.setSelectedIndex(1);
-                } else {
-                    jCBSexo.setSelectedIndex(0);
-                }
-            } else {
-                jRBJuridica.setSelected(false);
-
-                jTFNrCpf.setEnabled(false);
-                jTFrg.setEnabled(false);
-                jCBSexo.setEnabled(false);
-
-                jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
-                jTFNrCnpj.setText(pjuridica.getNRCNPJ());
-            }
-            jTFDtNasc.setText(pessoa.getDTNASC());
-            jTFDtCadastro.setText(fornecedor.getDTCADASTRO());
-            jTFVlLimite.setText(Double.toString(fornecedor.getVLLIMITE()));
-            jTFFone1.setText(telefone.getNRFONE());
-
-            jTFlogradouro.setText(endereco.getDSLOGRADOURO());
-            jTFNumero.setText(endereco.getDSNUMERO());
-            jTFcomplemento.setText(endereco.getDSCOMPLEMENTO());
-            jTFbairro.setText(endereco.getDSBAIRRO());
-            jTFNrCep.setText(endereco.getNRCEP());
-
-            cidadeDAO.preenchercidade(jCBCidade, cidade);
-
-            Integer idcidade = endereco.getIDCIDADE();
-            cidade.setIDCIDADE(idcidade);
-            cidadeDAO.retornacidade(cidade);
-            jCBCidade.setSelectedItem(cidade.getDscidade());
-
-            PreencherJtableGenerico preencher = new PreencherJtableGenerico();
-            prodfornecedao.consulta(prodFornece);
-            preencher.PreencherJComboBox(jTitens, prodFornece.getRetorno());
-                     
-            
-            }
-
+            JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso!");
             estadobotoes(false);
-            jTPFornecedor.setSelectedIndex(0);
-    }//GEN-LAST:event_jTbPesquisaMouseClicked
-
-    
-    
-    private void jBtPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisa1ActionPerformed
-
-        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
-        switch (jCbPesquisa2.getSelectedIndex()) {
-            case 0: {
-                fornDAO.consulta(fornecedor);
-                preencher.PreencherJComboBox(jTbPesquisa, fornecedor.getRetorno());
-                return;
-            }
-            case 1: {
-                pessoa.setDSPESSOA(jTFPesquisa.getText().toUpperCase());
-                fornDAO.consultadescricao(pessoa, fornecedor);
-                preencher.PreencherJComboBox(jTbPesquisa, fornecedor.getRetorno());
-                return;
-            }
         }
-    }//GEN-LAST:event_jBtPesquisa1ActionPerformed
+        lcampos.LimparCampos(jPcadastro);
+    }//GEN-LAST:event_jBexcluirActionPerformed
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        situacao = 2;
+        estadobotoes(true);
+    }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void jBincluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincluirActionPerformed
+
+        jTFlogradouro.grabFocus();
+        lcampos.LimparCampos(jTPFornecedor);
+        situacao = 1;
+        estadobotoes(true);
+        cidadeDAO.preenchercidade(jCBCidade, cidade);
+        retornadata.RetornaDataAtual(jTFDtCadastro);
+    }//GEN-LAST:event_jBincluirActionPerformed
 
     private void jTitensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTitensMouseClicked
 
-       DefaultTableModel tabela = (DefaultTableModel) jTitens.getModel();
+        DefaultTableModel tabela = (DefaultTableModel) jTitens.getModel();
         int index = jTitens.getSelectedRow();
-      
+
         String descricao = jTitens.getValueAt(index, 1).toString();
         int opcao = JOptionPane.showConfirmDialog(null, "Deseja remover " + descricao + "?", "Remover", JOptionPane.YES_NO_OPTION);
         if (opcao == JOptionPane.YES_OPTION) {
             tabela.removeRow(index);
-           
-            }
+
+        }
         return;
     }//GEN-LAST:event_jTitensMouseClicked
 
-    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBPesquisarActionPerformed
+    private void jTFNrCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCnpjFocusLost
+        char[] cnpj = jTFNrCnpj.getText().toCharArray();
+        int qtdCnpj = cnpj.length;
+
+        if (jTFNrCnpj.equals("00000000000000") || jTFNrCnpj.equals("11111111111111") ||
+            jTFNrCnpj.equals("22222222222222") || jTFNrCnpj.equals("33333333333333") ||
+            jTFNrCnpj.equals("44444444444444") || jTFNrCnpj.equals("55555555555555") ||
+            jTFNrCnpj.equals("66666666666666") || jTFNrCnpj.equals("77777777777777") ||
+            jTFNrCnpj.equals("88888888888888") || jTFNrCnpj.equals("99999999999999") ||
+            (qtdCnpj != 14)){
+            jTFNrCnpj.setText("");
+            jTFNrCnpj.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
+        }else{
+
+            char dig13, dig14;
+            int sm, result, dig, peso;
+
+            sm = 0;
+            peso = 2;
+            for (int i=11; i>=0; i--) {
+
+                dig = (int)(jTFNrCnpj.getText().charAt(i) - 48);
+                sm = sm + (dig * peso);
+                peso = peso + 1;
+                if (peso == 10)
+                peso = 2;
+            }
+
+            result = sm % 11;
+            if ((result == 0) || (result == 1))
+            dig13 = '0';
+            else dig13 = (char)((11-result) + 48);
+
+            // Calculo do 2o. Digito Verificador
+            sm = 0;
+            peso = 2;
+            for (int i=12; i>=0; i--) {
+                dig = (int)(jTFNrCnpj.getText().charAt(i)- 48);
+                sm = sm + (dig * peso);
+                peso = peso + 1;
+                if (peso == 10)
+                peso = 2;
+            }
+
+            result = sm % 11;
+            if ((result == 0) || (result == 1))
+            dig14 = '0';
+            else dig14 = (char)((11-result) + 48);
+
+            // Verifica se os dígitos calculados conferem com os dígitos informados.
+            if ((dig13 != jTFNrCnpj.getText().charAt(12)) || (dig14 != jTFNrCnpj.getText().charAt(13))){
+                jTFNrCnpj.setText("");
+                jTFNrCnpj.grabFocus();
+                JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
+            }
+        }
+    }//GEN-LAST:event_jTFNrCnpjFocusLost
+
+    private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
+
+        String cpff = jTFNrCpf.getText().toString();
+        String strSemPontos = jTFNrCpf.getText().replace(".", "");
+        char[] cpf = jTFNrCpf.getText().replace(".", "").replace("-", "").toCharArray();
+        int qtdCpf = cpf.length;
+        if (jTFNrCpf.equals("00000000000") || jTFNrCpf.equals("11111111111") ||
+            jTFNrCpf.equals("22222222222") || jTFNrCpf.equals("33333333333") ||
+            jTFNrCpf.equals("44444444444") || jTFNrCpf.equals("55555555555") ||
+            jTFNrCpf.equals("66666666666") || jTFNrCpf.equals("77777777777") ||
+            jTFNrCpf.equals("88888888888") || jTFNrCpf.equals("99999999999") ||
+            (qtdCpf != 11)){
+            jTFNrCpf.setText("");
+            jTFNrCpf.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CPF Válido!");
+        }else{
+
+            for (int i = 0; i < qtdCpf; i++) {
+                char digCpf;
+                digCpf = cpf[i];
+                String charCPF;
+                if (i == 0) {
+                    charCPF = String.valueOf(digCpf);
+                    dig1 = (10 *Integer.parseInt(charCPF));
+                    dig21 = (11 *Integer.parseInt(charCPF));
+                } else if (i == 1) {
+                    charCPF = String.valueOf(digCpf);
+                    dig2 = (9 * Integer.parseInt(charCPF));
+                    dig22 = (10 * Integer.parseInt(charCPF));
+                } else if (i == 2) {
+                    charCPF = String.valueOf(digCpf);
+                    dig3 = (8 * Integer.parseInt(charCPF));
+                    dig23 = (9 * Integer.parseInt(charCPF));
+                } else if (i == 3) {
+                    charCPF = String.valueOf(digCpf);
+                    dig4 = (7 * Integer.parseInt(charCPF));
+                    dig24 = (8 * Integer.parseInt(charCPF));
+                } else if (i == 4) {
+                    charCPF = String.valueOf(digCpf);
+                    dig5 = (6 * Integer.parseInt(charCPF));
+                    dig25 = (7 * Integer.parseInt(charCPF));
+                } else if (i == 5) {
+                    charCPF = String.valueOf(digCpf);
+                    dig6 = (5 * Integer.parseInt(charCPF));
+                    dig26 = (6 * Integer.parseInt(charCPF));
+                } else if (i == 6) {
+                    charCPF = String.valueOf(digCpf);
+                    dig7 = (4 * Integer.parseInt(charCPF));
+                    dig27 = (5 * Integer.parseInt(charCPF));
+                } else if (i == 7) {
+                    charCPF = String.valueOf(digCpf);
+                    dig8 = (3 * Integer.parseInt(charCPF));
+                    dig28 = (4 * Integer.parseInt(charCPF));
+                } else if (i == 8) {
+                    charCPF = String.valueOf(digCpf);
+                    dig9 = (2 * Integer.parseInt(charCPF));
+                    dig29 = (3 * Integer.parseInt(charCPF));
+                } else if (i == 9) {
+                    charCPF = String.valueOf(digCpf);
+                    dig10 = Integer.parseInt(charCPF);
+                    dig210 = (2 * Integer.parseInt(charCPF));
+                } else if (i == 10) {
+                    charCPF = String.valueOf(digCpf);
+                    dig11 =  Integer.parseInt(charCPF);
+                    dig211 = Integer.parseInt(charCPF);
+                }
+            }
+            Integer somaDig10 = (dig1 + dig2 + dig3 + dig4 + dig5 + dig6 + dig7 + dig8 + dig9);
+            Integer restoDivDig10=( somaDig10 % 11);
+            Integer digVerif1 = (11 - restoDivDig10);
+            if (digVerif1 > 9){
+                digVerif1 = 0;
+            }
+            Integer digVerif2 = 0;
+            if (dig10 == digVerif1){
+                Integer somaDig11 = (dig21 + dig22 + dig23 + dig24 + dig25 + dig26 + dig27 + dig28 + dig29 + dig210);
+                Integer restoDivDig11=( somaDig11 % 11);
+                digVerif2 = (11 - restoDivDig11);
+                if (digVerif2 > 9){
+                    digVerif2 = 0;
+                }
+                if(dig11 !=digVerif2){
+                    jTFNrCpf.setText("");
+                    jTFNrCpf.grabFocus();
+                    JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+                }
+            }else{
+                jTFNrCpf.setText("");
+                jTFNrCpf.grabFocus();
+                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+            }
+        }
+    }//GEN-LAST:event_jTFNrCpfFocusLost
+
+    private void jRBJuridicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicaMouseClicked
+        jTFNrCpf.setEnabled(false);
+        jTFrg.setEnabled(false);
+        jCBSexo.setEnabled(false);
+
+        jTFNrCnpj.setEnabled(true);
+        jTFrazaosocial.setEnabled(true);
+
+        String ID = jTFIdPessoa.getText();
+
+        pjuridica.setIDPESSOA(Integer.parseInt(ID));
+        pjdao.retornadados(pjuridica);
+        jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+        jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
+
+    }//GEN-LAST:event_jRBJuridicaMouseClicked
+
+    private void jRBFisicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBFisicoMouseClicked
+        jTFNrCpf.setEnabled(true);
+        jTFrg.setEnabled(true);
+        jCBSexo.setEnabled(true);
+
+        jTFNrCnpj.setEnabled(false);
+        jTFrazaosocial.setEnabled(false);
+
+        String ID = jTFIdPessoa.getText();
+
+        pfisica.setIDPESSOA(Integer.parseInt(ID));
+        pfdao.retornadados(pfisica);
+        jTFNrCpf.setText(pfisica.getNRCPF());
+        jTFrg.setText(pfisica.getNRRG());
+        String sexo = pfisica.getTPSEXO();
+
+        if (sexo.equals("M")) {
+            jCBSexo.setSelectedItem("MASCULINO");
+        } else {
+            jCBSexo.setSelectedItem("FEMININO");
+        }
+    }//GEN-LAST:event_jRBFisicoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1596,11 +1595,11 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTFDsItem;
     private javax.swing.JTextField jTFDtCadastro;
     private javax.swing.JFormattedTextField jTFDtNasc;
-    private javax.swing.JTextField jTFFone1;
+    private javax.swing.JFormattedTextField jTFFone1;
     private javax.swing.JTextField jTFIdPessoa;
-    private javax.swing.JTextField jTFNrCep;
-    private javax.swing.JTextField jTFNrCnpj;
-    private javax.swing.JTextField jTFNrCpf;
+    private javax.swing.JFormattedTextField jTFNrCep1;
+    private javax.swing.JFormattedTextField jTFNrCnpj;
+    private javax.swing.JFormattedTextField jTFNrCpf;
     private javax.swing.JTextField jTFNumero;
     private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTextField jTFVlLimite;
@@ -1612,7 +1611,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTFnome;
     private javax.swing.JTextField jTFproduto;
     private javax.swing.JTextField jTFrazaosocial;
-    private javax.swing.JTextField jTFrg;
+    private javax.swing.JFormattedTextField jTFrg;
     private javax.swing.JTabbedPane jTPFornecedor;
     private javax.swing.JTable jTbPesquisa;
     private javax.swing.JTable jTitens;

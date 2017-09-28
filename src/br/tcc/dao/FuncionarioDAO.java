@@ -53,7 +53,7 @@ public class FuncionarioDAO {
         String sql = 
                 "SELECT F.IDPESSOA, P.DSPESSOA, P.DTNASC, F.DTCADASTRO, F.DTDEMISSAO, F.VLSALARIO,"
                 + "(SELECT NRFONE FROM TELEFONE T  WHERE F.IDPESSOA = T.IDPESSOA AND TPFONE = 'Principal'),"
-                + " F.IDUSUARIO FROM FUNCIONARIO F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA";
+                + " F.LOGIN FROM FUNCIONARIO F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA";
         conn.executeSQL(sql);
         func.setRetorno(conn.resultset);
     }
@@ -62,7 +62,7 @@ public class FuncionarioDAO {
         String sql = 
                 "SELECT F.IDPESSOA, P.DSPESSOA, P.DTNASC, F.DTCADASTRO, F.DTDEMISSAO, F.VLSALARIO,"
                 + "(SELECT NRFONE FROM TELEFONE T  WHERE F.IDPESSOA = T.IDPESSOA AND TPFONE = 'Principal'),"
-                + " F.IDUSUARIO FROM FUNCIONARIO F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA "
+                + " F.LOGIN FROM FUNCIONARIO F JOIN PESSOA P ON F.IDPESSOA = P.IDPESSOA "
                 + "WHERE P.DSPESSOA  LIKE '%"+ pessoa.getDSPESSOA() +"%' ORDER BY P.DSPESSOA";
         conn.executeSQL(sql);
         func.setRetorno(conn.resultset);
@@ -80,7 +80,7 @@ public class FuncionarioDAO {
             func.setDTCADASTRO(conn.resultset.getString("DTCADASTRO"));
             func.setDTDEMISSAO(conn.resultset.getString("DTDEMISSAO"));
             func.setVLSALARIO(conn.resultset.getDouble("VLSALARIO"));
-            func.setLOGIN(conn.resultset.getString("IDUSUARIO"));
+            func.setLOGIN(conn.resultset.getString("LOGIN"));
             func.setTPPESSOA(conn.resultset.getString("TPPESSOA"));
             
             } catch (SQLException ex) {

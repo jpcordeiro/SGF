@@ -23,21 +23,21 @@ public class VendaDAO {
 
     public void incluir (Venda venda) {
         String sql = " INSERT INTO VENDA VALUES("
-                + venda.getIDVENDA() + ","
+                + venda.getIDVENDA() + ",'"
+                + venda.getDTVENDA() + "',"
+                + venda.getIDCLIENTE() + ","
                 + venda.getIDFORMAPGTO() + ","
-                + venda.getIDMOVTOPRODUTO() + ","
-                + venda.getIDCLIENTE() + ",'"
-                + venda.getDTVENDA() + "')";
+                + venda.getIDMOVTOPRODUTO() + ")";
         conn.incluirSQL(sql);
     }
     
     public void alterar(Venda venda) {
         String sql = "UPDATE VENDA SET"
                 + " IDVENDA = " + venda.getIDVENDA() + ","
+                + " DTVENDA = '" + venda.getDTVENDA() + "'"
+                + " IDCLIENTE = " + venda.getIDCLIENTE() + ","
                 + " IDFORMAPGTO = " + venda.getIDFORMAPGTO() + ","
                 + " IDMOVTOPRODUTO = " + venda.getIDMOVTOPRODUTO() + ","
-                + " IDCLIENTE = " + venda.getIDCLIENTE() + ","
-                + " DTVENDA = '" + venda.getDTVENDA() + "'"
                 + " WHERE IDVENDA = " + venda.getIDVENDA();
         conn.incluirSQL(sql);
     }

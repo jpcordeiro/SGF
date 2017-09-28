@@ -25,7 +25,7 @@ public class TpMovtoDAO {
     }
 
     public void incluir(TipoMovto tipoMovto) {
-        String sql = " INSERT INTO TIPOMVTO VALUES("
+        String sql = " INSERT INTO TIPOMOVTO VALUES("
                 + tipoMovto.getIDTPMOVTO() + ",'"
                 + tipoMovto.getMOVESTOQUE() + "','"
                 + tipoMovto.getMOVFINANCEIRO() + "','"
@@ -35,30 +35,30 @@ public class TpMovtoDAO {
     }
 
     public void alterar(TipoMovto tipoMovto) {
-        String sql = "UPDATE TIPOMVTO SET"
+        String sql = "UPDATE TIPOMOVTO SET"
                 + " IDTPMOVTO = " + tipoMovto.getIDTPMOVTO() + ","
                 + " MOVESTOQUE = '" + tipoMovto.getMOVESTOQUE() + "',"
                 + " MOVFINANCEIRO = '" + tipoMovto.getMOVFINANCEIRO() + "',"
                 + " TPMOVTO = '" + tipoMovto.getTPMOVTO() + "',"
-                + " DSMOVTO = '" + tipoMovto.getDSMVTO()
+                + " DSMVTO = '" + tipoMovto.getDSMVTO()
                 + " WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.incluirSQL(sql);
     }
 
     public void excluir(TipoMovto tipoMovto) {
-        String sql = "DELETE FROM TIPOMVTO WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
+        String sql = "DELETE FROM TIPOMOVTO WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.executeSQL(sql);
     }
 
     public void consulta(TipoMovto tipoMovto) {
-        String sql = "SELECT * FROM TIPOMVTO ORDER BY IDTPMOVTO";
+        String sql = "SELECT * FROM TIPOMOVTO ORDER BY IDTPMOVTO";
         conn.executeSQL(sql);
         tipoMovto.setRetorno(conn.resultset);
     }
     
      
     public void retornadados(TipoMovto tipoMovto) {
-        String sql = "SELECT * FROM TIPOMVTO WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
+        String sql = "SELECT * FROM TIPOMOVTO WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.executeSQL(sql);
 
         try {
@@ -76,7 +76,7 @@ public class TpMovtoDAO {
 
     public void preencherTpmovimento(JComboBox jCBTpMovto, TipoMovto tpMovto) {
     
-         String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMVTO ORDER BY IDTPMOVTO";
+         String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMOVTO ORDER BY IDTPMOVTO";
         conn.executeSQL(sql);
         jCBTpMovto.removeAllItems();
         int conta = 0;
@@ -94,7 +94,7 @@ public class TpMovtoDAO {
 
     public void VerificarOperacao(TipoMovto tpMovto) {
     
-        String sql = "SELECT IDTPMOVTO, MOVESTOQUE, MOVFINANCEIRO, TPMOVTO FROM TIPOMVTO WHERE IDTPMOVTO = " + tpMovto.getIDTPMOVTO();
+        String sql = "SELECT IDTPMOVTO, MOVESTOQUE, MOVFINANCEIRO, TPMOVTO FROM TIPOMOVTO WHERE IDTPMOVTO = " + tpMovto.getIDTPMOVTO();
         conn.executeSQL(sql);
         try {
 
@@ -111,14 +111,14 @@ public class TpMovtoDAO {
 
     public void consultasimples(TipoMovto tipoMovto) {
     
-        String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMVTO ORDER BY IDTPMOVTO";
+        String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMOVTO ORDER BY IDTPMOVTO";
         conn.executeSQL(sql);
         tipoMovto.setRetorno(conn.resultset);
     }
 
     public void consultaDescSimples(TipoMovto tipoMovto) {
     
-         String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMVTO WHERE DSMOVTO LIKE '%"
+         String sql = "SELECT IDTPMOVTO, DSMVTO FROM TIPOMOVTO WHERE DSMOVTO LIKE '%"
                 + tipoMovto.getDSMVTO() + "%' ORDER BY DSMVTO";
         conn.executeSQL(sql);
         tipoMovto.setRetorno(conn.resultset);

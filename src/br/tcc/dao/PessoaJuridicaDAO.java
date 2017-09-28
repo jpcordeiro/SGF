@@ -25,7 +25,7 @@ public class PessoaJuridicaDAO {
     }
      
       public void alterar(PessoaJuridica pj) {
-        String sql = "UPDATE PESSOAFISICA SET " 
+        String sql = "UPDATE PESSOAJURIDICA SET " 
                 + " IDPESSOA = " + pj.getIDPESSOA() + ","
                 + " NRCNPJ = '" + pj.getNRCNPJ()+ "',"
                 + " RZSOCIAL = '" + pj.getRZSOCIAL() + "',"
@@ -35,12 +35,12 @@ public class PessoaJuridicaDAO {
     }
      
       public void excluir(PessoaJuridica pj) {
-        String sql = "DELETE FROM PESSOAFISICA WHERE IDPESSOA = " + pj.getIDPESSOA();
+        String sql = "DELETE FROM PESSOAJURIDICA WHERE IDPESSOA = " + pj.getIDPESSOA();
         conn.executeSQL(sql);
       }
 
     public void retornadados(PessoaJuridica pjuridica) {
-         String sql = "SELECT * FROM PESSOAJ WHERE IDPESSOA = " + pjuridica.getIDPESSOA();
+         String sql = "SELECT * FROM PESSOAJURIDICA WHERE IDPESSOA = " + pjuridica.getIDPESSOA();
         conn.executeSQL(sql);
 
         try {

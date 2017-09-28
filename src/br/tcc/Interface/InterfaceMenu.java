@@ -1,7 +1,5 @@
 package br.tcc.Interface;
 
-import javax.swing.ImageIcon;
-
 /**
  *
  * @author Joao Paulo

@@ -16,7 +16,7 @@ public class PessoaFisicaDAO {
     }
     
     public void incluir(PessoaFisica pf) {
-        String sql = " INSERT INTO PESSOAF VALUES("
+        String sql = " INSERT INTO PESSOAFISICA VALUES("
                 + pf.getIDPESSOA()+ ",'"
                 + pf.getNRCPF()+ "','"
                 + pf.getNRRG()+ "','"
@@ -25,7 +25,7 @@ public class PessoaFisicaDAO {
     }
      
       public void alterar(PessoaFisica pf) {
-        String sql = "UPDATE PESSOAF SET " 
+        String sql = "UPDATE PESSOAFISICA  SET " 
                 + " IDPESSOA = " + pf.getIDPESSOA() + ","
                 + " NRCPF = '" + pf.getNRCPF() + "',"
                 + " NRRG = '" + pf.getNRRG() + "',"
@@ -35,12 +35,12 @@ public class PessoaFisicaDAO {
     }
      
       public void excluir(PessoaFisica pf) {
-        String sql = "DELETE FROM PESSOAF WHERE IDPESSOA = " + pf.getIDPESSOA();
+        String sql = "DELETE FROM PESSOAFISICA  WHERE IDPESSOA = " + pf.getIDPESSOA();
         conn.executeSQL(sql);
       }
 
     public void retornadados(PessoaFisica pfisica) {
-         String sql = "SELECT * FROM PESSOAF WHERE IDPESSOA = " + pfisica.getIDPESSOA();
+         String sql = "SELECT * FROM PESSOAFISICA  WHERE IDPESSOA = " + pfisica.getIDPESSOA();
         conn.executeSQL(sql);
 
         try {

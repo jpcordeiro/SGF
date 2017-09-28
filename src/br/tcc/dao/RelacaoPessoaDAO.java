@@ -17,7 +17,7 @@ public class RelacaoPessoaDAO {
     }
     
      public void incluir(RelacaoPessoa rPessoa) {
-        String sql = " INSERT INTO RELACIONAMENTOPESSOA VALUES("
+        String sql = " INSERT INTO RELACAOPESSOA VALUES("
                 + rPessoa.getIDPESSOA() + ",'"
                 + rPessoa.getTPRELACAO()+ "','"
                 + rPessoa.getDTCOMEMORACAO() + "','"
@@ -29,7 +29,7 @@ public class RelacaoPessoaDAO {
      
      public void alterar(RelacaoPessoa rPessoa) {
         
-        String sql = "UPDATE RELACIONAMENTOPESSOA SET" 
+        String sql = "UPDATE RELACAOPESSOA SET" 
                 + " IDPESSOA = " + rPessoa.getIDPESSOA() + ","
                 + " TPRELACAO = '" + rPessoa.getTPRELACAO()+ "',"
                 + " DTCOMEMORACAO = '" + rPessoa.getDTCOMEMORACAO() + "',"
@@ -41,18 +41,18 @@ public class RelacaoPessoaDAO {
     }
      
      public void excluir(RelacaoPessoa rPessoa) {
-        String sql = "DELETE FROM RELACIONAMENTOPESSOA WHERE IDPESSOA = " + rPessoa.getIDPESSOA();
+        String sql = "DELETE FROM RELACAOPESSOA WHERE IDPESSOA = " + rPessoa.getIDPESSOA();
          JOptionPane.showMessageDialog(null, rPessoa.getIDPESSOA());
         conn.executeSQL(sql);
       }
 
     public void retornaUtlSeq(RelacaoPessoa rPessoa) {
-        String sql = "SELECT MAX(IDSEQUENCIA) FROM RELACIONAMENTOPESSOA WHERE IDPESSOA = " +rPessoa.getIDPESSOA();
+        String sql = "SELECT MAX(IDSEQUENCIA) FROM RELACAOPESSOA WHERE IDPESSOA = " +rPessoa.getIDPESSOA();
         conn.executeSQL(sql);
     }
 
     public void consultadescricao(RelacaoPessoa rPessoa) {
-        String sql = "SELECT * FROM RELACIONAMENTOPESSOA WHERE IDPESSOA = "
+        String sql = "SELECT * FROM RELACAOPESSOA WHERE IDPESSOA = "
                 + "(SELECT IDPESSOA FROM PESSOA WHERE DSPESSOA LIKE '%"
                 + rPessoa.getDSNOME() +"%')";
         conn.executeSQL(sql);
@@ -60,13 +60,13 @@ public class RelacaoPessoaDAO {
     }
 
     public void retornadados(RelacaoPessoa rPessoa) {
-        String sql = "SELECT * FROM RELACIONAMENTOPESSOA WHERE IDPESSOA = " + rPessoa.getIDPESSOA() + " AND IDSEQUENCIA = "+ rPessoa.getIDSEQUENCIA();
+        String sql = "SELECT * FROM RELACAOPESSOA WHERE IDPESSOA = " + rPessoa.getIDPESSOA() + " AND IDSEQUENCIA = "+ rPessoa.getIDSEQUENCIA();
         conn.executeSQL(sql);
         
     }
 
     public void excluir1(String ID, String IDS) {
-         String sql = "DELETE FROM RELACIONAMENTOPESSOA WHERE IDPESSOA = " + ID + " AND IDSEQUENCIA = " + IDS;
+         String sql = "DELETE FROM RELACAOPESSOA WHERE IDPESSOA = " + ID + " AND IDSEQUENCIA = " + IDS;
         conn.executeSQL(sql);
     }
      

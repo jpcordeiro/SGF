@@ -67,7 +67,7 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
         jPopupPesquisa.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Cidade");
+        setTitle("Cadastro de Forma de Pagamento");
 
         jLabel1.setText("Código");
 

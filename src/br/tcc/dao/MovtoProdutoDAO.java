@@ -31,11 +31,11 @@ public class MovtoProdutoDAO {
         String sql = "UPDATE MOVTOPRODUTO SET"
                 + " IDMOVTOPRODUTO = " + mProduto.getIDMOVTOPRODUTO() + ","
                 + " IDCOMPRA = " + mProduto.getIDCOMPRA() + ","
-                + " IDITENCOMPRA = " + mProduto.getIDITENCOMPRA() + ","
+                + " IDITENSCOMPRA = " + mProduto.getIDITENCOMPRA() + ","
                 + " DTATUALIZA = '" + mProduto.getDTATUALIZA() + "',"
                 + " INENTRADA = '" + mProduto.getINENTRADA() + "',"
                 + " QTDPRODUTO = " + mProduto.getQTDPRODUTO() 
-                +" WHERE IDITENCOMPRA = " + mProduto.getIDITENCOMPRA();
+                +" WHERE IDITENSCOMPRA = " + mProduto.getIDITENCOMPRA();
         conn.incluirSQL(sql);
     } 
     
@@ -46,14 +46,14 @@ public class MovtoProdutoDAO {
 
     public void JaExiste(MovtoProduto mProduto, Integer IdItenCompra) {
    
-        String sql = "SELECT IDMOVTOPRODUTO,IDITENCOMPRA, QTDPRODUTO  FROM MOVTOPRODUTO WHERE IDITENCOMPRA = " + IdItenCompra;
+        String sql = "SELECT IDMOVTOPRODUTO,IDITENSCOMPRA, QTDPRODUTO  FROM MOVTOPRODUTO WHERE IDITENSCOMPRA = " + IdItenCompra;
         conn.executeSQL(sql);
         
        try {
 
             conn.resultset.first();
             mProduto.setIDMOVTOPRODUTO(conn.resultset.getInt("IDMOVTOPRODUTO"));
-            mProduto.setIDITENCOMPRA(conn.resultset.getInt("IDITENCOMPRA"));
+            mProduto.setIDITENCOMPRA(conn.resultset.getInt("IDITENSCOMPRA"));
             mProduto.setQTDPRODUTO(conn.resultset.getInt("QTDPRODUTO"));
             } catch (SQLException ex) {
 

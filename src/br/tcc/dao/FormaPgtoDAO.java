@@ -64,10 +64,10 @@ public class FormaPgtoDAO {
 
             conn.resultset.first();
             formaPgto.setIDFORMAPGTO(conn.resultset.getInt("IDFORMAPGTO"));
-            formaPgto.setDSFORMAPGTO(conn.resultset.getString("DSFORMAPGTO"));
+            formaPgto.setDSFORMAPGTO(conn.resultset.getString("DSFROMAPGTO"));
             formaPgto.setTPSITUACAO(conn.resultset.getInt("TPSITUACAO"));
             formaPgto.setNRINTERVALO(conn.resultset.getInt("NRINTERVALO"));
-            formaPgto.setQTDPARCELA(conn.resultset.getInt("QDTPARCELA"));
+            formaPgto.setQTDPARCELA(conn.resultset.getInt("QTDPARCELA"));
           } catch (SQLException ex) {
 
         }

@@ -26,6 +26,7 @@ import br.tcc.dao.ItensVendaDAO;
 import br.tcc.dao.MovtoProdutoDAO;
 import br.tcc.dao.TpMovtoDAO;
 import br.tcc.dao.VendaDAO;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -326,6 +327,11 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 jBPesquisarTpMovtoMouseClicked(evt);
             }
         });
+        jBPesquisarTpMovto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarTpMovtoActionPerformed(evt);
+            }
+        });
         jBPesquisarTpMovto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jBPesquisarTpMovtoKeyTyped(evt);
@@ -619,8 +625,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenVenda));
                         Integer id = movtoProduto.getIDITENCOMPRA();
                         Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
-                        Integer qtd = movtoProduto.getQTDPRODUTO();
-                        if (id == Integer.parseInt(IdItenVenda)) {
+                        Integer qtd = movtoProduto.getQTDPRODUTO();  
+                        String ids = String.valueOf(id);
+                        String idsiten = String.valueOf(IdItenVenda);
+                        if (ids.equals(idsiten)) {
                             movtoProduto.setIDMOVTOPRODUTO(idMvto);
                             movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenVenda));
                             qtd = qtd - Integer.parseInt(QtdProd);
@@ -719,14 +727,16 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 Integer id = movtoProduto.getIDITENCOMPRA();
                 Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
                 Integer qtd = movtoProduto.getQTDPRODUTO();
-                if (id == Integer.parseInt(IdItenCompra)) {
+                String ids = String.valueOf(id);
+                String idsiten = String.valueOf(IdItenCompra);
+                if (ids.equals(idsiten)) {
                     movtoProduto.setIDMOVTOPRODUTO(idMvto);
                     movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
                     qtd = qtd + Integer.parseInt(QtdProd);
                     movtoProduto.setQTDPRODUTO(qtd);
                     movtoProdutoDAO.alterar(movtoProduto);
 
-                } else {
+                 }else {
                     movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
                     movtoProdutoDAO.incluir(movtoProduto);
                 }
@@ -885,6 +895,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private void jBPesquisarTpMovtoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jBPesquisarTpMovtoKeyTyped
+
+    private void jBPesquisarTpMovtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBPesquisarTpMovtoActionPerformed
 
     /**
      * @param args the command line arguments

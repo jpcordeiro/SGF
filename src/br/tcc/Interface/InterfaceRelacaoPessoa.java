@@ -7,8 +7,6 @@ import br.tcc.classe.RelacaoPessoa;
 import br.tcc.dao.PessoaDAO;
 import br.tcc.dao.RelacaoPessoaDAO;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +29,14 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
     public InterfaceRelacaoPessoa() {
         initComponents();
     }
-
+     public void CapturaIdPessoa(String IdPessoa) throws SQLException{ 
+     
+        jTFIdPessoa.setText(IdPessoa);
+     }
+     public void capturaDsPessoa(String DsPessoa) throws SQLException{
+       
+        jTFnome.setText(DsPessoa); 
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -373,7 +378,6 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-
         situacao = 2;
         estadobotoes(true);
     }//GEN-LAST:event_jBAlterarActionPerformed
@@ -382,14 +386,14 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
 
          if (situacao == 1) {
              
-              int totlinha = jTconsulta.getRowCount();
+              int totlinha = jTrelacao.getRowCount();
              int conta = 0;
              for(int i = 1; i <= totlinha; i++){
-                 String idPess = (String) jTconsulta.getValueAt(conta, 0);
-                 String dsnome = (String) jTconsulta.getValueAt(conta, 1);
-                 String dscomemora = (String) jTconsulta.getValueAt(conta, 2);
-                 String DtComemora = (String) jTconsulta.getValueAt(conta, 3);
-                 String tpAmizade = (String) jTconsulta.getValueAt(conta, 4);
+                 String idPess = (String) jTrelacao.getValueAt(conta, 0);
+                 String dsnome = (String) jTrelacao.getValueAt(conta, 1);
+                 String dscomemora = (String) jTrelacao.getValueAt(conta, 2);
+                 String DtComemora = (String) jTrelacao.getValueAt(conta, 3);
+                 String tpAmizade = (String) jTrelacao.getValueAt(conta, 4);
                  rPessoa.setIDPESSOA(Integer.parseInt(idPess));
                  rPessoa.setDSNOME(dsnome);
                  rPessoa.setTPCOMEMORACAO(dscomemora);

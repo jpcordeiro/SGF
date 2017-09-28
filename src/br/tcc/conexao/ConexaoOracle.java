@@ -64,8 +64,8 @@ public class ConexaoOracle {
             retorno = 0;
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 00001) {
-                JOptionPane.showMessageDialog(null, "O registro não pôde ser "
-                        + "incluido pois já está cadastrado ");
+//                JOptionPane.showMessageDialog(null, "O registro não pôde ser "
+//                        + "incluido pois já está cadastrado ");
             } else {
                 JOptionPane.showMessageDialog(null, "Não foi possível "
                         + "executar o comando sql ," + sqlex
@@ -99,7 +99,7 @@ public class ConexaoOracle {
             retorno = 0;
             retorno = statement.executeUpdate(sql);
             if (retorno == 1) {
-                JOptionPane.showMessageDialog(null, "Exclusao realizada com sucesso");
+//                JOptionPane.showMessageDialog(null, "Exclusao realizada com sucesso");
             }
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 2292) {

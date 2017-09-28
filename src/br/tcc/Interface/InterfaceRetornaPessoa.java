@@ -157,11 +157,11 @@ public class InterfaceRetornaPessoa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Situação", "Valor Limite"
+                "Código", "Nome", "Data de Nascimento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

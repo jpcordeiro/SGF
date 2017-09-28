@@ -1,10 +1,8 @@
 package br.tcc.Interface;
 
-import br.tcc.Validacoes.EstadoBotoes;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.Validacoes.RetornaDataAtual;
-import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Cidade;
 import br.tcc.classe.Cliente;
 import br.tcc.classe.Endereco;
@@ -90,14 +88,14 @@ public class InterfaceCliente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTFcep = new javax.swing.JTextField();
+        jTFNrCep = new javax.swing.JFormattedTextField();
         jPpfisica = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTFrg = new javax.swing.JTextField();
-        jTFcpf = new javax.swing.JTextField();
         Sexo = new javax.swing.JLabel();
         jCBSexo = new javax.swing.JComboBox();
+        jTFNrCpf = new javax.swing.JFormattedTextField();
+        jTFrg = new javax.swing.JFormattedTextField();
         jPpjuridica = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -118,7 +116,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jCBSituacao = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
-        jTFFone1 = new javax.swing.JTextField();
+        jTFFone1 = new javax.swing.JFormattedTextField();
         jPConsulta1 = new javax.swing.JPanel();
         jCbPesquisa1 = new javax.swing.JComboBox();
         jTFPesquisa1 = new javax.swing.JTextField();
@@ -165,11 +163,11 @@ public class InterfaceCliente extends javax.swing.JFrame {
 
         jLabel7.setText("CEP");
 
-        jTFcep.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFcepMouseClicked(evt);
-            }
-        });
+        try {
+            jTFNrCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,59 +178,65 @@ public class InterfaceCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTFlogradouro))
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel7))
+                            .addComponent(jTFNrCep, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jTFlogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addGap(0, 131, Short.MAX_VALUE))
+                                .addGap(0, 135, Short.MAX_VALUE))
                             .addComponent(jTFbairro))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jTFcomplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(146, 146, 146))
-                            .addComponent(jTFcep, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(jLabel2)
+                            .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(175, 175, 175))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFlogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTFlogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTFNrCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFcep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTFbairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTFcomplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTFbairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFcomplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -246,6 +250,24 @@ public class InterfaceCliente extends javax.swing.JFrame {
 
         jCBSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FEMININO", "MASCULINO" }));
 
+        try {
+            jTFNrCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTFNrCpf.setText("");
+        jTFNrCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFNrCpfFocusLost(evt);
+            }
+        });
+
+        try {
+            jTFrg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#.###.### #")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPpfisicaLayout = new javax.swing.GroupLayout(jPpfisica);
         jPpfisica.setLayout(jPpfisicaLayout);
         jPpfisicaLayout.setHorizontalGroup(
@@ -253,13 +275,15 @@ public class InterfaceCliente extends javax.swing.JFrame {
             .addGroup(jPpfisicaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPpfisicaLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel12))
+                    .addGroup(jPpfisicaLayout.createSequentialGroup()
+                        .addComponent(jTFNrCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Sexo)
                     .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -267,20 +291,19 @@ public class InterfaceCliente extends javax.swing.JFrame {
         jPpfisicaLayout.setVerticalGroup(
             jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPpfisicaLayout.createSequentialGroup()
-                .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPpfisicaLayout.createSequentialGroup()
-                        .addComponent(Sexo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPpfisicaLayout.createSequentialGroup()
-                        .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(17, 17, 17))
+                .addComponent(Sexo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPpfisicaLayout.createSequentialGroup()
+                .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFNrCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jPpjuridica.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa Juridica"));
@@ -411,6 +434,12 @@ public class InterfaceCliente extends javax.swing.JFrame {
 
         jLabel24.setText("Telefone");
 
+        try {
+            jTFFone1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
         jPCadastroLayout.setHorizontalGroup(
@@ -445,9 +474,10 @@ public class InterfaceCliente extends javax.swing.JFrame {
                                 .addGap(4, 4, 4)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPCadastroLayout.createSequentialGroup()
-                                        .addGap(132, 132, 132)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel10))))))
@@ -499,10 +529,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
                             .addComponent(jLabel15))
                         .addGap(26, 26, 26)))
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BaddPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+                    .addComponent(BaddPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -512,14 +539,14 @@ public class InterfaceCliente extends javax.swing.JFrame {
                                     .addComponent(jLabel18))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jRBJuridica)
-                                    .addComponent(jRBFisico)))
+                                    .addComponent(jRBFisico)
+                                    .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPpfisica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPpjuridica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -527,7 +554,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTPcliente.addTab("Cadastro", jPCadastro);
@@ -555,7 +582,6 @@ public class InterfaceCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTbPesquisa1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTbPesquisa1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTbPesquisa1MouseClicked(evt);
@@ -576,14 +602,14 @@ public class InterfaceCliente extends javax.swing.JFrame {
             jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPConsulta1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPConsulta1Layout.createSequentialGroup()
                         .addComponent(jCbPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTFPesquisa1)
+                        .addComponent(jTFPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtPesquisa1)))
+                        .addComponent(jBtPesquisa1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPConsulta1Layout.setVerticalGroup(
@@ -615,7 +641,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPcliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+            .addComponent(jTPcliente, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         setSize(new java.awt.Dimension(776, 520));
@@ -641,7 +667,27 @@ public class InterfaceCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisar2MouseClicked
 
     private void BaddPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaddPessoasActionPerformed
-        new InterfaceRelacaoPessoa().setVisible(true);
+        
+        InterfaceRelacaoPessoa InRelPesso = new InterfaceRelacaoPessoa();
+        
+        if (jTFIdPessoa.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Para adicionar uma pessoa ao grupo de amigos é necessario preencher dados do cliente!");
+        } else {
+            try {
+                InRelPesso.CapturaIdPessoa(jTFIdPessoa.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (!jTFnome.getText().equals("")) {
+            try {
+                InRelPesso.capturaDsPessoa(jTFnome.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             InRelPesso.setVisible(true);
+        }
     }//GEN-LAST:event_BaddPessoasActionPerformed
 
     private void jBAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterar1ActionPerformed
@@ -680,12 +726,12 @@ public class InterfaceCliente extends javax.swing.JFrame {
             } else if (jRBFisico.isSelected()) {
                 pfisica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
                 cliente.setTPCLIENTE("F");
-                if (jTFcpf.getText().equals("")) {
+                if (jTFNrCpf.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Informe o número do CPF");
-                    jTFcpf.grabFocus();
+                    jTFNrCpf.grabFocus();
                     return;
                 } else {
-                    pfisica.setNRCPF(jTFcpf.getText());
+                    pfisica.setNRCPF(jTFNrCpf.getText());
                 }
                 if(!jTFrg.getText().equals("")){
                     pfisica.setNRRG(jTFrg.getText());
@@ -753,14 +799,14 @@ public class InterfaceCliente extends javax.swing.JFrame {
             } else {
                 endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
             }
-            String cep = jTFcep.toString();
+            String cep = jTFNrCep.toString();
 
-            if (jTFcep.getText().equals("")) {
+            if (jTFNrCep.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o CEP");
-                jTFcep.grabFocus();
+                jTFNrCep.grabFocus();
                 return;
             } else {
-                endereco.setNRCEP(jTFcep.getText());
+                endereco.setNRCEP(jTFNrCep.getText());
             }
             endereco.setTPENDERECO("CLIENTE");
             if (jRBFisico.isSelected()) {
@@ -824,12 +870,12 @@ public class InterfaceCliente extends javax.swing.JFrame {
             } else if (jRBFisico.isSelected()) {
                 pfisica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
                 cliente.setTPCLIENTE("F");
-                if (jTFcpf.getText().equals("")) {
+                if (jTFNrCpf.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Informe o número do CPF");
-                    jTFcpf.grabFocus();
+                    jTFNrCpf.grabFocus();
                     return;
                 } else {
-                    pfisica.setNRCPF(jTFcpf.getText());
+                    pfisica.setNRCPF(jTFNrCpf.getText());
                 }
                 if(!jTFrg.getText().equals("")){
                     pfisica.setNRRG(jTFrg.getText());
@@ -897,14 +943,14 @@ public class InterfaceCliente extends javax.swing.JFrame {
             } else {
                 endereco.setDSCOMPLEMENTO(jTFcomplemento.getText());
             }
-            String cep = jTFcep.toString();
+            String cep = jTFNrCep.toString();
 
-            if (jTFcep.getText().equals("")) {
+            if (jTFNrCep.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o CEP");
-                jTFcep.grabFocus();
+                jTFNrCep.grabFocus();
                 return;
             } else {
-                endereco.setNRCEP(jTFcep.getText());
+                endereco.setNRCEP(jTFNrCep.getText());
             }
             endereco.setTPENDERECO("CLIENTE");
             
@@ -950,14 +996,8 @@ public class InterfaceCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBIncluirActionPerformed
 
-    private void jTFcepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFcepMouseClicked
-
-        ValidaNumero validaNumero = new ValidaNumero();
-        validaNumero.ValidaNumero(jTFcep);
-    }//GEN-LAST:event_jTFcepMouseClicked
-
     private void jRBJuridicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBJuridicaMouseClicked
-        jTFcpf.setEnabled(false);
+        jTFNrCpf.setEnabled(false);
         jTFrg.setEnabled(false);
         jCBSexo.setEnabled(false);
 
@@ -974,7 +1014,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
 
     private void jRBFisicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBFisicoMouseClicked
 
-        jTFcpf.setEnabled(true);
+        jTFNrCpf.setEnabled(true);
         jTFrg.setEnabled(true);
         jCBSexo.setEnabled(true);
 
@@ -985,7 +1025,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
 
         pfisica.setIDPESSOA(Integer.parseInt(ID));
         pfDao.retornadados(pfisica);
-        jTFcpf.setText(pfisica.getNRCPF());
+        jTFNrCpf.setText(pfisica.getNRCPF());
         jTFrg.setText(pfisica.getNRRG());
         String sexo = pfisica.getTPSEXO();
 
@@ -1057,7 +1097,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
                  jTFcnpj.setEnabled(false);
                  jTFrazaosocial.setEnabled(false);
                  
-                 jTFcpf.setText(pfisica.getNRCPF());
+                 jTFNrCpf.setText(pfisica.getNRCPF());
                  jTFrg.setText(pfisica.getNRRG());
                  String sexo = pfisica.getTPSEXO();
                  if(sexo.equals("M")){
@@ -1069,7 +1109,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
             }else{
                 jRBJuridica.setSelected(false);
                 
-                jTFcpf.setEnabled(false);
+                jTFNrCpf.setEnabled(false);
                 jTFrg.setEnabled(false);
                 jCBSexo.setEnabled(false);
                 
@@ -1085,7 +1125,7 @@ public class InterfaceCliente extends javax.swing.JFrame {
             jTFNumero.setText(endereco.getDSNUMERO());
             jTFcomplemento.setText(endereco.getDSCOMPLEMENTO());
             jTFbairro.setText(endereco.getDSBAIRRO());
-            jTFcep.setText(endereco.getNRCEP());
+            jTFNrCep.setText(endereco.getNRCEP());
             
             cidadeDAO.preenchercidade(jCBCidade, cidade);
             
@@ -1099,6 +1139,100 @@ public class InterfaceCliente extends javax.swing.JFrame {
         estadobotoes(false);
         jTPcliente.setSelectedIndex(0);
     }//GEN-LAST:event_jTbPesquisa1MouseClicked
+
+    private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
+
+        String cpff = jTFNrCpf.getText().toString();
+        String strSemPontos = jTFNrCpf.getText().replace(".", "");
+        char[] cpf = jTFNrCpf.getText().replace(".", "").replace("-", "").toCharArray();
+        int qtdCpf = cpf.length;
+        if (jTFNrCpf.equals("00000000000") || jTFNrCpf.equals("11111111111") ||
+            jTFNrCpf.equals("22222222222") || jTFNrCpf.equals("33333333333") ||
+            jTFNrCpf.equals("44444444444") || jTFNrCpf.equals("55555555555") ||
+            jTFNrCpf.equals("66666666666") || jTFNrCpf.equals("77777777777") ||
+            jTFNrCpf.equals("88888888888") || jTFNrCpf.equals("99999999999") ||
+            (qtdCpf != 11)){
+            jTFNrCpf.setText("");
+            jTFNrCpf.grabFocus();
+            JOptionPane.showMessageDialog(null, "Digite um CPF Válido!");
+        }else{
+
+            for (int i = 0; i < qtdCpf; i++) {
+                char digCpf;
+                digCpf = cpf[i];
+                String charCPF;
+                if (i == 0) {
+                    charCPF = String.valueOf(digCpf);
+                    dig1 = (10 *Integer.parseInt(charCPF));
+                    dig21 = (11 *Integer.parseInt(charCPF));
+                } else if (i == 1) {
+                    charCPF = String.valueOf(digCpf);
+                    dig2 = (9 * Integer.parseInt(charCPF));
+                    dig22 = (10 * Integer.parseInt(charCPF));
+                } else if (i == 2) {
+                    charCPF = String.valueOf(digCpf);
+                    dig3 = (8 * Integer.parseInt(charCPF));
+                    dig23 = (9 * Integer.parseInt(charCPF));
+                } else if (i == 3) {
+                    charCPF = String.valueOf(digCpf);
+                    dig4 = (7 * Integer.parseInt(charCPF));
+                    dig24 = (8 * Integer.parseInt(charCPF));
+                } else if (i == 4) {
+                    charCPF = String.valueOf(digCpf);
+                    dig5 = (6 * Integer.parseInt(charCPF));
+                    dig25 = (7 * Integer.parseInt(charCPF));
+                } else if (i == 5) {
+                    charCPF = String.valueOf(digCpf);
+                    dig6 = (5 * Integer.parseInt(charCPF));
+                    dig26 = (6 * Integer.parseInt(charCPF));
+                } else if (i == 6) {
+                    charCPF = String.valueOf(digCpf);
+                    dig7 = (4 * Integer.parseInt(charCPF));
+                    dig27 = (5 * Integer.parseInt(charCPF));
+                } else if (i == 7) {
+                    charCPF = String.valueOf(digCpf);
+                    dig8 = (3 * Integer.parseInt(charCPF));
+                    dig28 = (4 * Integer.parseInt(charCPF));
+                } else if (i == 8) {
+                    charCPF = String.valueOf(digCpf);
+                    dig9 = (2 * Integer.parseInt(charCPF));
+                    dig29 = (3 * Integer.parseInt(charCPF));
+                } else if (i == 9) {
+                    charCPF = String.valueOf(digCpf);
+                    dig10 = Integer.parseInt(charCPF);
+                    dig210 = (2 * Integer.parseInt(charCPF));
+                } else if (i == 10) {
+                    charCPF = String.valueOf(digCpf);
+                    dig11 =  Integer.parseInt(charCPF);
+                    dig211 = Integer.parseInt(charCPF);
+                }
+            }
+            Integer somaDig10 = (dig1 + dig2 + dig3 + dig4 + dig5 + dig6 + dig7 + dig8 + dig9);
+            Integer restoDivDig10=( somaDig10 % 11);
+            Integer digVerif1 = (11 - restoDivDig10);
+            if (digVerif1 > 9){
+                digVerif1 = 0;
+            }
+            Integer digVerif2 = 0;
+            if (dig10 == digVerif1){
+                Integer somaDig11 = (dig21 + dig22 + dig23 + dig24 + dig25 + dig26 + dig27 + dig28 + dig29 + dig210);
+                Integer restoDivDig11=( somaDig11 % 11);
+                digVerif2 = (11 - restoDivDig11);
+                if (digVerif2 > 9){
+                    digVerif2 = 0;
+                }
+                if(dig11 !=digVerif2){
+                    jTFNrCpf.setText("");
+                    jTFNrCpf.grabFocus();
+                    JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+                }
+            }else{
+                jTFNrCpf.setText("");
+                jTFNrCpf.grabFocus();
+                JOptionPane.showMessageDialog(null, "Insira um CPF valido!");
+            }
+        }
+    }//GEN-LAST:event_jTFNrCpfFocusLost
 
 
     /**
@@ -1179,20 +1313,20 @@ public class InterfaceCliente extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRBJuridica;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFDtCadastro;
-    private javax.swing.JTextField jTFFone1;
+    private javax.swing.JFormattedTextField jTFFone1;
     private javax.swing.JTextField jTFIdPessoa;
+    private javax.swing.JFormattedTextField jTFNrCep;
+    private javax.swing.JFormattedTextField jTFNrCpf;
     private javax.swing.JTextField jTFNumero;
     private javax.swing.JTextField jTFPesquisa1;
     private javax.swing.JTextField jTFbairro;
-    private javax.swing.JTextField jTFcep;
     private javax.swing.JTextField jTFcnpj;
     private javax.swing.JTextField jTFcomplemento;
-    private javax.swing.JTextField jTFcpf;
     private javax.swing.JTextField jTFdtnasc;
     private javax.swing.JTextField jTFlogradouro;
     private javax.swing.JTextField jTFnome;
     private javax.swing.JTextField jTFrazaosocial;
-    private javax.swing.JTextField jTFrg;
+    private javax.swing.JFormattedTextField jTFrg;
     private javax.swing.JTabbedPane jTPcliente;
     private javax.swing.JTable jTbPesquisa1;
     // End of variables declaration//GEN-END:variables

@@ -4,11 +4,13 @@ package br.tcc.Interface;
 import br.tcc.ConsultaSimples.ConsultaFamilia;
 import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Composicao;
 import br.tcc.classe.Produto;
 import br.tcc.dao.ComposicaoDAO;
 import br.tcc.dao.ProdutoDAO;
+import com.oracle.jrockit.jfr.Producer;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,6 +90,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
         jTFPesquisa = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTbPesquisa = new javax.swing.JTable();
+        jBtPesquisa1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -418,14 +421,14 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
         jTPProduto.addTab("Cadastro", jPCadastro);
 
-        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Produto", " " }));
+        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Produto" }));
 
         jTbPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Produto", "Família"
+                "Código", "Família", "Produto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -439,6 +442,13 @@ public class InterfaceProduto extends javax.swing.JFrame {
         jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane2.setViewportView(jTbPesquisa);
 
+        jBtPesquisa1.setText("Pesquisar");
+        jBtPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisa1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
         jPConsulta.setLayout(jPConsultaLayout);
         jPConsultaLayout.setHorizontalGroup(
@@ -451,6 +461,8 @@ public class InterfaceProduto extends javax.swing.JFrame {
                         .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisa1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -460,9 +472,10 @@ public class InterfaceProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisa1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -737,6 +750,24 @@ public class InterfaceProduto extends javax.swing.JFrame {
         jTComposicao.setEnabled(true);
     }//GEN-LAST:event_jRBFinalMouseClicked
 
+    private void jBtPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisa1ActionPerformed
+
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCbPesquisa2.getSelectedIndex()) {
+            case 0: {
+                produtoDAO.consulta(produto);
+                preencher.PreencherJComboBox(jTbPesquisa, produto.getRetorno());
+                return;
+            }
+            case 1: {
+                produto.setDSPRODUTO(jTFPesquisa.getText().toUpperCase());
+                produtoDAO.consultadescricao(produto);
+                preencher.PreencherJComboBox(jTbPesquisa, produto.getRetorno());
+                return;
+            }
+        }
+    }//GEN-LAST:event_jBtPesquisa1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -783,6 +814,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     private javax.swing.JButton jBIncluir;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBPesquisar1;
+    private javax.swing.JButton jBtPesquisa1;
     private javax.swing.JComboBox jCbPesquisa2;
     private javax.swing.JFormattedTextField jFTFDtCompra;
     private javax.swing.JLabel jLabel1;

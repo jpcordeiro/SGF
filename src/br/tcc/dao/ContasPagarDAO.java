@@ -8,13 +8,13 @@ import br.tcc.conexao.ConexaoOracle;
  * @author JOÃO PAULO
  */
 public class ContasPagarDAO {
-    
+
     ConexaoOracle conn;
-    
+
     public ContasPagarDAO() {
         conn = new ConexaoOracle();
     }
-    
+
     public void incluir(ContasPagar contasPagar) {
         String sql = " INSERT INTO CONTASPAGAR VALUES("
                 + contasPagar.getIDCONTASPAGAR() + ","
@@ -24,7 +24,7 @@ public class ContasPagarDAO {
                 + contasPagar.getIDPARCELA() + ")";
         conn.incluirSQL(sql);
     }
-    
+
     public void alterar(ContasPagar contasPagar) {
         String sql = "UPDATE CONTASPAGAR SET"
                 + " IDCONTASPAGAR = " + contasPagar.getIDCONTASPAGAR() + ","
@@ -40,5 +40,14 @@ public class ContasPagarDAO {
         String sql = "DELETE FROM CONTASPAGAR WHERE contasPagar = " + contasPagar.getIDCONTASPAGAR();
         conn.executeSQL(sql);
     }
-    
+
+    public void consulta(ContasPagar contasPagar, Integer idCompra) {
+
+        String sql = " SELECT DISTINCT CP.IDCONTASPAGAR,CP.IDPARCELA, CP.DTPAGAR, CP.VLPAGAR"
+                + " FROM CONTASPAGAR CP JOIN COMPRA C ON CP.IDCOMPRA = C.IDCOMPRA"
+                + " WHERE C.IDCOMPRA = " + idCompra;
+        conn.executeSQL(sql);
+        contasPagar.setRetorno(conn.resultset);
+    }
+
 }

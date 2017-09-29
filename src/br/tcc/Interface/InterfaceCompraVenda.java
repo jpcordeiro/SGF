@@ -7,6 +7,7 @@ import br.tcc.ConsultaSimples.ConsultaProduto;
 import br.tcc.ConsultaSimples.ConsultaProdutoCompVend;
 import br.tcc.ConsultaSimples.ConsultaTpMovto;
 import br.tcc.Validacoes.LimparCampos;
+import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.classe.Compra;
 import br.tcc.classe.ContasPagar;
@@ -26,12 +27,9 @@ import br.tcc.dao.ItensVendaDAO;
 import br.tcc.dao.MovtoProdutoDAO;
 import br.tcc.dao.TpMovtoDAO;
 import br.tcc.dao.VendaDAO;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,6 +63,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     ContasReceberDAO contasReceberDAO = new ContasReceberDAO();
     MovtoProduto movtoProduto = new MovtoProduto();
     MovtoProdutoDAO movtoProdutoDAO = new MovtoProdutoDAO();
+    public String retornaId = "";
 
     /**
      * Creates new form InterfaceVenda
@@ -134,6 +133,16 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jTFIdTpMovto = new javax.swing.JTextField();
         jBPesquisarTpMovto = new javax.swing.JButton();
         jPConsulta = new javax.swing.JPanel();
+        jCbPesquisa2 = new javax.swing.JComboBox();
+        jTFPesquisa = new javax.swing.JTextField();
+        jBPesquisar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTContasPagar = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTCompra = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTItensCompra = new javax.swing.JTable();
+        jPConsulta1 = new javax.swing.JPanel();
 
         jLabel5.setText("Data de Alteração");
 
@@ -484,34 +493,156 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
         jTPVenda.addTab("Cadastro", jPCadastro);
 
+        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Cliente" }));
+
+        jBPesquisar.setText("Pesquisar");
+        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarActionPerformed(evt);
+            }
+        });
+
+        jTContasPagar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Numero daParcela", "Data Pagamento", "Valor a Pagar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTContasPagar.setToolTipText("");
+        jTContasPagar.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTContasPagar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTContasPagarMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTContasPagar);
+
+        jTCompra.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Data da Compra", "Fornecedor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTCompra.setToolTipText("");
+        jTCompra.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTCompraMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTCompra);
+
+        jTItensCompra.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Produto", "Quantidade", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTItensCompra.setToolTipText("");
+        jTItensCompra.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTItensCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTItensCompraMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTItensCompra);
+        if (jTItensCompra.getColumnModel().getColumnCount() > 0) {
+            jTItensCompra.getColumnModel().getColumn(3).setHeaderValue("Valor");
+        }
+
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
         jPConsulta.setLayout(jPConsultaLayout);
         jPConsultaLayout.setHorizontalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 723, Short.MAX_VALUE)
+            .addGroup(jPConsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane3)
+                        .addComponent(jScrollPane2)
+                        .addGroup(jPConsultaLayout.createSequentialGroup()
+                            .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBPesquisar))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesquisar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTPVenda.addTab("Consulta Compra", jPConsulta);
+
+        javax.swing.GroupLayout jPConsulta1Layout = new javax.swing.GroupLayout(jPConsulta1);
+        jPConsulta1.setLayout(jPConsulta1Layout);
+        jPConsulta1Layout.setHorizontalGroup(
+            jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 697, Short.MAX_VALUE)
+        );
+        jPConsulta1Layout.setVerticalGroup(
+            jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 494, Short.MAX_VALUE)
         );
 
-        jTPVenda.addTab("Consulta", jPConsulta);
+        jTPVenda.addTab("Consulta Venda", jPConsulta1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTPVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 702, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTPVenda)
         );
 
-        setSize(new java.awt.Dimension(714, 561));
+        setSize(new java.awt.Dimension(718, 561));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -625,7 +756,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenVenda));
                         Integer id = movtoProduto.getIDITENCOMPRA();
                         Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
-                        Integer qtd = movtoProduto.getQTDPRODUTO();  
+                        Integer qtd = movtoProduto.getQTDPRODUTO();
                         String ids = String.valueOf(id);
                         String idsiten = String.valueOf(IdItenVenda);
                         if (ids.equals(idsiten)) {
@@ -736,7 +867,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                     movtoProduto.setQTDPRODUTO(qtd);
                     movtoProdutoDAO.alterar(movtoProduto);
 
-                 }else {
+                } else {
                     movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
                     movtoProdutoDAO.incluir(movtoProduto);
                 }
@@ -764,28 +895,28 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
         tpMovtoDAO.VerificarOperacao(tpMovto);
         if (!tpMovto.getTPMOVTO().equals("E")) {
-        final ConsultaProdutoCompVend retornaProduto = new ConsultaProdutoCompVend();
-        retornaProduto.setVisible(true);
-        retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
+            final ConsultaProdutoCompVend retornaProduto = new ConsultaProdutoCompVend();
+            retornaProduto.setVisible(true);
+            retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
 
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                jTFIdProduto.setText(retornaProduto.retornaId);
-                jTFDsProduto.setText(retornaProduto.retornaDsProduto);
-                jTFVlProduto.setText(retornaProduto.retonaVlProduto);
-            }
-        });
-        }else{
-        final ConsultaProduto retornaProduto = new ConsultaProduto();
-        retornaProduto.setVisible(true);
-        retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosed(java.awt.event.WindowEvent evt) {
+                    jTFIdProduto.setText(retornaProduto.retornaId);
+                    jTFDsProduto.setText(retornaProduto.retornaDsProduto);
+                    jTFVlProduto.setText(retornaProduto.retonaVlProduto);
+                }
+            });
+        } else {
+            final ConsultaProduto retornaProduto = new ConsultaProduto();
+            retornaProduto.setVisible(true);
+            retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
 
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                jTFIdProduto.setText(retornaProduto.retornaId);
-                jTFDsProduto.setText(retornaProduto.retornaDsProduto);
-                jTFVlProduto.setText(retornaProduto.retonaVlProduto);
-            }
-        });
-            
+                public void windowClosed(java.awt.event.WindowEvent evt) {
+                    jTFIdProduto.setText(retornaProduto.retornaId);
+                    jTFDsProduto.setText(retornaProduto.retornaDsProduto);
+                    jTFVlProduto.setText(retornaProduto.retonaVlProduto);
+                }
+            });
+
         }
     }//GEN-LAST:event_jBPesquisarProdutoMouseClicked
 
@@ -880,7 +1011,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarProdutoActionPerformed
 
     private void jBPesquisarTpMovtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoMouseClicked
-        
+
         final ConsultaTpMovto retornaTpMovto = new ConsultaTpMovto();
         retornaTpMovto.setVisible(true);
         retornaTpMovto.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -899,6 +1030,52 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private void jBPesquisarTpMovtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBPesquisarTpMovtoActionPerformed
+
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        String cliente = jTFPesquisa.getText().toUpperCase();
+        switch (jCbPesquisa2.getSelectedIndex()) {
+            case 0: {
+                compraDAO.consulta(compra);
+                preencher.PreencherJtableGenerico(jTCompra, compra.getRetorno());
+                return;
+            }
+            case 1: {
+                compraDAO.consultacliente(compra, cliente);
+                preencher.PreencherJtableGenerico(jTCompra, compra.getRetorno());
+                return;
+            }
+        }
+    }//GEN-LAST:event_jBPesquisarActionPerformed
+
+    private void jTContasPagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTContasPagarMouseClicked
+
+//        int linha = jTContasPagar.getSelectedRow();
+//        retornaId = jTContasPagar.getValueAt(linha, 0).toString();
+//        retornaDsProduto = jTContasPagar.getValueAt(linha, 1).toString();
+//        retonaVlProduto = jTContasPagar.getValueAt(linha, 2).toString();
+
+    }//GEN-LAST:event_jTContasPagarMouseClicked
+
+    private void jTCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCompraMouseClicked
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+
+        int linha = jTCompra.getSelectedRow();
+        retornaId = jTCompra.getValueAt(linha, 0).toString();
+        Integer idCompra = Integer.parseInt(retornaId);
+        
+        itensCompraDAO.consulta(itensCompra, idCompra);
+        preencher.PreencherJtableGenerico(jTItensCompra, itensCompra.getRetorno());
+        
+        contasPagarDAO.consulta(contasPagar, idCompra);
+        preencher.PreencherJtableGenerico(jTContasPagar, contasPagar.getRetorno());
+
+    }//GEN-LAST:event_jTCompraMouseClicked
+
+    private void jTItensCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTItensCompraMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTItensCompraMouseClicked
 
     /**
      * @param args the command line arguments
@@ -944,6 +1121,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBIncluir;
+    private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBPesquisarCliente;
     private javax.swing.JButton jBPesquisarProduto;
     private javax.swing.JButton jBPesquisarTpMovto;
@@ -953,6 +1131,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JButton jBexcluir1;
     private javax.swing.JButton jBgravar1;
     private javax.swing.JButton jBincluir1;
+    private javax.swing.JComboBox jCbPesquisa2;
     private javax.swing.JFormattedTextField jFTFdt_cadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -968,9 +1147,15 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPCadastro;
     private javax.swing.JPanel jPConsulta;
+    private javax.swing.JPanel jPConsulta1;
     private javax.swing.JPanel jPanelbotoes1;
     private javax.swing.JPanel jPanelbotoes2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTCompra;
+    private javax.swing.JTable jTContasPagar;
     private javax.swing.JTextField jTFData;
     private javax.swing.JTextField jTFDsCliente;
     private javax.swing.JTextField jTFDsProduto;
@@ -983,10 +1168,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jTFIdProduto;
     private javax.swing.JTextField jTFIdTpMovto;
     private javax.swing.JTextField jTFIdVenda;
+    private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTextField jTFQuantidade;
     private javax.swing.JTextField jTFVlProduto;
     private javax.swing.JTextField jTFVlTotal;
     private javax.swing.JTextField jTFVlTotalVenda;
+    private javax.swing.JTable jTItensCompra;
     private javax.swing.JTabbedPane jTPVenda;
     private javax.swing.JTable jTVenda;
     // End of variables declaration//GEN-END:variables

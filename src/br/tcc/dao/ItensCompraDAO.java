@@ -8,7 +8,7 @@ import br.tcc.conexao.ConexaoOracle;
  * @author JOÃO PAULO
  */
 public class ItensCompraDAO {
-    
+
     ConexaoOracle conn;
 
     public ItensCompraDAO() {
@@ -17,7 +17,7 @@ public class ItensCompraDAO {
 
     public void incluir(ItensCompra itensCompra) {
         String sql = " INSERT INTO ITENSCOMPRA VALUES("
-                + itensCompra.getIDITENSCOMRPA()+ ","
+                + itensCompra.getIDITENSCOMRPA() + ","
                 + itensCompra.getIDCOMPRA() + ","
                 + itensCompra.getIDPRODUTO() + ","
                 + itensCompra.getQTDPRODUTO() + ","
@@ -29,7 +29,7 @@ public class ItensCompraDAO {
         String sql = "UPDATE FORMAPGTO SET"
                 + " IDITENSCOMRPA = " + itensCompra.getIDITENSCOMRPA() + ","
                 + " IDCOMPRA = " + itensCompra.getIDCOMPRA() + ","
-                + " IDPRODUTO = " + itensCompra.getIDPRODUTO() + "," 
+                + " IDPRODUTO = " + itensCompra.getIDPRODUTO() + ","
                 + " QTDPRODUTO = " + itensCompra.getQTDPRODUTO() + ","
                 + " VLPRODUTO = " + itensCompra.getVLPRODUTO()
                 + " WHERE IDITENSCOMRPA = " + itensCompra.getIDITENSCOMRPA();
@@ -40,6 +40,14 @@ public class ItensCompraDAO {
         String sql = "DELETE FROM FORMAPGTO WHERE IDFORMAPGTO = " + itensCompra.getIDITENSCOMRPA();
         conn.executeSQL(sql);
     }
-    
-    
+
+    public void consulta(ItensCompra itensCompra, Integer idCompra) {
+        String sql = " SELECT DISTINCT IT.IDCOMPRA, P.DSPRODUTO,IT.QTDPRODUTO, IT.VLPRODUTO"
+                + " FROM ITENSCOMPRA IT JOIN PRODUTO P ON IT.IDPRODUTO = P.IDPRODUTO"
+                + " WHERE IT.IDCOMPRA = " + idCompra;
+        conn.executeSQL(sql);
+        itensCompra.setRetorno(conn.resultset);
+
+    }
+
 }

@@ -8,7 +8,7 @@ import br.tcc.conexao.ConexaoOracle;
  * @author JOÃO PAULO
  */
 public class ItensVendaDAO {
-    
+
     ConexaoOracle conn;
 
     public ItensVendaDAO() {
@@ -28,8 +28,8 @@ public class ItensVendaDAO {
     public void alterar(ItensVenda itensVenda) {
         String sql = "UPDATE ITENSVENDA SET"
                 + " IDITENSVENDA = " + itensVenda.getIDITENSVENDA() + ","
-                + " IDVENDA = " + itensVenda.getIDVENDA()+ ","
-                + " IDPRODUTO = " + itensVenda.getIDPRODUTO() + "," 
+                + " IDVENDA = " + itensVenda.getIDVENDA() + ","
+                + " IDPRODUTO = " + itensVenda.getIDPRODUTO() + ","
                 + " QTDPRODUTO = " + itensVenda.getQTDPRODUTO() + ","
                 + " VLPRODUTO = " + itensVenda.getVLPRODUTO()
                 + " WHERE IDITENSVENDA = " + itensVenda.getIDITENSVENDA();
@@ -40,6 +40,14 @@ public class ItensVendaDAO {
         String sql = "DELETE FROM ITENSVENDA WHERE IDITENSVENDA = " + itensVenda.getIDITENSVENDA();
         conn.executeSQL(sql);
     }
-    
-    
+
+    public void consulta(ItensVenda itensVenda, Integer idVENDA) {
+
+        String sql = " SELECT DISTINCT IV.IDVENDA, P.DSPRODUTO,IV.QTDPRODUTO, IV.VLPRODUTO"
+                + " FROM ITENSVENDA IV JOIN PRODUTO P ON IV.IDPRODUTO = P.IDPRODUTO"
+                + " WHERE IV.IDVENDA =  " + idVENDA;
+        conn.executeSQL(sql);
+        itensVenda.setRetorno(conn.resultset);
+    }
+
 }

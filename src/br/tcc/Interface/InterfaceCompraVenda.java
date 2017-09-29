@@ -143,6 +143,15 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTItensCompra = new javax.swing.JTable();
         jPConsulta1 = new javax.swing.JPanel();
+        jCbPesquisa3 = new javax.swing.JComboBox();
+        jTFPesquisa1 = new javax.swing.JTextField();
+        jBPesquisar1 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTvenda = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTItensVenda = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTContasreceber = new javax.swing.JTable();
 
         jLabel5.setText("Data de Alteração");
 
@@ -576,9 +585,6 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(jTItensCompra);
-        if (jTItensCompra.getColumnModel().getColumnCount() > 0) {
-            jTItensCompra.getColumnModel().getColumn(3).setHeaderValue("Valor");
-        }
 
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
         jPConsulta.setLayout(jPConsultaLayout);
@@ -618,15 +624,124 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
         jTPVenda.addTab("Consulta Compra", jPConsulta);
 
+        jCbPesquisa3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Cliente" }));
+
+        jBPesquisar1.setText("Pesquisar");
+        jBPesquisar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisar1ActionPerformed(evt);
+            }
+        });
+
+        jTvenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Data da Venda", "Cliente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTvenda.setToolTipText("");
+        jTvenda.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTvenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTvendaMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTvenda);
+
+        jTItensVenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Produto", "Quantidade", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTItensVenda.setToolTipText("");
+        jTItensVenda.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTItensVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTItensVendaMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTItensVenda);
+
+        jTContasreceber.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Numero daParcela", "Data Recebimento", "Valor a Receber"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTContasreceber.setToolTipText("");
+        jTContasreceber.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTContasreceber.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTContasreceberMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jTContasreceber);
+
         javax.swing.GroupLayout jPConsulta1Layout = new javax.swing.GroupLayout(jPConsulta1);
         jPConsulta1.setLayout(jPConsulta1Layout);
         jPConsulta1Layout.setHorizontalGroup(
             jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 697, Short.MAX_VALUE)
+            .addGroup(jPConsulta1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane7)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane5)
+                        .addGroup(jPConsulta1Layout.createSequentialGroup()
+                            .addComponent(jCbPesquisa3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTFPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBPesquisar1)))
+                    .addComponent(jScrollPane6))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPConsulta1Layout.setVerticalGroup(
             jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 494, Short.MAX_VALUE)
+            .addGroup(jPConsulta1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCbPesquisa3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesquisar1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jTPVenda.addTab("Consulta Venda", jPConsulta1);
@@ -1077,6 +1192,48 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTItensCompraMouseClicked
 
+    private void jBPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisar1ActionPerformed
+        
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        String cliente = jTFPesquisa1.getText().toUpperCase();
+        switch (jCbPesquisa3.getSelectedIndex()) {
+            case 0: {
+                vendaDAO.consulta(venda);
+                preencher.PreencherJtableGenerico(jTvenda, venda.getRetorno());
+                return;
+            }
+            case 1: {
+                vendaDAO.consultacliente(venda, cliente);
+                preencher.PreencherJtableGenerico(jTvenda, venda.getRetorno());
+                return;
+            }
+        }
+    }//GEN-LAST:event_jBPesquisar1ActionPerformed
+
+    private void jTvendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTvendaMouseClicked
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+
+        int linha = jTvenda.getSelectedRow();
+        retornaId = jTvenda.getValueAt(linha, 0).toString();
+        Integer idVENDA = Integer.parseInt(retornaId);
+        
+        itensVendaDAO.consulta(itensVenda, idVENDA);
+        preencher.PreencherJtableGenerico(jTItensVenda, itensVenda.getRetorno());
+        
+        contasReceberDAO.consulta(contasReceber, idVENDA);
+        preencher.PreencherJtableGenerico(jTContasreceber, contasReceber.getRetorno());
+        
+        
+    }//GEN-LAST:event_jTvendaMouseClicked
+
+    private void jTItensVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTItensVendaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTItensVendaMouseClicked
+
+    private void jTContasreceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTContasreceberMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTContasreceberMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1122,6 +1279,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBIncluir;
     private javax.swing.JButton jBPesquisar;
+    private javax.swing.JButton jBPesquisar1;
     private javax.swing.JButton jBPesquisarCliente;
     private javax.swing.JButton jBPesquisarProduto;
     private javax.swing.JButton jBPesquisarTpMovto;
@@ -1132,6 +1290,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JButton jBgravar1;
     private javax.swing.JButton jBincluir1;
     private javax.swing.JComboBox jCbPesquisa2;
+    private javax.swing.JComboBox jCbPesquisa3;
     private javax.swing.JFormattedTextField jFTFdt_cadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -1154,8 +1313,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTCompra;
     private javax.swing.JTable jTContasPagar;
+    private javax.swing.JTable jTContasreceber;
     private javax.swing.JTextField jTFData;
     private javax.swing.JTextField jTFDsCliente;
     private javax.swing.JTextField jTFDsProduto;
@@ -1169,13 +1332,16 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jTFIdTpMovto;
     private javax.swing.JTextField jTFIdVenda;
     private javax.swing.JTextField jTFPesquisa;
+    private javax.swing.JTextField jTFPesquisa1;
     private javax.swing.JTextField jTFQuantidade;
     private javax.swing.JTextField jTFVlProduto;
     private javax.swing.JTextField jTFVlTotal;
     private javax.swing.JTextField jTFVlTotalVenda;
     private javax.swing.JTable jTItensCompra;
+    private javax.swing.JTable jTItensVenda;
     private javax.swing.JTabbedPane jTPVenda;
     private javax.swing.JTable jTVenda;
+    private javax.swing.JTable jTvenda;
     // End of variables declaration//GEN-END:variables
 
     private void estadobotoes(boolean situacao) {

@@ -58,5 +58,26 @@ public class VendaDAO {
         return (idV);
 
     }
+
+    public void consulta(Venda venda) {
+  
+         String sql = "SELECT  V.IDVENDA, V.DTVENDA, P.DSPESSOA"
+                + " FROM VENDA V JOIN CLIENTE C ON V.IDCLIENTE = C.IDPESSOA,"
+                + " CLIENTE CO JOIN PESSOA P ON CO.IDPESSOA = P.IDPESSOA";
+
+        conn.executeSQL(sql);
+        venda.setRetorno(conn.resultset);
+    }
+
+    public void consultacliente(Venda venda, String cliente) {
+   
+        String sql = "SELECT  V.IDVENDA, V.DTVENDA, P.DSPESSOA "
+                + " FROM VENDA V JOIN CLIENTE C ON V.IDCLIENTE = C.IDPESSOA,"
+                + " CLIENTE CO JOIN PESSOA P ON CO.IDPESSOA = P.IDPESSOA"
+                + " WHERE  P.DSPESSOA LIKE'%" +cliente+ "%'";
+
+        conn.executeSQL(sql);
+        venda.setRetorno(conn.resultset);
+    }
     
 }

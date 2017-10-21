@@ -56,7 +56,7 @@ public class ContasReceberDAO {
     
        String sql = "SELECT DISTINCT CR.IDCONTASRECEBER,CR.IDVENDA, CR.IDPARCELA, CR.DTRECEBER, CR.VLRECEBER"
                 + " FROM CONTASRECEBER CR JOIN VENDA V ON CR.IDVENDA = V.IDVENDA"
-                + " WHERE V.IDCLIENTE = " + idCliente + " ORDER BY CR.IDCONTASRECEBER";
+                + " WHERE V.IDCLIENTE = " + idCliente + " AND CR.PAGO = 'N' ORDER BY CR.IDCONTASRECEBER";
         conn.executeSQL(sql);
         contasReceber.setRetorno(conn.resultset);
     }

@@ -29,7 +29,7 @@ public class ContasPagarDAO {
     public void alterar(ContasPagar contasPagar) {
         String sql = "UPDATE CONTASPAGAR SET"
                 + " IDCONTASPAGAR = " + contasPagar.getIDCONTASPAGAR() + ","
-                + " IDCOMRPA = " + contasPagar.getIDCOMRPA() + ","
+                + " IDCOMPRA = " + contasPagar.getIDCOMRPA() + ","
                 + " DTPAGAR = '" + contasPagar.getDTPAGAR() + "',"
                 + " VLPAGAR = " + contasPagar.getVLPAGAR() + ","
                 + " IDPARCELA = " + contasPagar.getIDPARCELA() + ","
@@ -48,6 +48,15 @@ public class ContasPagarDAO {
         String sql = " SELECT DISTINCT CP.IDCONTASPAGAR,CP.IDPARCELA, CP.DTPAGAR, CP.VLPAGAR"
                 + " FROM CONTASPAGAR CP JOIN COMPRA C ON CP.IDCOMPRA = C.IDCOMPRA"
                 + " WHERE C.IDCOMPRA = " + idCompra;
+        conn.executeSQL(sql);
+        contasPagar.setRetorno(conn.resultset);
+    }
+
+    public void consultageral(ContasPagar contasPagar, Integer idfornecedor) {
+ 
+        String sql = "SELECT DISTINCT CP.IDCONTASPAGAR,CP.IDCOMPRA, CP.IDPARCELA, CP.DTPAGAR, CP.VLPAGAR"
+                + " FROM CONTASPAGAR CP JOIN COMPRA C ON CP.IDCOMPRA = C.IDCOMPRA"
+                + " WHERE C.IDFORNECEDOR = " + idfornecedor + " AND CP.PAGO = 'N' ORDER BY CP.IDCONTASPAGAR";
         conn.executeSQL(sql);
         contasPagar.setRetorno(conn.resultset);
     }

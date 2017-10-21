@@ -11,7 +11,8 @@ public class Pagamento {
     private Integer IDPAGAMENTO;
     private Integer IDCONTASPAGAR;
     private Double VLPAGO;
-    private String TPPAGO;
+    private Double PERDESCONTO;
+    private Double PERJUROS;
     
       private ResultSet retorno;
 
@@ -39,14 +40,6 @@ public class Pagamento {
         this.VLPAGO = VLPAGO;
     }
 
-    public String getTPPAGO() {
-        return TPPAGO;
-    }
-
-    public void setTPPAGO(String TPPAGO) {
-        this.TPPAGO = TPPAGO;
-    }
-
     public ResultSet getRetorno() {
         return retorno;
     }
@@ -54,6 +47,23 @@ public class Pagamento {
     public void setRetorno(ResultSet retorno) {
         this.retorno = retorno;
     }
+
+    public Double getPERDESCONTO() {
+        return PERDESCONTO;
+    }
+
+    public void setPERDESCONTO(Double PERDESCONTO) {
+        this.PERDESCONTO = PERDESCONTO;
+    }
+
+    public Double getPERJUROS() {
+        return PERJUROS;
+    }
+
+    public void setPERJUROS(Double PERJUROS) {
+        this.PERJUROS = PERJUROS;
+    }
       
+    
       
 }

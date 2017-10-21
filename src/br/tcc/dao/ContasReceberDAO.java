@@ -28,13 +28,13 @@ public class ContasReceberDAO {
 
     public void alterar(ContasReceber contasReceber) {
         String sql = "UPDATE CONTASRECEBER SET"
-                + " IDCONTASPAGAR = " + contasReceber.getIDCONTASRECEBER() + ","
-                + " IDCOMRPA = " + contasReceber.getIDVENDA() + ","
-                + " DTPAGAR = '" + contasReceber.getDTRECEBER() + "',"
-                + " VLPAGAR = " + contasReceber.getVLRECEBER() + ","
+                + " IDCONTASRECEBER = " + contasReceber.getIDCONTASRECEBER() + ","
+                + " IDVENDA = " + contasReceber.getIDVENDA() + ","
+                + " DTRECEBER = '" + contasReceber.getDTRECEBER() + "',"
+                + " VLRECEBER = " + contasReceber.getVLRECEBER() + ","
                 + " IDPARCELA = " + contasReceber.getIDPARCELA() + ","
                 + " PAGO = '" + contasReceber.getPAGO() + "'"
-                + " WHERE IDCONTASPAGAR = " + contasReceber.getIDCONTASRECEBER();
+                + " WHERE IDCONTASRECEBER = " + contasReceber.getIDCONTASRECEBER();
         conn.incluirSQL(sql);
     }
 

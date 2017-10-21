@@ -91,7 +91,7 @@ public class ProdutoDAO {
 
     public Integer retornaUltimoId(Integer id) throws SQLException {
 
-        String sql = "SELECT IDPRODUTO FROM PRODUTO";
+        String sql = "SELECT MAX(IDPRODUTO) FROM PRODUTO";
         conn.executeSQL(sql);
 
         if (conn.resultset.last()) {

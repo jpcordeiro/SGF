@@ -2,6 +2,7 @@ package br.tcc.Interface;
 
 import br.tcc.ConsultaSimples.ConsultaCliente;
 import br.tcc.Validacoes.PreencherJtableGenerico;
+import br.tcc.Validacoes.RetornaDataAtual;
 import br.tcc.classe.Caixa;
 import br.tcc.classe.ContasReceber;
 import br.tcc.classe.Recebimento;
@@ -13,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +28,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
     RecebimentoDAO recebimentoDAO = new RecebimentoDAO();
     Caixa caixa = new Caixa();
     CaixaDAO caixaDAO = new CaixaDAO();
+    RetornaDataAtual retornadata = new RetornaDataAtual();
 
     public InterfaceCaixa() {
         initComponents();
@@ -35,9 +36,13 @@ public class InterfaceCaixa extends javax.swing.JFrame {
         jTFVlPagar.setEnabled(false);
         jTFTotal.setEnabled(false);
         jTFVlTroco.setEnabled(false);
+        jTFdata.setEnabled(false);
         jTFVlPagar.setText("0,0");
         jTFTotal.setText("0,0");
         jTFVlTroco.setText("0,0");
+        jTFDesconto.setText("0.0");
+        jTFJuros.setText("0.0");
+        retornadata.RetornaDataAtual(jTFdata);
 
     }
 
@@ -76,6 +81,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
         jBComprovante = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jTFTotal = new javax.swing.JTextField();
+        jTFdata = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
 
         jMenuItem1.setText("Carregar Dados");
@@ -234,14 +240,6 @@ public class InterfaceCaixa extends javax.swing.JFrame {
             .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPCadastroLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(34, 34, 34)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,9 +249,6 @@ public class InterfaceCaixa extends javax.swing.JFrame {
                         .addComponent(jBPesquisarCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTFDsCliente))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBPesquisarParcelas))
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
@@ -285,16 +280,32 @@ public class InterfaceCaixa extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jTFVlTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTFVlTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel2)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBPesquisarParcelas, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTFdata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPCadastroLayout.setVerticalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPCadastroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)))
+                    .addComponent(jTFdata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -406,7 +417,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         boolean sele = false;
         for (int i = 1; i <= totlinha; i++) {
             try {
-                sele = (boolean) jTbCaixa.getValueAt(conta, 4);
+                sele = (boolean) jTbCaixa.getValueAt(conta, 5);
             } catch (Exception e) {
                 if (sele != false) {
                     sele = false;
@@ -414,7 +425,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
             if (sele == true) {
 
-                preco = (String) jTbCaixa.getValueAt(conta, 3);
+                preco = (String) jTbCaixa.getValueAt(conta, 4);
                 valor = Double.parseDouble(preco);
                 total = total + valor;
                 jTFVlPagar.setText(String.valueOf(total));
@@ -438,7 +449,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         boolean sele = false;
         for (int i = 1; i <= totlinha; i++) {
             try {
-                sele = (boolean) jTbCaixa.getValueAt(conta, 4);
+                sele = (boolean) jTbCaixa.getValueAt(conta, 5);
             } catch (Exception e) {
                 if (sele != false) {
                     sele = false;
@@ -448,15 +459,15 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
                 String IdContas = (String) jTbCaixa.getValueAt(conta, 0);
                 String IdCompra = (String) jTbCaixa.getValueAt(conta, 1);
-                String dtPagar = (String) jTbCaixa.getValueAt(conta, 2);
-                String VlPagar = (String) jTbCaixa.getValueAt(conta, 3);
-                String IdParcela = (String) jTbCaixa.getValueAt(conta, 4);
+                String dtPagar = (String) jTbCaixa.getValueAt(conta, 3);
+                String VlPagar = (String) jTbCaixa.getValueAt(conta, 4);
+                String IdParcela = (String) jTbCaixa.getValueAt(conta, 2);
                 String Pago = "S";
 
                 contasReceber.setIDCONTASRECEBER(Integer.parseInt(IdContas));
                 contasReceber.setIDVENDA(Integer.parseInt(IdCompra));
                 contasReceber.setDTRECEBER(dtPagar);
-                contasReceber.setVLRECEBER(valor);
+                contasReceber.setVLRECEBER(Double.parseDouble(VlPagar));
                 contasReceber.setIDPARCELA(Integer.parseInt(IdParcela));
                 contasReceber.setPAGO(Pago);
 
@@ -472,10 +483,8 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
                 recebimentoDAO.incluir(recebimento);
 
-                Date data = new Date();
-                SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-                formatador.format(data);
                 
+                String data = jTFdata.getText();
                 String InEntrada = "S";
                 
                 Integer idR = null;
@@ -485,7 +494,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    caixa.setDTPAGO(String.valueOf(data));
+                    caixa.setDTPAGO(data);
                     caixa.setINENTRADA(InEntrada);
                     caixa.setIDRECEBIMENTO(idR);
                     
@@ -620,6 +629,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JTextField jTFVlPagar;
     private javax.swing.JTextField jTFVlTroco;
     private javax.swing.JTextField jTFVldinheiro;
+    private javax.swing.JTextField jTFdata;
     private javax.swing.JTabbedPane jTPCidade;
     private javax.swing.JTable jTbCaixa;
     private javax.swing.JTable jTbParcela;

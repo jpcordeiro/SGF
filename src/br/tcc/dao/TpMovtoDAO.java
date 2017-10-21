@@ -40,7 +40,7 @@ public class TpMovtoDAO {
                 + " MOVESTOQUE = '" + tipoMovto.getMOVESTOQUE() + "',"
                 + " MOVFINANCEIRO = '" + tipoMovto.getMOVFINANCEIRO() + "',"
                 + " TPMOVTO = '" + tipoMovto.getTPMOVTO() + "',"
-                + " DSMVTO = '" + tipoMovto.getDSMVTO()
+                + " DSMVTO = '" + tipoMovto.getDSMVTO() + "'"
                 + " WHERE IDTPMOVTO = " + tipoMovto.getIDTPMOVTO();
         conn.incluirSQL(sql);
     }

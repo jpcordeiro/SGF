@@ -13,6 +13,7 @@ public class ContasReceber {
     private String DTRECEBER;
     private Double VLRECEBER;
     private Integer IDPARCELA;
+    private String PAGO;
     
     private ResultSet retorno;
 
@@ -62,6 +63,14 @@ public class ContasReceber {
 
     public void setRetorno(ResultSet retorno) {
         this.retorno = retorno;
+    }
+
+    public String getPAGO() {
+        return PAGO;
+    }
+
+    public void setPAGO(String PAGO) {
+        this.PAGO = PAGO;
     }
     
     

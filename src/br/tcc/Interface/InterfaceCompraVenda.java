@@ -851,6 +851,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
                         contasReceber.setVLRECEBER(VlParcela);
                         contasReceber.setIDPARCELA(i);
+                        contasReceber.setPAGO("N");
 
                         contasReceberDAO.incluir(contasReceber);
                     }
@@ -879,7 +880,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                             movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenVenda));
                             qtd = qtd - Integer.parseInt(QtdProd);
                             movtoProduto.setQTDPRODUTO(qtd);
-                            movtoProdutoDAO.alterar(movtoProduto);
+                            movtoProdutoDAO.incluir(movtoProduto);
 
                         } else {
                             JOptionPane.showMessageDialog(null, "Produto não existe!");
@@ -952,6 +953,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
                 contasPagar.setVLPAGAR(VlParcela);
                 contasPagar.setIDPARCELA(i);
+                contasPagar.setPAGO("N");
 
                 contasPagarDAO.incluir(contasPagar);
             }

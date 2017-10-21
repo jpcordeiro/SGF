@@ -13,6 +13,7 @@ public class ContasPagar {
     private String DTPAGAR;
     private Double VLPAGAR;
     private Integer IDPARCELA;
+    private String PAGO;
     
     private ResultSet retorno;
 
@@ -62,6 +63,14 @@ public class ContasPagar {
 
     public void setIDPARCELA(Integer IDPARCELA) {
         this.IDPARCELA = IDPARCELA;
+    }
+
+    public String getPAGO() {
+        return PAGO;
+    }
+
+    public void setPAGO(String PAGO) {
+        this.PAGO = PAGO;
     }
     
     

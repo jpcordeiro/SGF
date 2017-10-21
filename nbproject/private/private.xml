@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/ConsultaSimples/ConsultaProdutoCompVend.java</file>
             <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/Interface/InterfaceCompraVenda.java</file>
-            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/dao/ProdutoDAO.java</file>
-            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/ConsultaSimples/ConsultaProduto.java</file>
-            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/dao/MovtoProdutoDAO.java</file>
+            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/Interface/InterfaceMovCaixa.java</file>
+            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/Interface/InterfaceCaixa.java</file>
+            <file>file:/C:/Users/JOÃO%20PAULO%20CORDEIRO/Documents/sgf/src/br/tcc/dao/ContasReceberDAO.java</file>
         </group>
     </open-files>
 </project-private>

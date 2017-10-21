@@ -12,6 +12,7 @@ public class Compra {
     private String DTVENDA;
     private Integer IDFORNECEDOR;
     private Integer IDFORMAPGTO;
+
     
     private ResultSet retorno;
 
@@ -54,6 +55,10 @@ public class Compra {
     public void setRetorno(ResultSet retorno) {
         this.retorno = retorno;
     }
+
+  
+    
+    
 
     
 }

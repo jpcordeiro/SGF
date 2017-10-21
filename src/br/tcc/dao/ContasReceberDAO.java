@@ -21,7 +21,8 @@ public class ContasReceberDAO {
                 + contasReceber.getIDVENDA() + ",'"
                 + contasReceber.getDTRECEBER() + "',"
                 + contasReceber.getVLRECEBER() + ","
-                + contasReceber.getIDPARCELA() + ")";
+                + contasReceber.getIDPARCELA() + ",'"
+                + contasReceber.getPAGO() + "')";
         conn.incluirSQL(sql);
     }
 
@@ -31,7 +32,8 @@ public class ContasReceberDAO {
                 + " IDCOMRPA = " + contasReceber.getIDVENDA() + ","
                 + " DTPAGAR = '" + contasReceber.getDTRECEBER() + "',"
                 + " VLPAGAR = " + contasReceber.getVLRECEBER() + ","
-                + " IDPARCELA = " + contasReceber.getIDPARCELA()
+                + " IDPARCELA = " + contasReceber.getIDPARCELA() + ","
+                + " PAGO = '" + contasReceber.getPAGO() + "'"
                 + " WHERE IDCONTASPAGAR = " + contasReceber.getIDCONTASRECEBER();
         conn.incluirSQL(sql);
     }
@@ -43,9 +45,18 @@ public class ContasReceberDAO {
 
     public void consulta(ContasReceber contasReceber, Integer idVENDA) {
 
-        String sql = "SELECT DISTINCT CR.IDCONTASRECEBER,CR.IDPARCELA, CR.DTRECEBER, CR.VLRECEBER"
+        String sql = "SELECT DISTINCT CR.IDCONTASRECEBER, CR.IDPARCELA, CR.DTRECEBER, CR.VLRECEBER"
                 + " FROM CONTASRECEBER CR JOIN VENDA V ON CR.IDVENDA = V.IDVENDA"
                 + " WHERE V.IDVENDA = " + idVENDA;
+        conn.executeSQL(sql);
+        contasReceber.setRetorno(conn.resultset);
+    }
+
+    public void consultageral(ContasReceber contasReceber, Integer idCliente) {
+    
+       String sql = "SELECT DISTINCT CR.IDCONTASRECEBER,CR.IDVENDA, CR.IDPARCELA, CR.DTRECEBER, CR.VLRECEBER"
+                + " FROM CONTASRECEBER CR JOIN VENDA V ON CR.IDVENDA = V.IDVENDA"
+                + " WHERE V.IDCLIENTE = " + idCliente + " ORDER BY CR.IDCONTASRECEBER";
         conn.executeSQL(sql);
         contasReceber.setRetorno(conn.resultset);
     }

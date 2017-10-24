@@ -970,7 +970,8 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jBConfirmarCompraActionPerformed
 
     private void jBComprovante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprovante1ActionPerformed
-        // TODO add your handling code here:
+        
+   
     }//GEN-LAST:event_jBComprovante1ActionPerformed
 
     private void jTFJuros1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFJuros1FocusLost

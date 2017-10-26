@@ -14,6 +14,14 @@ import br.tcc.dao.ContasPagarDAO;
 import br.tcc.dao.ContasReceberDAO;
 import br.tcc.dao.PagamentoDAO;
 import br.tcc.dao.RecebimentoDAO;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,7 +60,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
         jTFDesconto.setText("0.0");
         jTFJuros.setText("0.0");
         retornadata.RetornaDataAtual(jTFdata);
-        
+
         jTFCodigo1.setEnabled(false);
         jTFVlPagar1.setEnabled(false);
         jTFTotal1.setEnabled(false);
@@ -99,7 +107,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTFJuros = new javax.swing.JTextField();
         jBConfirmar = new javax.swing.JButton();
-        jBComprovante = new javax.swing.JButton();
+        jBOrcamento = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jTFTotal = new javax.swing.JTextField();
         jTFdata = new javax.swing.JTextField();
@@ -270,10 +278,10 @@ public class InterfaceCaixa extends javax.swing.JFrame {
             }
         });
 
-        jBComprovante.setText("Comprovante");
-        jBComprovante.addActionListener(new java.awt.event.ActionListener() {
+        jBOrcamento.setText("Orçamento");
+        jBOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBComprovanteActionPerformed(evt);
+                jBOrcamentoActionPerformed(evt);
             }
         });
 
@@ -300,7 +308,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jBComprovante))
+                                .addComponent(jBOrcamento))
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -394,7 +402,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBComprovante, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -771,9 +779,46 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     }//GEN-LAST:event_jBConfirmarActionPerformed
 
-    private void jBComprovanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprovanteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBComprovanteActionPerformed
+    private void jBOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrcamentoActionPerformed
+        // criação do documento
+        Document document = new Document();
+
+        try {
+
+            PdfWriter.getInstance(document, new FileOutputStream("D:\\PDF_DevMedia7.pdf"));
+            document.open();
+
+            // adicionando um parágrafo no documento
+            Paragraph p = new Paragraph("Comprovante não fiscal");
+            p.setAlignment(1);
+            document.add(p);
+            p = new Paragraph("     ");
+            document.add(p);
+
+            PdfPTable table = new PdfPTable(3);
+
+            PdfPCell cel1 = new PdfPCell(new Paragraph("RG"));
+            PdfPCell cel2 = new PdfPCell(new Paragraph("Nome"));
+            PdfPCell cel3 = new PdfPCell(new Paragraph("Sexo"));
+
+            table.addCell(cel1);
+            table.addCell(cel2);
+            table.addCell(cel3);
+
+           
+
+            table.addCell(cel1);
+            table.addCell(cel2);
+            table.addCell(cel3);
+            document.add(table);
+
+        } catch (DocumentException de) {
+            System.err.println(de.getMessage());
+        } catch (IOException ioe) {
+            System.err.println(ioe.getMessage());
+        }
+        document.close();
+    }//GEN-LAST:event_jBOrcamentoActionPerformed
 
     private void jBPesquisarParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarParcelasActionPerformed
 
@@ -929,9 +974,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 contasPagar.setPAGO(Pago);
 
                 contasPagarDAO.alterar(contasPagar);
-                
-                
-                
+
                 double vlpago = Double.parseDouble(jTFTotal1.getText());
                 double perjuros = Double.parseDouble(jTFJuros1.getText());
                 double perdesc = Double.parseDouble(jTFDesconto1.getText());
@@ -941,7 +984,6 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 pagamento.setPERJUROS(perjuros);
 
                 pagamentoDAO.incluir(pagamento);
-                
 
                 String data = jTFdata.getText();
                 String InEntrada = "N";
@@ -970,12 +1012,12 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jBConfirmarCompraActionPerformed
 
     private void jBComprovante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprovante1ActionPerformed
-        
-   
+
+
     }//GEN-LAST:event_jBComprovante1ActionPerformed
 
     private void jTFJuros1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFJuros1FocusLost
-       String valor = jTFVlPagar1.getText();
+        String valor = jTFVlPagar1.getText();
         String juros = jTFJuros1.getText();
         if (!jTFVlPagar1.equals("")) {
             if (!jTFJuros1.equals("")) {
@@ -1038,10 +1080,10 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBComprovante;
     private javax.swing.JButton jBComprovante1;
     private javax.swing.JButton jBConfirmar;
     private javax.swing.JButton jBConfirmarCompra;
+    private javax.swing.JButton jBOrcamento;
     private javax.swing.JButton jBPesquisarCliente;
     private javax.swing.JButton jBPesquisarFornecedor;
     private javax.swing.JButton jBPesquisarParcelas;

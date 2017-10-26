@@ -123,7 +123,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jBConfirmar" min="-2" pref="82" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jBComprovante" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBOrcamento" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -249,7 +249,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jBConfirmar" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
-                          <Component id="jBComprovante" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
+                          <Component id="jBOrcamento" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -417,12 +417,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBConfirmarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jBComprovante">
+            <Component class="javax.swing.JButton" name="jBOrcamento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Comprovante"/>
+                <Property name="text" type="java.lang.String" value="Or&#xe7;amento"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBComprovanteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBOrcamentoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">

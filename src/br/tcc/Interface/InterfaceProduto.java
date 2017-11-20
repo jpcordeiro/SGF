@@ -257,11 +257,11 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Excluir Item", "Código", "Produto", "Quantidade"
+                "Código", "Produto", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -428,7 +428,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Família", "Produto"
+                "Código", "Produto", "Tipo de Produto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -566,16 +566,16 @@ public class InterfaceProduto extends javax.swing.JFrame {
 
                     Integer idP = null;
                     try {
-                        idP = produtoDAO.retornaUltimoId(idP);
+                       idP = produtoDAO.retornaUltimoId(idP);
                     } catch (SQLException ex) {
                         Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+                       
                     int totlinha = jTComposicao.getRowCount();
                     int conta = 0;
                     for (int i = 1; i <= totlinha; i++) {
-                        String IdProd = (String) jTComposicao.getValueAt(conta, 1);
-                        String QtdProd = (String) jTComposicao.getValueAt(conta, 3);
+                        String IdProd = (String) jTComposicao.getValueAt(conta, 0);
+                        String QtdProd = (String) jTComposicao.getValueAt(conta, 2);
                         composicao.setIDPRODUTO(idP);
                         composicao.setIDPROD(Integer.parseInt(IdProd));
                         composicao.setQTDPRODUTO(Double.parseDouble(QtdProd));                       
@@ -641,10 +641,9 @@ public class InterfaceProduto extends javax.swing.JFrame {
         if (alterar == 0) {
             //Adcionar na lista
             TabComposicao.setNumRows(totlinha + 1);
-            TabComposicao.setValueAt((false), totlinha, 0);
-            TabComposicao.setValueAt((jTFIdProduto1.getText()), totlinha, 1);
-            TabComposicao.setValueAt((jTFProduto.getText()), totlinha, 2);
-            TabComposicao.setValueAt((jTFQtdProdComp.getText()), totlinha, 3);
+            TabComposicao.setValueAt((jTFIdProduto1.getText()), totlinha, 0);
+            TabComposicao.setValueAt((jTFProduto.getText()), totlinha, 1);
+            TabComposicao.setValueAt((jTFQtdProdComp.getText()), totlinha, 2);
 
             jTFIdProduto1.setText("");
             jTFProduto.setText("");
@@ -653,9 +652,9 @@ public class InterfaceProduto extends javax.swing.JFrame {
         } else if (alterar == 1) {
             //caso for alteração
 
-            String qtde = (String) jTComposicao.getValueAt(linha, 3);
+            String qtde = (String) jTComposicao.getValueAt(linha, 2);
             double total = Double.parseDouble(qtde) + Double.parseDouble(jTFQtdProdComp.getText());
-            TabComposicao.setValueAt(total, linha, 3);
+            TabComposicao.setValueAt(total, linha, 2);
 
             jTFIdProduto1.setText("");
             jTFDsProduto.setText("");

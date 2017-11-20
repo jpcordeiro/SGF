@@ -6,6 +6,7 @@
 package br.tcc.Interface;
 
 import br.tcc.ConsultaSimples.ConsultaProduto;
+import br.tcc.ConsultaSimples.ConsultaProdutoCompVend;
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
 import br.tcc.Validacoes.RetornaDataAtual;
@@ -460,7 +461,7 @@ public class InterfacePrecoVenda extends javax.swing.JFrame {
 
     private void jBPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarMouseClicked
 
-        final ConsultaProduto consProd = new ConsultaProduto();
+        final ConsultaProdutoCompVend consProd = new ConsultaProdutoCompVend();
 
         consProd.setVisible(true);
         consProd.addWindowListener(new java.awt.event.WindowAdapter() {

@@ -363,9 +363,11 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
                 jTFDsFormaPgto.grabFocus();
                 return;
             }else{
+                formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
                 formaPgto.setDSFORMAPGTO(jTFDsFormaPgto.getText().toUpperCase());
                 formaPgto.setTPSITUACAO(jCBsituacao.getSelectedIndex());
                 formaPgto.setNRINTERVALO(Integer.parseInt(jTFNrIntervalo.getText()));
+                formaPgto.setQTDPARCELA(Integer.parseInt(jTFQdtParcelas.getText()));
                 formaPgtoDAO.alterar(formaPgto);
                 lcampos.LimparCampos(jPCadastro);
                 estadobotoes(false);
@@ -439,15 +441,21 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
         if (evt.getClickCount() == 1) {
             int linha = jTbPesquisa.getSelectedRow();
             String ID = (String) jTbPesquisa.getValueAt(linha, 0);
+            String Descricao = (String) jTbPesquisa.getValueAt(linha, 1);
+            String situacao = (String) jTbPesquisa.getValueAt(linha, 2);
+            String intervalo = (String) jTbPesquisa.getValueAt(linha, 3);
+            String parcelas = (String) jTbPesquisa.getValueAt(linha, 4);
+            
 
-            formaPgto.setIDFORMAPGTO(Integer.parseInt(ID));
+            jTFIdFormaPgto.setText(ID);
+            jTFDsFormaPgto.setText(Descricao);
+            jCBsituacao.setSelectedIndex(Integer.parseInt(situacao));
+            jTFNrIntervalo.setText(intervalo);
+            jTFQdtParcelas.setText(parcelas);
             
-            formaPgtoDAO.retornadados(formaPgto);  
             
-            jTFIdFormaPgto.setText(Integer.toString(formaPgto.getIDFORMAPGTO()));
-            jTFDsFormaPgto.setText(formaPgto.getDSFORMAPGTO());
-            jCBsituacao.setSelectedIndex(formaPgto.getTPSITUACAO());
-            jTFNrIntervalo.setText(formaPgto.getNRINTERVALO().toString());
+            
+            
         }
         estadobotoes(false);
         jTPFormaPgto.setSelectedIndex(0);

@@ -94,7 +94,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jTFrazaosocial = new javax.swing.JTextField();
-        jTFNrCnpj = new javax.swing.JFormattedTextField();
+        jTFcnpj = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jTFproduto = new javax.swing.JTextField();
@@ -246,13 +246,13 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jLabel16.setText("Razão Social");
 
         try {
-            jTFNrCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+            jTFcnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jTFNrCnpj.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTFcnpj.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTFNrCnpjFocusLost(evt);
+                jTFcnpjFocusLost(evt);
             }
         });
 
@@ -266,7 +266,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(jLabel16)
                     .addComponent(jTFrazaosocial, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFcnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPpjuridicaLayout.setVerticalGroup(
@@ -275,7 +275,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFNrCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFcnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -610,9 +610,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                                     .addComponent(jLabel17))
                                 .addGap(30, 30, 30)
                                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel15)
                                     .addGroup(jPcadastroLayout.createSequentialGroup()
                                         .addComponent(jTFVlLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -818,7 +816,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             if (tpPessoa.equals("F")) {
                 jRBFisico.setSelected(true);
 
-                jTFNrCnpj.setEnabled(false);
+                jTFcnpj.setEnabled(false);
                 jTFrazaosocial.setEnabled(false);
 
                 jTFNrCpf.setText(pfisica.getNRCPF());
@@ -837,7 +835,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
                 jCBSexo.setEnabled(false);
 
                 jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
-                jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+                jTFcnpj.setText(pjuridica.getNRCNPJ());
             }
             jTFDtNasc.setText(pessoa.getDTNASC());
             jTFDtCadastro.setText(fornecedor.getDTCADASTRO());
@@ -997,13 +995,13 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             } else {
                 pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
                 fornecedor.setTPPESSOA("J");
-                if (jTFNrCnpj.getText().equals("")) {
+                if (jTFcnpj.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
-                    jTFNrCnpj.grabFocus();
+                    jTFcnpj.grabFocus();
                     return;
                 } else {
-                    String cnpj = jTFNrCnpj.getText();
-                    pjuridica.setNRCNPJ(jTFNrCnpj.getText());
+                    String cnpj = jTFcnpj.getText();
+                    pjuridica.setNRCNPJ(jTFcnpj.getText());
 
                 }
                 if (jTFrazaosocial.getText().equals("")) {
@@ -1162,13 +1160,13 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
             } else {
                 pjuridica.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
                 fornecedor.setTPPESSOA("J");
-                if (jTFNrCnpj.getText().equals("")) {
+                if (jTFcnpj.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Informe o número do CNPJ");
-                    jTFNrCnpj.grabFocus();
+                    jTFcnpj.grabFocus();
                     return;
                 } else {
-                    String cnpj = jTFNrCnpj.getText();
-                    pjuridica.setNRCNPJ(jTFNrCnpj.getText());
+                    String cnpj = jTFcnpj.getText();
+                    pjuridica.setNRCNPJ(jTFcnpj.getText());
 
                 }
                 if (jTFrazaosocial.getText().equals("")) {
@@ -1312,64 +1310,83 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         return;
     }//GEN-LAST:event_jTitensMouseClicked
 
-    private void jTFNrCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCnpjFocusLost
-        char[] cnpj = jTFNrCnpj.getText().toCharArray();
+    private void jTFcnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFcnpjFocusLost
+        char[] cnpj = jTFcnpj.getText().toCharArray();
         int qtdCnpj = cnpj.length;
 
-        if (jTFNrCnpj.equals("00000000000000") || jTFNrCnpj.equals("11111111111111") ||
-            jTFNrCnpj.equals("22222222222222") || jTFNrCnpj.equals("33333333333333") ||
-            jTFNrCnpj.equals("44444444444444") || jTFNrCnpj.equals("55555555555555") ||
-            jTFNrCnpj.equals("66666666666666") || jTFNrCnpj.equals("77777777777777") ||
-            jTFNrCnpj.equals("88888888888888") || jTFNrCnpj.equals("99999999999999") ||
-            (qtdCnpj != 14)){
-            jTFNrCnpj.setText("");
-            jTFNrCnpj.grabFocus();
+        if (jTFcnpj.equals("00000000000000") || jTFcnpj.equals("11111111111111")
+                || jTFcnpj.equals("22222222222222") || jTFcnpj.equals("33333333333333")
+                || jTFcnpj.equals("44444444444444") || jTFcnpj.equals("55555555555555")
+                || jTFcnpj.equals("66666666666666") || jTFcnpj.equals("77777777777777")
+                || jTFcnpj.equals("88888888888888") || jTFcnpj.equals("99999999999999")
+                || (qtdCnpj != 18)) {
+            jTFcnpj.setText("");
+            jTFcnpj.grabFocus();
             JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
-        }else{
+        } else {
 
             char dig13, dig14;
             int sm, result, dig, peso;
 
             sm = 0;
             peso = 2;
-            for (int i=11; i>=0; i--) {
+            for (int i = 14; i >= 0; i--) {
 
-                dig = (int)(jTFNrCnpj.getText().charAt(i) - 48);
-                sm = sm + (dig * peso);
-                peso = peso + 1;
-                if (peso == 10)
-                peso = 2;
+                dig = (int) (jTFcnpj.getText().charAt(i) - 48);
+                if (dig != -1) {
+                    if (dig != -2) {
+                        if (dig != -3) {
+
+                            sm = sm + (dig * peso);
+                            peso = peso + 1;
+                            if (peso == 10) {
+                                peso = 2;
+                            }
+                        }
+                    }
+                }
             }
 
             result = sm % 11;
-            if ((result == 0) || (result == 1))
-            dig13 = '0';
-            else dig13 = (char)((11-result) + 48);
+            if ((result == 0) || (result == 1)) {
+                dig13 = '0';
+            } else {
+                dig13 = (char) ((11 - result) + 48);
+            }
 
             // Calculo do 2o. Digito Verificador
             sm = 0;
             peso = 2;
-            for (int i=12; i>=0; i--) {
-                dig = (int)(jTFNrCnpj.getText().charAt(i)- 48);
-                sm = sm + (dig * peso);
-                peso = peso + 1;
-                if (peso == 10)
-                peso = 2;
+            for (int i = 16; i >= 0; i--) {
+                dig = (int) (jTFcnpj.getText().charAt(i) - 48);
+                if (dig != -1) {
+                    if (dig != -2) {
+                        if (dig != -3) {
+                            sm = sm + (dig * peso);
+                            peso = peso + 1;
+                            if (peso == 10) {
+                                peso = 2;
+                            }
+                        }
+                    }
+                }
             }
 
             result = sm % 11;
-            if ((result == 0) || (result == 1))
-            dig14 = '0';
-            else dig14 = (char)((11-result) + 48);
+            if ((result == 0) || (result == 1)) {
+                dig14 = '0';
+            } else {
+                dig14 = (char) ((11 - result) + 48);
+            }
 
             // Verifica se os dígitos calculados conferem com os dígitos informados.
-            if ((dig13 != jTFNrCnpj.getText().charAt(12)) || (dig14 != jTFNrCnpj.getText().charAt(13))){
-                jTFNrCnpj.setText("");
-                jTFNrCnpj.grabFocus();
+            if ((dig13 != jTFcnpj.getText().charAt(16)) || (dig14 != jTFcnpj.getText().charAt(17))) {
+                jTFcnpj.setText("");
+                jTFcnpj.grabFocus();
                 JOptionPane.showMessageDialog(null, "Digite um CNPJ Válido!");
             }
         }
-    }//GEN-LAST:event_jTFNrCnpjFocusLost
+    }//GEN-LAST:event_jTFcnpjFocusLost
 
     private void jTFNrCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNrCpfFocusLost
 
@@ -1470,14 +1487,14 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jTFrg.setEnabled(false);
         jCBSexo.setEnabled(false);
 
-        jTFNrCnpj.setEnabled(true);
+        jTFcnpj.setEnabled(true);
         jTFrazaosocial.setEnabled(true);
 
         String ID = jTFIdPessoa.getText();
 
         pjuridica.setIDPESSOA(Integer.parseInt(ID));
         pjdao.retornadados(pjuridica);
-        jTFNrCnpj.setText(pjuridica.getNRCNPJ());
+        jTFcnpj.setText(pjuridica.getNRCNPJ());
         jTFrazaosocial.setText(pjuridica.getRZSOCIAL());
 
     }//GEN-LAST:event_jRBJuridicaMouseClicked
@@ -1487,7 +1504,7 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
         jTFrg.setEnabled(true);
         jCBSexo.setEnabled(true);
 
-        jTFNrCnpj.setEnabled(false);
+        jTFcnpj.setEnabled(false);
         jTFrazaosocial.setEnabled(false);
 
         String ID = jTFIdPessoa.getText();
@@ -1598,12 +1615,12 @@ public class InterfaceFornecedor extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jTFFone1;
     private javax.swing.JTextField jTFIdPessoa;
     private javax.swing.JFormattedTextField jTFNrCep1;
-    private javax.swing.JFormattedTextField jTFNrCnpj;
     private javax.swing.JFormattedTextField jTFNrCpf;
     private javax.swing.JTextField jTFNumero;
     private javax.swing.JTextField jTFPesquisa;
     private javax.swing.JTextField jTFVlLimite;
     private javax.swing.JTextField jTFbairro;
+    private javax.swing.JFormattedTextField jTFcnpj;
     private javax.swing.JTextField jTFcomplemento;
     private javax.swing.JTextField jTFdsproduto;
     private javax.swing.JTextField jTFemail;

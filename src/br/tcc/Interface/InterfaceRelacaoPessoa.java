@@ -66,7 +66,6 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         jTFTpAmizade = new javax.swing.JTextField();
         jBPesquisar2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTFData = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
         jTFNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -75,6 +74,7 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         jTconsulta = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTrelacao = new javax.swing.JTable();
+        jTFData = new javax.swing.JFormattedTextField();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -166,12 +166,6 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
 
         jLabel1.setText("Data");
 
-        jTFData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFDataActionPerformed(evt);
-            }
-        });
-
         jPConsulta.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta"));
 
         jLabel2.setText("Digite o nome do cliente ");
@@ -253,12 +247,18 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTrelacao);
 
+        try {
+            jTFData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPRelacaoClienteLayout = new javax.swing.GroupLayout(jPRelacaoCliente);
         jPRelacaoCliente.setLayout(jPRelacaoClienteLayout);
         jPRelacaoClienteLayout.setHorizontalGroup(
             jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
@@ -268,28 +268,27 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
                                 .addComponent(jBPesquisar2)))
                         .addGap(13, 13, 13)
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19)))
+                            .addComponent(jLabel19)
+                            .addComponent(jTFnome)))
                     .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
-                            .addComponent(jCBcomemoracao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCBcomemoracao, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jTFNomerelacao, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTFNomerelacao, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jTFTpAmizade, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTFTpAmizade, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                                .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(2, 2, 2)
+                                .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBAdd)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -317,22 +316,22 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
                 .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel4)))
                     .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4))
-                    .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel20)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)))
                 .addGap(7, 7, 7)
                 .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFTpAmizade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFNomerelacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCBcomemoracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBAdd))
+                    .addComponent(jBAdd)
+                    .addComponent(jTFData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(122, 122, 122)
                 .addComponent(jPBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -357,7 +356,7 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(655, 591));
+        setSize(new java.awt.Dimension(667, 591));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -374,6 +373,7 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
         jTFData.setText("");
         jCBcomemoracao.setSelectedIndex(0);
         situacao = 1;
+        jTrelacao.removeAll();
         estadobotoes(true);
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
@@ -399,14 +399,14 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
                  rPessoa.setTPCOMEMORACAO(dscomemora);
                  rPessoa.setDTCOMEMORACAO(DtComemora);
                  rPessoa.setTPRELACAO(tpAmizade);
-                 rPessoaDAO.retornaUtlSeq(rPessoa);
-                 
-                 if(rPessoa.getIDSEQUENCIA() != null){
-                    Integer idSeq = rPessoa.getIDPESSOA();
-                    rPessoa.setIDSEQUENCIA(idSeq + 1);
-                 }else{
-                     rPessoa.setIDSEQUENCIA(1);
-                 }
+//                // rPessoaDAO.retornaUtlSeq(rPessoa);
+//                 
+//                 if(rPessoa.getIDSEQUENCIA() != null){
+//                    Integer idSeq = rPessoa.getIDSEQUENCIA();
+//                    rPessoa.setIDSEQUENCIA(idSeq + 1);
+//                 }else{
+//                     rPessoa.setIDSEQUENCIA(1);
+//                 }
                  conta = conta + 1;
                  rPessoaDAO.incluir(rPessoa);
              }
@@ -487,10 +487,6 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
     private void jTFTpAmizadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFTpAmizadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFTpAmizadeActionPerformed
-
-    private void jTFDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFDataActionPerformed
 
     private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
 
@@ -599,7 +595,7 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
     private javax.swing.JPanel jPRelacaoCliente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTFData;
+    private javax.swing.JFormattedTextField jTFData;
     private javax.swing.JTextField jTFIdPessoa;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFNomerelacao;

@@ -57,7 +57,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Valor"
+                "Código", "Descrição", "Tipo de Produto"
             }
         ) {
             boolean[] canEdit = new boolean [] {

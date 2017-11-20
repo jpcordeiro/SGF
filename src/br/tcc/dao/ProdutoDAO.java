@@ -4,6 +4,7 @@ import br.tcc.classe.Composicao;
 import br.tcc.classe.Produto;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,14 +45,13 @@ public class ProdutoDAO {
     }
 
     public void consulta(Produto produto) {
-        String sql = "SELECT IDPRODUTO, DSPRODUTO FROM PRODUTO ORDER BY IDPRODUTO";
+        String sql = "SELECT IDPRODUTO, DSPRODUTO, TPMATERIA FROM PRODUTO ORDER BY IDPRODUTO";
         conn.executeSQL(sql);
         produto.setRetorno(conn.resultset);
     }
 
     public void consultaSimple(Produto produto) {
-        String sql = "SELECT DISTINCT P.IDPRODUTO, P.DSPRODUTO, I.VLPRODUTO FROM PRODUTO P JOIN ITENSCOMPRA I " +
-                     " ON P.IDPRODUTO = I.IDPRODUTO";
+        String sql = "SELECT IDPRODUTO, DSPRODUTO, TPMATERIA FROM PRODUTO";
         conn.executeSQL(sql);
         produto.setRetorno(conn.resultset);
     }
@@ -89,15 +89,16 @@ public class ProdutoDAO {
         produto.setRetorno(conn.resultset);
     }
 
-    public Integer retornaUltimoId(Integer id) throws SQLException {
+    public Integer retornaUltimoId(Integer idP) throws SQLException {
 
-        String sql = "SELECT MAX(IDPRODUTO) FROM PRODUTO";
+        String sql = "SELECT IDPRODUTO FROM PRODUTO";
         conn.executeSQL(sql);
-
-        if (conn.resultset.last()) {
-            id = conn.resultset.getInt("IDPRODUTO");
+        
+        
+         if (conn.resultset.last()) {
+            idP = conn.resultset.getInt("IDPRODUTO");
         }
-        return (id);
+        return (idP);
 
     }
 

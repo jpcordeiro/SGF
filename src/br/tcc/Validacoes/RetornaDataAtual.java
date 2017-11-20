@@ -18,8 +18,8 @@ public class RetornaDataAtual {
       String mes = "" + String.valueOf(data.getMonth() +1);
       String ano = "" + (1900 + data.getYear());
       
-      if (Integer.parseInt(dia) <= 9){
-          dia = "0" + mes;
+      if (Integer.parseInt(mes) <= 9){
+          mes = "0" + mes;
       }
       if(Integer.parseInt(dia) <= 9){
           dia = "0" + dia;

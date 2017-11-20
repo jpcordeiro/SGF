@@ -3,7 +3,6 @@ package br.tcc.dao;
 import br.tcc.classe.FormaPgto;
 import br.tcc.conexao.ConexaoOracle;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,7 +29,7 @@ public class FormaPgtoDAO {
     public void alterar(FormaPgto formaPgto) {
         String sql = "UPDATE FORMAPGTO SET"
                 + " IDFORMAPGTO = " + formaPgto.getIDFORMAPGTO() + ","
-                + " DSFORMAPGTO = '" + formaPgto.getDSFORMAPGTO() + "',"
+                + " DSFROMAPGTO = '" + formaPgto.getDSFORMAPGTO() + "',"
                 + " TPSITUACAO = " + formaPgto.getTPSITUACAO() + "," 
                 + " NRINTERVALO = " + formaPgto.getNRINTERVALO() + ","
                 + " QTDPARCELA = " + formaPgto.getQTDPARCELA()
@@ -50,7 +49,7 @@ public class FormaPgtoDAO {
     }
 
     public void consultadescricao(FormaPgto formaPgto) {
-        String sql = "SELECT * FROM FORMAPGTO WHERE DSFORMAPGTO LIKE '%"
+        String sql = "SELECT * FROM FORMAPGTO WHERE DSFROMAPGTO LIKE '%"
                 + formaPgto.getDSFORMAPGTO() + "%' ORDER BY DSFORMAPGTO";
         conn.executeSQL(sql);
         formaPgto.setRetorno(conn.resultset);

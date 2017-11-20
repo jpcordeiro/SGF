@@ -2,6 +2,7 @@ package br.tcc.dao;
 
 import br.tcc.classe.RelacaoPessoa;
 import br.tcc.conexao.ConexaoOracle;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +18,7 @@ public class RelacaoPessoaDAO {
     }
     
      public void incluir(RelacaoPessoa rPessoa) {
-        String sql = " INSERT INTO RELACAOPESSOA VALUES("
+        String sql = "INSERT INTO RELACAOPESSOA VALUES("
                 + rPessoa.getIDPESSOA() + ",'"
                 + rPessoa.getTPRELACAO()+ "','"
                 + rPessoa.getDTCOMEMORACAO() + "','"
@@ -47,8 +48,23 @@ public class RelacaoPessoaDAO {
       }
 
     public void retornaUtlSeq(RelacaoPessoa rPessoa) {
-        String sql = "SELECT MAX(IDSEQUENCIA) FROM RELACAOPESSOA WHERE IDPESSOA = " +rPessoa.getIDPESSOA();
+        String sql = "SELECT MAX(IDSEQUENCIA) FROM RELACAOPESSOA WHERE IDPESSOA = " + rPessoa.getIDPESSOA();
         conn.executeSQL(sql);
+        rPessoa.setRetorno(conn.resultset);
+
+        
+    }
+    
+    public void retorna2(RelacaoPessoa rpessoa){
+         String sql = "SELECT MAX(IDSEQUENCIA) FROM RELACAOPESSOA WHERE IDPESSOA = " + rpessoa.getIDPESSOA();
+        conn.executeSQL(sql);
+
+        try {
+            rpessoa.setIDSEQUENCIA(conn.resultset.getInt("IDSEQUENCIA"));
+            JOptionPane.showMessageDialog(null, rpessoa.getIDPESSOA()+ "="+ rpessoa.getIDSEQUENCIA());
+            } catch (SQLException ex) {
+
+        }
     }
 
     public void consultadescricao(RelacaoPessoa rPessoa) {

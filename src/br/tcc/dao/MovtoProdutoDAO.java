@@ -46,13 +46,14 @@ public class MovtoProdutoDAO {
 
     public void JaExiste(MovtoProduto mProduto, Integer IdItenCompra) {
    
-        String sql = "SELECT IDMOVTOPRODUTO,IDITENSCOMPRA, QTDPRODUTO  FROM MOVTOPRODUTO WHERE IDITENSCOMPRA = " + IdItenCompra;
+        String sql = "SELECT IDMOVTOPRODUTO,IDCOMPRA,IDITENSCOMPRA, QTDPRODUTO  FROM MOVTOPRODUTO WHERE IDITENSCOMPRA = " + IdItenCompra;
         conn.executeSQL(sql);
         
        try {
 
             conn.resultset.first();
             mProduto.setIDMOVTOPRODUTO(conn.resultset.getInt("IDMOVTOPRODUTO"));
+            mProduto.setIDCOMPRA(conn.resultset.getInt("IDCOMPRA"));
             mProduto.setIDITENCOMPRA(conn.resultset.getInt("IDITENSCOMPRA"));
             mProduto.setQTDPRODUTO(conn.resultset.getInt("QTDPRODUTO"));
             } catch (SQLException ex) {

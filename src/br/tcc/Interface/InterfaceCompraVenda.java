@@ -52,7 +52,7 @@ import javax.swing.table.DefaultTableModel;
  * @author JOÃO PAULO
  */
 public class InterfaceCompraVenda extends javax.swing.JFrame {
-    
+
     LimparCampos lcampos = new LimparCampos();
     Integer situacao = 0;
     TpMovtoDAO tpMovtoDAO = new TpMovtoDAO();
@@ -626,7 +626,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBPesquisar)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -747,7 +747,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBPesquisar1))
                     .addComponent(jScrollPane6))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPConsulta1Layout.setVerticalGroup(
             jPConsulta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -792,16 +792,19 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBgravar1ActionPerformed
 
     private void jBIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncluirActionPerformed
-        
+
         lcampos.LimparCampos(jTPVenda);
         situacao = 1;
         estadobotoes(true);
         retornadata.RetornaDataAtual(jTFData);
         jTFVlTotalVenda.setText("0.0");
+        jTFVlProduto.setEnabled(false);
+        jTFVlTotal.setEnabled(false);
+        jTFVlTotalVenda.setEnabled(false);
     }//GEN-LAST:event_jBIncluirActionPerformed
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
-        
+
         tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
         tpMovtoDAO.VerificarOperacao(tpMovto);
         if (!tpMovto.getTPMOVTO().toString().equals("E")) {
@@ -810,7 +813,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             jBPesquisarfornecedor.setEnabled(false);
             if (tpMovto.getMOVESTOQUE().toString().equals("S")) {
                 if (tpMovto.getMOVFINANCEIRO().toString().equals("S")) {
-                    
+
                     if (jTFIdCliente.getText().equals("")) {
                         JOptionPane.showMessageDialog(null, "Código do Cliente é obrigatório");
                     } else {
@@ -827,9 +830,9 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         venda.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
                     }
                     venda.setIDMOVTOPRODUTO(tpMovto.getIDTPMOVTO());
-                    
+
                     vendaDAO.incluir(venda);
-                    
+
                     Integer idV = null;
                     try {
                         idV = vendaDAO.retornaUltimoId(idV);
@@ -851,177 +854,536 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                         conta = conta + 1;
                         itensVendaDAO.incluir(itensVenda);
                     }
-                    
+
                     formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
                     formaPgtoDAO.retornadados(formaPgto);
-                    
+
                     Integer IntervaloPgto = formaPgto.getNRINTERVALO();
                     Integer QtdParcelas = formaPgto.getQTDPARCELA();
-                    
+
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     Calendar calend = new GregorianCalendar();
-                    
+
                     Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
                     Double VlParcela = (Vltotal / QtdParcelas);
-                    
+
                     for (int i = 1; i <= QtdParcelas; i++) {
                         calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
                         String datanova = sdf.format(calend.getTime());
-                        
+
                         contasReceber.setIDVENDA(idV);
                         contasReceber.setDTRECEBER(datanova);
-                        
+
                         contasReceber.setVLRECEBER(VlParcela);
                         contasReceber.setIDPARCELA(i);
                         contasReceber.setPAGO("N");
-                        
+
                         contasReceberDAO.incluir(contasReceber);
                     }
-                    
+
                     conta = 0;
-                    
+
                     for (int i = 1; i <= totlinha; i++) {
                         String IdItenVenda = (String) jTVenda.getValueAt(conta, 0);
                         String QtdProd = (String) jTVenda.getValueAt(conta, 3);
-                        
-                        movtoProduto.setIDCOMPRA(idV);
-                        
+
+//                        movtoProduto.setIDCOMPRA(idV);
                         movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
                         movtoProduto.setINENTRADA("N");
                         movtoProduto.setDTATUALIZA(jTFData.getText());
-                        
+
                         conta = conta + 1;
                         movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenVenda));
                         Integer id = movtoProduto.getIDITENCOMPRA();
+                        Integer idcompra = movtoProduto.getIDCOMPRA();
                         Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
                         Integer qtd = movtoProduto.getQTDPRODUTO();
                         String ids = String.valueOf(id);
                         String idsiten = String.valueOf(IdItenVenda);
                         if (ids.equals(idsiten)) {
                             movtoProduto.setIDMOVTOPRODUTO(idMvto);
+                            movtoProduto.setIDCOMPRA(idcompra);
                             movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenVenda));
                             qtd = qtd - Integer.parseInt(QtdProd);
                             movtoProduto.setQTDPRODUTO(qtd);
-                            movtoProdutoDAO.incluir(movtoProduto);
-                            
+                            movtoProdutoDAO.alterar(movtoProduto);
+
                         } else {
                             JOptionPane.showMessageDialog(null, "Produto não existe!");
                         }
                     }
-                    
+
+                } else {
+                    if (jTFIdCliente.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código do Cliente é obrigatório");
+                    } else {
+                        venda.setIDCLIENTE(Integer.parseInt(jTFIdCliente.getText()));
+                    }
+                    if (jTFData.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                    } else {
+                        venda.setDTVENDA(jTFData.getText());
+                    }
+                    if (jTFIdFormaPgto.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                    } else {
+                        venda.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                    }
+                    venda.setIDMOVTOPRODUTO(tpMovto.getIDTPMOVTO());
+
+                    vendaDAO.incluir(venda);
+
+                    Integer idV = null;
+                    try {
+                        idV = vendaDAO.retornaUltimoId(idV);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    int totlinha = jTVenda.getRowCount();
+                    int conta = 0;
+
+                    //VERIFICAR SE HÁ QUANTIDADE SUFICIENTE
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                        String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                        itensVenda.setIDVENDA(idV);
+                        itensVenda.setIDPRODUTO(Integer.parseInt(IdProd));
+                        itensVenda.setVLPRODUTO(Double.parseDouble(vlProduto));
+                        itensVenda.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        conta = conta + 1;
+                        itensVendaDAO.incluir(itensVenda);
+                    }
+
+                    conta = 0;
+
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdItenVenda = (String) jTVenda.getValueAt(conta, 0);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+
+//                        movtoProduto.setIDCOMPRA(idV);
+                        movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        movtoProduto.setINENTRADA("N");
+                        movtoProduto.setDTATUALIZA(jTFData.getText());
+
+                        conta = conta + 1;
+                        movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenVenda));
+                        Integer id = movtoProduto.getIDITENCOMPRA();
+                        Integer idcompra = movtoProduto.getIDCOMPRA();
+                        Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
+                        Integer qtd = movtoProduto.getQTDPRODUTO();
+                        String ids = String.valueOf(id);
+                        String idsiten = String.valueOf(IdItenVenda);
+                        if (ids.equals(idsiten)) {
+                            movtoProduto.setIDMOVTOPRODUTO(idMvto);
+                            movtoProduto.setIDCOMPRA(idcompra);
+                            movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenVenda));
+                            qtd = qtd - Integer.parseInt(QtdProd);
+                            movtoProduto.setQTDPRODUTO(qtd);
+                            movtoProdutoDAO.alterar(movtoProduto);
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Produto não existe!");
+                        }
+                    }
+                }
+            } else if (tpMovto.getMOVFINANCEIRO().toString().equals("S")) {
+
+                if (jTFIdCliente.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código do Cliente é obrigatório");
+                } else {
+                    venda.setIDCLIENTE(Integer.parseInt(jTFIdCliente.getText()));
+                }
+                if (jTFData.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                } else {
+                    venda.setDTVENDA(jTFData.getText());
+                }
+                if (jTFIdFormaPgto.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                } else {
+                    venda.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                }
+                venda.setIDMOVTOPRODUTO(tpMovto.getIDTPMOVTO());
+
+                vendaDAO.incluir(venda);
+
+                Integer idV = null;
+                try {
+                    idV = vendaDAO.retornaUltimoId(idV);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                int totlinha = jTVenda.getRowCount();
+                int conta = 0;
+
+                //VERIFICAR SE HÁ QUANTIDADE SUFICIENTE
+                for (int i = 1; i <= totlinha; i++) {
+                    String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                    String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                    String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                    itensVenda.setIDVENDA(idV);
+                    itensVenda.setIDPRODUTO(Integer.parseInt(IdProd));
+                    itensVenda.setVLPRODUTO(Double.parseDouble(vlProduto));
+                    itensVenda.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                    conta = conta + 1;
+                    itensVendaDAO.incluir(itensVenda);
+                }
+
+                formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                formaPgtoDAO.retornadados(formaPgto);
+
+                Integer IntervaloPgto = formaPgto.getNRINTERVALO();
+                Integer QtdParcelas = formaPgto.getQTDPARCELA();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar calend = new GregorianCalendar();
+
+                Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
+                Double VlParcela = (Vltotal / QtdParcelas);
+
+                for (int i = 1; i <= QtdParcelas; i++) {
+                    calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
+                    String datanova = sdf.format(calend.getTime());
+
+                    contasReceber.setIDVENDA(idV);
+                    contasReceber.setDTRECEBER(datanova);
+
+                    contasReceber.setVLRECEBER(VlParcela);
+                    contasReceber.setIDPARCELA(i);
+                    contasReceber.setPAGO("N");
+
+                    contasReceberDAO.incluir(contasReceber);
+                }
+
+            } else {
+                if (jTFIdCliente.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código do Cliente é obrigatório");
+                } else {
+                    venda.setIDCLIENTE(Integer.parseInt(jTFIdCliente.getText()));
+                }
+                if (jTFData.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                } else {
+                    venda.setDTVENDA(jTFData.getText());
+                }
+                if (jTFIdFormaPgto.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                } else {
+                    venda.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                }
+                venda.setIDMOVTOPRODUTO(tpMovto.getIDTPMOVTO());
+
+                vendaDAO.incluir(venda);
+
+                Integer idV = null;
+                try {
+                    idV = vendaDAO.retornaUltimoId(idV);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                int totlinha = jTVenda.getRowCount();
+                int conta = 0;
+
+                //VERIFICAR SE HÁ QUANTIDADE SUFICIENTE
+                for (int i = 1; i <= totlinha; i++) {
+                    String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                    String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                    String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                    itensVenda.setIDVENDA(idV);
+                    itensVenda.setIDPRODUTO(Integer.parseInt(IdProd));
+                    itensVenda.setVLPRODUTO(Double.parseDouble(vlProduto));
+                    itensVenda.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                    conta = conta + 1;
+                    itensVendaDAO.incluir(itensVenda);
                 }
             }
-            
+
         } else {
             jTFIdCliente.setEnabled(false);
             jTFDsCliente.setEnabled(false);
             jBPesquisarCliente.setVisible(false);
-            
-            if (jTFIdFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
-            } else {
-                compra.setIDFORNECEDOR(Integer.parseInt(jTFIdFornecedor.getText()));
-            }
-            if (jTFData.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
-            } else {
-                compra.setDTVENDA(jTFData.getText());
-            }
-            if (jTFIdFormaPgto.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
-            } else {
-                compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
-            }
-            compraDAO.incluir(compra);
-            
-            Integer idV = null;
-            try {
-                idV = compraDAO.retornaUltimoId(idV);
-            } catch (SQLException ex) {
-                Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            int totlinha = jTVenda.getRowCount();
-            int conta = 0;
-            for (int i = 1; i <= totlinha; i++) {
-                String IdProd = (String) jTVenda.getValueAt(conta, 0);
-                String vlProduto = (String) jTVenda.getValueAt(conta, 2);
-                String QtdProd = (String) jTVenda.getValueAt(conta, 3);
-                itensCompra.setIDCOMPRA(idV);
-                itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
-                itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
-                itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));
-                conta = conta + 1;
-                itensCompraDAO.incluir(itensCompra);
-            }
-            
-            formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
-            formaPgtoDAO.retornadados(formaPgto);
-            
-            Integer IntervaloPgto = formaPgto.getNRINTERVALO();
-            Integer QtdParcelas = formaPgto.getQTDPARCELA();
-            
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Calendar calend = new GregorianCalendar();
-            
-            Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
-            Double VlParcela = (Vltotal / QtdParcelas);
-            
-            for (int i = 1; i <= QtdParcelas; i++) {
-                calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
-                String datanova = sdf.format(calend.getTime());
-                
-                contasPagar.setIDCOMRPA(idV);
-                contasPagar.setDTPAGAR(datanova);
-                
-                contasPagar.setVLPAGAR(VlParcela);
-                contasPagar.setIDPARCELA(i);
-                contasPagar.setPAGO("N");
-                
-                contasPagarDAO.incluir(contasPagar);
-            }
-            
-            conta = 0;
-            
-            for (int i = 1; i <= totlinha; i++) {
-                String IdItenCompra = (String) jTVenda.getValueAt(conta, 0);
-                String QtdProd = (String) jTVenda.getValueAt(conta, 3);
-                
-                movtoProduto.setIDCOMPRA(idV);
-                
-                movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
-                movtoProduto.setINENTRADA("S");
-                movtoProduto.setDTATUALIZA(jTFData.getText());
-                
-                conta = conta + 1;
-                movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenCompra));
-                Integer id = movtoProduto.getIDITENCOMPRA();
-                Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
-                Integer qtd = movtoProduto.getQTDPRODUTO();
-                String ids = String.valueOf(id);
-                String idsiten = String.valueOf(IdItenCompra);
-                if (ids.equals(idsiten)) {
-                    movtoProduto.setIDMOVTOPRODUTO(idMvto);
-                    movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
-                    qtd = qtd + Integer.parseInt(QtdProd);
-                    movtoProduto.setQTDPRODUTO(qtd);
-                    movtoProdutoDAO.alterar(movtoProduto);
-                    
+            if (tpMovto.getMOVESTOQUE().toString().equals("S")) {
+                if (tpMovto.getMOVFINANCEIRO().toString().equals("S")) {
+
+                    if (jTFIdFornecedor.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
+                    } else {
+                        compra.setIDFORNECEDOR(Integer.parseInt(jTFIdFornecedor.getText()));
+                    }
+                    if (jTFData.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                    } else {
+                        compra.setDTVENDA(jTFData.getText());
+                    }
+                    if (jTFIdFormaPgto.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                    } else {
+                        compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                    }
+                    compraDAO.incluir(compra);
+
+                    Integer idV = null;
+                    try {
+                        idV = compraDAO.retornaUltimoId(idV);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    int totlinha = jTVenda.getRowCount();
+                    int conta = 0;
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                        String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                        itensCompra.setIDCOMPRA(idV);
+                        itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
+                        itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
+                        itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        conta = conta + 1;
+                        itensCompraDAO.incluir(itensCompra);
+                    }
+
+                    formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                    formaPgtoDAO.retornadados(formaPgto);
+
+                    Integer IntervaloPgto = formaPgto.getNRINTERVALO();
+                    Integer QtdParcelas = formaPgto.getQTDPARCELA();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Calendar calend = new GregorianCalendar();
+
+                    Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
+                    Double VlParcela = (Vltotal / QtdParcelas);
+
+                    for (int i = 1; i <= QtdParcelas; i++) {
+                        calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
+                        String datanova = sdf.format(calend.getTime());
+
+                        contasPagar.setIDCOMRPA(idV);
+                        contasPagar.setDTPAGAR(datanova);
+
+                        contasPagar.setVLPAGAR(VlParcela);
+                        contasPagar.setIDPARCELA(i);
+                        contasPagar.setPAGO("N");
+
+                        contasPagarDAO.incluir(contasPagar);
+                    }
+
+                    conta = 0;
+
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdItenCompra = (String) jTVenda.getValueAt(conta, 0);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+
+                        movtoProduto.setIDCOMPRA(idV);
+
+                        movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        movtoProduto.setINENTRADA("S");
+                        movtoProduto.setDTATUALIZA(jTFData.getText());
+
+                        conta = conta + 1;
+                        movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenCompra));
+                        Integer id = movtoProduto.getIDITENCOMPRA();
+                        Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
+                        Integer qtd = movtoProduto.getQTDPRODUTO();
+                        String ids = String.valueOf(id);
+                        String idsiten = String.valueOf(IdItenCompra);
+                        if (ids.equals(idsiten)) {
+                            movtoProduto.setIDMOVTOPRODUTO(idMvto);
+                            movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
+                            qtd = qtd + Integer.parseInt(QtdProd);
+                            movtoProduto.setQTDPRODUTO(qtd);
+                            movtoProdutoDAO.alterar(movtoProduto);
+
+                        } else {
+                            movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
+                            movtoProdutoDAO.incluir(movtoProduto);
+                        }
+                    }
                 } else {
-                    movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
-                    movtoProdutoDAO.incluir(movtoProduto);
+                    if (jTFIdFornecedor.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
+                    } else {
+                        compra.setIDFORNECEDOR(Integer.parseInt(jTFIdFornecedor.getText()));
+                    }
+                    if (jTFData.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                    } else {
+                        compra.setDTVENDA(jTFData.getText());
+                    }
+                    if (jTFIdFormaPgto.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                    } else {
+                        compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                    }
+                    compraDAO.incluir(compra);
+
+                    Integer idV = null;
+                    try {
+                        idV = compraDAO.retornaUltimoId(idV);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    int totlinha = jTVenda.getRowCount();
+                    int conta = 0;
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                        String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                        itensCompra.setIDCOMPRA(idV);
+                        itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
+                        itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
+                        itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        conta = conta + 1;
+                        itensCompraDAO.incluir(itensCompra);
+                    }
+
+                    conta = 0;
+
+                    for (int i = 1; i <= totlinha; i++) {
+                        String IdItenCompra = (String) jTVenda.getValueAt(conta, 0);
+                        String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+
+                        movtoProduto.setIDCOMPRA(idV);
+
+                        movtoProduto.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                        movtoProduto.setINENTRADA("S");
+                        movtoProduto.setDTATUALIZA(jTFData.getText());
+
+                        conta = conta + 1;
+                        movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenCompra));
+                        Integer id = movtoProduto.getIDITENCOMPRA();
+                        Integer idMvto = movtoProduto.getIDMOVTOPRODUTO();
+                        Integer qtd = movtoProduto.getQTDPRODUTO();
+                        String ids = String.valueOf(id);
+                        String idsiten = String.valueOf(IdItenCompra);
+                        if (ids.equals(idsiten)) {
+                            movtoProduto.setIDMOVTOPRODUTO(idMvto);
+                            movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
+                            qtd = qtd + Integer.parseInt(QtdProd);
+                            movtoProduto.setQTDPRODUTO(qtd);
+                            movtoProdutoDAO.alterar(movtoProduto);
+
+                        } else {
+                            movtoProduto.setIDITENCOMPRA(Integer.parseInt(IdItenCompra));
+                            movtoProdutoDAO.incluir(movtoProduto);
+                        }
+                    }
+                }
+            } else if (tpMovto.getMOVFINANCEIRO().toString().equals("S")) {
+
+                if (jTFIdFornecedor.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
+                } else {
+                    compra.setIDFORNECEDOR(Integer.parseInt(jTFIdFornecedor.getText()));
+                }
+                if (jTFData.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                } else {
+                    compra.setDTVENDA(jTFData.getText());
+                }
+                if (jTFIdFormaPgto.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                } else {
+                    compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                }
+                compraDAO.incluir(compra);
+
+                Integer idV = null;
+                try {
+                    idV = compraDAO.retornaUltimoId(idV);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                int totlinha = jTVenda.getRowCount();
+                int conta = 0;
+                for (int i = 1; i <= totlinha; i++) {
+                    String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                    String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                    String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                    itensCompra.setIDCOMPRA(idV);
+                    itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
+                    itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
+                    itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                    conta = conta + 1;
+                    itensCompraDAO.incluir(itensCompra);
+                }
+
+                formaPgto.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                formaPgtoDAO.retornadados(formaPgto);
+
+                Integer IntervaloPgto = formaPgto.getNRINTERVALO();
+                Integer QtdParcelas = formaPgto.getQTDPARCELA();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar calend = new GregorianCalendar();
+
+                Double Vltotal = Double.parseDouble(jTFVlTotalVenda.getText());
+                Double VlParcela = (Vltotal / QtdParcelas);
+
+                for (int i = 1; i <= QtdParcelas; i++) {
+                    calend.add(Calendar.DAY_OF_MONTH, IntervaloPgto);
+                    String datanova = sdf.format(calend.getTime());
+
+                    contasPagar.setIDCOMRPA(idV);
+                    contasPagar.setDTPAGAR(datanova);
+
+                    contasPagar.setVLPAGAR(VlParcela);
+                    contasPagar.setIDPARCELA(i);
+                    contasPagar.setPAGO("N");
+
+                    contasPagarDAO.incluir(contasPagar);
+                }
+
+            } else {
+                if (jTFIdFornecedor.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código do Fornecedor é obrigatório");
+                } else {
+                    compra.setIDFORNECEDOR(Integer.parseInt(jTFIdFornecedor.getText()));
+                }
+                if (jTFData.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Data é um campo obrigatório");
+                } else {
+                    compra.setDTVENDA(jTFData.getText());
+                }
+                if (jTFIdFormaPgto.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Código da Forma de Pagamento é Obrigatório");
+                } else {
+                    compra.setIDFORMAPGTO(Integer.parseInt(jTFIdFormaPgto.getText()));
+                }
+                compraDAO.incluir(compra);
+
+                Integer idV = null;
+                try {
+                    idV = compraDAO.retornaUltimoId(idV);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                int totlinha = jTVenda.getRowCount();
+                int conta = 0;
+                for (int i = 1; i <= totlinha; i++) {
+                    String IdProd = (String) jTVenda.getValueAt(conta, 0);
+                    String vlProduto = (String) jTVenda.getValueAt(conta, 2);
+                    String QtdProd = (String) jTVenda.getValueAt(conta, 3);
+                    itensCompra.setIDCOMPRA(idV);
+                    itensCompra.setIDPRODUTO(Integer.parseInt(IdProd));
+                    itensCompra.setVLPRODUTO(Double.parseDouble(vlProduto));
+                    itensCompra.setQTDPRODUTO(Integer.parseInt(QtdProd));
+                    conta = conta + 1;
+                    itensCompraDAO.incluir(itensCompra);
                 }
             }
-            
-            lcampos.LimparCampos(jPCadastro);
-        }
 
+        }
+        lcampos.LimparCampos(jPCadastro);
+        estadobotoes(false);
     }//GEN-LAST:event_jBGravarActionPerformed
 
     private void jBPesquisarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarClienteMouseClicked
         final ConsultaCliente retornaCliente = new ConsultaCliente();
         retornaCliente.setVisible(true);
         retornaCliente.addWindowListener(new java.awt.event.WindowAdapter() {
-            
+
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdCliente.setText(retornaCliente.retornaId);
                 jTFDsCliente.setText(retornaCliente.retornaDsCliente);
@@ -1030,14 +1392,14 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarClienteMouseClicked
 
     private void jBPesquisarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarProdutoMouseClicked
-        
+
         tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
         tpMovtoDAO.VerificarOperacao(tpMovto);
         if (!tpMovto.getTPMOVTO().equals("E")) {
             final ConsultaProdutoCompVend retornaProduto = new ConsultaProdutoCompVend();
             retornaProduto.setVisible(true);
             retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
-                
+
                 public void windowClosed(java.awt.event.WindowEvent evt) {
                     jTFIdProduto.setText(retornaProduto.retornaId);
                     jTFDsProduto.setText(retornaProduto.retornaDsProduto);
@@ -1048,23 +1410,23 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             final ConsultaProduto retornaProduto = new ConsultaProduto();
             retornaProduto.setVisible(true);
             retornaProduto.addWindowListener(new java.awt.event.WindowAdapter() {
-                
+
                 public void windowClosed(java.awt.event.WindowEvent evt) {
                     jTFIdProduto.setText(retornaProduto.retornaId);
                     jTFDsProduto.setText(retornaProduto.retornaDsProduto);
                     jTFVlProduto.setText(retornaProduto.retonaVlProduto);
                 }
             });
-            
+
         }
     }//GEN-LAST:event_jBPesquisarProdutoMouseClicked
 
     private void jBPesquisarfornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarfornecedorMouseClicked
-        
+
         final ConsultaFornecedor retornaFornecedor = new ConsultaFornecedor();
         retornaFornecedor.setVisible(true);
         retornaFornecedor.addWindowListener(new java.awt.event.WindowAdapter() {
-            
+
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdFornecedor.setText(retornaFornecedor.retornaId);
                 jTFDsfornecedor.setText(retornaFornecedor.retornaDsFornecedor);
@@ -1076,7 +1438,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         final ConsultaFormaPgto retornaPgto = new ConsultaFormaPgto();
         retornaPgto.setVisible(true);
         retornaPgto.addWindowListener(new java.awt.event.WindowAdapter() {
-            
+
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdFormaPgto.setText(retornaPgto.retornaId);
                 jTFDsforma.setText(retornaPgto.retornaDsForma);
@@ -1087,20 +1449,35 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     private void jTFQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFQuantidadeFocusLost
         Double preco = 0.0;
         int qtd = 0;
-        
+
         preco = Double.parseDouble(jTFVlProduto.getText());
         qtd = Integer.parseInt(jTFQuantidade.getText());
-        
+
         jTFVlTotal.setText(String.valueOf(preco * qtd));
     }//GEN-LAST:event_jTFQuantidadeFocusLost
 
     private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
-        
+
         if (!jTFIdProduto.getText().equals("")) {
             if (!jTFDsProduto.getText().equals("")) {
                 if (!jTFVlProduto.getText().equals("")) {
                     if (!jTFQuantidade.getText().equals("")) {
-                        IncluirListaCompra();
+                        String IdItenVenda = jTFIdProduto.getText();
+                        Integer QtdProd = Integer.parseInt(jTFQuantidade.getText());
+                        String dsProduto = jTFDsProduto.getText();
+                        movtoProdutoDAO.JaExiste(movtoProduto, Integer.parseInt(IdItenVenda));
+                        Integer qtd = movtoProduto.getQTDPRODUTO();
+                        if ((qtd - QtdProd) <= 0) {
+                            JOptionPane.showMessageDialog(null, "Quantidade de " + dsProduto + " Insuficiente. Temos " + qtd + " em estoque");
+                            jTFIdProduto.setText("");
+                            jTFDsProduto.setText("");
+                            jTFQuantidade.setText("");
+                            jTFVlProduto.setText("");
+                            jTFVlTotal.setText("");
+                            jTFIdProduto.grabFocus();
+                        } else {
+                            IncluirListaCompra();
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Informe a Quantidade de produtos a ser comprados!");
                         jTFQuantidade.grabFocus();
@@ -1117,7 +1494,6 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe o codigo do produto!");
             jTFIdProduto.grabFocus();
         }
-        
 
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
@@ -1126,22 +1502,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTPVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTPVendaFocusLost
-        
-        tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
-        tpMovtoDAO.VerificarOperacao(tpMovto);
-        
-        if (tpMovto.getTPMOVTO().toString().equals("E")) {
-            jTFIdCliente.setEnabled(false);
-            jTFDsCliente.setEnabled(false);
-            
-        } else {
-            jTFIdFornecedor.setEnabled(false);
-            jTFDsfornecedor.setEnabled(false);
-        }
+
+
     }//GEN-LAST:event_jTPVendaFocusLost
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        
+
 
     }//GEN-LAST:event_jBCancelarActionPerformed
 
@@ -1150,14 +1516,36 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarProdutoActionPerformed
 
     private void jBPesquisarTpMovtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoMouseClicked
-        
+
         final ConsultaTpMovto retornaTpMovto = new ConsultaTpMovto();
         retornaTpMovto.setVisible(true);
         retornaTpMovto.addWindowListener(new java.awt.event.WindowAdapter() {
-            
+
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdTpMovto.setText(retornaTpMovto.retornaId);
                 jTFDsTpMovto.setText(retornaTpMovto.retornaDsTpMovto);
+
+                tpMovto.setIDTPMOVTO(Integer.parseInt(jTFIdTpMovto.getText()));
+                tpMovtoDAO.VerificarOperacao(tpMovto);
+
+                if (tpMovto.getTPMOVTO().toString().equals("E")) {
+                   
+                    jTFIdFornecedor.setEnabled(true);
+                    jTFDsfornecedor.setEnabled(true);
+                    jBPesquisarfornecedor.setVisible(true);
+                    
+                    jTFIdCliente.setEnabled(false);
+                    jTFDsCliente.setEnabled(false);
+                    jBPesquisarCliente.setVisible(false);
+
+                } else {
+                    jTFIdCliente.setEnabled(true);
+                    jTFDsCliente.setEnabled(true);
+                    jBPesquisarCliente.setVisible(true);
+                    jTFIdFornecedor.setEnabled(false);
+                    jTFDsfornecedor.setEnabled(false);
+                    jBPesquisarfornecedor.setVisible(false);
+                }
             }
         });
     }//GEN-LAST:event_jBPesquisarTpMovtoMouseClicked
@@ -1171,7 +1559,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarTpMovtoActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        
+
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
         String cliente = jTFPesquisa.getText().toUpperCase();
         switch (jCbPesquisa2.getSelectedIndex()) {
@@ -1199,14 +1587,14 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
     private void jTCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCompraMouseClicked
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
-        
+
         int linha = jTCompra.getSelectedRow();
         retornaId = jTCompra.getValueAt(linha, 0).toString();
         Integer idCompra = Integer.parseInt(retornaId);
-        
+
         itensCompraDAO.consulta(itensCompra, idCompra);
         preencher.PreencherJtableGenerico(jTItensCompra, itensCompra.getRetorno());
-        
+
         contasPagarDAO.consulta(contasPagar, idCompra);
         preencher.PreencherJtableGenerico(jTContasPagar, contasPagar.getRetorno());
 
@@ -1217,7 +1605,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTItensCompraMouseClicked
 
     private void jBPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisar1ActionPerformed
-        
+
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
         String cliente = jTFPesquisa1.getText().toUpperCase();
         switch (jCbPesquisa3.getSelectedIndex()) {
@@ -1236,17 +1624,17 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
 
     private void jTvendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTvendaMouseClicked
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
-        
+
         int linha = jTvenda.getSelectedRow();
         retornaId = jTvenda.getValueAt(linha, 0).toString();
         Integer idVENDA = Integer.parseInt(retornaId);
-        
+
         itensVendaDAO.consulta(itensVenda, idVENDA);
         preencher.PreencherJtableGenerico(jTItensVenda, itensVenda.getRetorno());
-        
+
         contasReceberDAO.consulta(contasReceber, idVENDA);
         preencher.PreencherJtableGenerico(jTContasreceber, contasReceber.getRetorno());
-        
+
 
     }//GEN-LAST:event_jTvendaMouseClicked
 
@@ -1255,7 +1643,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTItensVendaMouseClicked
 
     private void jTContasreceberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTContasreceberMouseClicked
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jTContasreceberMouseClicked
 
     private void jBOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrcamentoActionPerformed
@@ -1265,10 +1654,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         String dt1 = String.valueOf(date.getDay());
         String dt2 = String.valueOf(date.getMonth());
         String dt3 = String.valueOf(date.getYear());
-                
-        data = String.valueOf(date.getTime() + dt1 + dt2 + dt3 );
+
+        data = String.valueOf(date.getTime() + dt1 + dt2 + dt3);
         Document document = new Document();
-        
+
         try {
             PdfWriter.getInstance(document, new FileOutputStream("D:\\rel\\" + data));
             document.open();
@@ -1286,10 +1675,10 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             } else {
                 nome = jTFDsCliente.getText();
             }
-            
+
             p = new Paragraph("Cliente: " + nome);
             document.add(p);
-            
+
             String forma = null;
             if (jTFDsforma.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "É obrigatório preencher a forma de pagamento");
@@ -1299,52 +1688,51 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }
             p = new Paragraph("Forma de Pagamento: " + forma);
             document.add(p);
-            
+
             String dataa = jTFData.getText();
             p = new Paragraph("Data do orçamento: " + dataa);
             document.add(p);
-            
+
             p = new Paragraph("     ");
             document.add(p);
-            
+
             PdfPTable table = new PdfPTable(4);
-            
+
             PdfPCell cel1 = new PdfPCell(new Paragraph("Produto"));
             PdfPCell cel2 = new PdfPCell(new Paragraph("Valor"));
             PdfPCell cel3 = new PdfPCell(new Paragraph("Quantidade"));
             PdfPCell cel4 = new PdfPCell(new Paragraph("Total"));
-            
+
             table.addCell(cel1);
             table.addCell(cel2);
             table.addCell(cel3);
             table.addCell(cel4);
-            
+
             String produto = null;
             String valor = null;
             String quantidade = null;
             String total = null;
-            
+
             DefaultTableModel ItensVenda = (DefaultTableModel) jTVenda.getModel();
             int totlinha = jTVenda.getRowCount();
             int conta = 0;
-            
+
             for (int i = 1; i <= totlinha; i++) {
                 produto = (String) jTVenda.getValueAt(conta, 1);
                 valor = (String) jTVenda.getValueAt(conta, 2);
                 quantidade = (String) jTVenda.getValueAt(conta, 3);
                 total = (String) jTVenda.getValueAt(conta, 4);
-                
-               PdfPCell c1 = new PdfPCell(new Paragraph(produto));
-               PdfPCell c2 = new PdfPCell(new Paragraph(valor));
-               PdfPCell c3 = new PdfPCell(new Paragraph(quantidade));
-               PdfPCell c4 = new PdfPCell(new Paragraph(total));
-                
+
+                PdfPCell c1 = new PdfPCell(new Paragraph(produto));
+                PdfPCell c2 = new PdfPCell(new Paragraph(valor));
+                PdfPCell c3 = new PdfPCell(new Paragraph(quantidade));
+                PdfPCell c4 = new PdfPCell(new Paragraph(total));
+
                 table.addCell(c1);
                 table.addCell(c2);
                 table.addCell(c3);
                 table.addCell(c4);
-                
-                
+
                 conta = conta + 1;
             }
             document.add(table);
@@ -1356,12 +1744,12 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             document.add(p);
             p = new Paragraph("Obs: Orçamento Valido por 30 dias");
             document.add(p);
-            
+
         } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
         }
         document.close();
-        
+
         try {
             Desktop.getDesktop().open(new File("D:\\rel\\" + data));
         } catch (IOException ex) {
@@ -1370,8 +1758,8 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBOrcamentoActionPerformed
 
     private void jBPesquisarTpMovtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jBPesquisarTpMovtoFocusLost
-        
-        
+
+
     }//GEN-LAST:event_jBPesquisarTpMovtoFocusLost
 
     /**
@@ -1492,23 +1880,23 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
         jBGravar.setEnabled(situacao);
         jBCancelar.setEnabled(situacao);
     }
-    
+
     private void IncluirListaCompra() {
-        
+
         DefaultTableModel ItensFornece = (DefaultTableModel) jTVenda.getModel();
         int totlinha = jTVenda.getRowCount();
         int incluir = 0;
         int conta = 0;
         int linha = 0;
-        
+
         for (int i = 1; i <= totlinha; i++) {
             String IdProd = (String) jTVenda.getValueAt(conta, 0);
-            
+
             if (jTFIdProduto.getText().equals(IdProd)) {
                 int opcao_escolhida = JOptionPane.showConfirmDialog(null, "Produto ja"
                         + " foi incluido, deseja alterar quantidade? ", "Alteração ",
                         JOptionPane.YES_NO_OPTION);
-                
+
                 if (opcao_escolhida == JOptionPane.YES_OPTION) {
                     incluir = 1;
                     linha = conta;
@@ -1519,47 +1907,47 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
             }
             conta = conta + 1;
         }
-        
+
         if (incluir == 0) {
             Double totalVenda = Double.parseDouble(jTFVlTotalVenda.getText());
             Double vltotal = Double.parseDouble(jTFVlTotal.getText());
             String soma = String.valueOf(totalVenda + vltotal);
             jTFVlTotalVenda.setText(soma);
-            
+
             ItensFornece.setNumRows(totlinha + 1);
             ItensFornece.setValueAt(jTFIdProduto.getText(), totlinha, 0);
             ItensFornece.setValueAt(jTFDsProduto.getText(), totlinha, 1);
             ItensFornece.setValueAt(jTFVlProduto.getText(), totlinha, 2);
             ItensFornece.setValueAt(jTFQuantidade.getText(), totlinha, 3);
             ItensFornece.setValueAt(jTFVlTotal.getText(), totlinha, 4);
-            
+
             jTFIdProduto.setText("");
             jTFDsProduto.setText("");
             jTFVlProduto.setText("");
             jTFQuantidade.setText("");
             jTFVlTotal.setText("");
         } else if (incluir == 1) {
-            
+
             Double totalVenda = Double.parseDouble(jTFVlTotalVenda.getText());
             Double vltotal = Double.parseDouble(jTFVlTotal.getText());
             String soma = String.valueOf(totalVenda + vltotal);
             jTFVlTotalVenda.setText(soma);
-            
+
             String quantidade = (String) jTVenda.getValueAt(linha, 3);
             String vltot = (String) jTVenda.getValueAt(linha, 4);
-            
+
             Integer quantidadeAtual = Integer.parseInt(quantidade) + Integer.parseInt(jTFQuantidade.getText());
             Double vltotalAtual = Double.parseDouble(vltot) + Double.parseDouble(jTFVlTotal.getText());
-            
+
             jTVenda.setValueAt(quantidadeAtual, linha, 3);
             jTVenda.setValueAt(vltotalAtual, linha, 4);
-            
+
             jTFIdProduto.setText("");
             jTFDsProduto.setText("");
             jTFQuantidade.setText("");
             jTFVlTotal.setText("");
             jTFVlProduto.setText("");
-            
+
         }
     }
 }

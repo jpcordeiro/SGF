@@ -35,11 +35,18 @@ public class ComposicaoDAO {
       public void excluir(Composicao composicao) {
         String sql = "DELETE FROM COMPOSICAO WHERE IDPRODUTO = " + composicao.getIDPRODUTO();
         conn.executeSQL(sql);
+        
+        
       }
      public void consulta(Composicao composicao) {
         String sql = "SELECT * FROM COMPOSICAO ORDER BY IDPRODUTO";
         conn.executeSQL(sql);
         composicao.setRetorno(conn.resultset);
      }    
+
+    public void consultaComposicao(Composicao composicao, Integer idproduto) {
+   
+
+    }
     
 }

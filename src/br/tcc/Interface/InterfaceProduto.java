@@ -32,6 +32,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     Composicao composicao = new Composicao();
     ComposicaoDAO composicaoDAO = new ComposicaoDAO();
     private Integer situacao = 0;
+    public String retornaId = "";
 
     /**
      * Creates new form InterfaceProduto
@@ -91,6 +92,8 @@ public class InterfaceProduto extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTbPesquisa = new javax.swing.JTable();
         jBtPesquisa1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTbProdutoComposto = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -440,6 +443,11 @@ public class InterfaceProduto extends javax.swing.JFrame {
             }
         });
         jTbPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTbPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTbPesquisaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTbPesquisa);
 
         jBtPesquisa1.setText("Pesquisar");
@@ -449,22 +457,42 @@ public class InterfaceProduto extends javax.swing.JFrame {
             }
         });
 
+        jTbProdutoComposto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Produto", "Quantidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTbProdutoComposto.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane3.setViewportView(jTbProdutoComposto);
+
         javax.swing.GroupLayout jPConsultaLayout = new javax.swing.GroupLayout(jPConsulta);
         jPConsulta.setLayout(jPConsultaLayout);
         jPConsultaLayout.setHorizontalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-                    .addGroup(jPConsultaLayout.createSequentialGroup()
-                        .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisa1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPConsultaLayout.createSequentialGroup()
+                            .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtPesquisa1))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,8 +502,10 @@ public class InterfaceProduto extends javax.swing.JFrame {
                     .addComponent(jCbPesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisa1))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -767,6 +797,19 @@ public class InterfaceProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtPesquisa1ActionPerformed
 
+    private void jTbPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbPesquisaMouseClicked
+        
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+
+        int linha = jTbPesquisa.getSelectedRow();
+        retornaId = jTbPesquisa.getValueAt(linha, 0).toString();
+        Integer idproduto = Integer.parseInt(retornaId);
+
+        composicaoDAO.consultaComposicao(composicao, idproduto);
+        
+        preencher.PreencherJtableGenerico(jTbProdutoComposto, composicao.getRetorno());
+    }//GEN-LAST:event_jTbPesquisaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -833,6 +876,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRBPrima;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTComposicao;
     private javax.swing.JTextField jTFDsFamilia;
@@ -845,6 +889,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     private javax.swing.JTextField jTFQtdProdComp;
     private javax.swing.JTabbedPane jTPProduto;
     private javax.swing.JTable jTbPesquisa;
+    private javax.swing.JTable jTbProdutoComposto;
     // End of variables declaration//GEN-END:variables
 
     private void estadobotoes(boolean situacao) {

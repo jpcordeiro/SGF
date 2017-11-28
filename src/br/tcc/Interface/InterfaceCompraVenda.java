@@ -524,7 +524,7 @@ public class InterfaceCompraVenda extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTPVenda.addTab("Cadastro", jPCadastro);
+        jTPVenda.addTab("Compra/Venda", jPCadastro);
 
         jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Cliente" }));
 

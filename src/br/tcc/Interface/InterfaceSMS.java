@@ -143,9 +143,19 @@ public class InterfaceSMS extends javax.swing.JFrame {
 
         bGSMS.add(jRBPadrao);
         jRBPadrao.setText("Padrão");
+        jRBPadrao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRBPadraoMouseClicked(evt);
+            }
+        });
 
         bGSMS.add(jRBManual);
         jRBManual.setText("Manual");
+        jRBManual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRBManualMouseClicked(evt);
+            }
+        });
 
         jLabel7.setText("Mensagem");
 
@@ -205,22 +215,24 @@ public class InterfaceSMS extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jBPesq))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPCadastroLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRBPadrao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRBManual))
                             .addComponent(jLabel7)))
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGap(183, 183, 183)
                         .addComponent(jBEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel8))
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(53, 53, 53))
+                            .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRBPadrao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBManual)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPCadastroLayout.setVerticalGroup(
@@ -251,15 +263,15 @@ public class InterfaceSMS extends javax.swing.JFrame {
                     .addComponent(jTFPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jRBPadrao)
                     .addComponent(jRBManual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,6 +327,7 @@ public class InterfaceSMS extends javax.swing.JFrame {
         }
         if (!bGSMS.isSelected(null)) {
             if (jRBPadrao.isSelected()) {
+               
                 int r = jTbRelacao.getRowCount();
                 for (int i = 0; i < r; i++) {
                     try {
@@ -425,6 +438,14 @@ public class InterfaceSMS extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBPesqActionPerformed
+
+    private void jRBPadraoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBPadraoMouseClicked
+         jTFFone.setVisible(false);
+    }//GEN-LAST:event_jRBPadraoMouseClicked
+
+    private void jRBManualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBManualMouseClicked
+         jTFFone.setVisible(true);
+    }//GEN-LAST:event_jRBManualMouseClicked
 
     private static void sendSMS(String email, String password, String deviceId,
             String numbers[], String message) throws IOException {

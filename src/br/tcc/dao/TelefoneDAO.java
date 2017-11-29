@@ -16,55 +16,62 @@ import java.sql.SQLException;
  * @author JOÃO PAULO
  */
 public class TelefoneDAO {
-    
+
     ConexaoOracle conn;
     InterfaceTelefone intfone;
-    
-    
-    public TelefoneDAO(){
+
+    public TelefoneDAO() {
         conn = new ConexaoOracle();
     }
-    
+
     public void incluir(Telefone fone) {
         String sql = " INSERT INTO TELEFONE VALUES("
                 + fone.getIDPESSOA() + ",'"
                 + fone.getTPFONE() + "','"
                 + fone.getNRFONE() + "')";
-         conn.incluirSQL(sql);
+        conn.incluirSQL(sql);
     }
-     
-      public void alterar(Telefone fone) {
-        String sql = "UPDATE TELEFONE SET " 
+
+    public void alterar(Telefone fone) {
+        String sql = "UPDATE TELEFONE SET "
                 + " IDPESSOA = " + fone.getIDPESSOA() + ","
                 + " TPFONE = '" + fone.getTPFONE() + "',"
                 + " NRFONE = '" + fone.getNRFONE() + "'"
                 + " WHERE TPFONE = 'Pincipal'";;
         conn.incluirSQL(sql);
     }
-     
-      public void excluir(Telefone fone) {
+
+    public void excluir(Telefone fone) {
         String sql = "DELETE FROM TELEFONE WHERE IDPESSOA = " + fone.getIDPESSOA();
         conn.executeSQL(sql);
-      }
-     public void consulta(int idPes, Telefone fone) {
+    }
+
+    public void consulta(int idPes, Telefone fone) {
         String sql = "SELECT TPFONE, NRFONE FROM TELEFONE WHERE IDPESSOA = " + idPes;
         conn.executeSQL(sql);
         fone.setRetorno(conn.resultset);
     }
 
     public void retornadados(Telefone fone) {
-        
+
         String sql = "SELECT NRFONE FROM Telefone WHERE TPFONE = 'Comercial' AND IDPESSOA = " + fone.getIDPESSOA();
         conn.executeSQL(sql);
-
         try {
             conn.resultset.first();
             fone.setNRFONE(conn.resultset.getString("NRFONE"));
-            } catch (SQLException ex) {
-
+        } catch (SQLException ex) {
         }
-        
-       }
-     
-    
+    }
+
+    public void consultaFone(Telefone fone) {
+
+        String sql = "SELECT NRFONE FROM Telefone WHERE TPFONE = 'Comercial' AND IDPESSOA = " + fone.getIDPESSOA();
+        conn.executeSQL(sql);
+        try {
+            conn.resultset.first();
+            fone.setNRFONE(conn.resultset.getString("NRFONE"));
+        } catch (SQLException ex) {
+        }
+    }
+
 }

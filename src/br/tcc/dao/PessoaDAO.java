@@ -86,6 +86,20 @@ public class PessoaDAO {
         }
     }
 
+    public void consultarId(Pessoa pessoa) {
+   
+        String sql = "SELECT DSPESSOA FROM Pessoa WHERE IDPESSOA = " + pessoa.getIDPESSOA();
+        conn.executeSQL(sql);
+
+        try {
+
+            conn.resultset.first();
+            pessoa.setDSPESSOA(conn.resultset.getString("DSPESSOA"));          
+            } catch (SQLException ex) {
+
+        }
+    }
+
 }
 
 

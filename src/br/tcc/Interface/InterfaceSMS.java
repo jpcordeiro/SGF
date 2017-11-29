@@ -1,24 +1,50 @@
 package br.tcc.Interface;
 
-import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
-import br.tcc.classe.Familia;
-import br.tcc.dao.FamiliaDAO;
+import br.tcc.classe.Pessoa;
+import br.tcc.classe.RelacaoPessoa;
+import br.tcc.classe.Telefone;
+import br.tcc.dao.PessoaDAO;
+import br.tcc.dao.RelacaoPessoaDAO;
+import br.tcc.dao.TelefoneDAO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  *
  * @author JOÃO PAULO
  */
 public class InterfaceSMS extends javax.swing.JFrame {
-    
-    Familia familia = new Familia();
-    FamiliaDAO familiaDAO = new FamiliaDAO();
-    LimparCampos lcampos = new LimparCampos();
-    private int situacao = 0;
+
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final String URL_SMS_GATEWAY = "http://smsgateway.me/api/v3/messages/send";
+    private static final String METHOD_SMS_GATEWAY = "POST";
+    private static final OkHttpClient client = new OkHttpClient();
+    private static String email;
+    private static String senha;
+    private static String id;
+    private static String sms;
+    private static String numero;
+    RelacaoPessoa relPessoa = new RelacaoPessoa();
+    RelacaoPessoaDAO relPessoaDAO = new RelacaoPessoaDAO();
+    Pessoa pessoa = new Pessoa();
+    PessoaDAO pessoaDAO = new PessoaDAO();
+    Telefone fone  = new Telefone();
+    TelefoneDAO foneDAO = new TelefoneDAO();
 
     /**
-     * Creates new form InterfaceFamilia
+     * Creates new form InterfaceSMS6
      */
     public InterfaceSMS() {
         initComponents();
@@ -43,9 +69,8 @@ public class InterfaceSMS extends javax.swing.JFrame {
         jPFSenha = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         jTFId = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jCBRelacao = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jTFPesquisar = new javax.swing.JTextField();
         jBPesq = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTbRelacao = new javax.swing.JTable();
@@ -56,6 +81,9 @@ public class InterfaceSMS extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTAMensagem = new javax.swing.JTextArea();
         jBEnviar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jTFFone = new javax.swing.JFormattedTextField();
+        jTFPesquisar = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro da Familia");
@@ -68,25 +96,30 @@ public class InterfaceSMS extends javax.swing.JFrame {
 
         jLabel4.setText("Device ID (app do celular)");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Data" }));
+        jCBRelacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Data" }));
 
         jLabel5.setText("Selecione");
 
         jBPesq.setText("Pesquisar");
+        jBPesq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesqActionPerformed(evt);
+            }
+        });
 
         jTbRelacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Selecionar", "Nome Relação", "Tipo Relação", "Relação", "Data "
+                "Nome Relação", "Tipo Relação", "Comemoração", "Data ", "Código Cliente", "Cliente", "Selecionar"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true
+                false, false, false, false, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -121,6 +154,25 @@ public class InterfaceSMS extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTAMensagem);
 
         jBEnviar.setText("Enviar");
+        jBEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEnviarActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Número não cadastrado");
+
+        try {
+            jTFFone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jTFPesquisar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
@@ -145,14 +197,13 @@ public class InterfaceSMS extends javax.swing.JFrame {
                                     .addComponent(jTFId, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPCadastroLayout.createSequentialGroup()
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTFPesquisar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jBPesq))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jCBRelacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBPesq))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -162,7 +213,13 @@ public class InterfaceSMS extends javax.swing.JFrame {
                             .addComponent(jLabel7)))
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGap(183, 183, 183)
-                        .addComponent(jBEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPCadastroLayout.setVerticalGroup(
@@ -188,23 +245,26 @@ public class InterfaceSMS extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(6, 6, 6)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBPesq))
+                    .addComponent(jCBRelacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesq)
+                    .addComponent(jTFPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jRBPadrao)
                     .addComponent(jRBManual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,18 +279,160 @@ public class InterfaceSMS extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(487, 541));
+        setSize(new java.awt.Dimension(487, 579));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTbRelacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbRelacaoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTbRelacaoMouseClicked
+
+    private void jBEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEnviarActionPerformed
+
+        if (jTFEmail.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "E-mail é obrigatório!");
+            jTFEmail.grabFocus();
+        } else {
+            email = jTFEmail.getText();
+        }
+        if (jPFSenha.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Senha é obrigatório!");
+            jPFSenha.grabFocus();
+        } else {
+            senha = jPFSenha.getText();
+        }
+        if (jTFId.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Device ID é obrigatório!");
+            jTFId.grabFocus();
+        } else {
+            id = jTFId.getText();
+        }
+        if (!bGSMS.isSelected(null)) {
+            if (jRBPadrao.isSelected()) {
+                int r = jTbRelacao.getRowCount();
+                for (int i = 0; i < r; i++) {
+                    String sel = (String) jTbRelacao.getValueAt(i, 6);
+                    if (!sel.equals(null)) {
+                        String nome = (String) jTbRelacao.getValueAt(i, 0);
+                        String cliente = (String) jTbRelacao.getValueAt(i, 5);
+                        String comemoração = (String) jTbRelacao.getValueAt(i, 2);
+                        String data = (String) jTbRelacao.getValueAt(i, 3);
+                        sms = cliente + ", " + nome + " está comemorando " + comemoração + " no dia " + data;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione os contatos para enviar a mensagem!");
+                    }
+                }
+            } else if (!jTAMensagem.getText().equals("")) {
+                if (!jTFFone.equals("")) {
+                    numero = jTFFone.getText();
+                    sms = jTAMensagem.getText();
+                } else {
+                    sms = jTAMensagem.getText();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Mensagem é obrigatório!");
+                jTAMensagem.grabFocus();
+            }
+            int r = jTbRelacao.getRowCount();
+            if (r == 0) {
+                String[] numbers = {numero};
+                try {
+                    sendSMS(email, senha, id, numbers, sms);
+                } catch (IOException ex) {
+                    Logger.getLogger(InterfaceSMS.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                for (int i = 0; i < r; i++) {
+                    String sel = (String) jTbRelacao.getValueAt(i, 6);
+                    if (!sel.equals(null)) {
+                        String id = (String) jTbRelacao.getValueAt(i, 4);
+                        fone.setIDPESSOA(Integer.parseInt(id));
+                        foneDAO.consultaFone(fone);
+
+                    }
+                    sendSMS(email, senha, id, numbers, sms);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor selecione o tipo de mensagem!");
+        }
+
+
+    }//GEN-LAST:event_jBEnviarActionPerformed
+
+    private void jBPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesqActionPerformed
+
+        PreencherJtableGenerico preencher = new PreencherJtableGenerico();
+        switch (jCBRelacao.getSelectedIndex()) {
+            case 0: {
+                relPessoaDAO.consultar(relPessoa);
+                preencher.PreencherJComboBox(jTbRelacao, relPessoa.getRetorno());
+                int r = jTbRelacao.getRowCount();
+                for (int i = 0; i < r; i++) {
+                    String id = (String) jTbRelacao.getValueAt(i, 4);
+                    pessoa.setIDPESSOA(Integer.parseInt(id));
+                    pessoaDAO.consultarId(pessoa);
+                    String nome = pessoa.getDSPESSOA();
+                    jTbRelacao.setValueAt(nome, i, 5);
+                }
+                jTbRelacao.setValueAt("false", r, 6);
+
+                return;
+            }
+            case 1: {
+                relPessoa.setDTCOMEMORACAO(jTFPesquisar.getText());
+                relPessoaDAO.consultaData(relPessoa);
+                preencher.PreencherJComboBox(jTbRelacao, relPessoa.getRetorno());
+                int r = jTbRelacao.getRowCount();
+                for (int i = 0; i < r; i++) {
+                    String id = (String) jTbRelacao.getValueAt(i, 4);
+                    pessoa.setIDPESSOA(Integer.parseInt(id));
+                    pessoaDAO.consultarId(pessoa);
+                    String nome = pessoa.getDSPESSOA();
+                    jTbRelacao.setValueAt(nome, i, 5);
+                }
+                jTbRelacao.setValueAt("false", r, 6);
+                return;
+            }
+        }
+    }//GEN-LAST:event_jBPesqActionPerformed
+
+    private static void sendSMS(String email, String password, String deviceId,
+            String numbers[], String message) throws IOException {
+        Map<String, Object> bodyParams = new HashMap<>();
+
+        bodyParams.put("email", email);
+        bodyParams.put("password", password);
+        bodyParams.put("device", deviceId);
+        bodyParams.put("number", numbers);
+        bodyParams.put("message", message);
+
+        Request request = new Request.Builder()
+                .url(URL_SMS_GATEWAY)
+                .method(METHOD_SMS_GATEWAY, RequestBody.create(JSON, gerenateJson(bodyParams)))
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        if (response.isSuccessful()) {
+            System.out.println("SMS enviado com sucesso!");
+        } else {
+            System.err.println("Erro ao enviar o SMS!");
+        }
+
+        System.out.println(response.body().string());
+    }
+
+    private static String gerenateJson(Map map) {
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(map);
+    }
 
     /**
      * @param args the command line arguments
@@ -272,7 +474,7 @@ public class InterfaceSMS extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bGSMS;
     private javax.swing.JButton jBEnviar;
     private javax.swing.JButton jBPesq;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jCBRelacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -280,6 +482,7 @@ public class InterfaceSMS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPCadastro;
     private javax.swing.JPasswordField jPFSenha;
     private javax.swing.JRadioButton jRBManual;
@@ -289,10 +492,10 @@ public class InterfaceSMS extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTAMensagem;
     private javax.swing.JTextField jTFEmail;
+    private javax.swing.JFormattedTextField jTFFone;
     private javax.swing.JTextField jTFId;
-    private javax.swing.JTextField jTFPesquisar;
+    private javax.swing.JFormattedTextField jTFPesquisar;
     private javax.swing.JTable jTbRelacao;
     // End of variables declaration//GEN-END:variables
 
-  
 }

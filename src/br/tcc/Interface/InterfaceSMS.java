@@ -327,13 +327,14 @@ public class InterfaceSMS extends javax.swing.JFrame {
         }
         if (!bGSMS.isSelected(null)) {
             if (jRBPadrao.isSelected()) {
-               
+
                 int r = jTbRelacao.getRowCount();
                 for (int i = 0; i < r; i++) {
                     try {
                         sel = (Boolean) jTbRelacao.getValueAt(i, 6);
-                    } catch (Exception ex) {}
-                    if(sel== null){
+                    } catch (Exception ex) {
+                    }
+                    if (sel == null) {
                         sel = false;
                     }
                     if (sel == true) {
@@ -343,8 +344,8 @@ public class InterfaceSMS extends javax.swing.JFrame {
                         String data = (String) jTbRelacao.getValueAt(i + 1, 3);
                         sms = cliente + ", " + nome + " está comemorando " + comemoração + " no dia " + data;
 
-                        String id = (String) jTbRelacao.getValueAt(i, 4);
-                        fone.setIDPESSOA(Integer.parseInt(id));
+                        String ids = (String) jTbRelacao.getValueAt(i, 4);
+                        fone.setIDPESSOA(Integer.parseInt(ids));
                         foneDAO.consultaFone(fone);
                         String numero = fone.getNRFONE();
                         String[] numbers = {numero};
@@ -358,46 +359,55 @@ public class InterfaceSMS extends javax.swing.JFrame {
                     }
                 }
             } else if (!jTAMensagem.getText().equals("")) {
-                if (!jTFFone.equals("")) {
+                int fones = 0;
+                if(jTFFone.getText().equals("(  )     -    ")){
+                    fones = 11;
+                }else {
+                    fones = 14;
+                }
+                if (fones == 14) {
                     numero = jTFFone.getText();
                     sms = jTAMensagem.getText();
+                    String[] numbers = {numero};
+                    try {
+                        sendSMS(email, senha, id, numbers, sms);
+                    } catch (IOException ex) {
+                        Logger.getLogger(InterfaceSMS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     sms = jTAMensagem.getText();
 
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Mensagem é obrigatório!");
-                jTAMensagem.grabFocus();
-            }
-            int r = jTbRelacao.getRowCount();
-            if (r == 0) {
-                String[] numbers = {numero};
-                try {
-                    sendSMS(email, senha, id, numbers, sms);
-                } catch (IOException ex) {
-                    Logger.getLogger(InterfaceSMS.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                for (int i = 0; i < r; i++) {
-                    String sel = (String) jTbRelacao.getValueAt(i, 6);
-                    if (!sel.equals(null)) {
-                        String id = (String) jTbRelacao.getValueAt(i, 4);
-                        fone.setIDPESSOA(Integer.parseInt(id));
-                        foneDAO.consultaFone(fone);
-                        String numero = fone.getNRFONE();
-                        String[] numbers = {numero};
+                    int r = jTbRelacao.getRowCount();
+                    for (int i = 0; i < r; i++) {
                         try {
-                            sendSMS(email, senha, id, numbers, sms);
-                        } catch (IOException ex) {
-                            Logger.getLogger(InterfaceSMS.class.getName()).log(Level.SEVERE, null, ex);
+                            sel = (Boolean) jTbRelacao.getValueAt(i, 6);
+                        } catch (Exception ex) {
+                        }
+                        if (sel == null) {
+                            sel = false;
+                        }
+                        if (sel == true) {
+                            String ids = (String) jTbRelacao.getValueAt(i, 4);
+                            fone.setIDPESSOA(Integer.parseInt(ids));
+                            foneDAO.consultaFone(fone);
+                            String numero = fone.getNRFONE();
+                            String[] numbers = {numero};
+
+                            try {
+                                sendSMS(email, senha, id, numbers, sms);
+                            } catch (IOException ex) {
+                                Logger.getLogger(InterfaceSMS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                     }
                 }
+            }else {
+                JOptionPane.showMessageDialog(null, "Mensagem é obrigatório!");
+                jTAMensagem.grabFocus();
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor selecione o tipo de mensagem!");
-        }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor selecione o tipo de mensagem!");
+            }
 
 
     }//GEN-LAST:event_jBEnviarActionPerformed
@@ -440,11 +450,11 @@ public class InterfaceSMS extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesqActionPerformed
 
     private void jRBPadraoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBPadraoMouseClicked
-         jTFFone.setVisible(false);
+        jTFFone.setVisible(false);
     }//GEN-LAST:event_jRBPadraoMouseClicked
 
     private void jRBManualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBManualMouseClicked
-         jTFFone.setVisible(true);
+        jTFFone.setVisible(true);
     }//GEN-LAST:event_jRBManualMouseClicked
 
     private static void sendSMS(String email, String password, String deviceId,

@@ -65,7 +65,7 @@ public class TelefoneDAO {
 
     public void consultaFone(Telefone fone) {
 
-        String sql = "SELECT NRFONE FROM Telefone WHERE TPFONE = 'Comercial' AND IDPESSOA = " + fone.getIDPESSOA();
+        String sql = "SELECT NRFONE FROM Telefone WHERE TPFONE = 'Recado' AND IDPESSOA = " + fone.getIDPESSOA();
         conn.executeSQL(sql);
         try {
             conn.resultset.first();

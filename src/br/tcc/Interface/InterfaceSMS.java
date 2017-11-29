@@ -36,11 +36,12 @@ public class InterfaceSMS extends javax.swing.JFrame {
     private static String id;
     private static String sms;
     private static String numero;
+    private static Boolean sel;
     RelacaoPessoa relPessoa = new RelacaoPessoa();
     RelacaoPessoaDAO relPessoaDAO = new RelacaoPessoaDAO();
     Pessoa pessoa = new Pessoa();
     PessoaDAO pessoaDAO = new PessoaDAO();
-    Telefone fone  = new Telefone();
+    Telefone fone = new Telefone();
     TelefoneDAO foneDAO = new TelefoneDAO();
 
     /**
@@ -316,15 +317,31 @@ public class InterfaceSMS extends javax.swing.JFrame {
             if (jRBPadrao.isSelected()) {
                 int r = jTbRelacao.getRowCount();
                 for (int i = 0; i < r; i++) {
-                    String sel = (String) jTbRelacao.getValueAt(i, 6);
-                    if (!sel.equals(null)) {
-                        String nome = (String) jTbRelacao.getValueAt(i, 0);
-                        String cliente = (String) jTbRelacao.getValueAt(i, 5);
-                        String comemoração = (String) jTbRelacao.getValueAt(i, 2);
-                        String data = (String) jTbRelacao.getValueAt(i, 3);
+                    try {
+                        sel = (Boolean) jTbRelacao.getValueAt(i, 6);
+                    } catch (Exception ex) {}
+                    if(sel== null){
+                        sel = false;
+                    }
+                    if (sel == true) {
+                        String nome = (String) jTbRelacao.getValueAt(i + 1, 0);
+                        String cliente = (String) jTbRelacao.getValueAt(i + 1, 5);
+                        String comemoração = (String) jTbRelacao.getValueAt(i + 1, 2);
+                        String data = (String) jTbRelacao.getValueAt(i + 1, 3);
                         sms = cliente + ", " + nome + " está comemorando " + comemoração + " no dia " + data;
+
+                        String id = (String) jTbRelacao.getValueAt(i, 4);
+                        fone.setIDPESSOA(Integer.parseInt(id));
+                        foneDAO.consultaFone(fone);
+                        String numero = fone.getNRFONE();
+                        String[] numbers = {numero};
+                        try {
+                            sendSMS(email, senha, id, numbers, sms);
+                        } catch (IOException ex) {
+                            Logger.getLogger(InterfaceSMS.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Selecione os contatos para enviar a mensagem!");
+
                     }
                 }
             } else if (!jTAMensagem.getText().equals("")) {
@@ -333,6 +350,7 @@ public class InterfaceSMS extends javax.swing.JFrame {
                     sms = jTAMensagem.getText();
                 } else {
                     sms = jTAMensagem.getText();
+
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Mensagem é obrigatório!");
@@ -353,9 +371,14 @@ public class InterfaceSMS extends javax.swing.JFrame {
                         String id = (String) jTbRelacao.getValueAt(i, 4);
                         fone.setIDPESSOA(Integer.parseInt(id));
                         foneDAO.consultaFone(fone);
-
+                        String numero = fone.getNRFONE();
+                        String[] numbers = {numero};
+                        try {
+                            sendSMS(email, senha, id, numbers, sms);
+                        } catch (IOException ex) {
+                            Logger.getLogger(InterfaceSMS.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                    sendSMS(email, senha, id, numbers, sms);
                 }
             }
 

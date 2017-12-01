@@ -120,7 +120,7 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jBtIncluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterar)
@@ -130,7 +130,7 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
                 .addComponent(jBtGravar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelar)
-                .addContainerGap())
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +168,7 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
             .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -177,7 +177,10 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
                                 .addComponent(jTFIdFormaPgto, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel2))
                         .addGap(27, 27, 27)
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPCadastroLayout.createSequentialGroup()
@@ -186,11 +189,12 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
                                     .addComponent(jTFQdtParcelas))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jTFNrIntervalo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel4)
-                            .addComponent(jTFDsFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 18, Short.MAX_VALUE))
+                                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(31, 31, 31))
+                                    .addComponent(jTFNrIntervalo)))
+                            .addComponent(jTFDsFormaPgto))))
+                .addGap(29, 29, 29))
         );
         jPCadastroLayout.setVerticalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +298,7 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
                         .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTPFormaPgto.addTab("Consulta", jPanel2);
@@ -303,16 +307,16 @@ public class InterfaceFormaPgto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTPFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 450, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTPFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(421, 253));
+        setSize(new java.awt.Dimension(466, 253));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -452,9 +456,6 @@ private void jTFIdFormaPgtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
             jCBsituacao.setSelectedIndex(Integer.parseInt(situacao));
             jTFNrIntervalo.setText(intervalo);
             jTFQdtParcelas.setText(parcelas);
-            
-            
-            
             
         }
         estadobotoes(false);

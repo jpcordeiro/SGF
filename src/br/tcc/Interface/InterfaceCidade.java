@@ -246,12 +246,12 @@ public class InterfaceCidade extends javax.swing.JFrame {
             .addGroup(jPConsultaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPConsultaLayout.createSequentialGroup()
                         .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesquisa)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -337,7 +337,7 @@ private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
                 estadobotoes(false);
             }
         } else {
-            cidade.setDscidade(jTFCidade.getText());
+            cidade.setDscidade(jTFCidade.getText().toUpperCase());
             
             String uf = jCbUF.getSelectedItem().toString();
             try {

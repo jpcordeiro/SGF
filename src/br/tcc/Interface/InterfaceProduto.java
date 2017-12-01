@@ -372,7 +372,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
                                 .addComponent(jTFDsProduto)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE))
         );
         jPCadastroLayout.setVerticalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,7 +492,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
                             .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jBtPesquisa1))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPConsultaLayout.setVerticalGroup(
             jPConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,14 +515,14 @@ public class InterfaceProduto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPProduto)
+            .addComponent(jTPProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTPProduto)
         );
 
-        setSize(new java.awt.Dimension(608, 518));
+        setSize(new java.awt.Dimension(617, 518));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -37,7 +37,7 @@
                       <Component id="jBSair" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jTFUsuario" pref="159" max="32767" attributes="0"/>
-                  <Component id="jTFSenha" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jTFSenha" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
@@ -52,9 +52,9 @@
               <Component id="jTFUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jTFSenha" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jBLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jBSair" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -77,8 +77,6 @@
         <Property name="text" type="java.lang.String" value="Senha"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTFSenha">
-    </Component>
     <Component class="javax.swing.JButton" name="jBLogin">
       <Properties>
         <Property name="text" type="java.lang.String" value="Login"/>
@@ -91,6 +89,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="jTFSenha">
     </Component>
   </SubComponents>
 </Form>

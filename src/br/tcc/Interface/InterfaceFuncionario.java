@@ -91,6 +91,11 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTFNrCep = new javax.swing.JFormattedTextField();
+        jPbotoes = new javax.swing.JPanel();
+        jBincluir = new javax.swing.JButton();
+        jBAlterar = new javax.swing.JButton();
+        jBexcluir = new javax.swing.JButton();
+        jBcancelar = new javax.swing.JButton();
         jBgravar = new javax.swing.JButton();
         jPpfisica = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -104,11 +109,6 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTFrazaosocial = new javax.swing.JTextField();
         jTFcnpj = new javax.swing.JFormattedTextField();
-        jPbotoes = new javax.swing.JPanel();
-        jBincluir = new javax.swing.JButton();
-        jBAlterar = new javax.swing.JButton();
-        jBexcluir = new javax.swing.JButton();
-        jBcancelar = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -123,12 +123,9 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         jCBTpSituação = new javax.swing.JComboBox();
         jTFDtDemissão = new javax.swing.JTextField();
         jTFVlSalario = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jCBNivel = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
         jTFDtNasc = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jBfone1 = new javax.swing.JButton();
         jTFFone1 = new javax.swing.JFormattedTextField();
         jPconsulta = new javax.swing.JPanel();
         jCbPesquisa2 = new javax.swing.JComboBox();
@@ -195,12 +192,53 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jPbotoes.setBackground(new java.awt.Color(153, 153, 153));
+        jPbotoes.setLayout(null);
+
+        jBincluir.setText("Incluir");
+        jBincluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBincluirActionPerformed(evt);
+            }
+        });
+        jPbotoes.add(jBincluir);
+        jBincluir.setBounds(50, 10, 80, 40);
+
+        jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
+            }
+        });
+        jPbotoes.add(jBAlterar);
+        jBAlterar.setBounds(190, 10, 80, 40);
+
+        jBexcluir.setText("Excluir");
+        jBexcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBexcluirActionPerformed(evt);
+            }
+        });
+        jPbotoes.add(jBexcluir);
+        jBexcluir.setBounds(360, 10, 80, 40);
+
+        jBcancelar.setText("Cancelar");
+        jBcancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBcancelarActionPerformed(evt);
+            }
+        });
+        jPbotoes.add(jBcancelar);
+        jBcancelar.setBounds(660, 10, 90, 40);
+
         jBgravar.setText("Gravar");
         jBgravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBgravarActionPerformed(evt);
             }
         });
+        jPbotoes.add(jBgravar);
+        jBgravar.setBounds(520, 10, 80, 40);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -211,33 +249,32 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFNrCep, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFlogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jTFcomplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jTFbairro, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBgravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(257, 257, 257))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFNrCep, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFlogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jTFcomplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jTFbairro, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPbotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,9 +307,9 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jBgravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jPbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         jPpfisica.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa Física"));
@@ -321,7 +358,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addGroup(jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Sexo)
                     .addComponent(jCBSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(478, Short.MAX_VALUE))
+                .addContainerGap(500, Short.MAX_VALUE))
         );
         jPpfisicaLayout.setVerticalGroup(
             jPpfisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,45 +423,6 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jPbotoes.setBackground(new java.awt.Color(153, 153, 153));
-        jPbotoes.setLayout(null);
-
-        jBincluir.setText("Incluir");
-        jBincluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBincluirActionPerformed(evt);
-            }
-        });
-        jPbotoes.add(jBincluir);
-        jBincluir.setBounds(50, 10, 80, 40);
-
-        jBAlterar.setText("Alterar");
-        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAlterarActionPerformed(evt);
-            }
-        });
-        jPbotoes.add(jBAlterar);
-        jBAlterar.setBounds(190, 10, 80, 40);
-
-        jBexcluir.setText("Excluir");
-        jBexcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBexcluirActionPerformed(evt);
-            }
-        });
-        jPbotoes.add(jBexcluir);
-        jBexcluir.setBounds(360, 10, 80, 40);
-
-        jBcancelar.setText("Cancelar");
-        jBcancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBcancelarActionPerformed(evt);
-            }
-        });
-        jPbotoes.add(jBcancelar);
-        jBcancelar.setBounds(660, 10, 90, 40);
-
         jLabel18.setText("Data  de Demissão");
 
         jLabel19.setText("Salario");
@@ -459,20 +457,9 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Nivel de Acesso");
-
-        jCBNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
-
         jLabel13.setText("Data de Nascimento");
 
         jLabel24.setText("Telefone ");
-
-        jBfone1.setText("+ Telefone");
-        jBfone1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBfone1ActionPerformed(evt);
-            }
-        });
 
         try {
             jTFFone1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
@@ -489,8 +476,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                     .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPpfisica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPpjuridica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPbotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPcadastroLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,42 +491,28 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                                         .addComponent(jTFsenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(22, 22, 22)
                                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addComponent(jLabel22)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(jLabel8))
+                                    .addComponent(jLabel22)
                                     .addComponent(jTFSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPcadastroLayout.createSequentialGroup()
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel10)
                                 .addGap(20, 20, 20)
-                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jCBNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
                                     .addGroup(jPcadastroLayout.createSequentialGroup()
-                                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel18)
-                                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                                .addGap(1, 1, 1)
-                                                .addComponent(jTFDtDemissão, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel17)
-                                            .addComponent(jCBTpSituação, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTFVlSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel19))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                                .addGap(3, 3, 3)
-                                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBfone1))
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jTFDtDemissão, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jCBTpSituação, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFVlSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jTFDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPcadastroLayout.createSequentialGroup()
                                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -556,11 +528,17 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jRBFisico)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRBJuridica)))
-                                .addGap(18, 18, 18)
+                                        .addComponent(jRBJuridica))))
+                            .addGroup(jPcadastroLayout.createSequentialGroup()
+                                .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(377, 377, 377)
                                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jTFDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPcadastroLayout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPcadastroLayout.setVerticalGroup(
@@ -580,29 +558,17 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRBFisico)
-                            .addComponent(jRBJuridica)))
-                    .addGroup(jPcadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jRBJuridica))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPcadastroLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBfone1)))
-                    .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPcadastroLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jTFVlSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel19))
-                        .addGroup(jPcadastroLayout.createSequentialGroup()
-                            .addComponent(jLabel24)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTFDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPcadastroLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jTFVlSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel19)
                     .addGroup(jPcadastroLayout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -610,7 +576,11 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                     .addGroup(jPcadastroLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFDtDemissão, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTFDtDemissão, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPcadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPcadastroLayout.createSequentialGroup()
@@ -621,22 +591,21 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21)
-                            .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel22)
-                                .addComponent(jLabel8)))
+                            .addComponent(jLabel22))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPcadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTFsenha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jCBNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPcadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFFone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPpfisica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPpjuridica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -697,7 +666,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                     .addComponent(jTFPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisa1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -720,39 +689,6 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(857, 668));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBfone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBfone1ActionPerformed
-
-        InterfaceTelefone InFone = new InterfaceTelefone();
-
-        if (jTFIdPessoa.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Para adicionar um número de telefone é necessario ter adicionado o código do funcionario!");
-        } else {
-            try {
-                InFone.CapturaIdPessoa(jTFIdPessoa.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (!jTFnome.getText().equals("")) {
-            try {
-                InFone.capturaDsPessoa(jTFnome.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (!jTFFone1.getText().equals("")) {
-            try {
-                InFone.capturaFone(jTFFone1.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(InterfaceFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        InFone.setVisible(true);
-    }//GEN-LAST:event_jBfone1ActionPerformed
 
     private void jTFVlSalarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFVlSalarioMouseClicked
 
@@ -790,7 +726,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     private void jBgravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgravarActionPerformed
 
         Integer idCidade = null;
-        String nivel1 = (String) jCBNivel.getSelectedItem();
+        String nivel1 = "1";
 
         if (situacao == 1) {
             if (jTFIdPessoa.getText().equals("")) {
@@ -994,8 +930,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
                 jTFsenha1.grabFocus();
                 return;
             }
-            usuario.setIDNIVEL(Integer.parseInt(nivel1));
-
+            
             telefone.setIDPESSOA(Integer.parseInt(jTFIdPessoa.getText()));
 
             if (jTFFone1.getText().equals("")) {
@@ -1274,9 +1209,7 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
             jTFVlSalario.setText(Double.toString(funcionario.getVLSALARIO()));
             jTFFone1.setText(telefone.getNRFONE());
             jTFLogin.setText(funcionario.getLOGIN()); 
-            
-            jCBNivel.setSelectedItem(usuario.getIDNIVEL());
-            
+         
             jTFlogradouro.setText(endereco.getDSLOGRADOURO());
             jTFNumero.setText(endereco.getDSNUMERO());
             jTFcomplemento.setText(endereco.getDSCOMPLEMENTO());
@@ -1516,12 +1449,10 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBcancelar;
     private javax.swing.JButton jBexcluir;
-    private javax.swing.JButton jBfone1;
     private javax.swing.JButton jBgravar;
     private javax.swing.JButton jBincluir;
     private javax.swing.JButton jBtPesquisa1;
     private javax.swing.JComboBox jCBCidade;
-    private javax.swing.JComboBox jCBNivel;
     private javax.swing.JComboBox jCBSexo;
     private javax.swing.JComboBox jCBTpSituação;
     private javax.swing.JComboBox jCbPesquisa2;
@@ -1545,7 +1476,6 @@ public class InterfaceFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPbotoes;

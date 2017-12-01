@@ -39,9 +39,9 @@ public class InterfaceLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTFUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTFSenha = new javax.swing.JTextField();
         jBLogin = new javax.swing.JButton();
         jBSair = new javax.swing.JButton();
+        jTFSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
@@ -85,9 +85,9 @@ public class InterfaceLogin extends javax.swing.JFrame {
                 .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBLogin)
                     .addComponent(jBSair))
@@ -170,7 +170,7 @@ public class InterfaceLogin extends javax.swing.JFrame {
     private javax.swing.JButton jBSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTFSenha;
+    private javax.swing.JPasswordField jTFSenha;
     private javax.swing.JTextField jTFUsuario;
     // End of variables declaration//GEN-END:variables
 }

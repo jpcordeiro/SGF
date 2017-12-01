@@ -2,9 +2,11 @@ package br.tcc.Interface;
 
 import br.tcc.Validacoes.LimparCampos;
 import br.tcc.Validacoes.PreencherJtableGenerico;
-import br.tcc.Validacoes.ValidaNumero;
 import br.tcc.classe.Estado;
 import br.tcc.dao.EstadoDAO;
+import java.awt.Frame;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,7 +28,7 @@ public class InterfaceUF extends javax.swing.JFrame {
 
         initComponents();
         jTFCodigo.setEnabled(false);
-
+        
     }
 
     /**
@@ -65,6 +67,13 @@ public class InterfaceUF extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Estado");
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+        setName("FrameUf"); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Código");
 
@@ -250,7 +259,7 @@ public class InterfaceUF extends javax.swing.JFrame {
                         .addComponent(jCbPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTPUF.addTab("Consulta", jPConsulta);
@@ -259,13 +268,11 @@ public class InterfaceUF extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPUF)
+            .addComponent(jTPUF, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTPUF, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTPUF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(454, 318));
@@ -385,6 +392,9 @@ public class InterfaceUF extends javax.swing.JFrame {
         estadobotoes(false);
         jTPUF.setSelectedIndex(0);
     }//GEN-LAST:event_jTbPesquisaMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

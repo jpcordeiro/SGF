@@ -37,7 +37,7 @@ public class FuncionarioDAO {
                 + " DTDEMISSAO = '" + func.getDTDEMISSAO() + "',"
                 + " TPSITUACAO = " + func.getTPSITUACAO() + ","
                 + " VLSALARIO = " + func.getVLSALARIO() + ","
-                + " IDUSUARIO = '" + func.getLOGIN() + "',"
+                + " LOGIN = '" + func.getLOGIN() + "',"
                 + " TPPESSOA = '" + func.getTPPESSOA() + "'"
                 + " WHERE IDPESSOA = " + func.getIDPESSOA();
                

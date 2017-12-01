@@ -322,7 +322,7 @@ public class InterfaceRelacaoPessoa extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPRelacaoClienteLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPRelacaoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
                             .addComponent(jLabel4)))
                     .addGroup(jPRelacaoClienteLayout.createSequentialGroup()

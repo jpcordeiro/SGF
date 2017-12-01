@@ -43,7 +43,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Família" }));
+        jCbPesquisa2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Produto" }));
 
         jBPesquisar.setText("Pesquisar");
         jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -57,11 +57,11 @@ public class ConsultaProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Tipo de Produto"
+                "Código", "Descrição"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -137,7 +137,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
         switch (jCbPesquisa2.getSelectedIndex()) {
             case 0: {
-                produtoDAO.consultaSimple(produto);
+                produtoDAO.consultaComp(produto);
                 preencher.PreencherJtableGenerico(jTConsulta, produto.getRetorno());
                 return;
             }

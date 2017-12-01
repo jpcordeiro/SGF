@@ -109,7 +109,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jBtIncluir1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterar)
@@ -119,7 +119,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
                 .addComponent(jBtGravar)
                 .addGap(4, 4, 4)
                 .addComponent(jBtCancelar)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,8 +150,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
@@ -171,8 +170,9 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addComponent(jTFTipoMvto, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTFDsMvto)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(jTFDsMvto, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPCadastroLayout.setVerticalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,13 +190,13 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addComponent(jCBEstoque)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCBFinanceiro)
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCBFinanceiro))
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCBTpOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -277,7 +277,7 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
             .addComponent(jTPNivel)
         );
 
-        setSize(new java.awt.Dimension(424, 249));
+        setSize(new java.awt.Dimension(437, 249));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -393,6 +393,8 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
             String fin = tipoMovto.getMOVFINANCEIRO();
             String tipo = tipoMovto.getTPMOVTO();
             
+            jTFDsMvto.setText(tipoMovto.getDSMVTO());
+            
             jTFTipoMvto.setText(Integer.toString(tipoMovto.getIDTPMOVTO()));
             if(est.equals("S")){
                 jCBEstoque.setSelected(true);
@@ -400,7 +402,12 @@ public class InterfaceTipoMovimento extends javax.swing.JFrame {
             if(fin.equals("S")){
                 jCBFinanceiro.setSelected(true);
             }
-            jCBTpOperacao.setSelectedIndex(Integer.parseInt(tipo));
+            if(tipoMovto.getTPMOVTO().equals("E")){
+                jCBTpOperacao.setSelectedItem("Entada");
+            }else{
+                jCBTpOperacao.setSelectedItem("Saída");
+            }
+            
         }
         estadobotoes(false);
         jTPNivel.setSelectedIndex(0);

@@ -46,6 +46,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
         jMatendimento = new javax.swing.JMenu();
         jMIatendimento = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -261,6 +262,15 @@ public class InterfaceMenu extends javax.swing.JFrame {
         });
         jMatendimento.add(jMenuItem5);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setText("Caixa");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMatendimento.add(jMenuItem4);
+
         jMenuBar1.add(jMatendimento);
 
         jMenu1.setText("SMS");
@@ -385,6 +395,10 @@ public class InterfaceMenu extends javax.swing.JFrame {
         new InterfaceCaixa().setVisible(true);
     }//GEN-LAST:event_jBCliente4ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,6 +436,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPMenu;
     // End of variables declaration//GEN-END:variables

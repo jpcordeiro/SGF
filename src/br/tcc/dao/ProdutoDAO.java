@@ -61,6 +61,11 @@ public class ProdutoDAO {
         conn.executeSQL(sql);
         produto.setRetorno(conn.resultset);
     }
+    public void consultaComp(Produto produto) {
+        String sql = "SELECT P.IDPRODUTO, P.DSPRODUTO FROM PRODUTO P";
+        conn.executeSQL(sql);
+        produto.setRetorno(conn.resultset);
+    }
 
     public void consultadescricao(Produto produto) {
          String sql = "SELECT IDPRODUTO, DSPRODUTO FROM PRODUTO WHERE DSPRODUTO LIKE '%"
@@ -114,5 +119,19 @@ public class ProdutoDAO {
         } catch (SQLException ex) {
 
         }
+    }
+    
+    
+     public void consultaPreco(Produto produto) {
+        String sql = "SELECT P.IDPRODUTO, P.DSPRODUTO, IC.VLPRODUTO FROM PRODUTO P JOIN ITENSCOMPRA IC ON P.IDPRODUTO = IC.IDPRODUTO";
+        conn.executeSQL(sql);
+        produto.setRetorno(conn.resultset);
+    }
+     
+      public void consultadescricaoPreco(Produto produto) {
+        String sql = "SELECT P.IDPRODUTO, P.DSPRODUTO, IC.VLPRODUTO FROM PRODUTO P JOIN ITENSCOMPRA IC ON P.IDPRODUTO = IC.IDPRODUTO"
+                + " WHERE DSPRDOUTO LIKE '%" + produto.getDSPRODUTO() + "%' ORDER BY DSPRODUTO";
+        conn.executeSQL(sql);
+        produto.setRetorno(conn.resultset);
     }
 }

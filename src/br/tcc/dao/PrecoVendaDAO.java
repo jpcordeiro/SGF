@@ -31,7 +31,7 @@ public class PrecoVendaDAO {
                 + " IDPRECOVENDA = " + pVenda.getIDPRODUTO() + ","
                 + " IDPRODUTO = " + pVenda.getIDPRODUTO()+ ","
                 + " VLVENDA = " + pVenda.getVLVENDA() + ","
-                + " DTALTERACAO = '" + pVenda.getDTALTERACAO() +"'"
+                + " DTALTERECAO = '" + pVenda.getDTALTERACAO() +"'"
                 + " WHERE IDPRECOVENDA = " + pVenda.getIDPRECOVENDA();
         conn.incluirSQL(sql);
     }

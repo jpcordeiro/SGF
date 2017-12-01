@@ -27,7 +27,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +38,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Joao Paulo
  */
 public class InterfaceCaixa extends javax.swing.JFrame {
-
+    
     ContasReceber contasReceber = new ContasReceber();
     ContasReceberDAO contasReceberDAO = new ContasReceberDAO();
     ContasPagar contasPagar = new ContasPagar();
@@ -52,7 +51,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
     CaixaDAO caixaDAO = new CaixaDAO();
     RetornaDataAtual retornadata = new RetornaDataAtual();
     LimparCampos lcampos = new LimparCampos();
-
+    
     public InterfaceCaixa() {
         initComponents();
         jTFCodigo.setEnabled(false);
@@ -66,7 +65,7 @@ public class InterfaceCaixa extends javax.swing.JFrame {
         jTFDesconto.setText("0.0");
         jTFJuros.setText("0.0");
         retornadata.RetornaDataAtual(jTFdata);
-
+        
         jTFCodigo1.setEnabled(false);
         jTFVlPagar1.setEnabled(false);
         jTFTotal1.setEnabled(false);
@@ -78,9 +77,9 @@ public class InterfaceCaixa extends javax.swing.JFrame {
         jTFDesconto1.setText("0.0");
         jTFJuros1.setText("0.0");
         retornadata.RetornaDataAtual(jTFdata1);
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -309,54 +308,56 @@ public class InterfaceCaixa extends javax.swing.JFrame {
             jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPVendaLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
-                .addGap(306, 306, 306)
-                .addComponent(jTFdata, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPVendaLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jTFIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jBPesquisarCliente)
-                .addGap(6, 6, 6)
-                .addComponent(jTFDsCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPVendaLayout.createSequentialGroup()
-                .addGap(401, 401, 401)
-                .addComponent(jBPesquisarParcelas))
-            .addGroup(jPVendaLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel5))
-            .addGroup(jPVendaLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPVendaLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel3)
-                .addGap(67, 67, 67)
-                .addComponent(jLabel8)
-                .addGap(83, 83, 83)
-                .addComponent(jLabel9))
-            .addGroup(jPVendaLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFVlPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTFVldinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFJuros, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTFVlTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPVendaLayout.createSequentialGroup()
+                        .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPVendaLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel8)
+                                .addGap(83, 83, 83)
+                                .addComponent(jLabel9))
+                            .addGroup(jPVendaLayout.createSequentialGroup()
+                                .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFVlPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(57, 57, 57)
+                                .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jTFVldinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(58, 58, 58)
+                                .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFJuros, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jTFVlTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 10, Short.MAX_VALUE))
+                    .addGroup(jPVendaLayout.createSequentialGroup()
+                        .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPVendaLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel2)
+                                .addGap(323, 323, 323)
+                                .addComponent(jTFdata))
+                            .addGroup(jPVendaLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jBPesquisarParcelas)
+                                    .addGroup(jPVendaLayout.createSequentialGroup()
+                                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jTFIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jBPesquisarCliente)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTFDsCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPVendaLayout.setVerticalGroup(
             jPVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,9 +378,9 @@ public class InterfaceCaixa extends javax.swing.JFrame {
                             .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFDsCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBPesquisarParcelas)
-                .addGap(6, 6, 6)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel5)
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -827,7 +828,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         final ConsultaCliente retornaCliente = new ConsultaCliente();
         retornaCliente.setVisible(true);
         retornaCliente.addWindowListener(new java.awt.event.WindowAdapter() {
-
+            
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdCliente.setText(retornaCliente.retornaId);
                 jTFDsCliente.setText(retornaCliente.retornaDsCliente);
@@ -840,7 +841,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jTbParcelaMouseClicked
 
     private void jTbCaixaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbCaixaVendaMouseClicked
-
+        
         DefaultTableModel Itensparc = (DefaultTableModel) jTbCaixaVenda.getModel();
         int totlinha = jTbCaixaVenda.getRowCount();
         int conta = 0;
@@ -857,7 +858,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
             }
             if (sele == true) {
-
+                
                 preco = (String) jTbCaixaVenda.getValueAt(conta, 4);
                 valor = Double.parseDouble(preco);
                 total = total + valor;
@@ -872,7 +873,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jTbCaixaVendaMouseClicked
 
     private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
-
+        
         DefaultTableModel Itensparc = (DefaultTableModel) jTbCaixaVenda.getModel();
         int totlinha = jTbCaixaVenda.getRowCount();
         int conta = 0;
@@ -889,49 +890,49 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
             }
             if (sele == true) {
-
+                
                 String IdContas = (String) jTbCaixaVenda.getValueAt(conta, 0);
                 String IdCompra = (String) jTbCaixaVenda.getValueAt(conta, 1);
                 String dtPagar = (String) jTbCaixaVenda.getValueAt(conta, 3);
                 String VlPagar = (String) jTbCaixaVenda.getValueAt(conta, 4);
                 String IdParcela = (String) jTbCaixaVenda.getValueAt(conta, 2);
                 String Pago = "S";
-
+                
                 contasReceber.setIDCONTASRECEBER(Integer.parseInt(IdContas));
                 contasReceber.setIDVENDA(Integer.parseInt(IdCompra));
                 contasReceber.setDTRECEBER(dtPagar);
                 contasReceber.setVLRECEBER(Double.parseDouble(VlPagar));
                 contasReceber.setIDPARCELA(Integer.parseInt(IdParcela));
                 contasReceber.setPAGO(Pago);
-
+                
                 contasReceberDAO.alterar(contasReceber);
-
-                double vlpago = Double.parseDouble(jTFTotal.getText());
+                
+                double vlpago = Double.parseDouble(VlPagar);
                 double perjuros = Double.parseDouble(jTFJuros.getText());
                 double perdesc = Double.parseDouble(jTFDesconto.getText());
                 recebimento.setIDCONTASRECEBER(Integer.parseInt(IdContas));
                 recebimento.setVLPAGO(vlpago);
                 recebimento.setPERDESCONTO(perdesc);
                 recebimento.setPERJUROS(perjuros);
-
+                
                 recebimentoDAO.incluir(recebimento);
-
+                
                 String data = jTFdata.getText();
                 String InEntrada = "S";
-
+                
                 Integer idR = null;
                 try {
                     idR = recebimentoDAO.retornaUltimoId(idR);
                 } catch (SQLException ex) {
                     Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
                 caixa.setDTPAGO(data);
                 caixa.setINENTRADA(InEntrada);
                 caixa.setIDRECEBIMENTO(idR);
                 relatorio();
                 caixaDAO.incluir(caixa);
-
+                
             } else {
                 jTFVlPagar.setText(String.valueOf(total));
                 jTFTotal.setText(String.valueOf(total));
@@ -941,7 +942,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jBConfirmarActionPerformed
 
     private void jBPesquisarParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarParcelasActionPerformed
-
+        
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
         String cliente = jTFIdCliente.getText().toUpperCase();
         Integer idCliente = Integer.parseInt(cliente);
@@ -973,7 +974,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 jTFTotal.setText(String.valueOf(vl_total + jur));
             }
         }
-
+        
 
     }//GEN-LAST:event_jTFJurosFocusLost
 
@@ -998,7 +999,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         final ConsultaFornecedor retornaFornecedor = new ConsultaFornecedor();
         retornaFornecedor.setVisible(true);
         retornaFornecedor.addWindowListener(new java.awt.event.WindowAdapter() {
-
+            
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jTFIdFronecedor.setText(retornaFornecedor.retornaId);
                 jTFDsFornecedor.setText(retornaFornecedor.retornaDsFornecedor);
@@ -1016,7 +1017,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jBPesquisarParcelas1ActionPerformed
 
     private void jTbCaixaCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbCaixaCompraMouseClicked
-
+        
         DefaultTableModel Itensparc = (DefaultTableModel) jTbCaixaCompra.getModel();
         int totlinha = jTbCaixaCompra.getRowCount();
         int conta = 0;
@@ -1033,7 +1034,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
             }
             if (sele == true) {
-
+                
                 preco = (String) jTbCaixaCompra.getValueAt(conta, 4);
                 valor = Double.parseDouble(preco);
                 total = total + valor;
@@ -1061,7 +1062,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jTFDesconto1FocusLost
 
     private void jBConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarCompraActionPerformed
-
+        
         DefaultTableModel Itensparc = (DefaultTableModel) jTbCaixaCompra.getModel();
         int totlinha = jTbCaixaCompra.getRowCount();
         int conta = 0;
@@ -1078,56 +1079,57 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
             }
             if (sele == true) {
-
+                
                 String IdContas = (String) jTbCaixaCompra.getValueAt(conta, 0);
                 String IdCompra = (String) jTbCaixaCompra.getValueAt(conta, 1);
                 String dtPagar = (String) jTbCaixaCompra.getValueAt(conta, 3);
                 String VlPagar = (String) jTbCaixaCompra.getValueAt(conta, 4);
                 String IdParcela = (String) jTbCaixaCompra.getValueAt(conta, 2);
                 String Pago = "S";
-
+                
                 contasPagar.setIDCONTASPAGAR(Integer.parseInt(IdContas));
                 contasPagar.setIDCOMRPA(Integer.parseInt(IdCompra));
                 contasPagar.setDTPAGAR(dtPagar);
                 contasPagar.setVLPAGAR(Double.parseDouble(VlPagar));
                 contasPagar.setIDPARCELA(Integer.parseInt(IdParcela));
                 contasPagar.setPAGO(Pago);
-
+                
                 contasPagarDAO.alterar(contasPagar);
-
-                double vlpago = Double.parseDouble(jTFTotal1.getText());
+                
+                double vlpago = Double.parseDouble(VlPagar);
                 double perjuros = Double.parseDouble(jTFJuros1.getText());
                 double perdesc = Double.parseDouble(jTFDesconto1.getText());
                 pagamento.setIDCONTASPAGAR(Integer.parseInt(IdContas));
                 pagamento.setVLPAGO(vlpago);
                 pagamento.setPERDESCONTO(perdesc);
                 pagamento.setPERJUROS(perjuros);
-
+                
                 pagamentoDAO.incluir(pagamento);
-
+                
                 String data = jTFdata.getText();
                 String InEntrada = "N";
-
+                
                 Integer idR = null;
                 try {
                     idR = pagamentoDAO.retornaUltimoId(idR);
                 } catch (SQLException ex) {
                     Logger.getLogger(InterfaceCaixa.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
                 caixa.setDTPAGO(data);
                 caixa.setINENTRADA(InEntrada);
                 caixa.setIDPAGAMENTO(idR);
-                relatorio();
+                
                 caixaDAO.incluir(caixa);
-
+                relatoriocompra();
+                
             } else {
                 jTFVlPagar1.setText(String.valueOf(total));
                 jTFTotal1.setText(String.valueOf(total));
             }
             conta = conta + 1;
         }
-
+        
 
     }//GEN-LAST:event_jBConfirmarCompraActionPerformed
 
@@ -1165,10 +1167,10 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String dt1 = String.valueOf(date.getDay());
         String dt2 = String.valueOf(date.getMonth());
         String dt3 = String.valueOf(date.getYear());
-
+        
         data = String.valueOf(date.getTime() + dt1 + dt2 + dt3);
         Document document = new Document();
-
+        
         try {
             PdfWriter.getInstance(document, new FileOutputStream("D:\\rel\\" + data));
             document.open();
@@ -1177,39 +1179,39 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             Paragraph p = new Paragraph("BELLA FLOR FLORICULTURA", FontFactory.getFont(FontFactory.COURIER, 18));
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Avenida Amazonas, 41, Boa Esperança - PR");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Telefone:(44) 3552-1467");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             p = new Paragraph("Movimento de Entrada do Caixa");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             PdfPTable table = new PdfPTable(3);
-
+            
             PdfPCell cel1 = new PdfPCell(new Paragraph("Código"));
             PdfPCell cel2 = new PdfPCell(new Paragraph("Data"));
             PdfPCell cel3 = new PdfPCell(new Paragraph("Valor"));
-
+            
             table.addCell(cel1);
             table.addCell(cel2);
             table.addCell(cel3);
-
+            
             String codigo = null;
             String datar = null;
             String valor = null;
-
+            
             DefaultTableModel ItensVenda = (DefaultTableModel) jTbConsMov.getModel();
             int totlinha = jTbConsMov.getRowCount();
             int conta = 0;
@@ -1218,32 +1220,32 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 codigo = (String) jTbConsMov.getValueAt(conta, 0);
                 datar = (String) jTbConsMov.getValueAt(conta, 1);
                 valor = (String) jTbConsMov.getValueAt(conta, 2);
-
+                
                 PdfPCell c1 = new PdfPCell(new Paragraph(codigo));
                 PdfPCell c2 = new PdfPCell(new Paragraph(datar));
                 PdfPCell c3 = new PdfPCell(new Paragraph(valor));
-
+                
                 table.addCell(c1);
                 table.addCell(c2);
                 table.addCell(c3);
-
+                
                 conta = conta + 1;
                 totalEntrada = totalEntrada + Double.parseDouble(valor);
-
+                
             }
             document.add(table);
             p = new Paragraph("Total de Entrada : " + totalEntrada);
             document.add(p);
             String dtRel = jTFdata2.getText();
-
+            
             p = new Paragraph("relatorio do Movimento do dia : " + dtRel);
             document.add(p);
-
+            
         } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
         }
         document.close();
-
+        
         try {
             Desktop.getDesktop().open(new File("D:\\rel\\" + data));
         } catch (IOException ex) {
@@ -1256,7 +1258,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jTbConsMovMouseClicked
 
     private void jBPesquisarFornecedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarFornecedor1ActionPerformed
-
+        
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
         String data = jTFdata2.getText();
         if ((!data.equals("")) || (data.length() == 10)) {
@@ -1279,7 +1281,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jBPesquisarFornecedor2MouseClicked
 
     private void jBPesquisarFornecedor2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarFornecedor2ActionPerformed
-
+        
         PreencherJtableGenerico preencher = new PreencherJtableGenerico();
         String data = jTFdata3.getText();
         if ((!data.equals("")) || (data.length() == 10)) {
@@ -1301,10 +1303,10 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String dt1 = String.valueOf(date.getDay());
         String dt2 = String.valueOf(date.getMonth());
         String dt3 = String.valueOf(date.getYear());
-
+        
         data = String.valueOf(date.getTime() + dt1 + dt2 + dt3);
         Document document = new Document();
-
+        
         try {
             PdfWriter.getInstance(document, new FileOutputStream("D:\\rel\\" + data));
             document.open();
@@ -1313,39 +1315,39 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             Paragraph p = new Paragraph("BELLA FLOR FLORICULTURA", FontFactory.getFont(FontFactory.COURIER, 18));
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Avenida Amazonas, 41, Boa Esperança - PR");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Telefone:(44) 3552-1467");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             p = new Paragraph("Movimento de Saída do Caixa");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             PdfPTable table = new PdfPTable(3);
-
+            
             PdfPCell cel1 = new PdfPCell(new Paragraph("Código"));
             PdfPCell cel2 = new PdfPCell(new Paragraph("Data"));
             PdfPCell cel3 = new PdfPCell(new Paragraph("Valor"));
-
+            
             table.addCell(cel1);
             table.addCell(cel2);
             table.addCell(cel3);
-
+            
             String codigo = null;
             String datar = null;
             String valor = null;
-
+            
             DefaultTableModel ItensVenda = (DefaultTableModel) jTbConsMovS.getModel();
             int totlinha = jTbConsMovS.getRowCount();
             int conta = 0;
@@ -1354,39 +1356,39 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 codigo = (String) jTbConsMovS.getValueAt(conta, 0);
                 datar = (String) jTbConsMovS.getValueAt(conta, 1);
                 valor = (String) jTbConsMovS.getValueAt(conta, 2);
-
+                
                 PdfPCell c1 = new PdfPCell(new Paragraph(codigo));
                 PdfPCell c2 = new PdfPCell(new Paragraph(datar));
                 PdfPCell c3 = new PdfPCell(new Paragraph(valor));
-
+                
                 table.addCell(c1);
                 table.addCell(c2);
                 table.addCell(c3);
-
+                
                 conta = conta + 1;
                 totalEntrada = totalEntrada + Double.parseDouble(valor);
-
+                
             }
             document.add(table);
             p = new Paragraph("Total de Saída : " + totalEntrada);
             document.add(p);
             String dtRel = jTFdata3.getText();
-
+            
             p = new Paragraph("relatorio do Movimento do dia : " + dtRel);
             document.add(p);
-
+            
         } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
         }
         document.close();
-
+        
         try {
             Desktop.getDesktop().open(new File("D:\\rel\\" + data));
         } catch (IOException ex) {
             Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jBComprovante3ActionPerformed
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1416,7 +1418,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             public void run() {
                 new InterfaceCaixa().setVisible(true);
             }
@@ -1501,10 +1503,10 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String dt1 = String.valueOf(date.getDay());
         String dt2 = String.valueOf(date.getMonth());
         String dt3 = String.valueOf(date.getYear());
-
+        
         data = String.valueOf(date.getTime() + dt1 + dt2 + dt3);
         Document document = new Document();
-
+        
         try {
             PdfWriter.getInstance(document, new FileOutputStream("D:\\rel\\" + data));
             document.open();
@@ -1513,25 +1515,25 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             Paragraph p = new Paragraph("BELLA FLOR FLORICULTURA", FontFactory.getFont(FontFactory.COURIER, 18));
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Avenida Amazonas, 41, Boa Esperança - PR");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Telefone:(44) 3552-1467");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             p = new Paragraph("Comprovante de Pagamento");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             String nome = null;
             if (jTFDsCliente.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "É obrigatório preencher os dados do Cliente");
@@ -1539,65 +1541,65 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             } else {
                 nome = jTFDsCliente.getText();
             }
-
+            
             p = new Paragraph("Cliente: " + nome);
             document.add(p);
-
+            
             String pagar = "0.00";
             pagar = jTFVlPagar.getText();
             p = new Paragraph("Valor á Pagar: " + pagar);
             document.add(p);
-
+            
             String desconto = "0.00";
             desconto = jTFDesconto.getText();
             p = new Paragraph("Desconto: " + desconto);
             document.add(p);
-
+            
             String juros = "0.00";
             juros = jTFJuros.getText();
             p = new Paragraph("Juros: " + juros);
             document.add(p);
-
+            
             String total = "0.00";
             total = jTFTotal.getText();
             p = new Paragraph("Total: " + total);
             document.add(p);
-
+            
             String dinheiro = "0.00";
             dinheiro = jTFVldinheiro.getText();
             p = new Paragraph("Dinheiro: " + dinheiro);
             document.add(p);
-
+            
             String troco = "0.00";
             troco = jTFVlTroco.getText();
             p = new Paragraph("Troco: " + troco);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
         } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
         }
         document.close();
-
+        
         try {
             Desktop.getDesktop().open(new File("D:\\rel\\" + data));
         } catch (IOException ex) {
             Logger.getLogger(InterfaceCompraVenda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void relatoriocompra() {
         String data;
         Date date = new Date();
         String dt1 = String.valueOf(date.getDay());
         String dt2 = String.valueOf(date.getMonth());
         String dt3 = String.valueOf(date.getYear());
-
+        
         data = String.valueOf(date.getTime() + dt1 + dt2 + dt3);
         Document document = new Document();
-
+        
         try {
             PdfWriter.getInstance(document, new FileOutputStream("D:\\rel\\" + data));
             document.open();
@@ -1606,25 +1608,25 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             Paragraph p = new Paragraph("BELLA FLOR FLORICULTURA", FontFactory.getFont(FontFactory.COURIER, 18));
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Avenida Amazonas, 41, Boa Esperança - PR");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("Telefone:(44) 3552-1467");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             p = new Paragraph("Comprovante de Pagamento ao Fornecedor");
             p.setAlignment(1);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
             String nome = null;
             if (jTFDsFornecedor.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "É obrigatório preencher os dados do Fornecedor");
@@ -1632,48 +1634,48 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             } else {
                 nome = jTFDsFornecedor.getText();
             }
-
+            
             p = new Paragraph("Fornecedor: " + nome);
             document.add(p);
-
+            
             String pagar = "0.00";
             pagar = jTFVlPagar1.getText();
             p = new Paragraph("Valor á Pagar: " + pagar);
             document.add(p);
-
+            
             String desconto = "0.00";
             desconto = jTFDesconto1.getText();
             p = new Paragraph("Desconto: " + desconto);
             document.add(p);
-
+            
             String juros = "0.00";
             juros = jTFJuros1.getText();
             p = new Paragraph("Juros: " + juros);
             document.add(p);
-
+            
             String total = "0.00";
             total = jTFTotal1.getText();
             p = new Paragraph("Total: " + total);
             document.add(p);
-
+            
             String dinheiro = "0.00";
             dinheiro = jTFVldinheiro1.getText();
             p = new Paragraph("Dinheiro: " + dinheiro);
             document.add(p);
-
+            
             String troco = "0.00";
             troco = jTFVlTroco1.getText();
             p = new Paragraph("Troco: " + troco);
             document.add(p);
-
+            
             p = new Paragraph("     ");
             document.add(p);
-
+            
         } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
         }
         document.close();
-
+        
         try {
             Desktop.getDesktop().open(new File("D:\\rel\\" + data));
         } catch (IOException ex) {
